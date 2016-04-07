@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Branding from 'components/Branding'
-import Navigation from 'components/Navigation'
+import SocialNavigation from 'components/SocialNavigation'
 
 
 class Header extends Component {
@@ -12,7 +12,7 @@ class Header extends Component {
 		return (
 			<header id="masthead" className="site-header" role="banner">
 				<Branding />
-				<Navigation />
+				<SocialNavigation />
 			</header>
 		)
 	}
