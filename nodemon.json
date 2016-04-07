@@ -2,6 +2,7 @@
     "verbose": true,
     "ext": "js,jsx",
     "watch": [
+      "app/routes.jsx",
       "app/server.jsx",
       "server",
       "webpack"
