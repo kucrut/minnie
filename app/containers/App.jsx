@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import Header from 'containers/Header'
+import Footer from 'containers/Footer'
 
 
 const App = ({ children }) => {
@@ -9,6 +10,7 @@ const App = ({ children }) => {
 			<div id="content" className="site-content">
 				{children}
 			</div>
+			<Footer />
 		</div>
 	)
 }
