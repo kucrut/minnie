@@ -35,7 +35,7 @@ function renderFullPage( html, initialState ) {
 
 export default function render( req, res ) {
 	const history = createMemoryHistory();
-	const store = configureStore( {}, history );
+	const store = configureStore( { query: {} }, history );
 	const routes = createRoutes( store );
 
 	/*
