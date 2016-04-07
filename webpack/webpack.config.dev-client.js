@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var assetsPath = path.join(__dirname, '..', 'public', 'assets');
 var hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var commonLoaders = [
   {
@@ -110,7 +111,8 @@ module.exports = {
         new webpack.DefinePlugin({
           __DEVCLIENT__: true,
           __DEVSERVER__: false
-        })
-    ],
-    postcss: postCSSConfig
+        }),
+        new CopyWebpackPlugin([ { from: 'css/style.css' } ])
+    ] /*,
+    postcss: postCSSConfig */
 };

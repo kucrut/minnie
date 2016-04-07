@@ -2,6 +2,7 @@ var path = require("path");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var InlineEnviromentVariablesPlugin = require('inline-environment-variables-webpack-plugin');
 var webpack = require("webpack");
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var assetsPath = path.join(__dirname, "..", "public", "assets");
 var publicPath = "/assets/";
@@ -126,9 +127,10 @@ module.exports = [
         new webpack.DefinePlugin({
           __DEVCLIENT__: false,
           __DEVSERVER__: false
-        })
-    ],
-    postcss: postCSSConfig
+        }),
+        new CopyWebpackPlugin([ { from: 'css/style.css' } ])
+    ] /*,
+    postcss: postCSSConfig */
   }, {
     // The configuration for the server-side rendering
     name: "server-side rendering",
@@ -176,7 +178,7 @@ module.exports = [
             'NODE_ENV': JSON.stringify( 'production' )
           }
         })
-    ],
-    postcss: postCSSConfig
+    ] /*,
+    postcss: postCSSConfig */
   }
 ];
