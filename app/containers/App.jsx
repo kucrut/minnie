@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react'
 import Navigation from 'containers/Navigation.jsx'
+import styles from 'css/style'
+
 
 const App = ({ children }) => {
 	return (

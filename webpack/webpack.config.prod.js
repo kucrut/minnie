@@ -41,6 +41,25 @@ var commonLoaders = [
   }
 ];
 
+var postCSSConfig = function() {
+  return [
+    require('postcss-import')(),
+    // Note: you must set postcss-mixins before simple-vars and nested
+    require('postcss-mixins')(),
+    require('postcss-simple-vars')(),
+    // Unwrap nested rules like how Sass does it
+    require('postcss-nested')(),
+    //  parse CSS and add vendor prefixes to CSS rules
+    require('autoprefixer')({
+      browsers: ['last 2 versions', 'IE > 8']
+    }),
+    // A PostCSS plugin to console.log() the messages registered by other
+    // PostCSS plugins
+    require('postcss-reporter')({
+      clearMessages: true
+    })
+  ];
+};
 
 module.exports = [
   {
@@ -92,7 +111,7 @@ module.exports = [
     },
     plugins: [
         // extract inline css from modules into separate files
-        //new ExtractTextPlugin("styles/main.css"),
+        new ExtractTextPlugin( 'style.css' ),
         new webpack.DefinePlugin({
           'process.env': {
             // This has effect on the react lib size
@@ -108,7 +127,8 @@ module.exports = [
           __DEVCLIENT__: false,
           __DEVSERVER__: false
         })
-    ]
+    ],
+    postcss: postCSSConfig
   }, {
     // The configuration for the server-side rendering
     name: "server-side rendering",
@@ -140,7 +160,7 @@ module.exports = [
         // This saves space, because often referenced modules
         // and chunks get smaller ids.
         new webpack.optimize.OccurenceOrderPlugin(),
-        //new ExtractTextPlugin("styles/main.css"),
+        new ExtractTextPlugin( 'style.css' ),
         new webpack.optimize.UglifyJsPlugin({
           compressor: {
             warnings: false
@@ -156,6 +176,7 @@ module.exports = [
             'NODE_ENV': JSON.stringify( 'production' )
           }
         })
-    ]
+    ],
+    postcss: postCSSConfig
   }
 ];
