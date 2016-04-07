@@ -6,7 +6,9 @@ const App = ({ children }) => {
 	return (
 		<div id="page" className="hfeed site">
 			<Header />
-			{children}
+			<div id="content" className="site-content">
+				{children}
+			</div>
 		</div>
 	)
 }
