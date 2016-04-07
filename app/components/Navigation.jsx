@@ -9,14 +9,15 @@ class Navigation extends Component {
 	}
 
 	render() {
+		// TODO: Get menu-items from props.
 		return (
-			<nav className="menu">
-				<ul>
-					<li><Link to="/">Home</Link></li>
-					<li><Link to="/page">Single Page</Link></li>
-					<li><Link to="/post">Single Post</Link></li>
+			<div className="social-links">
+				<ul className="menu">
+					<li className="menu-item"><Link to="/">Home</Link></li>
+					<li className="menu-item"><Link to="/page">Single Page</Link></li>
+					<li className="menu-item"><Link to="/post">Single Post</Link></li>
 				</ul>
-			</nav>
+			</div>
 		)
 	}
 }
