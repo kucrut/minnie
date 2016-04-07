@@ -58,6 +58,7 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "devDependencies": {
-    "nodemon": "^1.9.1"
+    "nodemon": "^1.9.1",
+    "redux-logger": "^2.6.1"
   }
 }
