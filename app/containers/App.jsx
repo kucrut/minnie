@@ -1,12 +1,11 @@
 import React, { PropTypes } from 'react'
-import Navigation from 'containers/Navigation.jsx'
-import styles from 'css/style'
+import Header from 'containers/Header'
 
 
 const App = ({ children }) => {
 	return (
 		<div id="page" className="hfeed site">
-			<Navigation />
+			<Header />
 			{children}
 		</div>
 	)
