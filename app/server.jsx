@@ -7,14 +7,11 @@ import { Provider } from 'react-redux'
 import createRoutes from 'routes.jsx'
 import configureStore from 'store/configureStore'
 import { fetchComponentDataBeforeRender } from 'api/fetchComponentDataBeforeRender'
+import apiConfig from 'api/config.json'
 
-const clientConfig = {
-	host: process.env.HOSTNAME || 'kucrut.dev',
-	port: process.env.PORT || '80'
-};
 
 // configure baseURL for axios requests (for serverside API calls)
-axios.defaults.baseURL = `http://${clientConfig.host}:${clientConfig.port}/wp-json`;
+axios.defaults.baseURL = `${apiConfig.host}:${apiConfig.port}/wp-json`;
 
 
 /**

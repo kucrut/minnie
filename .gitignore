@@ -3,5 +3,7 @@ node_modules
 npm-debug.log
 .tmp
 .idea
-public
 .swp
+public
+app/api/config.json
+
