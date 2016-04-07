@@ -1,18 +1,29 @@
-import React, { PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { fetchInfo } from 'actions/info'
 import Header from 'containers/Header'
 import Footer from 'containers/Footer'
 
 
-const App = ({ children }) => {
-	return (
-		<div id="page" className="hfeed site">
-			<Header />
-			<div id="content" className="site-content">
-				{children}
+class App extends Component {
+	constructor( props ) {
+		super( props )
+	}
+
+	static need = [
+		fetchInfo
+	]
+
+	render() {
+		return (
+			<div id="page" className="hfeed site">
+				<Header />
+				<div id="content" className="site-content">
+					{ this.props.children }
+				</div>
+				<Footer />
 			</div>
-			<Footer />
-		</div>
-	)
+		)
+	}
 }
 
 App.propTypes = {

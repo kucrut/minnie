@@ -1,4 +1,5 @@
 import path from 'path'
+import axios from 'axios'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
@@ -6,6 +7,14 @@ import { Provider } from 'react-redux'
 import createRoutes from 'routes.jsx'
 import configureStore from 'store/configureStore'
 import { fetchComponentDataBeforeRender } from 'api/fetchComponentDataBeforeRender'
+
+const clientConfig = {
+	host: process.env.HOSTNAME || 'kucrut.dev',
+	port: process.env.PORT || '80'
+};
+
+// configure baseURL for axios requests (for serverside API calls)
+axios.defaults.baseURL = `http://${clientConfig.host}:${clientConfig.port}/wp-json`;
 
 
 /**
@@ -36,7 +45,7 @@ function renderFullPage( html, initialState ) {
 
 export default function render( req, res ) {
 	const history = createMemoryHistory();
-	const store = configureStore( { query: {} }, history );
+	const store = configureStore( { info: {} }, history );
 	const routes = createRoutes( store );
 
 	/*
