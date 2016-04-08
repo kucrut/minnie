@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import bind from 'lodash/bind'
 import { fetchInfo } from 'actions/info'
+import { fetchMenu } from 'actions/menu'
 import Header from 'containers/Header'
 import Footer from 'containers/Footer'
 
@@ -12,7 +14,8 @@ class App extends Component {
 	}
 
 	static need = [
-		fetchInfo
+		fetchInfo,
+		bind( fetchMenu, {location: 'social'} )
 	]
 
 	componentDidMount() {

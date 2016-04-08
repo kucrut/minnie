@@ -112,7 +112,10 @@ module.exports = {
           __DEVCLIENT__: true,
           __DEVSERVER__: false
         }),
-        new CopyWebpackPlugin([ { from: 'css/style.css' } ])
+        new CopyWebpackPlugin([
+          { from: 'css/style.css' },
+          { from: 'css/genericons' },
+        ])
     ] /*,
     postcss: postCSSConfig */
 };

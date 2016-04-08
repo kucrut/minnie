@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
-import { connect } from 'react-redux'
 
 
 class Branding extends Component {
@@ -36,10 +35,4 @@ Branding.propTypes = {
 	info: PropTypes.object.isRequired
 }
 
-function mapStateToProps( state ) {
-	return {
-		info: state.info
-	}
-}
-
-export default connect( mapStateToProps )( Branding )
+export default Branding
