@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Branding from 'components/Branding'
 import SocialMenu from 'components/SocialMenu'
+import Burger from 'components/Burger'
 
 
 class Header extends Component {
@@ -24,6 +25,7 @@ class Header extends Component {
 			<header id="masthead" className="site-header" role="banner">
 				<Branding info={ this.props.info } />
 				{ this.renderSocialMenu() }
+				<Burger />
 			</header>
 		)
 	}
