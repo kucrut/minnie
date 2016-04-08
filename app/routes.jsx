@@ -1,6 +1,7 @@
-import React from 'react';
-import { Route, IndexRoute } from 'react-router';
-import App from 'containers/App';
+import React from 'react'
+import { Route, IndexRoute } from 'react-router'
+import { routes } from 'api/config.json'
+import App from 'containers/App'
 import Home from 'containers/Home'
 import Singular from 'containers/Singular'
 
@@ -14,7 +15,7 @@ export default ( store ) => {
 	return (
 		<Route path="/" component={ App }>
 			<IndexRoute component={ Home } />
-			<Route path="/:slug" component={ Singular } />
+			<Route path={ routes.page } component={ Singular } />
 		</Route>
-	);
-};
+	)
+}

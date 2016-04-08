@@ -1,4 +1,8 @@
 {
 	"host": "localhost",
-	"port": 9090
+	"port": 9090,
+	"routes": {
+		"page": "/:slug",
+		"post": "/article/:slug"
+	}
 }
