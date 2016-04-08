@@ -1,4 +1,7 @@
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import classNames from 'classnames'
+import { toggleSidebar } from 'actions/ui'
 
 
 class Burger extends Component {
@@ -8,16 +11,32 @@ class Burger extends Component {
 	}
 
 	onClick() {
-		// TODO
+		this.props.dispatch( toggleSidebar() )
 	}
 
 	render() {
+		let buttonClass = classNames({
+			'menu-toggle': true,
+			'toggle-on': this.props.isSidebarExpanded
+		})
+
 		return (
-			<button className="menu-toggle" title="Sidebar" onClick={ this.onClick }>
+			<button className={ buttonClass } title="Sidebar" onClick={ this.onClick }>
 				<span className="screen-reader-text">Sidebar</span>
 			</button>
 		)
 	}
 }
 
-export default Burger
+Burger.propTypes = {
+	isSidebarExpanded: PropTypes.bool.isRequired,
+	dispatch: PropTypes.func.isRequired
+}
+
+function mapStateToProps( state ) {
+	return {
+		isSidebarExpanded: state.ui.isSidebarExpanded
+	}
+}
+
+export default connect( mapStateToProps )( Burger )

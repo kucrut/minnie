@@ -1488,7 +1488,7 @@ object {
            -moz-transition: .3s left ease-in-out;
                 transition: .3s left ease-in-out;
     }
-    .sidebar-open .site {
+    .sidebar-open.site {
         left: -320px;
         -webkit-transition: .3s left ease-in-out;
            -moz-transition: .3s left ease-in-out;

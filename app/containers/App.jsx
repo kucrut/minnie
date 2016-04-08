@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import bind from 'lodash/bind'
+import classNames from 'classnames'
 import { fetchInfo } from 'actions/info'
 import { fetchMenu } from 'actions/menu'
 import Header from 'containers/Header'
@@ -24,8 +25,13 @@ class App extends Component {
 	}
 
 	render() {
+		let pageClass = classNames({
+			'hfeed site': true,
+			'sidebar-open': this.props.isSidebarExpanded
+		})
+
 		return (
-			<div id="page" className="hfeed site">
+			<div id="page" className={ pageClass }>
 				<Header />
 				<div id="content" className="site-content">
 					{ this.props.children }
@@ -38,12 +44,14 @@ class App extends Component {
 
 App.propTypes = {
 	apiUrl: PropTypes.string.isRequired,
+	isSidebarExpanded: PropTypes.bool.isRequired,
 	children: PropTypes.object
 }
 
 function mapStateToProps( state ) {
 	return {
-		apiUrl: state.info.apiUrl
+		apiUrl: state.info.apiUrl,
+		isSidebarExpanded: state.ui.isSidebarExpanded
 	}
 }
 
