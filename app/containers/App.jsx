@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import axios from 'axios'
 import { fetchInfo } from 'actions/info'
 import Header from 'containers/Header'
 import Footer from 'containers/Footer'
@@ -12,6 +14,11 @@ class App extends Component {
 	static need = [
 		fetchInfo
 	]
+
+	componentDidMount() {
+		// configure baseURL for axios requests (for client-side API calls)
+		axios.defaults.baseURL = this.props.apiUrl;
+	}
 
 	render() {
 		return (
@@ -27,7 +34,14 @@ class App extends Component {
 }
 
 App.propTypes = {
+	apiUrl: PropTypes.string.isRequired,
 	children: PropTypes.object
 }
 
-export default App
+function mapStateToProps( state ) {
+	return {
+		apiUrl: state.info.apiUrl
+	}
+}
+
+export default connect( mapStateToProps )( App )

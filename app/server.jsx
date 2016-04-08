@@ -17,6 +17,8 @@ axios.defaults.baseURL = `${apiConfig.host}:${apiConfig.port}/wp-json`;
 /**
  * Initial html template
  *
+ * TODO: Get and print the real document title.
+ *
  * @param  {string} html         Content.
  * @param  {object} initialState Initial state.
  * @return {string}              Template.
@@ -26,7 +28,7 @@ function renderFullPage( html, initialState ) {
 <html>
   <head>
     <meta charset=utf-8 />
-    <title>WordPress, Reactified.</title>
+    <title>${ initialState.info.name }</title>
     <link rel="stylesheet" href="/assets/style.css"/>
   </head>
   <body>

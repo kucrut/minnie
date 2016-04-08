@@ -1,3 +1,4 @@
+import trimEnd from 'lodash/trimEnd'
 import {
 	GET_INFO_REQUEST,
 	GET_INFO_SUCCESS,
@@ -23,6 +24,7 @@ export default function info( state = initialState, action ) {
 				isFetching: false,
 				name: action.req.data.name,
 				description: action.req.data.description,
+				apiUrl: trimEnd( action.req.data.routes['/']._links.self, '/' ),
 				namespaces: action.req.data.namespaces
 			});
 

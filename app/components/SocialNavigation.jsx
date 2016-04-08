@@ -14,8 +14,8 @@ class SocialNavigation extends Component {
 			<div className="social-links">
 				<ul className="menu">
 					<li className="menu-item"><Link to="/">Home</Link></li>
-					<li className="menu-item"><Link to="/page">Single Page</Link></li>
-					<li className="menu-item"><Link to="/post">Single Post</Link></li>
+					<li className="menu-item"><Link to="/about">About</Link></li>
+					<li className="menu-item"><Link to="/another-page">About</Link></li>
 				</ul>
 			</div>
 		)
