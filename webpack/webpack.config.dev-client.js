@@ -28,7 +28,8 @@ var commonLoaders = [
         limit: 10000,
     }
   },
-  { test: /\.html$/, loader: 'html-loader' }
+  { test: /\.html$/, loader: 'html-loader' },
+  { test: /\.json$/, loader: "json-loader" }
 ];
 
 var postCSSConfig = function() {
