@@ -5,11 +5,29 @@
 */
 
 export function fetchComponentDataBeforeRender(dispatch, components, params) {
-  const needs = components.reduce( (prev, current) => {
-    return (current.need || [])
-      .concat((current.WrappedComponent ? current.WrappedComponent.need : []) || [])
-      .concat(prev);
-    }, []);
-    const promises = needs.map(need => dispatch(need(params)));
-    return Promise.all(promises);
+
+	// Commenting this out since it's producing duplicates.
+	/*
+	const needs = components.reduce( (prev, current) => {
+		return (current.need || [])
+			.concat((current.WrappedComponent ? current.WrappedComponent.need : []) || [])
+			.concat(prev);
+	}, []);
+	*/
+
+	const needs = components.reduce( ( prev, current ) => {
+		let more
+
+		if ( current.need && current.WrappedComponent ) {
+			more = current.WrappedComponent.need
+		} else {
+			more = []
+		}
+
+		return more.concat( prev )
+	}, [] )
+
+	const promises = needs.map( need => dispatch( need( params ) ) );
+
+	return Promise.all( promises );
 }
