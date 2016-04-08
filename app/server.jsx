@@ -29,7 +29,7 @@ function renderFullPage( html, initialState ) {
   <head>
     <meta charset=utf-8 />
     <title>${ initialState.info.name }</title>
-    <link rel="stylesheet" href="/assets/genericons/genericons.css" />
+    <link rel="stylesheet" href="/assets/genericons/genericons/genericons.css" />
     <link rel="stylesheet" href="/assets/style.css" />
   </head>
   <body>

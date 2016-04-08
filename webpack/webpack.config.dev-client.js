@@ -114,7 +114,7 @@ module.exports = {
         }),
         new CopyWebpackPlugin([
           { from: 'css/style.css' },
-          { from: 'css/genericons' },
+          { from: 'css/genericons', to: 'genericons' }
         ])
     ] /*,
     postcss: postCSSConfig */

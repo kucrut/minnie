@@ -112,7 +112,7 @@ module.exports = [
     },
     plugins: [
         // extract inline css from modules into separate files
-        new ExtractTextPlugin( 'style.css' ),
+        // new ExtractTextPlugin( 'style.css' ),
         new webpack.DefinePlugin({
           'process.env': {
             // This has effect on the react lib size
@@ -128,7 +128,10 @@ module.exports = [
           __DEVCLIENT__: false,
           __DEVSERVER__: false
         }),
-        new CopyWebpackPlugin([ { from: 'css/style.css' } ])
+        new CopyWebpackPlugin([
+          { from: 'css/style.css' },
+          { from: 'css/genericons', to: 'genericons' }
+        ])
     ] /*,
     postcss: postCSSConfig */
   }, {
