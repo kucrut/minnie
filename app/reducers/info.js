@@ -9,7 +9,8 @@ import {
 const initialState = {
 	name: '',
 	description: '',
-	namespaces: []
+	namespaces: [],
+	isFetching: false
 }
 
 export default function info( state = initialState, action ) {

@@ -15,6 +15,7 @@ export default function content( state = initialState, action ) {
 	switch ( action.type ) {
 		case GET_SINGULAR_REQUEST:
 			return Object.assign( {}, state, {
+				data: {}, // Should we keep the old data?
 				isFetching: true
 			});
 

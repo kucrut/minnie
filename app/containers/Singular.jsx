@@ -7,6 +7,14 @@ class Singular extends Component {
 		super( props )
 	}
 
+	/**
+	 * Callbacks needed for server-side rendering
+	 *
+	 * Functions listed here will be called automatically by `fetchComponentDataBeforeRender()`
+	 *     when this component is rendered by the server.
+	 *
+	 * @type {Array}
+	 */
 	static need = [
 		fetchSingular
 	]
@@ -19,14 +27,31 @@ class Singular extends Component {
 		return { __html: this.props.data.content.rendered }
 	}
 
+	/**
+	 * Before mount
+	 *
+	 * When this is invoked on the server (the initial page visited is a singular page)
+	 *     we need not do anything, because the data will be fetched automatically via
+	 *     `fetchComponentDataBeforeRender()`
+	 * However, when invoked on the client, we need to fetch the data if the one in the
+	 *     store doesn't match the requested page.
+	 */
 	componentWillMount() {
-		const { slug, isFetching } = this.props
+		const { slug, data, isFetching } = this.props
 
-		if ( ! isFetching ) {
+		if ( ! isFetching && slug !== data.slug ) {
 			this._fetchSingular( slug )
 		}
 	}
 
+	/**
+	 * Before changing page
+	 *
+	 * This is invoked on the client when the visitors requested a singular page
+	 *     when he's viewing another.
+	 *
+	 * @param  {object} nextProps Next properties.
+	 */
 	componentWillReceiveProps( nextProps ) {
 		const { slug, isFetching } = nextProps
 
@@ -35,12 +60,22 @@ class Singular extends Component {
 		}
 	}
 
+	/**
+	 * Render singular page content
+	 *
+	 * TODO: Provide a 'loading' component.
+	 * TODO: Provide a 'not found' component.
+	 */
 	render() {
-		const { data } = this.props
+		const { data, isFetching } = this.props
 
-		if ( ! data.id ) {
+		if ( isFetching ) {
 			return (
 				<p>Loading&hellip;</p>
+			)
+		} else if ( ! data.id ) {
+			return (
+				<p>Not found. ;(</p>
 			)
 		}
 
