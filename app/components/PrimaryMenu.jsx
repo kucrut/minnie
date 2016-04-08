@@ -19,12 +19,6 @@ class PrimaryMenu extends Component {
 		}
 	}
 
-
-	/**
-	 * Render menu
-	 *
-	 * TODO: Hide sidebar when a menu item is clicked.
-	 */
 	render() {
 		return (
 			<nav id="site-navigation" className="main-navigation" role="navigation">

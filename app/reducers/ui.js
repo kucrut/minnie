@@ -7,6 +7,11 @@ const initialState = {
 
 export default function ui( state = initialState, action ) {
 	switch ( action.type ) {
+		case '@@router/LOCATION_CHANGE':
+			return Object.assign( {}, state, {
+				isSidebarExpanded: false
+			})
+
 		case UI_TOGGLE_SIDEBAR:
 			return Object.assign( {}, state, {
 				isSidebarExpanded: action.expand
