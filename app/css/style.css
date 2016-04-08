@@ -575,8 +575,8 @@ a:active {
 	-o-transition: all .3s ease-in-out;
 	transition: all .3s ease-in-out;
 }
-.current-menu-item > a,
-.current_page_item > a {
+a.current-menu-item,
+a.current_page_item {
 	font-weight: bold;
 }
 .menu-toggle:before,

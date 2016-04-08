@@ -16,7 +16,8 @@ class App extends Component {
 
 	static need = [
 		fetchInfo,
-		bind( fetchMenu, {location: 'social'} )
+		bind( fetchMenu, {location: 'social'} ),
+		bind( fetchMenu, {location: 'primary'} )
 	]
 
 	componentDidMount() {
