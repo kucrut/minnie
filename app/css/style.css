@@ -1466,7 +1466,7 @@ object {
         overflow: scroll;
         width: 320px;
         height: 100%;
-        padding: 3.75em 2.25em;
+        padding: 1.75em 2.25em;
 
         -webkit-transition: .3s all ease-in-out;
            -moz-transition: .3s all ease-in-out;
