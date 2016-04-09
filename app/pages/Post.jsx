@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchPost } from 'actions/singular'
+import EntryMeta from 'components/EntryMeta'
 
 class Post extends Component {
 
@@ -22,6 +23,16 @@ class Post extends Component {
 
 	getContent() {
 		return { __html: this.props.data.content.rendered }
+	}
+
+	getEntryClass() {
+		const { data } = this.props
+		let cls = 'hentry'
+
+		cls += ` type-${data.type}`
+		cls += ` format-${data.format}`
+
+		return cls
 	}
 
 	/**
@@ -81,9 +92,10 @@ class Post extends Component {
 			<div className="content">
 				<div id="primary" className="content-area">
 					<main id="main" className="site-main" role="main">
-						<article id={ `post-${ data.id }` } className="hentry">
+						<article id={ `post-${ data.id }` } className={ this.getEntryClass() }>
 							<header className="entry-header">
 								<h1 className="entry-title">{ data.title.rendered }</h1>
+								<EntryMeta data={ data } />
 							</header>
 							<div className="entry-content" dangerouslySetInnerHTML={ this.getContent() } />
 						</article>
