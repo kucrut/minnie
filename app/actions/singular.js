@@ -19,3 +19,10 @@ export function fetchPage( params ) {
 		promise: makeSingularRequest( params.slug, 'pages' )
 	}
 }
+
+export function fetchPost( params ) {
+	return {
+		type: types.GET_SINGULAR,
+		promise: makeSingularRequest( params.slug, 'posts' )
+	}
+}

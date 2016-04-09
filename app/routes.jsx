@@ -4,6 +4,7 @@ import { routes } from 'api/config.json'
 import App from 'containers/App'
 import Home from 'containers/Home'
 import Page from 'containers/Page'
+import Post from 'containers/Post'
 
 
 /*
@@ -16,6 +17,7 @@ export default ( store ) => {
 		<Route path="/" component={ App }>
 			<IndexRoute component={ Home } />
 			<Route path={ routes.page } component={ Page } />
+			<Route path={ routes.post } component={ Post } />
 		</Route>
 	)
 }
