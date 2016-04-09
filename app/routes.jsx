@@ -2,9 +2,9 @@ import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 import { routes } from 'api/config.json'
 import App from 'containers/App'
-import Home from 'containers/Home'
-import Page from 'containers/Page'
-import Post from 'containers/Post'
+import Home from 'pages/Home'
+import Page from 'pages/Page'
+import Post from 'pages/Post'
 
 
 /*
