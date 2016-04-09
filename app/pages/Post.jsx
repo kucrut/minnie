@@ -3,9 +3,6 @@ import { connect } from 'react-redux'
 import { fetchPost } from 'actions/singular'
 
 class Post extends Component {
-	constructor( props ) {
-		super( props )
-	}
 
 	/**
 	 * Callbacks needed for server-side rendering

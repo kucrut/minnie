@@ -7,10 +7,6 @@ import Burger from 'components/Burger'
 
 
 class Header extends Component {
-	constructor( props ) {
-		super( props )
-	}
-
 	renderSocialMenu() {
 		const { menus } = this.props
 

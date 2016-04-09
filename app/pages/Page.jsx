@@ -3,9 +3,6 @@ import { connect } from 'react-redux'
 import { fetchPage } from 'actions/singular'
 
 class Page extends Component {
-	constructor( props ) {
-		super( props )
-	}
 
 	/**
 	 * Callbacks needed for server-side rendering

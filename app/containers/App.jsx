@@ -10,10 +10,15 @@ import Footer from 'containers/Footer'
 
 
 class App extends Component {
-	constructor( props ) {
-		super( props )
-	}
 
+	/**
+	 * Callbacks needed for server-side rendering
+	 *
+	 * Functions listed here will be called automatically by `fetchComponentDataBeforeRender()`
+	 *     when this component is rendered by the server.
+	 *
+	 * @type {Array}
+	 */
 	static need = [
 		fetchInfo,
 		bind( fetchMenu, {location: 'social'} ),

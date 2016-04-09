@@ -3,12 +3,6 @@ import { Link } from 'react-router'
 
 
 class Branding extends Component {
-	constructor( props ) {
-		super( props )
-	}
-
-	// Data that needs to be called before rendering the component.
-	// This is used for server side rendering via the fetchComponentDataBeforeRender() method.
 	getDescription() {
 		const { description } = this.props.info
 

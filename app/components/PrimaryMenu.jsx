@@ -3,10 +3,6 @@ import { IndexLink, Link } from 'react-router'
 
 
 class PrimaryMenu extends Component {
-	constructor( props ) {
-		super( props )
-	}
-
 	getLink( item ) {
 		if ( '/' === item.url ) {
 			return (

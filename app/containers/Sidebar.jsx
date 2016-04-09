@@ -5,10 +5,6 @@ import PrimaryMenu from 'components/PrimaryMenu'
 
 
 class Sidebar extends Component {
-	constructor( props ) {
-		super( props )
-	}
-
 	render() {
 		const { menuItems, isSidebarExpanded } = this.props
 
