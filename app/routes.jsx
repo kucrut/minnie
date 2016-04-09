@@ -3,7 +3,7 @@ import { Route, IndexRoute } from 'react-router'
 import { routes } from 'api/config.json'
 import App from 'containers/App'
 import Home from 'containers/Home'
-import Singular from 'containers/Singular'
+import Page from 'containers/Page'
 
 
 /*
@@ -15,7 +15,7 @@ export default ( store ) => {
 	return (
 		<Route path="/" component={ App }>
 			<IndexRoute component={ Home } />
-			<Route path={ routes.page } component={ Singular } />
+			<Route path={ routes.page } component={ Page } />
 		</Route>
 	)
 }

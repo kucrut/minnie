@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { fetchSingular } from 'actions/singular'
+import { fetchPage } from 'actions/singular'
 
-class Singular extends Component {
+class Page extends Component {
 	constructor( props ) {
 		super( props )
 	}
@@ -16,11 +16,11 @@ class Singular extends Component {
 	 * @type {Array}
 	 */
 	static need = [
-		fetchSingular
+		fetchPage
 	]
 
-	_fetchSingular( slug ) {
-		this.props.dispatch( fetchSingular({ slug: slug }) )
+	fetchData( slug ) {
+		this.props.dispatch( fetchPage( slug ) )
 	}
 
 	getContent() {
@@ -40,7 +40,7 @@ class Singular extends Component {
 		const { slug, data, isFetching } = this.props
 
 		if ( ! isFetching && slug !== data.slug ) {
-			this._fetchSingular( slug )
+			this.fetchData( slug )
 		}
 	}
 
@@ -56,7 +56,7 @@ class Singular extends Component {
 		const { slug, isFetching } = nextProps
 
 		if ( ! isFetching && slug !== this.props.slug ) {
-			this._fetchSingular( slug )
+			this.fetchData( slug )
 		}
 	}
 
@@ -96,7 +96,7 @@ class Singular extends Component {
 	}
 }
 
-Singular.propTypes = {
+Page.propTypes = {
 	slug: PropTypes.string.isRequired,
 	data: PropTypes.object,
 	isFetching: PropTypes.bool.isRequired,
@@ -112,4 +112,4 @@ function mapStateToProps( state, ownProps ) {
 	}
 }
 
-export default connect( mapStateToProps )( Singular )
+export default connect( mapStateToProps )( Page )

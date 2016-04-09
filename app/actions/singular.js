@@ -13,9 +13,9 @@ function makeSingularRequest( slug, type='pages' ) {
 	})
 }
 
-export function fetchSingular( params ) {
+export function fetchPage( params ) {
 	return {
 		type: types.GET_SINGULAR,
-		promise: makeSingularRequest( params.slug )
+		promise: makeSingularRequest( params.slug, 'pages' )
 	}
 }
