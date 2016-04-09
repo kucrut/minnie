@@ -20,7 +20,7 @@ class Page extends Component {
 	]
 
 	fetchData( slug ) {
-		this.props.dispatch( fetchPage( slug ) )
+		this.props.dispatch( fetchPage( {slug} ) )
 	}
 
 	getContent() {
