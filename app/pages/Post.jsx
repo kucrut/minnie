@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchPost } from 'actions/singular'
+import EntryTitle from 'components/EntryTitle'
 import EntryMeta from 'components/EntryMeta'
 
 class Post extends Component {
@@ -94,9 +95,10 @@ class Post extends Component {
 					<main id="main" className="site-main" role="main">
 						<article id={ `post-${ data.id }` } className={ this.getEntryClass() }>
 							<header className="entry-header">
-								<h1 className="entry-title">{ data.title.rendered }</h1>
+								<EntryTitle title={ data.title.rendered } link={ data.link } isSingle={ true } />
 								<EntryMeta data={ data } />
 							</header>
+
 							<div className="entry-content" dangerouslySetInnerHTML={ this.getContent() } />
 						</article>
 					</main>
