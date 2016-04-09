@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchPage } from 'actions/singular'
+import EntryTitle from 'components/EntryTitle'
 
 class Page extends Component {
 
@@ -82,7 +83,7 @@ class Page extends Component {
 					<main id="main" className="site-main" role="main">
 						<article id={ `post-${ data.id }` } className="hentry">
 							<header className="entry-header">
-								<h1 className="entry-title">{ data.title.rendered }</h1>
+								<EntryTitle title={ data.title.rendered } link={ data.link } isSingle={ true } />
 							</header>
 							<div className="entry-content" dangerouslySetInnerHTML={ this.getContent() } />
 						</article>
