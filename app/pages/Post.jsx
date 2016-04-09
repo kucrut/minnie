@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { fetchPost } from 'actions/singular'
 import EntryTitle from 'components/EntryTitle'
 import EntryMeta from 'components/EntryMeta'
+import EntryFormat from 'components/EntryFormat'
 
 class Post extends Component {
 
@@ -100,6 +101,8 @@ class Post extends Component {
 							</header>
 
 							<div className="entry-content" dangerouslySetInnerHTML={ this.getContent() } />
+
+							<EntryFormat format={ data.format } />
 						</article>
 					</main>
 				</div>
