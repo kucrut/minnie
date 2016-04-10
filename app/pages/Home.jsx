@@ -5,6 +5,8 @@ import Helmet from 'react-helmet'
 
 class Home extends Component {
 	render() {
+		const { info } = this.props
+
 		return (
 			<div className="content">
 				<Helmet title={ `${ info.name }` } />
