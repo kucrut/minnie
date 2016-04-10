@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import Helmet from 'react-helmet'
 import { fetchPage } from 'actions/singular'
+import NotFound from 'pages/404'
 import EntryTitle from 'components/EntryTitle'
 
 class Page extends Component {
@@ -65,25 +67,28 @@ class Page extends Component {
 	 * TODO: Provide a 'not found' component.
 	 */
 	render() {
-		const { data, isFetching } = this.props
+		const { info, data, isFetching } = this.props
 
 		if ( isFetching ) {
 			return (
 				<p>Loading&hellip;</p>
 			)
 		} else if ( ! data.id ) {
-			return (
-				<p>Not found. ;(</p>
-			)
+			return ( <NotFound /> )
 		}
 
 		return (
 			<div className="content">
+				<Helmet
+					title={ data.title.rendered }
+					titleTemplate={ `%s | ${ info.name }` }
+				/>
+
 				<div id="primary" className="content-area">
 					<main id="main" className="site-main" role="main">
 						<article id={ `post-${ data.id }` } className="hentry">
 							<header className="entry-header">
-								<EntryTitle title={ data.title.rendered } link={ data.link } isSingle={ true } />
+								<EntryTitle title={ data.title.rendered } isSingle={ true } />
 							</header>
 							<div className="entry-content" dangerouslySetInnerHTML={ this.getContent() } />
 						</article>
@@ -96,6 +101,7 @@ class Page extends Component {
 
 Page.propTypes = {
 	slug: PropTypes.string.isRequired,
+	info: PropTypes.object.isRequired,
 	data: PropTypes.object,
 	isFetching: PropTypes.bool.isRequired,
 	dispatch: PropTypes.func.isRequired
@@ -106,6 +112,7 @@ function mapStateToProps( state, ownProps ) {
 
 	return {
 		slug: slug,
+		info: state.info,
 		...state.singular
 	}
 }

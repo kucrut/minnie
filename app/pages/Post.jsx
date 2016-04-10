@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import Helmet from 'react-helmet'
 import { fetchPost } from 'actions/singular'
 import EntryTitle from 'components/EntryTitle'
 import EntryMeta from 'components/EntryMeta'
@@ -78,7 +79,7 @@ class Post extends Component {
 	 * TODO: Render meta, comments, etc.
 	 */
 	render() {
-		const { data, isFetching } = this.props
+		const { info, data, isFetching } = this.props
 
 		if ( isFetching ) {
 			return (
@@ -92,6 +93,11 @@ class Post extends Component {
 
 		return (
 			<div className="content">
+				<Helmet
+					title={ data.title.rendered }
+					titleTemplate={ `%s | ${ info.name }` }
+				/>
+
 				<div id="primary" className="content-area">
 					<main id="main" className="site-main" role="main">
 						<article id={ `post-${ data.id }` } className={ this.getEntryClass() }>
@@ -113,6 +119,7 @@ class Post extends Component {
 
 Post.propTypes = {
 	slug: PropTypes.string.isRequired,
+	info: PropTypes.object.isRequired,
 	data: PropTypes.object,
 	isFetching: PropTypes.bool.isRequired,
 	dispatch: PropTypes.func.isRequired
@@ -123,6 +130,7 @@ function mapStateToProps( state, ownProps ) {
 
 	return {
 		slug: slug,
+		info: state.info,
 		...state.singular
 	}
 }

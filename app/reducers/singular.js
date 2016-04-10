@@ -7,7 +7,9 @@ import {
 
 
 const initialState = {
-	data: {},
+	data: {
+		title: 'Oops! That page can&rsquo;t be found.'
+	},
 	isFetching: false
 }
 
@@ -21,6 +23,13 @@ export default function content( state = initialState, action ) {
 
 		case GET_SINGULAR_SUCCESS:
 			let data = head( action.req.data, 1 );
+
+			// Page/post not found.
+			if ( ! data ) {
+				data = Object.assign( {}, initialState.data, {
+					slug: action.req.config.params.slug
+				})
+			}
 
 			return Object.assign( {}, state, {
 				data: data,

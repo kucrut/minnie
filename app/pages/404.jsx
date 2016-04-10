@@ -1,9 +1,12 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 
 
 const NotFound = props => {
 	return (
 		<div className="content">
+			<Helmet title="Oops!" />
+
 			<div id="primary" className="content-area">
 				<main id="main" className="site-main" role="main">
 					<section className="error-404 not-found">

@@ -4,6 +4,7 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { RouterContext, match, createMemoryHistory } from 'react-router'
 import { Provider } from 'react-redux'
+import Helmet from 'react-helmet'
 import createRoutes from 'routes.jsx'
 import configureStore from 'store/configureStore'
 import { fetchComponentDataBeforeRender } from 'api/fetchComponentDataBeforeRender'
@@ -24,11 +25,13 @@ axios.defaults.baseURL = `${apiConfig.host}:${apiConfig.port}/wp-json`;
  * @return {string}              Template.
  */
 function renderFullPage( html, initialState ) {
+	let head = Helmet.rewind()
+
 	return `<!doctype html>
 <html>
   <head>
     <meta charset=utf-8 />
-    <title>${ initialState.info.name }</title>
+    ${ head.title.toString() }
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C600italic%2C300%2C400%2C600&subset=latin%2Clatin-ext" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans%3A300%2C400%2C700%2C700italic%2C400italic%2C300italic%7COpen+Sans+Condensed%3A700%2C700italic&subset=latin%2Clatin-ext" />
     <link rel="stylesheet" href="/assets/genericons/genericons/genericons.css" />
