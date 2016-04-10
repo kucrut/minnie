@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import { fetchPost } from 'actions/singular'
+import NotFound from 'pages/404'
 import EntryTitle from 'components/EntryTitle'
 import EntryMeta from 'components/EntryMeta'
 import EntryFormat from 'components/EntryFormat'
@@ -86,9 +87,7 @@ class Post extends Component {
 				<p>Loading&hellip;</p>
 			)
 		} else if ( ! data.id ) {
-			return (
-				<p>Not found. ;(</p>
-			)
+			return ( <NotFound /> )
 		}
 
 		return (
