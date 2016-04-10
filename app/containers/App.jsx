@@ -38,6 +38,7 @@ class App extends Component {
 
 		return (
 			<div id="page" className={ pageClass }>
+				<a className="skip-link screen-reader-text" href="#content">Skip to content</a>
 				<Header />
 				<div id="content" className="site-content">
 					{ this.props.children }
