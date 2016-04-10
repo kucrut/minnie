@@ -1562,3 +1562,26 @@ object {
 		font-size: 2.4rem;
 	}
 }
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(359deg);
+	}
+}
+
+.animate-spin {
+	animation: spin 2s infinite linear;
+	display: inline-block;
+}
+
+.minnie-spinner {
+	text-align: center;
+}
+.minnie-spinner .genericon {
+	font-size: 4em;
+	color: rgb(204, 204, 204);
+}

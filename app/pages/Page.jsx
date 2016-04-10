@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import { fetchPage } from 'actions/singular'
 import NotFound from 'pages/404'
+import Spinner from 'components/Spinner'
 import EntryTitle from 'components/EntryTitle'
 
 class Page extends Component {
@@ -63,16 +64,12 @@ class Page extends Component {
 	/**
 	 * Render singular page content
 	 *
-	 * TODO: Provide a 'loading' component.
-	 * TODO: Provide a 'not found' component.
 	 */
 	render() {
 		const { info, data, isFetching } = this.props
 
 		if ( isFetching ) {
-			return (
-				<p>Loading&hellip;</p>
-			)
+			return ( <Spinner /> )
 		} else if ( ! data.id ) {
 			return ( <NotFound /> )
 		}
