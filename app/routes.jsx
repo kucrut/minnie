@@ -17,6 +17,7 @@ export default ( store ) => {
 	return (
 		<Route path="/" component={ App }>
 			<IndexRoute component={ Home } />
+			<Route path={ routes.pagedIndex } component={ Home } />
 			<Route path={ routes.page } component={ Page } />
 			<Route path={ routes.post } component={ Post } />
 			<Route path="*" component={ NotFound } />

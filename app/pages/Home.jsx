@@ -1,8 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
+import { isEqual } from 'lodash'
+import { normalizeParams } from 'helpers.js'
 import { fetchArchive } from 'actions/archive'
 import Entry from 'components/Entry'
+import EntryEmpty from 'components/EntryEmpty'
 import Spinner from 'components/Spinner'
 
 
@@ -10,10 +13,6 @@ class Home extends Component {
 	static need = [
 		fetchArchive
 	]
-
-	fetchData() {
-		fetchArchive()
-	}
 
 	/**
 	 * Before mount
@@ -26,10 +25,10 @@ class Home extends Component {
 	 */
 	componentWillMount() {
 		/*
-		const { isFetching } = this.props
+		const { isFetching, params } = this.props
 
 		if ( ! isFetching ) {
-			this.fetchData()
+			fetchArchive( params )
 		}
 		*/
 	}
@@ -37,27 +36,33 @@ class Home extends Component {
 	/**
 	 * Before changing page
 	 *
-	 * This is invoked on the client when the visitors requested a singular page
-	 *     when he's viewing another.
+	 * This is invoked on the client when the visitor transitions between archive pages.
 	 *
 	 * @param  {object} nextProps Next properties.
 	 */
 	componentWillReceiveProps( nextProps ) {
-		/*
-		const { isFetching } = nextProps.archive
+		const { isFetching, dispatch, routeParams } = nextProps
 
-		if ( ! isFetching ) {
-			this.fetchData()
+		if ( ! isFetching && ! isEqual( routeParams, this.props.routeParams ) ) {
+			dispatch( fetchArchive( routeParams ) )
 		}
-		*/
 	}
 
 	render() {
 		const { info, archive } = this.props
 		const { isFetching, items } = archive
 
+		console.log( archive );
+
 		if ( isFetching ) {
 			return ( <Spinner /> )
+		} else if ( ! items.length ) {
+			return (
+				<EntryEmpty
+					title="Nothing Found."
+					content="It seems we can’t find what you’re looking for. Perhaps searching can help."
+				/>
+			)
 		}
 
 		return (
@@ -74,13 +79,15 @@ class Home extends Component {
 
 Home.propTypes = {
 	info: PropTypes.object.isRequired,
-	archive: PropTypes.object.isRequired
+	archive: PropTypes.object.isRequired,
+	routeParams: PropTypes.object.isRequired
 }
 
 function mapStateToProps( state, ownProps ) {
 	return {
 		info: state.info,
-		archive: state.archive
+		archive: state.archive,
+		routeParams: normalizeParams( ownProps.params )
 	}
 }
 
