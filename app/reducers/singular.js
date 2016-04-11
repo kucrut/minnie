@@ -6,10 +6,10 @@ import {
 } from 'constants/index'
 
 
+
+const initialTitle = 'Oops! That page can&rsquo;t be found.'
 const initialState = {
-	data: {
-		title: 'Oops! That page can&rsquo;t be found.'
-	},
+	data: {},
 	isFetching: false
 }
 
@@ -26,9 +26,10 @@ export default function content( state = initialState, action ) {
 
 			// Page/post not found.
 			if ( ! data ) {
-				data = Object.assign( {}, initialState.data, {
-					slug: action.req.config.params.slug
-				})
+				data = {
+					slug: action.req.config.params.slug,
+					title: initialTitle
+				}
 			}
 
 			return Object.assign( {}, state, {
