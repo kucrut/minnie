@@ -16,11 +16,11 @@ class Entry extends Component {
 	}
 
 	getContent() {
-		return { __html: this.props.data.content.rendered }
-	}
-
-	getExcerpt() {
-		return { __html: this.props.data.excerpt.rendered }
+		if ( this.props.isSingle ) {
+			return { __html: this.props.data.content.rendered }
+		} else {
+			return { __html: this.props.data.excerpt.rendered }
+		}
 	}
 
 	renderMeta() {
@@ -41,7 +41,6 @@ class Entry extends Component {
 
 	render() {
 		const { data, isSingle } = this.props
-		let content = isSingle ? this.getContent() : this.getExcerpt()
 
 		return (
 			<article id={ `post-${ data.id }` } className={ this.getElClass() }>
@@ -50,7 +49,7 @@ class Entry extends Component {
 					{ this.renderMeta() }
 				</header>
 
-				<div className="entry-content" dangerouslySetInnerHTML={ content } />
+				<div className="entry-content" dangerouslySetInnerHTML={ this.getContent() } />
 
 				{ this.renderFormat() }
 			</article>
