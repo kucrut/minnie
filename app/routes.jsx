@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 import { routes } from 'api/config.json'
 import App from 'containers/App'
-import Home from 'pages/Home'
+import Index from 'pages/Index'
 import Page from 'pages/Page'
 import Post from 'pages/Post'
 import NotFound from 'pages/404'
@@ -16,8 +16,8 @@ import NotFound from 'pages/404'
 export default ( store ) => {
 	return (
 		<Route path="/" component={ App }>
-			<IndexRoute component={ Home } />
-			<Route path={ routes.pagedIndex } component={ Home } />
+			<IndexRoute component={ Index } />
+			<Route path={ routes.pagedIndex } component={ Index } />
 			<Route path={ routes.page } component={ Page } />
 			<Route path={ routes.post } component={ Post } />
 			<Route path="*" component={ NotFound } />

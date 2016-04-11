@@ -52,8 +52,6 @@ class Home extends Component {
 		const { info, archive } = this.props
 		const { isFetching, items } = archive
 
-		console.log( archive );
-
 		if ( isFetching ) {
 			return ( <Spinner /> )
 		} else if ( ! items.length ) {
