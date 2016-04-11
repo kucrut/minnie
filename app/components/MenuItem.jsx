@@ -16,6 +16,18 @@ class MenuItem extends Component {
 		}
 	}
 
+	renderChildren() {
+		const { children } = this.props.item
+
+		if ( children.length ) {
+			return (
+				<ul className="sub-menu">
+					{ children.map( child => <MenuItem key={ child.ID } item={ child } /> ) }
+				</ul>
+			)
+		}
+	}
+
 	render() {
 		const { item } = this.props
 		const id = `menu-item-${item.ID}`
@@ -23,6 +35,7 @@ class MenuItem extends Component {
 		return (
 			<li id={ id } className={ `menu-item ${id}` }>
 				{ this.renderLink( item ) }
+				{ this.renderChildren() }
 			</li>
 		)
 	}
