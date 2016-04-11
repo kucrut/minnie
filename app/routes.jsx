@@ -18,7 +18,6 @@ export default ( store ) => {
 		<Route path="/" component={ App }>
 			<IndexRoute component={ Home } />
 			<Route path={ routes.page } component={ Page } />
-			<Route path={ routes.subpage } component={ Page } />
 			<Route path={ routes.post } component={ Post } />
 			<Route path="*" component={ NotFound } />
 		</Route>
