@@ -23,6 +23,22 @@ class Entry extends Component {
 		return { __html: this.props.data.excerpt.rendered }
 	}
 
+	renderMeta() {
+		const { data } = this.props
+
+		if ( 'post' === data.type ) {
+			return ( <EntryMeta data={ data } /> )
+		}
+	}
+
+	renderFormat() {
+		const { data } = this.props
+
+		if ( 'post' === data.type ) {
+			return ( <EntryFormat format={ data.format } /> )
+		}
+	}
+
 	render() {
 		const { data, isSingle } = this.props
 		let content = isSingle ? this.getContent() : this.getExcerpt()
@@ -31,12 +47,12 @@ class Entry extends Component {
 			<article id={ `post-${ data.id }` } className={ this.getElClass() }>
 				<header className="entry-header">
 					<EntryTitle title={ data.title.rendered } link={ data.link } isSingle={ isSingle } />
-					<EntryMeta data={ data } />
+					{ this.renderMeta() }
 				</header>
 
 				<div className="entry-content" dangerouslySetInnerHTML={ content } />
 
-				<EntryFormat format={ data.format } />
+				{ this.renderFormat() }
 			</article>
 		)
 	}
