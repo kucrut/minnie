@@ -18,7 +18,11 @@ class EntryMeta extends Component {
 		return (
 			<span className="tags-links">
 				{ minnie_terms[ taxonomy ].map( term => {
-					return ( <Link to={ stripApiHost( term.link ) } key={ term.id } rel="tag">{ he.decode( term.name ) }</Link> )
+					return (
+						<span key={ term.id }>
+							<Link to={ stripApiHost( term.link ) } rel="tag">{ he.decode( term.name ) }</Link>
+						</span>
+					)
 				} )}
 			</span>
 		)
