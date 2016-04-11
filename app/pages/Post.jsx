@@ -4,9 +4,7 @@ import Helmet from 'react-helmet'
 import { fetchPost } from 'actions/singular'
 import NotFound from 'pages/404'
 import Spinner from 'components/Spinner'
-import EntryTitle from 'components/EntryTitle'
-import EntryMeta from 'components/EntryMeta'
-import EntryFormat from 'components/EntryFormat'
+import Entry from 'components/Entry'
 
 class Post extends Component {
 
@@ -24,20 +22,6 @@ class Post extends Component {
 
 	fetchData( slug ) {
 		this.props.dispatch( fetchPost( {slug} ) )
-	}
-
-	getContent() {
-		return { __html: this.props.data.content.rendered }
-	}
-
-	getEntryClass() {
-		const { data } = this.props
-		let cls = 'hentry'
-
-		cls += ` type-${data.type}`
-		cls += ` format-${data.format}`
-
-		return cls
 	}
 
 	/**
@@ -96,16 +80,7 @@ class Post extends Component {
 
 				<div id="primary" className="content-area">
 					<main id="main" className="site-main" role="main">
-						<article id={ `post-${ data.id }` } className={ this.getEntryClass() }>
-							<header className="entry-header">
-								<EntryTitle title={ data.title.rendered } link={ data.link } isSingle={ true } />
-								<EntryMeta data={ data } />
-							</header>
-
-							<div className="entry-content" dangerouslySetInnerHTML={ this.getContent() } />
-
-							<EntryFormat format={ data.format } />
-						</article>
+						<Entry data={ data } isSingle={ true } />
 					</main>
 				</div>
 			</div>
