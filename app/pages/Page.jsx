@@ -4,7 +4,7 @@ import Helmet from 'react-helmet'
 import { fetchPage } from 'actions/singular'
 import NotFound from 'pages/404'
 import Spinner from 'components/Spinner'
-import EntryTitle from 'components/EntryTitle'
+import Entry from 'components/Entry'
 
 class Page extends Component {
 
@@ -22,10 +22,6 @@ class Page extends Component {
 
 	fetchData( slug ) {
 		this.props.dispatch( fetchPage( {slug} ) )
-	}
-
-	getContent() {
-		return { __html: this.props.data.content.rendered }
 	}
 
 	/**
@@ -83,12 +79,7 @@ class Page extends Component {
 
 				<div id="primary" className="content-area">
 					<main id="main" className="site-main" role="main">
-						<article id={ `post-${ data.id }` } className="hentry">
-							<header className="entry-header">
-								<EntryTitle title={ data.title.rendered } isSingle={ true } />
-							</header>
-							<div className="entry-content" dangerouslySetInnerHTML={ this.getContent() } />
-						</article>
+						<Entry data={ data } isSingle={ true } />
 					</main>
 				</div>
 			</div>
