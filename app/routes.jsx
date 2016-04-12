@@ -18,6 +18,8 @@ export default ( store ) => {
 		<Route path="/" component={ App }>
 			<IndexRoute component={ Index } />
 			<Route path={ routes.pagedIndex } component={ Index } />
+			<Route path={ routes.postFormatArchive } component={ Index } />
+			<Route path={ routes.pagedPostFormatArchive } component={ Index } />
 			<Route path={ routes.page } component={ Page } />
 			<Route path={ routes.post } component={ Post } />
 			<Route path="*" component={ NotFound } />

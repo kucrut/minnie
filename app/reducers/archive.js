@@ -1,5 +1,4 @@
 import head from 'lodash/head'
-import { normalizeParams } from 'helpers.js'
 import {
 	GET_ARCHIVE_REQUEST,
 	GET_ARCHIVE_SUCCESS,
@@ -23,8 +22,7 @@ export default function archive( state = initialState, action ) {
 			})
 
 		case GET_ARCHIVE_SUCCESS:
-			const params = normalizeParams( action.req.config.params )
-			const currentPage = params.page
+			const currentPage = parseInt( action.req.config.params.page, 10 ) || 1
 
 			return Object.assign( {}, state, {
 				items: action.req.data,
