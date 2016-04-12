@@ -20,8 +20,8 @@ export default ( store ) => {
 			<Route path={ routes.pagedIndex } component={ Index } />
 			<Route path={ routes.tagArchive } component={ Index } />
 			<Route path={ routes.pagedTagArchive } component={ Index } />
-			<Route path={ routes.postFormatArchive } component={ Index } />
-			<Route path={ routes.pagedPostFormatArchive } component={ Index } />
+			<Route path={ routes.formatArchive } component={ Index } />
+			<Route path={ routes.pagedFormatArchive } component={ Index } />
 			<Route path={ routes.categoryArchive } component={ Index } />
 			<Route path={ routes.pagedCategoryArchive } component={ Index } />
 			<Route path={ routes.page } component={ Page } />
