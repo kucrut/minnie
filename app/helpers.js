@@ -2,8 +2,9 @@ import moment from 'moment'
 import { forEach, has, isEmpty, unset } from 'lodash'
 import apiConfig from 'api/config.json'
 
-const taxonomyMaps = {
-	format: 'post_format'
+const taxonomyMap = {
+	format: 'post_format',
+	category: 'category_name',
 }
 
 
@@ -14,15 +15,15 @@ export function normalizeParams( params ) {
 		page: parseInt( ( params.page || 1 ), 10 )
 	})
 
-	forEach( taxonomyMaps, ( taxonomy, restBase ) => {
-		if ( has( params, restBase ) ) {
-			let term = 'format' === restBase ? `post-format-${params[restBase]}` : params[restBase]
+	forEach( taxonomyMap, ( wpQueryArg, routeParam ) => {
+		if ( has( params, routeParam ) ) {
+			let term = 'format' === routeParam ? `post-format-${params[routeParam]}` : params[routeParam]
 
 			filters = Object.assign( {}, filters, {
-				[taxonomy]: term
+				[wpQueryArg]: term
 			})
 
-			unset( params, restBase )
+			unset( params, routeParam )
 		}
 	})
 
