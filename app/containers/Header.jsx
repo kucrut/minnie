@@ -20,7 +20,7 @@ class Header extends Component {
 	render() {
 		return (
 			<header id="masthead" className="site-header" role="banner">
-				<Branding info={ this.props.info } />
+				<Branding name={ this.props.info.name } />
 				{ this.renderSocialMenu() }
 				<Burger />
 				<Sidebar />
