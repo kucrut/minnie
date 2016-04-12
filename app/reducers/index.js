@@ -5,6 +5,7 @@ import menu from 'reducers/menu'
 import ui from 'reducers/ui'
 import singular from 'reducers/singular'
 import archive from 'reducers/archive'
+import terms from 'reducers/terms'
 
 // Combine reducers with routeReducer which keeps track of router state
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
 	ui,
 	singular,
 	archive,
+	terms,
 	routing
 });
 

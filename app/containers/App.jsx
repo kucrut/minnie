@@ -5,6 +5,7 @@ import bind from 'lodash/bind'
 import classNames from 'classnames'
 import { fetchInfo } from 'actions/info'
 import { fetchMenu } from 'actions/menu'
+import { fetchPostFormats } from 'actions/terms'
 import Header from 'containers/Header'
 import Footer from 'containers/Footer'
 
@@ -21,6 +22,7 @@ class App extends Component {
 	 */
 	static need = [
 		fetchInfo,
+		fetchPostFormats,
 		bind( fetchMenu, {location: 'social'} ),
 		bind( fetchMenu, {location: 'primary'} )
 	]
