@@ -16,7 +16,9 @@ class Entry extends Component {
 	}
 
 	getContent() {
-		if ( this.props.isSingle ) {
+		const { isSingle, data } = this.props
+
+		if ( isSingle || 'standard' !== data.format ) {
 			return { __html: this.props.data.content.rendered }
 		} else {
 			return { __html: this.props.data.excerpt.rendered }
