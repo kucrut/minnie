@@ -28,7 +28,7 @@ class EntryFormat extends Component {
 
 		return (
 			<div className="entry-format">
-				<Link to={ stripApiHost( format.link ) }>
+				<Link to={ stripApiHost( format.link ) } title={ `All ${format.name} posts` }>
 					<span className="screen-reader-text">{ format.name }</span>
 				</Link>
 			</div>
