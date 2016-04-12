@@ -1,4 +1,5 @@
 import path from 'path'
+import qs from 'qs'
 import axios from 'axios'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
@@ -13,6 +14,7 @@ import apiConfig from 'api/config.json'
 
 // configure baseURL for axios requests (for serverside API calls)
 axios.defaults.baseURL = `${apiConfig.host}:${apiConfig.port}/wp-json`;
+axios.defaults.paramsSerializer = params => qs.stringify( params, {arrayFormat: 'brackets'} )
 
 
 /**

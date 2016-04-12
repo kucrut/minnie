@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import qs from 'qs'
 import axios from 'axios'
 import bind from 'lodash/bind'
 import classNames from 'classnames'
@@ -29,7 +30,8 @@ class App extends Component {
 
 	componentDidMount() {
 		// configure baseURL for axios requests (for client-side API calls)
-		axios.defaults.baseURL = this.props.apiUrl;
+		axios.defaults.baseURL = this.props.apiUrl
+		axios.defaults.paramsSerializer = params => qs.stringify( params, {arrayFormat: 'brackets'} )
 	}
 
 	render() {
