@@ -1,4 +1,4 @@
-import head from 'lodash/head'
+import { size } from 'lodash'
 import {
 	GET_ARCHIVE_REQUEST,
 	GET_ARCHIVE_SUCCESS,
@@ -9,6 +9,7 @@ import {
 
 const initialState = {
 	items: [],
+	isHome: true,
 	currentPage: -1,
 	hasMore: false,
 	isFetching: false
@@ -22,10 +23,12 @@ export default function archive( state = initialState, action ) {
 			})
 
 		case GET_ARCHIVE_SUCCESS:
-			const currentPage = parseInt( action.req.config.params.page, 10 ) || 1
+			const { params } = action.req.config
+			const currentPage = parseInt( params.page, 10 ) || 1
 
 			return Object.assign( {}, state, {
 				items: action.req.data,
+				isHome: 2 > size( params ),
 				currentPage: currentPage,
 				hasMore: currentPage < action.req.headers['x-wp-totalpages'],
 				isFetching: false
