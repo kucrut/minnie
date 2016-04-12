@@ -3,9 +3,15 @@ import { forEach, has, isEmpty, unset } from 'lodash'
 import apiConfig from 'api/config.json'
 
 const taxonomyMap = {
-	tag: 'tag',
-	format: 'post_format',
-	category: 'category_name'
+	tag: {
+		queryVar: 'tag'
+	},
+	format: {
+		queryVar: 'post_format'
+	},
+	category: {
+		queryVar: 'category_name'
+	}
 }
 
 
@@ -16,12 +22,12 @@ export function normalizeParams( params ) {
 		page: parseInt( ( params.page || 1 ), 10 )
 	})
 
-	forEach( taxonomyMap, ( wpQueryArg, routeParam ) => {
+	forEach( taxonomyMap, ( props, routeParam ) => {
 		if ( has( params, routeParam ) ) {
-			let term = 'format' === routeParam ? `post-format-${params[routeParam]}` : params[routeParam]
+			let term = 'format' === routeParam ? `post-format-${params[routeParam]}` : params[ routeParam ]
 
 			filters = Object.assign( {}, filters, {
-				[wpQueryArg]: term
+				[ props.queryVar ]: term
 			})
 
 			unset( params, routeParam )
