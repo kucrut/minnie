@@ -9,7 +9,7 @@ import EntryEmpty from 'components/EntryEmpty'
 import Spinner from 'components/Spinner'
 
 
-class Home extends Component {
+class Index extends Component {
 	static need = [
 		fetchArchive
 	]
@@ -75,7 +75,7 @@ class Home extends Component {
 	}
 }
 
-Home.propTypes = {
+Index.propTypes = {
 	info: PropTypes.object.isRequired,
 	archive: PropTypes.object.isRequired,
 	routeParams: PropTypes.object.isRequired
@@ -89,4 +89,4 @@ function mapStateToProps( state, ownProps ) {
 	}
 }
 
-export default connect( mapStateToProps )( Home )
+export default connect( mapStateToProps )( Index )
