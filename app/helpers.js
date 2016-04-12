@@ -3,8 +3,9 @@ import { forEach, has, isEmpty, unset } from 'lodash'
 import apiConfig from 'api/config.json'
 
 const taxonomyMap = {
+	tag: 'tag',
 	format: 'post_format',
-	category: 'category_name',
+	category: 'category_name'
 }
 
 
