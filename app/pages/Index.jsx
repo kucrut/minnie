@@ -17,20 +17,17 @@ class Index extends Component {
 	/**
 	 * Before mount
 	 *
-	 * When this is invoked on the server (the initial page visited is a singular page)
-	 *     we need not do anything, because the data will be fetched automatically via
-	 *     `fetchComponentDataBeforeRender()`
-	 * However, when invoked on the client, we need to fetch the data if the one in the
-	 *     store doesn't match the requested page.
+	 * When this is invoked on the server (the initial page visited is an archive page)
+	 * we need not do anything, because the data will be fetched automatically via
+	 * `fetchComponentDataBeforeRender()`. However, when invoked on the client
+	 * (archive.currentPage = -1), we need to fetch the data first.
 	 */
 	componentWillMount() {
-		/*
-		const { isFetching, params } = this.props
+		const { isFetching, dispatch, routeParams, archive } = this.props
 
-		if ( ! isFetching ) {
-			fetchArchive( params )
+		if ( ! isFetching && -1 === archive.currentPage ) {
+			dispatch( fetchArchive( routeParams ) )
 		}
-		*/
 	}
 
 	/**

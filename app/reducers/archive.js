@@ -10,7 +10,7 @@ import {
 
 const initialState = {
 	items: [],
-	currentPage: 1,
+	currentPage: -1,
 	hasMore: false,
 	isFetching: false
 }
