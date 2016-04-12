@@ -35,7 +35,7 @@ class Entry extends Component {
 		const { data } = this.props
 
 		if ( 'post' === data.type ) {
-			return ( <EntryFormat format={ data.format } /> )
+			return ( <EntryFormat data={ data } /> )
 		}
 	}
 
