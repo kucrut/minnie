@@ -1,3 +1,15 @@
+export const taxonomyMap = {
+	tag: {
+		queryVar: 'tag'
+	},
+	format: {
+		queryVar: 'post_format'
+	},
+	category: {
+		queryVar: 'category_name'
+	}
+}
+
 export const GET_INFO = 'GET_INFO';
 export const GET_INFO_REQUEST = 'GET_INFO_REQUEST';
 export const GET_INFO_SUCCESS = 'GET_INFO_SUCCESS';

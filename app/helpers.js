@@ -1,18 +1,7 @@
 import moment from 'moment'
 import { forEach, has, isEmpty, unset } from 'lodash'
+import { taxonomyMap } from 'constants/index'
 import apiConfig from 'api/config.json'
-
-const taxonomyMap = {
-	tag: {
-		queryVar: 'tag'
-	},
-	format: {
-		queryVar: 'post_format'
-	},
-	category: {
-		queryVar: 'category_name'
-	}
-}
 
 
 export function normalizeParams( params ) {
