@@ -1,6 +1,6 @@
 {
 	"host": "localhost",
-	"port": 9090,
+	"port": 80,
 	"routes": {
 		"tagArchive"      : "/blog/tag/:tag",
 		"formatArchive"   : "/blog/type/:format",
