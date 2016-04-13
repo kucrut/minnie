@@ -61,17 +61,24 @@ class Index extends Component {
 	 */
 	renderHelMet() {
 		const { routeParams, archive, info } =  this.props
-		const { name } = info
 		const { isHome, term } = archive
 
-		let title = name
+		let title = ''
 
-		if ( routeParams.page ) {
-			title = `${ title } - Page ${ routeParams.page }`
-		}
+		if ( term ) {
+			title = term.name
 
-		if ( ! isHome && term ) {
-			title = `${ term.name } - ${ title }`
+			if ( routeParams.page ) {
+				title = `${ title } — Page ${ routeParams.page }`
+			}
+
+			title = `${ title } | ${ info.name }`
+		} else { // Home
+			title = info.name
+
+			if ( routeParams.page ) {
+				title = `${ title } — Page ${ routeParams.page }`
+			}
 		}
 
 		return (
