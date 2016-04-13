@@ -64,13 +64,21 @@ class Entry extends Content_Mixin {
 		}
 	}
 
+	renderTitle() {
+		const { data, isSingle } = this.props
+
+		if ( data.title.rendered ) {
+			return ( <EntryTitle title={ data.title.rendered } link={ data.link } isSingle={ isSingle } /> )
+		}
+	}
+
 	render() {
 		const { data, isSingle } = this.props
 
 		return (
 			<article id={ `post-${ data.id }` } className={ this.getElClass() }>
 				<header className="entry-header">
-					<EntryTitle title={ data.title.rendered } link={ data.link } isSingle={ isSingle } />
+					{ this.renderTitle() }
 					{ this.renderMeta() }
 				</header>
 
