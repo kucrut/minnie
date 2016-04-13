@@ -45,6 +45,31 @@ class Index extends Component {
 	}
 
 	/**
+	 * Document title
+	 *
+	 * TODO: Maybe fetch this from SEO plugin?
+	 */
+	renderHelMet() {
+		const { routeParams, archive, info } =  this.props
+		const { name } = info
+		const { isHome, term } = archive
+
+		let title = name
+
+		if ( routeParams.page ) {
+			title = `${ title } - Page ${ routeParams.page }`
+		}
+
+		if ( ! isHome && term ) {
+			title = `${ term.name } - ${ title }`
+		}
+
+		return (
+			<Helmet title={ title } />
+		)
+	}
+
+	/**
 	 * Archive Title
 	 *
 	 * Unless we're displaying the homepage, we need to display the archive title,
@@ -81,7 +106,7 @@ class Index extends Component {
 
 		return (
 			<div id="primary" className="content-area">
-				<Helmet title={ `${ info.name }` } />
+				{ this.renderHelMet() }
 
 				<main id="main" className="site-main" role="main">
 					{ this.renderArchiveTitle() }
