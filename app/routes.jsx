@@ -17,13 +17,16 @@ export default ( store ) => {
 	return (
 		<Route path="/" component={ App }>
 			<IndexRoute component={ Index } />
-			<Route path={ routes.pagedIndex } component={ Index } />
-			<Route path={ routes.tagArchive } component={ Index } />
-			<Route path={ routes.pagedTagArchive } component={ Index } />
-			<Route path={ routes.formatArchive } component={ Index } />
-			<Route path={ routes.pagedFormatArchive } component={ Index } />
-			<Route path={ routes.categoryArchive } component={ Index } />
-			<Route path={ routes.pagedCategoryArchive } component={ Index } />
+			<Route path="page/:page" component={ Index } />
+			<Route path={ routes.tagArchive } component={ Index }>
+				<Route path="page/:page" component={ Index } />
+			</Route>
+			<Route path={ routes.formatArchive } component={ Index }>
+				<Route path="page/:page" component={ Index } />
+			</Route>
+			<Route path={ routes.categoryArchive } component={ Index }>
+				<Route path="page/:page" component={ Index } />
+			</Route>
 			<Route path={ routes.page } component={ Page } />
 			<Route path={ routes.post } component={ Post } />
 			<Route path="*" component={ NotFound } />
