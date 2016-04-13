@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { polyfill } from 'es6-promise'
-import { GET_ARCHIVE, GET_ARCHIVE_TERM } from 'constants/index'
+import { GET_ARCHIVE, GET_ARCHIVE_TERM, GET_ARCHIVE_TERM_FAILURE } from 'constants/index'
 import { makeTermsRequest } from 'actions/terms'
 import { normalizeParams, getArchiveTaxonomyTerm } from 'helpers.js'
 
@@ -16,20 +16,31 @@ function makeArchiveRequest( params ) {
 }
 
 export function fetchArchive( params = {} ) {
-	const termParams    = getArchiveTaxonomyTerm( params )
-	const archiveParams = normalizeParams( params )
+	return {
+		type: GET_ARCHIVE,
+		promise: makeArchiveRequest( normalizeParams( params ) )
+	}
+}
 
-	return ( dispatch, getState ) => {
-		dispatch({
-			type: GET_ARCHIVE,
-			promise: makeArchiveRequest( archiveParams )
-		})
+/**
+ * Fetch archive page's term object
+ *
+ * This the equivalent of `get_queried_object()` in WordPress.
+ *
+ * @param  {Object} params [description]
+ * @return {Object}
+ */
+export function fetchArchiveTerm( params = {} ) {
+	params = getArchiveTaxonomyTerm( params )
 
-		if ( null !== termParams ) {
-			dispatch({
-				type: GET_ARCHIVE_TERM,
-				promise: makeTermsRequest( termParams.endpoint, { slug: termParams.slug } )
-			})
+	if ( null !== params ) {
+		return {
+			type: GET_ARCHIVE_TERM,
+			promise: makeTermsRequest( params.endpoint, { slug: params.slug } )
+		}
+	} else {
+		return {
+			type: GET_ARCHIVE_TERM_FAILURE
 		}
 	}
 }

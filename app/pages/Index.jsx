@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import { isEqual, forEach } from 'lodash'
 import { getAdjacentLink } from 'helpers.js'
-import { fetchArchive } from 'actions/archive'
+import { fetchArchive, fetchArchiveTerm } from 'actions/archive'
 import ArchiveNavigation from 'components/ArchiveNavigation'
 import Entry from 'components/Entry'
 import EntryEmpty from 'components/EntryEmpty'
@@ -12,8 +12,16 @@ import Spinner from 'components/Spinner'
 
 class Index extends Component {
 	static need = [
-		fetchArchive
+		fetchArchive,
+		fetchArchiveTerm
 	]
+
+	fetchData( params ) {
+		const { dispatch } = this.props
+
+		dispatch( fetchArchive( params ) )
+		dispatch( fetchArchiveTerm( params ) )
+	}
 
 	/**
 	 * Before mount
@@ -27,7 +35,7 @@ class Index extends Component {
 		const { isFetching, dispatch, routeParams, archive } = this.props
 
 		if ( ! isFetching && -1 === archive.currentPage ) {
-			dispatch( fetchArchive( routeParams ) )
+			this.fetchData( routeParams )
 		}
 	}
 
@@ -42,7 +50,7 @@ class Index extends Component {
 		const { isFetching, dispatch, routeParams } = nextProps
 
 		if ( ! isFetching && ! isEqual( routeParams, this.props.routeParams ) ) {
-			dispatch( fetchArchive( routeParams ) )
+			this.fetchData( routeParams )
 		}
 	}
 
