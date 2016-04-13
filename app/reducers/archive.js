@@ -1,8 +1,11 @@
-import { size } from 'lodash'
+import { head, size } from 'lodash'
 import {
 	GET_ARCHIVE_REQUEST,
 	GET_ARCHIVE_SUCCESS,
-	GET_ARCHIVE_FAILURE
+	GET_ARCHIVE_FAILURE,
+	GET_ARCHIVE_TERM_REQUEST,
+	GET_ARCHIVE_TERM_SUCCESS,
+	GET_ARCHIVE_TERM_FAILURE
 } from 'constants/index'
 
 
@@ -10,6 +13,7 @@ import {
 const initialState = {
 	items: [],
 	isHome: true,
+	term: null,
 	currentPage: -1,
 	hasMore: false,
 	isFetching: false
@@ -27,15 +31,25 @@ export default function archive( state = initialState, action ) {
 			const currentPage = parseInt( params.page, 10 ) || 1
 
 			return Object.assign( {}, state, {
-				items: action.req.data,
-				isHome: 2 > size( params ),
-				currentPage: currentPage,
-				hasMore: currentPage < action.req.headers['x-wp-totalpages'],
-				isFetching: false
+				items       : action.req.data,
+				isHome      : 2 > size( params ),
+				currentPage : currentPage,
+				hasMore     : currentPage < action.req.headers['x-wp-totalpages'],
+				isFetching  : false
 			})
 
 		case GET_ARCHIVE_FAILURE:
-			return Object.assign( {}, state,  initialState )
+			return Object.assign( {}, state, initialState )
+
+		case GET_ARCHIVE_TERM_SUCCESS:
+			return Object.assign( {}, state, {
+				term: head( action.req.data )
+			})
+
+		case GET_ARCHIVE_TERM_FAILURE:
+			return Object.assign( {}, state, {
+				term: null
+			})
 
 		default:
 			return state

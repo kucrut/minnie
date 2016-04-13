@@ -1,11 +1,14 @@
 export const taxonomyMap = {
 	tag: {
+		endpoint: 'tags',
 		queryVar: 'tag'
 	},
 	format: {
+		endpoint: 'formats',
 		queryVar: 'post_format'
 	},
 	category: {
+		endpoint: 'categories',
 		queryVar: 'category_name'
 	}
 }
@@ -22,6 +25,10 @@ export const GET_ARCHIVE = 'GET_ARCHIVE';
 export const GET_ARCHIVE_REQUEST = 'GET_ARCHIVE_REQUEST';
 export const GET_ARCHIVE_SUCCESS = 'GET_ARCHIVE_SUCCESS';
 export const GET_ARCHIVE_FAILURE = 'GET_ARCHIVE_FAILURE';
+export const GET_ARCHIVE_TERM = 'GET_ARCHIVE_TERM';
+export const GET_ARCHIVE_TERM_REQUEST = 'GET_ARCHIVE_TERM_REQUEST';
+export const GET_ARCHIVE_TERM_SUCCESS = 'GET_ARCHIVE_TERM_SUCCESS';
+export const GET_ARCHIVE_TERM_FAILURE = 'GET_ARCHIVE_TERM_FAILURE';
 export const GET_MENU = 'GET_MENU';
 export const GET_MENU_REQUEST = 'GET_MENU_REQUEST';
 export const GET_MENU_SUCCESS = 'GET_MENU_SUCCESS';

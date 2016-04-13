@@ -5,7 +5,7 @@ import { GET_TERMS } from 'constants/index'
 
 polyfill();
 
-function makeTermsRequest( taxonomy, params ) {
+export function makeTermsRequest( taxonomy, params ) {
 	return axios({
 		method: 'get',
 		url: `/wp/v2/${taxonomy}`,

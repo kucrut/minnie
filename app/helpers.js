@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { forEach, has, isEmpty, unset } from 'lodash'
+import { forEach, has, isEmpty, size, unset } from 'lodash'
 import { taxonomyMap } from 'constants/index'
 import apiConfig from 'api/config.json'
 
@@ -38,4 +38,31 @@ export function stripApiHost( url ) {
 
 export function getTheDate( date ) {
 	return moment( date  ).format( 'D MMMM YYYY' )
+}
+
+export function getArchiveTaxonomyTerm( params ) {
+	let result = null
+
+	if ( 1 > size( params ) ) {
+		return result
+	}
+
+	forEach( taxonomyMap, ( props, routeParam ) => {
+		if ( has( params, routeParam ) ) {
+			let slug = params[ routeParam ]
+
+			if ( 'format' === routeParam ) {
+				slug = `post-format-${ slug }`
+			}
+
+			result = {
+				endpoint: props.endpoint,
+				slug: slug
+			}
+
+			return false
+		}
+	})
+
+	return result
 }
