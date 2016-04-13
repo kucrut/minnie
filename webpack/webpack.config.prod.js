@@ -86,7 +86,7 @@ module.exports = [
      * ]
      */
     // A SourceMap is emitted.
-    devtool: "source-map",
+    devtool: "hidden-source-map",
     context: path.join(__dirname, "..", "app"),
     entry: {
       app: "./client"
@@ -128,6 +128,7 @@ module.exports = [
           __DEVCLIENT__: false,
           __DEVSERVER__: false
         }),
+        new InlineEnviromentVariablesPlugin({ NODE_ENV: 'production' }),
         new CopyWebpackPlugin([
           { from: 'css/style.css' },
           { from: 'css/genericons', to: 'genericons' }
@@ -175,12 +176,7 @@ module.exports = [
           __DEVCLIENT__: false,
           __DEVSERVER__: false
         }),
-        new webpack.DefinePlugin({
-          'process.env': {
-            // This has effect on the react lib size
-            'NODE_ENV': JSON.stringify( 'production' )
-          }
-        })
+        new InlineEnviromentVariablesPlugin({ NODE_ENV: 'production' })
     ] /*,
     postcss: postCSSConfig */
   }
