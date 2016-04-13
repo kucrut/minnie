@@ -13,11 +13,10 @@ const initialState = {
 	isFetching: false
 }
 
-export default function content( state = initialState, action ) {
+export default function singular( state = initialState, action ) {
 	switch ( action.type ) {
 		case GET_SINGULAR_REQUEST:
 			return Object.assign( {}, state, {
-				data: {}, // Should we keep the old data?
 				isFetching: true
 			});
 

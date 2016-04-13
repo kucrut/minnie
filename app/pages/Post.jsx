@@ -20,10 +20,6 @@ class Post extends Component {
 		fetchPost
 	]
 
-	fetchData( slug ) {
-		this.props.dispatch( fetchPost( {slug} ) )
-	}
-
 	/**
 	 * Before mount
 	 *
@@ -34,10 +30,10 @@ class Post extends Component {
 	 *     store doesn't match the requested page.
 	 */
 	componentWillMount() {
-		const { slug, data, isFetching } = this.props
+		const { slug, data, isFetching, dispatch } = this.props
 
 		if ( ! isFetching && slug !== data.slug ) {
-			this.fetchData( slug )
+			dispatch( fetchPost({ slug }) )
 		}
 	}
 
@@ -50,10 +46,10 @@ class Post extends Component {
 	 * @param  {object} nextProps Next properties.
 	 */
 	componentWillReceiveProps( nextProps ) {
-		const { slug, isFetching } = nextProps
+		const { slug, isFetching, dispatch } = nextProps
 
 		if ( ! isFetching && slug !== this.props.slug ) {
-			this.fetchData( slug )
+			dispatch( fetchPost({ slug }) )
 		}
 	}
 
