@@ -1,10 +1,18 @@
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import Content_Mixin from 'mixins/Content'
 import EntryTitle from 'components/EntryTitle'
 import EntryMeta from 'components/EntryMeta'
 import EntryFormat from 'components/EntryFormat'
+import MediaContent from 'components/MediaContent'
 
 
-class Entry extends Component {
+class Entry extends Content_Mixin {
+	constructor( props ) {
+		super( props )
+		this.onClick = this.onClick.bind( this )
+	}
+
 	getElClass() {
 		const { data } = this.props
 		let cls = 'hentry'
@@ -19,16 +27,16 @@ class Entry extends Component {
 		const { isSingle, data } = this.props
 
 		if ( isSingle || 'standard' !== data.format ) {
-			return { __html: this.props.data.content.rendered }
+			return { __html: data.content.rendered }
 		} else {
-			return { __html: this.props.data.excerpt.rendered }
+			return { __html: data.excerpt.rendered }
 		}
 	}
 
 	renderMeta() {
 		const { data } = this.props
 
-		if ( 'post' === data.type ) {
+		if ( 'post' === data.type || 'attachment' === data.type ) {
 			return ( <EntryMeta data={ data } /> )
 		}
 	}
@@ -38,6 +46,21 @@ class Entry extends Component {
 
 		if ( 'post' === data.type ) {
 			return ( <EntryFormat data={ data } /> )
+		}
+	}
+
+	renderContent() {
+		const { isSingle, data } = this.props
+
+		if ( 'attachment' === data.type ) {
+			return ( <MediaContent data={ data } /> )
+		} else {
+			return (
+				<div
+					className="entry-content"
+					dangerouslySetInnerHTML={ this.getContent() }
+					onClick={ this.onClick } />
+			)
 		}
 	}
 
@@ -51,8 +74,7 @@ class Entry extends Component {
 					{ this.renderMeta() }
 				</header>
 
-				<div className="entry-content" dangerouslySetInnerHTML={ this.getContent() } />
-
+				{ this.renderContent() }
 				{ this.renderFormat() }
 			</article>
 		)
@@ -64,4 +86,4 @@ Entry.propTypes = {
 	data: PropTypes.object.isRequired
 }
 
-export default Entry
+export default connect()(Entry)

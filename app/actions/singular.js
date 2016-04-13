@@ -26,3 +26,10 @@ export function fetchPost( params ) {
 		promise: makeSingularRequest( params.slug, 'posts' )
 	}
 }
+
+export function fetchMedia( params ) {
+	return {
+		type: types.GET_SINGULAR,
+		promise: makeSingularRequest( params.slug, 'media' )
+	}
+}

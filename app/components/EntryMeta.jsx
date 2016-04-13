@@ -28,6 +28,9 @@ class EntryMeta extends Component {
 		)
 	}
 
+	/**
+	 * TODO: Display media meta?
+	 */
 	render() {
 		const { data } = this.props
 

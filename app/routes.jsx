@@ -5,6 +5,7 @@ import App from 'containers/App'
 import Index from 'pages/Index'
 import Page from 'pages/Page'
 import Post from 'pages/Post'
+import Media from 'pages/Media'
 import NotFound from 'pages/404'
 
 
@@ -29,6 +30,7 @@ export default ( store ) => {
 			</Route>
 			<Route path={ routes.page } component={ Page } />
 			<Route path={ routes.post } component={ Post } />
+			<Route path={ routes.media } component={ Media } />
 			<Route path="*" component={ NotFound } />
 		</Route>
 	)

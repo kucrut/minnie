@@ -6,6 +6,7 @@
 		"formatArchive"   : "/blog/type/:format",
 		"categoryArchive" : "/blog/category/:category",
 		"page"            : "/:slug",
-		"post"            : "/blog/:slug"
+		"post"            : "/blog/:slug",
+		"media"           : "/blog/:parentslug/:slug"
 	}
 }

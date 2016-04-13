@@ -32,6 +32,10 @@ export function normalizeParams( params ) {
 	return params
 }
 
+export function isInternalLink( url ) {
+	return url.match( apiConfig.host )
+}
+
 export function stripApiHost( url ) {
 	return url.replace( apiConfig.host, '' )
 }
