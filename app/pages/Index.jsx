@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
-import { isEqual } from 'lodash'
+import { isEqual, forEach } from 'lodash'
+import { getAdjacentLink } from 'helpers.js'
 import { fetchArchive } from 'actions/archive'
+import ArchiveNavigation from 'components/ArchiveNavigation'
 import Entry from 'components/Entry'
 import EntryEmpty from 'components/EntryEmpty'
 import Spinner from 'components/Spinner'
@@ -89,9 +91,27 @@ class Index extends Component {
 		)
 	}
 
+	renderNavigation() {
+		const { archive, route, routeParams } = this.props
+		const { currentPage, hasMore } = archive
+		const args = {
+			hasMore,
+			currentPage,
+			route,
+			routeParams
+		}
+
+		let prevLink = getAdjacentLink( false, args )
+		let nextLink = getAdjacentLink( true, args )
+
+		if ( prevLink || nextLink ) {
+			return ( <ArchiveNavigation prevLink={ prevLink } nextLink={ nextLink } /> )
+		}
+	}
+
 	render() {
-		const { info, archive } = this.props
-		const { isFetching, items } = archive
+		const { archive, route, routeParams } = this.props
+		const { isFetching, items, hasMore, currentPage } = archive
 
 		if ( isFetching ) {
 			return ( <Spinner /> )
@@ -111,6 +131,7 @@ class Index extends Component {
 				<main id="main" className="site-main" role="main">
 					{ this.renderArchiveTitle() }
 					{ items.map( item => <Entry key={ item.id } data={ item } isSingle={ false } /> ) }
+					{ this.renderNavigation() }
 				</main>
 			</div>
 		)
@@ -120,6 +141,7 @@ class Index extends Component {
 Index.propTypes = {
 	info: PropTypes.object.isRequired,
 	archive: PropTypes.object.isRequired,
+	route: PropTypes.object.isRequired,
 	routeParams: PropTypes.object.isRequired
 }
 
@@ -127,6 +149,7 @@ function mapStateToProps( state, ownProps ) {
 	return {
 		info: state.info,
 		archive: state.archive,
+		route: ownProps.route,
 		routeParams: ownProps.params
 	}
 }
