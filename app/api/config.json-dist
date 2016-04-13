@@ -2,14 +2,10 @@
 	"host": "localhost",
 	"port": 9090,
 	"routes": {
-		"pagedIndex"           : "/page/:page",
-		"formatArchive"        : "/blog/type/:format",
-		"pagedFormatArchive"   : "/blog/type/:format/page/:page",
-		"categoryArchive"      : "/blog/category/:category",
-		"pagedCategoryArchive" : "/blog/category/:category/page/:page",
-		"tagArchive"           : "/blog/tag/:tag",
-		"pagedTagArchive"      : "/blog/tag/:tag/page/:page",
-		"page"                 : "/:slug",
-		"post"                 : "/blog/:slug"
+		"tagArchive"      : "/blog/tag/:tag",
+		"formatArchive"   : "/blog/type/:format",
+		"categoryArchive" : "/blog/category/:category",
+		"page"            : "/:slug",
+		"post"            : "/blog/:slug"
 	}
 }
