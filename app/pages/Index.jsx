@@ -44,6 +44,26 @@ class Index extends Component {
 		}
 	}
 
+	/**
+	 * Archive Title
+	 *
+	 * Unless we're displaying the homepage, we need to display the archive title,
+	 * which is the term title ( `get_queried_object()` in WordPress ).
+	 */
+	renderArchiveTitle() {
+		const { isHome, term } = this.props.archive
+
+		if ( isHome || ! term ) {
+			return
+		}
+
+		return (
+			<header className="page-header">
+				<h1 className="page-title">{ term.name }</h1>
+			</header>
+		)
+	}
+
 	render() {
 		const { info, archive } = this.props
 		const { isFetching, items } = archive
@@ -64,6 +84,7 @@ class Index extends Component {
 				<Helmet title={ `${ info.name }` } />
 
 				<main id="main" className="site-main" role="main">
+					{ this.renderArchiveTitle() }
 					{ items.map( item => <Entry key={ item.id } data={ item } isSingle={ false } /> ) }
 				</main>
 			</div>
