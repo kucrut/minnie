@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import he from 'he'
-import { getTheDate, stripApiHost } from 'helpers.js'
+import { getTheDate } from 'helpers.js'
 
 
 /**
@@ -37,7 +37,7 @@ class EntryMeta extends Component {
 		return (
 			<div className="entry-meta">
 				<span className="posted-on">
-					<Link to={ stripApiHost( data.link ) } rel="bookmark">
+					<Link to={ data.link } rel="bookmark">
 						<time className="entry-date published" dateTime={ data.date }>{ getTheDate( data.date ) }</time>
 						<time className="updated" dateTime={ data.modified }>{ getTheDate( data.modified ) }</time>
 					</Link>
