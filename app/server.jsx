@@ -35,8 +35,7 @@ function renderFullPage( html, initialState ) {
   <head>
     <meta charset=utf-8 />
     ${ head.title.toString() }
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C600italic%2C300%2C400%2C600&subset=latin%2Clatin-ext" />
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans%3A300%2C400%2C700%2C700italic%2C400italic%2C300italic%7COpen+Sans+Condensed%3A700%2C700italic&subset=latin%2Clatin-ext" />
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic|Open+Sans:400,400italic,600,600italic,700,700italic&subset=latin,greek,cyrillic,vietnamese,cyrillic-ext,latin-ext'>
     <link rel="stylesheet" href="/assets/genericons/genericons/genericons.css" />
     <link rel="stylesheet" href="/assets/style.css" />
   </head>
