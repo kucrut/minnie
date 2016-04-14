@@ -63,6 +63,7 @@ class Page extends Component {
 	 */
 	render() {
 		const { info, data, isFetching } = this.props
+		let title = data.title.rendered ? data.title.rendered : data.title.from_content
 
 		if ( isFetching ) {
 			return ( <Spinner /> )
@@ -73,7 +74,7 @@ class Page extends Component {
 		return (
 			<div className="content">
 				<Helmet
-					title={ data.title.rendered }
+					title={ title }
 					titleTemplate={ `%s | ${ info.name }` }
 				/>
 

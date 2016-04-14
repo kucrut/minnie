@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
-import { truncate } from 'lodash'
 import { fetchPost } from 'actions/singular'
 import NotFound from 'pages/404'
 import Spinner from 'components/Spinner'
@@ -61,17 +60,13 @@ class Post extends Component {
 	 */
 	render() {
 		const { info, data, isFetching } = this.props
-		let title
+		let title = data.title.rendered ? data.title.rendered : data.title.from_content
 
 		if ( isFetching ) {
 			return ( <Spinner /> )
 		} else if ( ! data.id ) {
 			return ( <NotFound /> )
 		}
-
-		title = data.title.rendered ?
-			data.title.rendered :
-			truncate( data.content.rendered.replace( /(<([^>]+)>)/ig, '' ), 44 )
 
 		return (
 			<div className="content">
