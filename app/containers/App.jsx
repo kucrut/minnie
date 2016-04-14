@@ -32,6 +32,8 @@ class App extends Component {
 		// configure baseURL for axios requests (for client-side API calls)
 		axios.defaults.baseURL = this.props.apiUrl
 		axios.defaults.paramsSerializer = params => qs.stringify( params, {arrayFormat: 'brackets'} )
+		axios.defaults.headers = {'X-Requested-With': 'minnie'}
+
 	}
 
 	render() {

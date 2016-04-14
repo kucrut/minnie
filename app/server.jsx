@@ -15,6 +15,7 @@ import apiConfig from 'api/config.json'
 // configure baseURL for axios requests (for serverside API calls)
 axios.defaults.baseURL = `${apiConfig.host}:${apiConfig.port}/wp-json`;
 axios.defaults.paramsSerializer = params => qs.stringify( params, {arrayFormat: 'brackets'} )
+axios.defaults.headers = {'X-Requested-With': 'minnie'}
 
 
 /**
