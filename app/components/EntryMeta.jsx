@@ -9,18 +9,18 @@ import { getTheDate, stripApiHost } from 'helpers.js'
  */
 class EntryMeta extends Component {
 	renderTerms( taxonomy ) {
-		const { minnie_terms } = this.props.data
+		const terms = this.props.data[ taxonomy ]
 
-		if ( ! minnie_terms || ! minnie_terms[ taxonomy ].length ) {
+		if ( ! terms || ! terms.length ) {
 			return
 		}
 
 		return (
 			<span className="tags-links">
-				{ minnie_terms[ taxonomy ].map( term => {
+				{ terms.map( term => {
 					return (
 						<span key={ term.id }>
-							<Link to={ stripApiHost( term.link ) } rel="tag">{ he.decode( term.name ) }</Link>
+							<Link to={ term.link } rel="tag">{ he.decode( term.name ) }</Link>
 						</span>
 					)
 				} )}
