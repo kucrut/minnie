@@ -1140,15 +1140,16 @@ p.comment-awaiting-moderation{
 .site-footer {
 	color: #999;
 	font-family: "Open Sans Condensed", Helvetica, sans-serif;
-	font-size: 12px;
-	font-size: 1.2rem;
-	font-weight: bold;
+	font-size: 14px;
+	font-size: 1.4rem;
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 90%;
 	padding: 36px 0;
 	text-align: center;
-	text-transform: uppercase;
+}
+.site-footer p {
+	margin-bottom: 0;
 }
 .site-footer a,
 .site-footer a:visited {
