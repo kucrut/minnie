@@ -46,7 +46,6 @@
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.4",
     "lodash": "^4.8.2",
-    "moment": "^2.12.0",
     "postcss-import": "^8.1.0",
     "postcss-loader": "^0.8.2",
     "postcss-mixins": "^4.0.1",

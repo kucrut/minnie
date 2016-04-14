@@ -1,4 +1,3 @@
-import moment from 'moment'
 import { forEach, has, isEmpty, size, unset, trim } from 'lodash'
 import { taxonomyMap } from 'constants/index'
 import apiConfig from 'api/config.json'
@@ -38,10 +37,6 @@ export function isInternalLink( url ) {
 
 export function stripApiHost( url ) {
 	return url.replace( apiConfig.host, '' )
-}
-
-export function getTheDate( date ) {
-	return moment( date  ).format( 'D MMMM YYYY' )
 }
 
 export function getArchiveTaxonomyTerm( params ) {
