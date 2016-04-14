@@ -10,7 +10,52 @@ import MediaContent from 'components/MediaContent'
 class Entry extends Content_Mixin {
 	constructor( props ) {
 		super( props )
-		this.onClick = this.onClick.bind( this )
+
+		// We can't store this in the state.
+		this.scriptEls = []
+	}
+
+	injectScripts() {
+		const { scripts } = this.props.data.content
+		let scriptEls = []
+
+		if ( ! scripts ) {
+			return
+		}
+
+		scripts.forEach( src => {
+			let el = document.createElement( 'script' )
+
+			el.src = src
+			el.async = true
+
+			document.body.appendChild( el )
+			scriptEls.push( el )
+		})
+
+		this.scriptEls = scriptEls
+	}
+
+	removeScripts() {
+		this.scriptEls.forEach( el => {
+			el.remove()
+		})
+	}
+
+	componentWillUpdate() {
+		this.removeScripts()
+	}
+
+	componentWillUnmount() {
+		this.removeScripts()
+	}
+
+	componentDidMount() {
+		this.injectScripts()
+	}
+
+	componentDidUpdate() {
+		this.injectScripts()
 	}
 
 	getElClass() {
@@ -25,12 +70,15 @@ class Entry extends Content_Mixin {
 
 	getContent() {
 		const { isSingle, data } = this.props
+		let content
 
 		if ( isSingle || 'standard' !== data.format ) {
-			return { __html: data.content.rendered }
+			content = data.content.rendered
 		} else {
-			return { __html: data.excerpt.rendered }
+			content = data.excerpt.rendered
 		}
+
+		return { __html: content }
 	}
 
 	renderMeta() {
