@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
-import he from 'he'
 
 
 /**
@@ -19,7 +18,7 @@ class EntryMeta extends Component {
 				{ terms.map( term => {
 					return (
 						<span key={ term.id }>
-							<Link to={ term.link } rel="tag">{ he.decode( term.name ) }</Link>
+							<Link to={ term.link } rel="tag" dangerouslySetInnerHTML={{ __html: term.name }} />
 						</span>
 					)
 				} )}
