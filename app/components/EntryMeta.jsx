@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import he from 'he'
-import { getTheDate } from 'helpers.js'
 
 
 /**
@@ -38,8 +37,8 @@ class EntryMeta extends Component {
 			<div className="entry-meta">
 				<span className="posted-on">
 					<Link to={ data.link } rel="bookmark">
-						<time className="entry-date published" dateTime={ data.date }>{ getTheDate( data.date ) }</time>
-						<time className="updated" dateTime={ data.modified }>{ getTheDate( data.modified ) }</time>
+						<time className="entry-date published" dateTime={ data.date }>{ data.date_formatted }</time>
+						<time className="updated" dateTime={ data.modified }>{ data.modified_formatted }</time>
 					</Link>
 				</span>
 				{ this.renderTerms( 'categories' ) }
