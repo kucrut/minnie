@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import { stripApiHost } from 'helpers.js'
 
 
 const EntryTitle = props => {
@@ -13,7 +12,7 @@ const EntryTitle = props => {
 	} else {
 		return (
 			<h1 className="entry-title">
-				<Link to={ stripApiHost( props.link ) } dangerouslySetInnerHTML={ title } />
+				<Link to={ props.link } dangerouslySetInnerHTML={ title } />
 			</h1>
 		)
 	}
