@@ -2,6 +2,7 @@ import { forEach, has, isEmpty, size, unset, trim } from 'lodash'
 import { taxonomyMap } from 'constants/index'
 import apiConfig from 'api/config.json'
 
+const internalLinkRegEx = new RegExp( apiConfig.host )
 
 export function normalizeParams( params ) {
 	let filters = {}
@@ -32,7 +33,13 @@ export function normalizeParams( params ) {
 }
 
 export function isInternalLink( url ) {
-	return url.match( apiConfig.host )
+	const firstSlashPosition = url.indexOf( '/' )
+
+	if ( 0 === firstSlashPosition ) {
+		return true;
+	}
+
+	return internalLinkRegEx.test( url )
 }
 
 export function stripApiHost( url ) {

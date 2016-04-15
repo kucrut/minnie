@@ -11,6 +11,8 @@ class Entry extends Content_Mixin {
 	constructor( props ) {
 		super( props )
 
+		this.onClick = this.onClick.bind( this )
+
 		// We can't store this in the state.
 		this.scriptEls = []
 	}
