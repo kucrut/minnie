@@ -101,7 +101,7 @@ class Index extends Component {
 
 		return (
 			<header className="page-header">
-				<h1 className="page-title">{ term.name }</h1>
+				<h1 className="page-title" dangerouslySetInnerHTML={{ __html: term.name }} />
 			</header>
 		)
 	}
