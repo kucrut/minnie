@@ -1,9 +1,9 @@
 import { polyfill } from 'es6-promise'
 import request from 'axios'
-import * as types from 'constants/index'
+import { GET_SINGULAR } from 'constants/index'
 import axios from 'axios'
 
-polyfill();
+polyfill()
 
 function makeSingularRequest( slug, type='pages' ) {
 	return request({
@@ -15,21 +15,21 @@ function makeSingularRequest( slug, type='pages' ) {
 
 export function fetchPage( params ) {
 	return {
-		type: types.GET_SINGULAR,
+		type: GET_SINGULAR,
 		promise: makeSingularRequest( params.slug, 'pages' )
 	}
 }
 
 export function fetchPost( params ) {
 	return {
-		type: types.GET_SINGULAR,
+		type: GET_SINGULAR,
 		promise: makeSingularRequest( params.slug, 'posts' )
 	}
 }
 
 export function fetchMedia( params ) {
 	return {
-		type: types.GET_SINGULAR,
+		type: GET_SINGULAR,
 		promise: makeSingularRequest( params.slug, 'media' )
 	}
 }
