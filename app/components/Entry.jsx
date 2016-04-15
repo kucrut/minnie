@@ -17,6 +17,10 @@ class Entry extends Component {
 	}
 
 	injectScripts() {
+		if ( 'attachment' === this.props.data.type ) {
+			return
+		}
+
 		const { scripts } = this.props.data.content
 		let scriptEls = []
 
