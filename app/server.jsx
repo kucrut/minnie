@@ -28,6 +28,7 @@ function renderFullPage( html, initialState ) {
 <html>
   <head>
     <meta charset=utf-8 />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     ${ head.title.toString() }
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic|Open+Sans:400,400italic,600,600italic,700,700italic&subset=latin,greek,cyrillic,vietnamese,cyrillic-ext,latin-ext'>
     <link rel="stylesheet" href="/assets/genericons/genericons/genericons.css" />
