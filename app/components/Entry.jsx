@@ -4,14 +4,13 @@ import Content_Mixin from 'mixins/Content'
 import EntryTitle from 'components/EntryTitle'
 import EntryMeta from 'components/EntryMeta'
 import EntryFormat from 'components/EntryFormat'
-import MediaContent from 'components/MediaContent'
+import EntryContent from 'components/EntryContent'
+import EntryContentMedia from 'components/EntryContentMedia'
 
 
-class Entry extends Content_Mixin {
+class Entry extends Component {
 	constructor( props ) {
 		super( props )
-
-		this.onClick = this.onClick.bind( this )
 
 		// We can't store this in the state.
 		this.scriptEls = []
@@ -80,7 +79,7 @@ class Entry extends Content_Mixin {
 			content = data.excerpt.rendered
 		}
 
-		return { __html: content }
+		return content
 	}
 
 	renderMeta() {
@@ -103,14 +102,9 @@ class Entry extends Content_Mixin {
 		const { isSingle, data } = this.props
 
 		if ( 'attachment' === data.type ) {
-			return ( <MediaContent data={ data } /> )
+			return ( <EntryContentMedia data={ data } /> )
 		} else {
-			return (
-				<div
-					className="entry-content"
-					dangerouslySetInnerHTML={ this.getContent() }
-					onClick={ this.onClick } />
-			)
+			return ( <EntryContent content={ this.getContent() } /> )
 		}
 	}
 

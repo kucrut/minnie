@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import { forEach } from 'lodash'
-import Content_Mixin from 'mixins/Content'
+import EntryContent from 'components/EntryContent'
 
 
 /**
  * TODO: Support more media types.
  */
-export default class MediaContent extends Content_Mixin {
+export default class MediaContent extends EntryContent {
 	static propTypes = {
 		data: PropTypes.object.isRequired
 	}
@@ -29,9 +29,9 @@ export default class MediaContent extends Content_Mixin {
 		const { caption, description } = this.props.data
 
 		if ( description ) {
-			return { __html: description }
+			return description
 		} else {
-			return { __html: `<p>${ caption }</p>` }
+			return `<p>${ caption }</p>`
 		}
 	}
 
@@ -52,9 +52,7 @@ export default class MediaContent extends Content_Mixin {
 		return (
 			<div className="entry-content">
 				{ this.renderMedia() }
-				<div className="description"
-					dangerouslySetInnerHTML={ this.getContent() }
-					onClick={ this.onClick } />
+				<EntryContent content={ this.getContent() } wrapClass="description" />
 			</div>
 		)
 	}
