@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import Content_Mixin from 'mixins/Content'
 import EntryTitle from 'components/EntryTitle'
 import EntryMeta from 'components/EntryMeta'
 import EntryFormat from 'components/EntryFormat'
