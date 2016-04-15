@@ -30,7 +30,7 @@ class EntryContent extends Component {
 		let divClass = wrapClass || 'entry-content'
 
 		return (
-			<div className={ wrapClass } dangerouslySetInnerHTML={{ __html: content }} onClick={ this.onClick } />
+			<div className={ divClass } dangerouslySetInnerHTML={{ __html: content }} onClick={ this.onClick } />
 		)
 	}
 }
