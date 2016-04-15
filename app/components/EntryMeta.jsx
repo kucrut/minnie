@@ -12,11 +12,11 @@ export default class EntryMeta extends Component {
 	}
 
 	renderDate() {
-		const { date, date_formatted, modified, modified_formatted } = this.props
+		const { link, date, date_formatted, modified, modified_formatted } = this.props.data
 
 		return (
 			<span className="posted-on">
-				<Link to={ data.link } rel="bookmark">
+				<Link to={ link } rel="bookmark">
 					<time className="entry-date published" dateTime={ date }>{ date_formatted }</time>
 					<time className="updated" dateTime={ modified }>{ modified_formatted }</time>
 				</Link>
@@ -50,6 +50,7 @@ export default class EntryMeta extends Component {
 	render() {
 		return (
 			<div className="entry-meta">
+				{ this.renderDate() }
 				{ this.renderTerms( 'categories' ) }
 				{ this.renderTerms( 'tags' ) }
 			</div>
