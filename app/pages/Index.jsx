@@ -32,9 +32,9 @@ class Index extends Component {
 	 * (archive.currentPage = -1), we need to fetch the data first.
 	 */
 	componentWillMount() {
-		const { isFetching, dispatch, routeParams, archive } = this.props
+		const { archive, dispatch, routeParams } = this.props
 
-		if ( ! isFetching && -1 === archive.currentPage ) {
+		if ( ! archive.isFetching && -1 === archive.currentPage ) {
 			this.fetchData( routeParams )
 		}
 	}
@@ -47,9 +47,9 @@ class Index extends Component {
 	 * @param  {object} nextProps Next properties.
 	 */
 	componentWillReceiveProps( nextProps ) {
-		const { isFetching, dispatch, routeParams } = nextProps
+		const { archive, dispatch, routeParams } = nextProps
 
-		if ( ! isFetching && ! isEqual( routeParams, this.props.routeParams ) ) {
+		if ( ! archive.isFetching && ! isEqual( routeParams, this.props.routeParams ) ) {
 			this.fetchData( routeParams )
 		}
 	}
