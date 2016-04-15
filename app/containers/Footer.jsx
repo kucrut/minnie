@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const Footer = () => {
+export default function Footer() {
 	return (
 		<footer id="colophon" className="site-footer" role="contentinfo">
 			<p className="site-info">
@@ -10,5 +10,3 @@ const Footer = () => {
 		</footer>
 	)
 }
-
-export default Footer

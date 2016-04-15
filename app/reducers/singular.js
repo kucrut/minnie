@@ -19,10 +19,10 @@ export default function singular( state = initialState, action ) {
 			return Object.assign( {}, state, {
 				data: {},
 				isFetching: true
-			});
+			})
 
 		case GET_SINGULAR_SUCCESS:
-			let data = head( action.req.data, 1 );
+			let data = head( action.req.data, 1 )
 
 			/**
 			 * Page/post not found.
@@ -40,10 +40,10 @@ export default function singular( state = initialState, action ) {
 			return Object.assign( {}, state, {
 				data: data,
 				isFetching: false
-			});
+			})
 
 		case GET_SINGULAR_FAILURE:
-			return Object.assign( {}, state,  initialState );
+			return Object.assign( {}, state,  initialState )
 
 		default:
 			return state

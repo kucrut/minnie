@@ -2,10 +2,14 @@ import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { find } from 'lodash'
-import { stripApiHost } from 'helpers.js'
 
 
 class EntryFormat extends Component {
+	static propTypes = {
+		data: PropTypes.object.isRequired,
+		formats: PropTypes.array.isRequired
+	}
+
 	getFormat() {
 		const { data, formats } = this.props
 		let format = find( formats, {
@@ -28,17 +32,12 @@ class EntryFormat extends Component {
 
 		return (
 			<div className="entry-format">
-				<Link to={ stripApiHost( format.link ) } title={ `All ${format.name} posts` }>
+				<Link to={ format.link } title={ `All ${format.name} posts` }>
 					<span className="screen-reader-text">{ format.name }</span>
 				</Link>
 			</div>
 		)
 	}
-}
-
-EntryFormat.propTypes = {
-	data: PropTypes.object.isRequired,
-	formats: PropTypes.array.isRequired
 }
 
 function mapStateToProps( state ) {

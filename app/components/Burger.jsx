@@ -5,6 +5,11 @@ import { toggleSidebar } from 'actions/ui'
 
 
 class Burger extends Component {
+	static propTypes = {
+		isSidebarExpanded: PropTypes.bool.isRequired,
+		dispatch: PropTypes.func.isRequired
+	}
+
 	constructor( props ) {
 		super( props )
 		this.onClick = this.onClick.bind( this )
@@ -26,11 +31,6 @@ class Burger extends Component {
 			</button>
 		)
 	}
-}
-
-Burger.propTypes = {
-	isSidebarExpanded: PropTypes.bool.isRequired,
-	dispatch: PropTypes.func.isRequired
 }
 
 function mapStateToProps( state ) {

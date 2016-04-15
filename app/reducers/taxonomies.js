@@ -15,18 +15,18 @@ export default function taxonomies( state = initialState, action ) {
 		case GET_TAXONOMIES_REQUEST:
 			return Object.assign( {}, state, {
 				isFetching: true
-			});
+			})
 
 		case GET_TAXONOMIES_SUCCESS:
 			return Object.assign( {}, state, {
 				isFetching: false,
 				items: action.req.data
-			});
+			})
 
 		case GET_TAXONOMIES_FAILURE:
 			return Object.assign( {}, state, {
 				isFetching: false
-			});
+			})
 
 		default:
 			return state

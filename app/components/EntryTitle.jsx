@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
+import he from 'he'
 
 
 export default class EntryTitle extends Component {
@@ -10,17 +11,17 @@ export default class EntryTitle extends Component {
 	}
 
 	render() {
-		const { isSingle, link } = this.props
-		const title = { __html: this.props.title }
+		const { isSingle, link, title } = this.props
+		let _title = he.decode( title )
 
 		if ( isSingle ) {
 			return (
-				<h1 className="entry-title" dangerouslySetInnerHTML={ title } />
+				<h1 className="entry-title">{ _title }</h1>
 			)
 		} else {
 			return (
 				<h1 className="entry-title">
-					<Link to={ link } dangerouslySetInnerHTML={ title } />
+					<Link to={ link }>{ _title }</Link>
 				</h1>
 			)
 		}

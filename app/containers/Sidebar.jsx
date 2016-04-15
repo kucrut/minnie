@@ -5,6 +5,12 @@ import PrimaryMenu from 'components/PrimaryMenu'
 
 
 class Sidebar extends Component {
+	static propTypes = {
+		menuItems: PropTypes.array.isRequired,
+		isSidebarExpanded: PropTypes.bool.isRequired,
+		dispatch: PropTypes.func.isRequired
+	}
+
 	render() {
 		const { menuItems, isSidebarExpanded } = this.props
 
@@ -20,12 +26,6 @@ class Sidebar extends Component {
 			</div>
 		)
 	}
-}
-
-Sidebar.propTypes = {
-	menuItems: PropTypes.array.isRequired,
-	isSidebarExpanded: PropTypes.bool.isRequired,
-	dispatch: PropTypes.func.isRequired
 }
 
 function mapStateToProps( state ) {

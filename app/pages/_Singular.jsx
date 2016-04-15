@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import he from 'he'
 import Helmet from 'react-helmet'
 import NotFound from 'pages/404'
 import Spinner from 'components/Spinner'
@@ -102,7 +103,7 @@ export default class _Singular extends Component {
 		return (
 			<div className="content">
 				<Helmet
-					title={ title }
+					title={ he.decode( title ) }
 					titleTemplate={ `%s | ${ info.name }` }
 				/>
 

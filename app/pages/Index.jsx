@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
-import { isEqual, forEach, unescape } from 'lodash'
+import he from 'he';
+import { isEqual, forEach } from 'lodash'
 import { getAdjacentLink } from 'helpers.js'
 import { fetchArchive, fetchArchiveTerm } from 'actions/archive'
 import ArchiveNavigation from 'components/ArchiveNavigation'
@@ -82,7 +83,7 @@ class Index extends Component {
 		}
 
 		return (
-			<Helmet title={ unescape( title ) } />
+			<Helmet title={ he.decode( title ) } />
 		)
 	}
 
@@ -101,7 +102,7 @@ class Index extends Component {
 
 		return (
 			<header className="page-header">
-				<h1 className="page-title">{ unescape( term.name ) }</h1>
+				<h1 className="page-title">{ he.decode( term.name ) }</h1>
 			</header>
 		)
 	}

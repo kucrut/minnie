@@ -7,6 +7,11 @@ import Burger from 'components/Burger'
 
 
 class Header extends Component {
+	static propTypes = {
+		info: PropTypes.object.isRequired,
+		menus: PropTypes.object.isRequired
+	}
+
 	renderSocialMenu() {
 		const { menus } = this.props
 
@@ -27,11 +32,6 @@ class Header extends Component {
 			</header>
 		)
 	}
-}
-
-Header.propTypes = {
-	info: PropTypes.object.isRequired,
-	menus: PropTypes.object.isRequired
 }
 
 function mapStateToProps( state ) {

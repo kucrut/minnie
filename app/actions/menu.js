@@ -1,6 +1,6 @@
 import { polyfill } from 'es6-promise';
 import request from 'axios'
-import * as types from 'constants/index'
+import { GET_MENU } from 'constants/index'
 
 
 polyfill();
@@ -12,10 +12,18 @@ function makeMenuRequest( location ) {
 	})
 }
 
-export function fetchMenu() {
+export function fetchMenu( location ) {
 	return {
-		type: types.GET_MENU,
-		location: this.location,
-		promise: makeMenuRequest( this.location )
+		type: GET_MENU,
+		location: location,
+		promise: makeMenuRequest( location )
 	}
+}
+
+export function fetchPrimaryMenu() {
+	return fetchMenu( 'primary' )
+}
+
+export function fetchSocialMenu() {
+	return fetchMenu( 'social' )
 }

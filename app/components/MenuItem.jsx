@@ -1,17 +1,22 @@
 import React, { Component, PropTypes } from 'react'
 import { IndexLink, Link } from 'react-router'
-import { stripApiHost } from 'helpers.js'
+import he from 'he'
 
+export default class MenuItem extends Component {
+	static propTypes = {
+		item: PropTypes.object.isRequired
+	}
 
-class MenuItem extends Component {
 	renderLink( item ) {
+		let title = he.decode( item.title )
+
 		if ( '/' === item.url ) {
 			return (
-				<IndexLink to={ item.url } onlyActiveOnIndex={true} activeClassName="current-menu-item">{ item.title }</IndexLink>
+				<IndexLink to={ item.url } onlyActiveOnIndex={true} activeClassName="current-menu-item">{ title }</IndexLink>
 			)
 		} else {
 			return (
-				<Link to={ item.url } activeClassName="current-menu-item">{ item.title }</Link>
+				<Link to={ item.url } activeClassName="current-menu-item">{ title }</Link>
 			)
 		}
 	}
@@ -40,9 +45,3 @@ class MenuItem extends Component {
 		)
 	}
 }
-
-MenuItem.propTypes = {
-	item: PropTypes.object.isRequired
-}
-
-export default MenuItem

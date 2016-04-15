@@ -7,11 +7,24 @@ import EntryContent from 'components/EntryContent'
 import EntryContentMedia from 'components/EntryContentMedia'
 
 
-class Entry extends Component {
+export default class Entry extends Component {
+	static propTypes = {
+		isSingle: PropTypes.bool.isRequired,
+		data: PropTypes.object.isRequired
+	}
+
 	constructor( props ) {
 		super( props )
 
-		// We can't store this in the state.
+		/**
+		 * Script elements
+		 *
+		 * We can't store this in the state because we're injecting the
+		 * scripts after the element is mounted/updated. Storing this in
+		 * the state will cause a funny looooop.
+		 *
+		 * @type {Array}
+		 */
 		this.scriptEls = []
 	}
 
@@ -135,10 +148,3 @@ class Entry extends Component {
 		)
 	}
 }
-
-Entry.propTypes = {
-	isSingle: PropTypes.bool.isRequired,
-	data: PropTypes.object.isRequired
-}
-
-export default connect()(Entry)

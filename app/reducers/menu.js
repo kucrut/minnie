@@ -15,7 +15,7 @@ export default function menu( state = initialState, action ) {
 		case GET_MENU_REQUEST:
 			return Object.assign( {}, state, {
 				isFetching: true
-			});
+			})
 
 		case GET_MENU_SUCCESS:
 			return Object.assign( {}, state, {
@@ -23,12 +23,12 @@ export default function menu( state = initialState, action ) {
 				menus: Object.assign( {}, state.menus, {
 					[ action.location ]: action.req.data
 				})
-			});
+			})
 
 		case GET_MENU_FAILURE:
 			return Object.assign( {}, state, {
 				isFetching: false
-			});
+			})
 
 		default:
 			return state

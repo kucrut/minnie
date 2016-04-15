@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux';
-import { routerReducer as routing } from 'react-router-redux';
+import { combineReducers } from 'redux'
+import { routerReducer as routing } from 'react-router-redux'
 import info from 'reducers/info'
 import menu from 'reducers/menu'
 import ui from 'reducers/ui'
@@ -16,6 +16,6 @@ const rootReducer = combineReducers({
 	archive,
 	terms,
 	routing
-});
+})
 
-export default rootReducer;
+export default rootReducer

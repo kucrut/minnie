@@ -1,8 +1,16 @@
+import qs from 'qs'
+import axios from 'axios'
 import { forEach, has, isEmpty, size, unset, trim } from 'lodash'
 import { taxonomyMap } from 'constants/index'
 import apiConfig from 'api/config.json'
 
 const internalLinkRegEx = new RegExp( apiConfig.host )
+
+export function configureAxios() {
+	axios.defaults.baseURL = `${apiConfig.host}/wp-json/`
+	axios.defaults.paramsSerializer = params => qs.stringify( params, {arrayFormat: 'brackets'} )
+	axios.defaults.headers = {'X-Requested-With': 'minnie'}
+}
 
 export function normalizeParams( params ) {
 	let filters = {}

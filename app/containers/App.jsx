@@ -1,17 +1,20 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import qs from 'qs'
-import axios from 'axios'
-import bind from 'lodash/bind'
 import classNames from 'classnames'
+import { configureAxios } from 'helpers.js'
 import { fetchInfo } from 'actions/info'
-import { fetchMenu } from 'actions/menu'
 import { fetchPostFormats } from 'actions/terms'
+import { fetchPrimaryMenu, fetchSocialMenu } from 'actions/menu'
 import Header from 'containers/Header'
 import Footer from 'containers/Footer'
 
 
 class App extends Component {
+
+	static propTypes = {
+		isSidebarExpanded: PropTypes.bool.isRequired,
+		children: PropTypes.object
+	}
 
 	/**
 	 * Callbacks needed for server-side rendering
@@ -24,16 +27,12 @@ class App extends Component {
 	static need = [
 		fetchInfo,
 		fetchPostFormats,
-		bind( fetchMenu, {location: 'social'} ),
-		bind( fetchMenu, {location: 'primary'} )
+		fetchPrimaryMenu,
+		fetchSocialMenu
 	]
 
 	componentDidMount() {
-		// configure baseURL for axios requests (for client-side API calls)
-		axios.defaults.baseURL = this.props.apiUrl
-		axios.defaults.paramsSerializer = params => qs.stringify( params, {arrayFormat: 'brackets'} )
-		axios.defaults.headers = {'X-Requested-With': 'minnie'}
-
+		configureAxios()
 	}
 
 	render() {
@@ -45,25 +44,21 @@ class App extends Component {
 		return (
 			<div id="page" className={ pageClass }>
 				<a className="skip-link screen-reader-text" href="#content">Skip to content</a>
+
 				<Header />
+
 				<div id="content" className="site-content">
 					{ this.props.children }
 				</div>
+
 				<Footer />
 			</div>
 		)
 	}
 }
 
-App.propTypes = {
-	apiUrl: PropTypes.string.isRequired,
-	isSidebarExpanded: PropTypes.bool.isRequired,
-	children: PropTypes.object
-}
-
 function mapStateToProps( state ) {
 	return {
-		apiUrl: state.info.apiUrl,
 		isSidebarExpanded: state.ui.isSidebarExpanded
 	}
 }
