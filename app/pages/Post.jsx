@@ -20,6 +20,29 @@ class Post extends Component {
 		fetchPost
 	]
 
+	static propTypes = {
+		slug: PropTypes.string.isRequired,
+		info: PropTypes.object.isRequired,
+		singular: PropTypes.object.isRequired,
+		dispatch: PropTypes.func.isRequired
+	}
+
+	constructor( props ) {
+		super( props )
+
+		/**
+		 * State
+		 *
+		 * When `slug` exists, it means this component is rendered by the server.
+		 *
+		 * @type {Object}
+		 * @see  {@link https://github.com/reactjs/react-redux/issues/210}
+		 */
+		this.state = {
+			isWaitingForProps: ! props.singular.data.slug
+		}
+	}
+
 	/**
 	 * Before mount
 	 *
@@ -30,9 +53,15 @@ class Post extends Component {
 	 *     store doesn't match the requested page.
 	 */
 	componentWillMount() {
-		const { slug, data, isFetching, dispatch } = this.props
+		const { slug, singular, dispatch } = this.props
+		const { data, isFetching } = singular
 
-		if ( ! isFetching && slug !== data.slug ) {
+		if ( isFetching ) {
+			this.setState({ isWaitingForProps: false })
+			return
+		}
+
+		if ( slug !== data.slug ) {
 			dispatch( fetchPost({ slug }) )
 		}
 	}
@@ -46,11 +75,19 @@ class Post extends Component {
 	 * @param  {object} nextProps Next properties.
 	 */
 	componentWillReceiveProps( nextProps ) {
-		const { slug, isFetching, dispatch } = nextProps
+		const { slug, singular, dispatch } = nextProps
+		const { data, isFetching } = singular
 
-		if ( ! isFetching && slug !== this.props.slug ) {
-			dispatch( fetchPost({ slug }) )
+		if ( isFetching ) {
+			this.setState({ isWaitingForProps: false })
+			return
 		}
+
+		if ( slug === this.props.slug ) {
+			return
+		}
+
+		dispatch( fetchPost({ slug }) )
 	}
 
 	/**
@@ -59,10 +96,11 @@ class Post extends Component {
 	 * TODO: Render meta, comments, etc.
 	 */
 	render() {
-		const { info, data, isFetching } = this.props
+		const { info, singular } = this.props
+		const { data, isFetching } = singular
 		let title
 
-		if ( isFetching ) {
+		if ( isFetching || this.state.isWaitingForProps ) {
 			return ( <Spinner /> )
 		} else if ( ! data.id ) {
 			return ( <NotFound /> )
@@ -87,21 +125,13 @@ class Post extends Component {
 	}
 }
 
-Post.propTypes = {
-	slug: PropTypes.string.isRequired,
-	info: PropTypes.object.isRequired,
-	data: PropTypes.object,
-	isFetching: PropTypes.bool.isRequired,
-	dispatch: PropTypes.func.isRequired
-}
-
 function mapStateToProps( state, ownProps ) {
 	const { slug } = ownProps.params
 
 	return {
 		slug: slug,
 		info: state.info,
-		...state.singular
+		singular: state.singular
 	}
 }
 

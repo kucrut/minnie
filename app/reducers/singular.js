@@ -17,13 +17,19 @@ export default function singular( state = initialState, action ) {
 	switch ( action.type ) {
 		case GET_SINGULAR_REQUEST:
 			return Object.assign( {}, state, {
+				data: {},
 				isFetching: true
 			});
 
 		case GET_SINGULAR_SUCCESS:
 			let data = head( action.req.data, 1 );
 
-			// Page/post not found.
+			/**
+			 * Page/post not found.
+			 *
+			 * We need to store the `slug` so the component will know
+			 * that we've already requested the page.
+			 */
 			if ( ! data ) {
 				data = {
 					slug: action.req.config.params.slug,
