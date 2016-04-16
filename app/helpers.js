@@ -2,14 +2,21 @@ import qs from 'qs'
 import axios from 'axios'
 import { forEach, has, isEmpty, size, unset, trim } from 'lodash'
 import { taxonomyMap } from 'constants/index'
-import apiConfig from 'api/config.json'
 
-const internalLinkRegEx = new RegExp( apiConfig.host )
 
-export function configureAxios() {
-	axios.defaults.baseURL = `${apiConfig.host}/wp-json/`
-	axios.defaults.paramsSerializer = params => qs.stringify( params, {arrayFormat: 'brackets'} )
+export function getApiUrlFromEnv() {
+	const host = process.env.WP_API_HOST || 'localhost'
+	const port = process.env.WP_API_PORT || 80
+
+	return `${host}:${port}`
+}
+
+export function configureAxios( apiUrl ) {
+	axios.defaults.baseURL = `${ trim( apiUrl, '/' ) }/wp-json/`
 	axios.defaults.headers = {'X-Requested-With': 'minnie'}
+	axios.defaults.paramsSerializer = params => qs.stringify( params, {
+		arrayFormat: 'brackets'
+	})
 }
 
 export function normalizeParams( params ) {
@@ -48,10 +55,6 @@ export function isInternalLink( url ) {
 	}
 
 	return internalLinkRegEx.test( url )
-}
-
-export function stripApiHost( url ) {
-	return url.replace( apiConfig.host, '' )
 }
 
 export function getArchiveTaxonomyTerm( params ) {

@@ -12,6 +12,7 @@ import Footer from 'containers/Footer'
 class App extends Component {
 
 	static propTypes = {
+		apiUrl: PropTypes.string.isRequired,
 		isSidebarExpanded: PropTypes.bool.isRequired,
 		children: PropTypes.object
 	}
@@ -32,7 +33,7 @@ class App extends Component {
 	]
 
 	componentDidMount() {
-		configureAxios()
+		configureAxios( this.props.apiUrl )
 	}
 
 	render() {
@@ -59,6 +60,7 @@ class App extends Component {
 
 function mapStateToProps( state ) {
 	return {
+		apiUrl: state.info.apiUrl,
 		isSidebarExpanded: state.ui.isSidebarExpanded
 	}
 }

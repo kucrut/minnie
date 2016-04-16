@@ -7,6 +7,7 @@ import {
 
 
 const initialState = {
+	apiUrl: '', // This will be set by `render()` in `server.jsx`
 	name: '',
 	description: '',
 	isFetching: false

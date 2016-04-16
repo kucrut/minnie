@@ -5,12 +5,13 @@ import { RouterContext, match, createMemoryHistory } from 'react-router'
 import { Provider } from 'react-redux'
 import Helmet from 'react-helmet'
 import createRoutes from 'routes.jsx'
-import { configureAxios } from 'helpers.js'
+import { getApiUrlFromEnv, configureAxios } from 'helpers.js'
 import configureStore from 'store/configureStore'
 import { fetchComponentDataBeforeRender } from 'api/fetchComponentDataBeforeRender'
 
 
-configureAxios()
+const apiUrl = getApiUrlFromEnv()
+configureAxios( apiUrl )
 
 /**
  * Initial html template
@@ -47,7 +48,9 @@ function renderFullPage( html, initialState ) {
 
 export default function render( req, res ) {
 	const history = createMemoryHistory();
-	const store = configureStore( { info: {} }, history );
+	const store = configureStore( { info: {
+		apiUrl: apiUrl
+	} }, history );
 	const routes = createRoutes( store );
 
 	/*
