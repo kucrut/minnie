@@ -6,4 +6,5 @@ npm-debug.log
 .swp
 public
 app/api/config.json
+process.json
 

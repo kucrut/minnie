@@ -1,0 +1,12 @@
+{
+	"apps" : [{
+		"name"        : "minnie",
+		"script"      : "server/index.js",
+		"watch"       : true,
+		"env": {
+			"NODE_ENV"    : "production",
+			"WP_API_HOST" : "localhost",
+			"WP_API_PORT" : 80
+		}
+	}]
+}
