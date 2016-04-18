@@ -6,7 +6,7 @@ const SocialMenu = ({ items }) => {
 		<div className="social-links">
 			<ul id="menu-social" className="menu">
 				{ items.map( item => {
-					const id = `menu-item-${item.ID}`
+					const id = `menu-item-${item.id}`
 
 					return (
 						<li key={ id } id={ id } className={ `menu-item ${id}` }>

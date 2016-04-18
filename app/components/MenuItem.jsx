@@ -27,7 +27,7 @@ export default class MenuItem extends Component {
 		if ( children.length ) {
 			return (
 				<ul className="sub-menu">
-					{ children.map( child => <MenuItem key={ child.ID } item={ child } /> ) }
+					{ children.map( child => <MenuItem key={ child.id } item={ child } /> ) }
 				</ul>
 			)
 		}
@@ -35,7 +35,7 @@ export default class MenuItem extends Component {
 
 	render() {
 		const { item } = this.props
-		const id = `menu-item-${item.ID}`
+		const id = `menu-item-${item.id}`
 
 		return (
 			<li id={ id } className={ `menu-item ${id}` }>

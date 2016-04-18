@@ -13,11 +13,11 @@ class Header extends Component {
 	}
 
 	renderSocialMenu() {
-		const { menus } = this.props
+		const { social } = this.props.menus
 
-		if ( menus.social && menus.social.length ) {
+		if ( social && social.items.length ) {
 			return (
-				<SocialMenu items={ menus.social } />
+				<SocialMenu items={ social.items } />
 			)
 		}
 	}

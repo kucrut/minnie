@@ -8,7 +8,7 @@ polyfill();
 function makeMenuRequest( location ) {
 	return request({
 		method: 'get',
-		url: `/wp-api-menus/v2/menu-locations/${location}`
+		url: `/bridge/v1/menus/${location}`
 	})
 }
 

@@ -6,13 +6,21 @@ import PrimaryMenu from 'components/PrimaryMenu'
 
 class Sidebar extends Component {
 	static propTypes = {
-		menuItems: PropTypes.array.isRequired,
+		menus: PropTypes.object.isRequired,
 		isSidebarExpanded: PropTypes.bool.isRequired,
 		dispatch: PropTypes.func.isRequired
 	}
 
+	renderMenu() {
+		const { primary } = this.props.menus
+
+		if ( primary && primary.items.length ) {
+			return ( <PrimaryMenu items={ primary.items } /> )
+		}
+	}
+
 	render() {
-		const { menuItems, isSidebarExpanded } = this.props
+		const { isSidebarExpanded } = this.props
 
 		let sbClass = classNames({
 			'slide-menu': true,
@@ -22,18 +30,16 @@ class Sidebar extends Component {
 		return (
 			<div className={ sbClass }>
 				<h2 className="widget-title">Menu</h2>
-				<PrimaryMenu items={ menuItems } />
+				{ this.renderMenu() }
 			</div>
 		)
 	}
 }
 
 function mapStateToProps( state ) {
-	const menuItems = state.menu.menus.primary || []
-
 	return {
-		isSidebarExpanded: state.ui.isSidebarExpanded,
-		menuItems
+		menus: state.menu.menus,
+		isSidebarExpanded: state.ui.isSidebarExpanded
 	}
 }
 

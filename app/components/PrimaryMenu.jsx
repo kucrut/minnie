@@ -7,7 +7,7 @@ const PrimaryMenu = ({ items }) => {
 		<nav id="site-navigation" className="main-navigation" role="navigation">
 			<div className="menu-main-container">
 				<ul id="menu-main" className="menu">
-					{ items.map( item => <MenuItem key={ item.ID } item={ item } /> ) }
+					{ items.map( item => <MenuItem key={ item.id } item={ item } /> ) }
 				</ul>
 			</div>
 		</nav>
