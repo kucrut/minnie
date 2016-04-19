@@ -12,6 +12,13 @@ import Spinner from 'components/Spinner'
 
 
 class Index extends Component {
+	static propTypes = {
+		info: PropTypes.object.isRequired,
+		archive: PropTypes.object.isRequired,
+		route: PropTypes.object.isRequired,
+		routeParams: PropTypes.object.isRequired
+	}
+
 	static need = [
 		fetchArchive,
 		fetchArchiveTerm
@@ -152,13 +159,6 @@ class Index extends Component {
 			</div>
 		)
 	}
-}
-
-Index.propTypes = {
-	info: PropTypes.object.isRequired,
-	archive: PropTypes.object.isRequired,
-	route: PropTypes.object.isRequired,
-	routeParams: PropTypes.object.isRequired
 }
 
 function mapStateToProps( state, ownProps ) {
