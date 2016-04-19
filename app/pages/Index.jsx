@@ -36,13 +36,18 @@ class Index extends Component {
 	 *
 	 * When this is invoked on the server (the initial page visited is an archive page)
 	 * we need not do anything, because the data will be fetched automatically via
-	 * `fetchComponentDataBeforeRender()`. However, when invoked on the client
-	 * (archive.currentPage = -1), we need to fetch the data first.
+	 * `fetchComponentDataBeforeRender()`. However, when invoked on the client, we need
+	 * to fetch the data first.
 	 */
 	componentWillMount() {
 		const { archive, dispatch, routeParams } = this.props
+		const { isFetching, fetchParams } = archive
 
-		if ( ! archive.isFetching && -1 === archive.currentPage ) {
+		if ( isFetching ) {
+			return
+		}
+
+		if ( ! isEqual( routeParams, fetchParams ) ) {
 			this.fetchData( routeParams )
 		}
 	}
@@ -56,8 +61,13 @@ class Index extends Component {
 	 */
 	componentWillReceiveProps( nextProps ) {
 		const { archive, dispatch, routeParams } = nextProps
+		const { isFetching, fetchParams } = archive
 
-		if ( ! archive.isFetching && ! isEqual( routeParams, this.props.routeParams ) ) {
+		if ( isFetching ) {
+			return
+		}
+
+		if ( ! isEqual( routeParams, fetchParams ) ) {
 			this.fetchData( routeParams )
 		}
 	}

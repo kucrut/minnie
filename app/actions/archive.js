@@ -18,6 +18,7 @@ function makeArchiveRequest( params ) {
 export function fetchArchive( params = {} ) {
 	return {
 		type: GET_ARCHIVE,
+		fetchParams: params,
 		promise: makeArchiveRequest( normalizeParams( params ) )
 	}
 }

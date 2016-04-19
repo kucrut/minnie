@@ -14,8 +14,9 @@ const initialState = {
 	items: [],
 	isHome: true,
 	term: null,
-	currentPage: -1,
+	currentPage: 0,
 	hasMore: false,
+	fetchParams: {},
 	isFetching: false
 }
 
@@ -27,14 +28,15 @@ export default function archive( state = initialState, action ) {
 			})
 
 		case GET_ARCHIVE_SUCCESS:
-			const { params } = action.req.config
+			const { params }  = action.req.config
 			const currentPage = parseInt( params.page, 10 ) || 1
 
 			return Object.assign( {}, state, {
 				items       : action.req.data,
-				isHome      : 2 > size( params ),
+				isHome      : 2 > size( params )
 				currentPage : currentPage,
 				hasMore     : currentPage < action.req.headers['x-wp-totalpages'],
+				fetchParams : action.fetchParams,
 				isFetching  : false
 			})
 
