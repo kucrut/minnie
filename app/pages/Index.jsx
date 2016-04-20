@@ -120,14 +120,14 @@ class Index extends Component {
 	 * Unless we're displaying the homepage, we need to display the archive title,
 	 * which is the term title ( `get_queried_object()` in WordPress ).
 	 */
-	renderArchiveTitle() {
-		const { term, searchTerm } = this.props.archive
+	renderTitle() {
+		const { term, searchTerm, items } = this.props.archive
 		let title
 
 		if ( searchTerm ) {
 			title = `Search results for “${searchTerm}”`
 		} else {
-			if ( term ) {
+			if ( term && items.length ) {
 				title = he.decode( term.name )
 			}
 		}
@@ -160,19 +160,42 @@ class Index extends Component {
 		}
 	}
 
+	renderEmpty() {
+		const { searchTerm } = this.props.archive
+		let args
+
+		if ( searchTerm ) {
+			args = {
+				content: "It seems we can’t find what you’re looking for. Perhaps try another search?"
+			}
+		} else {
+			args = {
+				title: "Nothing Found.",
+				content: "It seems we can’t find what you’re looking for. Perhaps searching can help."
+			}
+		}
+
+		return (
+			<EntryEmpty { ...args } />
+		)
+	}
+
+	renderArchive() {
+		const { items } = this.props.archive
+
+		if ( items.length ) {
+			return items.map( item => <Entry key={ item.id } data={ item } isSingle={ false } /> )
+		} else {
+			return this.renderEmpty()
+		}
+	}
+
 	render() {
 		const { archive, route, routeParams } = this.props
 		const { isFetching, items, hasMore, currentPage } = archive
 
 		if ( isFetching ) {
 			return ( <Spinner /> )
-		} else if ( ! items.length ) {
-			return (
-				<EntryEmpty
-					title="Nothing Found."
-					content="It seems we can’t find what you’re looking for. Perhaps searching can help."
-				/>
-			)
 		}
 
 		return (
@@ -180,8 +203,8 @@ class Index extends Component {
 				{ this.renderHelMet() }
 
 				<main id="main" className="site-main" role="main">
-					{ this.renderArchiveTitle() }
-					{ items.map( item => <Entry key={ item.id } data={ item } isSingle={ false } /> ) }
+					{ this.renderTitle() }
+					{ this.renderArchive() }
 					{ this.renderNavigation() }
 				</main>
 			</div>
