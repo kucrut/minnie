@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import SearchForm from 'components/SearchForm'
 
 
 export default class EntryEmpty extends Component {
@@ -13,7 +14,7 @@ export default class EntryEmpty extends Component {
 
 				<div className="page-content">
 					<p>{ content }</p>
-					{ /* Render search form */ }
+					<SearchForm />
 				</div>
 			</section>
 		)

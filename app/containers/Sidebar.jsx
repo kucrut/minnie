@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import PrimaryMenu from 'components/PrimaryMenu'
+import SearchForm from 'components/SearchForm'
 
 
 class Sidebar extends Component {
@@ -31,6 +32,7 @@ class Sidebar extends Component {
 			<div className={ sbClass }>
 				<h2 className="widget-title">Menu</h2>
 				{ this.renderMenu() }
+				<SearchForm />
 			</div>
 		)
 	}
