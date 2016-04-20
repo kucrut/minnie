@@ -361,6 +361,7 @@ textarea {
 	font-size: 100%; /* Corrects font size not being inherited in all browsers */
 	margin: 0; /* Addresses margins set differently in IE6/7, F3/4, S5, Chrome */
 	vertical-align: baseline; /* Improves appearance and consistency in all browsers */
+	box-sizing: border-box;
 }
 
 button,
@@ -613,6 +614,14 @@ a.current_page_item {
    -moz-transition: all .3s ease-in-out;
      -o-transition: all .3s ease-in-out;
         transition: all .3s ease-in-out;
+}
+
+.slide-menu .search-form {
+	margin-bottom: 1.5em;
+}
+.slide-menu .search-form .search-field {
+	box-sizing: border-box;
+	width: 100%;
 }
 
 .site-main .comment-navigation,
