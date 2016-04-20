@@ -3,8 +3,26 @@ import SearchForm from 'components/SearchForm'
 
 
 export default class EntryEmpty extends Component {
+	static propTypes = {
+		title: PropTypes.string,
+		content: PropTypes.string.isRequired
+	}
+
+	renderContent() {
+		return (
+			<div className="page-content">
+				<p>{ this.props.content }</p>
+				<SearchForm />
+			</div>
+		)
+	}
+
 	render() {
-		const { title, content } = this.props
+		const { title } = this.props
+
+		if ( ! title ) {
+			return this.renderContent()
+		}
 
 		return (
 			<section className="error-404 not-found">
@@ -12,10 +30,7 @@ export default class EntryEmpty extends Component {
 					<h1 className="page-title">{ title }</h1>
 				</header>
 
-				<div className="page-content">
-					<p>{ content }</p>
-					<SearchForm />
-				</div>
+				{ this.renderContent() }
 			</section>
 		)
 	}
