@@ -1,6 +1,6 @@
 import qs from 'qs'
 import axios from 'axios'
-import { forEach, has, isEmpty, size, unset, trim } from 'lodash'
+import { forEach, has, isEmpty, omit, size, unset, trim } from 'lodash'
 import { taxonomyMap } from 'constants/index'
 
 
@@ -21,6 +21,12 @@ export function configureAxios( apiUrl ) {
 
 export function normalizeParams( params ) {
 	let filters = {}
+
+	if ( has( params, 's' ) ) {
+		params = Object.assign( {}, omit( params, 's' ), {
+			search: params.s
+		})
+	}
 
 	params = Object.assign( {}, params, {
 		page: parseInt( ( params.page || 1 ), 10 )
@@ -85,7 +91,15 @@ export function getArchiveTaxonomyTerm( params ) {
 }
 
 export function getAdjacentLink( next = true, args ) {
-	const { hasMore, currentPage, route, routeParams } = args
+	const { hasMore, currentPage, route, routeParams, query } = args
+
+	function addSearchQuery( link ) {
+		if ( has( query, 's' ) ) {
+			link += `?s=${query.s}`
+		}
+
+		return link
+	}
 
 	let link      = ''
 	let paths     = []
@@ -94,7 +108,7 @@ export function getAdjacentLink( next = true, args ) {
 
 	// Home's prev
 	if ( hasMore && ! route.path && ! next ) {
-		return '/page/2'
+		return addSearchQuery( '/page/2' )
 	} else if ( 0 === newPage || ( ! hasMore && ! next ) ) {
 		return link
 	}
@@ -120,5 +134,5 @@ export function getAdjacentLink( next = true, args ) {
 	link = trim( link, '/' )
 	link = '/' + link
 
-	return link
+	return addSearchQuery( link )
 }

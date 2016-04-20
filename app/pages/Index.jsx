@@ -40,15 +40,18 @@ class Index extends Component {
 	 * to fetch the data first.
 	 */
 	componentWillMount() {
-		const { archive, dispatch, routeParams } = this.props
+		const { archive, dispatch, routeParams, query } = this.props
 		const { isFetching, fetchParams } = archive
+		let params
 
 		if ( isFetching ) {
 			return
 		}
 
-		if ( ! isEqual( routeParams, fetchParams ) ) {
-			this.fetchData( routeParams )
+		params = Object.assign( {}, routeParams, query )
+
+		if ( ! isEqual( params, fetchParams ) ) {
+			this.fetchData( params )
 		}
 	}
 
@@ -60,15 +63,18 @@ class Index extends Component {
 	 * @param  {object} nextProps Next properties.
 	 */
 	componentWillReceiveProps( nextProps ) {
-		const { archive, dispatch, routeParams } = nextProps
+		const { archive, dispatch, routeParams, query } = nextProps
 		const { isFetching, fetchParams } = archive
+		let params
 
 		if ( isFetching ) {
 			return
 		}
 
-		if ( ! isEqual( routeParams, fetchParams ) ) {
-			this.fetchData( routeParams )
+		params = Object.assign( {}, routeParams, query )
+
+		if ( ! isEqual( params, fetchParams ) ) {
+			this.fetchData( params )
 		}
 	}
 
@@ -79,12 +85,16 @@ class Index extends Component {
 	 */
 	renderHelMet() {
 		const { routeParams, archive, info } =  this.props
-		const { isHome, term } = archive
+		const { term, searchTerm } = archive
 
 		let title = ''
 
-		if ( term ) {
-			title = term.name
+		if ( term || searchTerm ) {
+			if ( term ) {
+				title = term.name
+			} else {
+				title = `Search results for “${searchTerm}”`
+			}
 
 			if ( routeParams.page ) {
 				title = `${ title } — Page ${ routeParams.page }`
@@ -111,27 +121,35 @@ class Index extends Component {
 	 * which is the term title ( `get_queried_object()` in WordPress ).
 	 */
 	renderArchiveTitle() {
-		const { isHome, term } = this.props.archive
+		const { term, searchTerm } = this.props.archive
+		let title
 
-		if ( isHome || ! term ) {
-			return
+		if ( searchTerm ) {
+			title = `Search results for “${searchTerm}”`
+		} else {
+			if ( term ) {
+				title = he.decode( term.name )
+			}
 		}
 
-		return (
-			<header className="page-header">
-				<h1 className="page-title">{ he.decode( term.name ) }</h1>
-			</header>
-		)
+		if ( title ) {
+			return (
+				<header className="page-header">
+					<h1 className="page-title">{ title }</h1>
+				</header>
+			)
+		}
 	}
 
 	renderNavigation() {
-		const { archive, route, routeParams } = this.props
+		const { archive, route, routeParams, query } = this.props
 		const { currentPage, hasMore } = archive
 		const args = {
 			hasMore,
 			currentPage,
 			route,
-			routeParams
+			routeParams,
+			query
 		}
 
 		let prevLink = getAdjacentLink( false, args )
@@ -176,6 +194,7 @@ function mapStateToProps( state, ownProps ) {
 		info: state.info,
 		archive: state.archive,
 		route: ownProps.route,
+		query: ownProps.location.query,
 		routeParams: ownProps.params
 	}
 }

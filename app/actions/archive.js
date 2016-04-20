@@ -34,14 +34,14 @@ export function fetchArchive( params = {} ) {
 export function fetchArchiveTerm( params = {} ) {
 	params = getArchiveTaxonomyTerm( params )
 
-	if ( null !== params ) {
+	if ( null === params || params.search ) {
 		return {
-			type: GET_ARCHIVE_TERM,
-			promise: makeTermsRequest( params.endpoint, { slug: params.slug } )
+			type: GET_ARCHIVE_TERM_FAILURE
 		}
 	} else {
 		return {
-			type: GET_ARCHIVE_TERM_FAILURE
+			type: GET_ARCHIVE_TERM,
+			promise: makeTermsRequest( params.endpoint, { slug: params.slug } )
 		}
 	}
 }
