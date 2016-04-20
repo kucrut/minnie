@@ -41,7 +41,7 @@ class Index extends Component {
 	 */
 	componentWillMount() {
 		const { archive, dispatch, routeParams, query } = this.props
-		const { isFetching, fetchParams } = archive
+		const { isFetching, fetchParams, currentPage } = archive
 		let params
 
 		if ( isFetching ) {
@@ -50,7 +50,7 @@ class Index extends Component {
 
 		params = Object.assign( {}, routeParams, query )
 
-		if ( ! isEqual( params, fetchParams ) ) {
+		if ( 0 === currentPage || ! isEqual( params, fetchParams ) ) {
 			this.fetchData( params )
 		}
 	}
