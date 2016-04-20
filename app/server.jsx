@@ -81,6 +81,7 @@ export default function render( req, res ) {
 			res.redirect( 302, redirectLocation.pathname + redirectLocation.search );
 		} else if ( renderProps ) {
 
+			const fetchParams = Object.assign( {}, renderProps.params, renderProps.location.query )
 			const InitialView = (
 				<Provider store={ store }>
 					<RouterContext { ...renderProps } />
@@ -88,7 +89,7 @@ export default function render( req, res ) {
 			);
 
 			// This method waits for all render component promises to resolve before returning to browser.
-			fetchComponentDataBeforeRender( store.dispatch, renderProps.components, renderProps.params )
+			fetchComponentDataBeforeRender( store.dispatch, renderProps.components, fetchParams )
 				.then( html => {
 					const componentHTML = renderToString( InitialView );
 					const initialState = store.getState();
