@@ -142,6 +142,10 @@ class Index extends Component {
 	}
 
 	renderNavigation() {
+		if ( ! this.props.archive.items.length ) {
+			return
+		}
+
 		const { archive, route, routeParams, query } = this.props
 		const { currentPage, hasMore } = archive
 		const args = {
