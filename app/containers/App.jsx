@@ -8,6 +8,9 @@ import { fetchPrimaryMenu, fetchSocialMenu } from 'actions/menu'
 import Header from 'containers/Header'
 import Footer from 'containers/Footer'
 
+require( 'css/genericons/genericons/genericons.css' )
+require( 'css/style.css' )
+
 
 class App extends Component {
 

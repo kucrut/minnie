@@ -30,7 +30,7 @@ var commonLoaders = [
   },
   { test: /\.json$/, loader: "json-loader" },
   {
-    test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+    test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)$/,
     loader: 'url',
     query: {
         name: '[hash].[ext]',
@@ -38,7 +38,7 @@ var commonLoaders = [
     }
   },
   { test: /\.css$/,
-    loader: ExtractTextPlugin.extract('style-loader', 'css-loader?module!postcss-loader')
+    loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
   }
 ];
 
@@ -112,7 +112,7 @@ module.exports = [
     },
     plugins: [
         // extract inline css from modules into separate files
-        // new ExtractTextPlugin( 'style.css' ),
+        new ExtractTextPlugin( 'main.css' ),
         new webpack.DefinePlugin({
           'process.env': {
             // This has effect on the react lib size
@@ -128,11 +128,7 @@ module.exports = [
           __DEVCLIENT__: false,
           __DEVSERVER__: false
         }),
-        new InlineEnviromentVariablesPlugin({ NODE_ENV: 'production' }),
-        new CopyWebpackPlugin([
-          { from: 'css/style.css' },
-          { from: 'css/genericons', to: 'genericons' }
-        ])
+        new InlineEnviromentVariablesPlugin({ NODE_ENV: 'production' })
     ] /*,
     postcss: postCSSConfig */
   }, {
@@ -166,7 +162,7 @@ module.exports = [
         // This saves space, because often referenced modules
         // and chunks get smaller ids.
         new webpack.optimize.OccurenceOrderPlugin(),
-        new ExtractTextPlugin( 'style.css' ),
+        new ExtractTextPlugin( 'main.css' ),
         new webpack.optimize.UglifyJsPlugin({
           compressor: {
             warnings: false

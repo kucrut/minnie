@@ -21,7 +21,7 @@ var commonLoaders = [
     exclude: path.join(__dirname, '/node_modules/')
   },
   {
-    test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+    test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)$/,
     loader: 'url',
     query: {
         name: '[hash].[ext]',
@@ -96,7 +96,8 @@ module.exports = {
     module: {
       loaders: commonLoaders.concat([
         { test: /\.css$/,
-          loader: 'style!css?module&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
+          //loader: 'style!css?module&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
+          loader: 'style-loader!css-loader?importLoaders=1'
         }
       ])
     },
@@ -112,11 +113,7 @@ module.exports = {
         new webpack.DefinePlugin({
           __DEVCLIENT__: true,
           __DEVSERVER__: false
-        }),
-        new CopyWebpackPlugin([
-          { from: 'css/style.css' },
-          { from: 'css/genericons', to: 'genericons' }
-        ])
+        })
     ] /*,
     postcss: postCSSConfig */
 };

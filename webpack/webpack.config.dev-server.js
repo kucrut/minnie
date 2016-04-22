@@ -20,7 +20,7 @@ var commonLoaders = [
   },
   { test: /\.json$/, loader: "json-loader" },
   {
-    test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+    test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)$/,
     loader: 'url',
     query: {
         name: '[hash].[ext]',
@@ -51,7 +51,8 @@ module.exports = {
       loaders: commonLoaders.concat([
            {
               test: /\.css$/,
-              loader: 'css/locals?module&localIdentName=[name]__[local]___[hash:base64:5]'
+              //loader: 'css/locals?module&localIdentName=[name]__[local]___[hash:base64:5]',
+              loader: 'css-loader?importLoaders=1'
            }
       ])
     },
