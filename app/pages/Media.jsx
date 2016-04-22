@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchMedia } from 'actions/singular'
 import _Singular from 'pages/_Singular'
+import ContentNavigation from 'components/ContentNavigation'
 
 class Media extends _Singular {
 
@@ -21,6 +22,18 @@ class Media extends _Singular {
 
 	fetchData( slug ) {
 		this.props.dispatch( fetchMedia({ slug }) )
+	}
+
+	renderNavigation() {
+		const { parent_post } = this.props.singular.data
+
+		return (
+			<ContentNavigation
+				isSingle={ true }
+				prevLink={ parent_post.link }
+				prevText={ parent_post.title.rendered }
+			/>
+		)
 	}
 }
 
