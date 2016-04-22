@@ -15,18 +15,21 @@ export default class _Singular extends Component {
 	}
 
 	constructor( props ) {
+		const { slug, singular } = props
+
 		super( props )
 
 		/**
 		 * State
 		 *
-		 * When `slug` exists, it means this component is rendered by the server.
+		 * When the requested `slug` is the same as the data's `slug`,
+		 * it means this component is rendered by the server.
 		 *
 		 * @type {Object}
 		 * @see  {@link https://github.com/reactjs/react-redux/issues/210}
 		 */
 		this.state = {
-			isWaitingForProps: ! props.singular.data.slug
+			isWaitingForProps: ( slug !== singular.data.slug )
 		}
 	}
 
@@ -75,11 +78,9 @@ export default class _Singular extends Component {
 			return
 		}
 
-		if ( slug === this.props.slug ) {
-			return
+		if ( slug !== data.slug ) {
+			this.fetchData( slug )
 		}
-
-		this.fetchData( slug )
 	}
 
 	/**
@@ -98,7 +99,7 @@ export default class _Singular extends Component {
 			return ( <NotFound /> )
 		}
 
-		title = title = data.title.rendered ? data.title.rendered : data.title.from_content
+		title = data.title.rendered ? data.title.rendered : data.title.from_content
 
 		return (
 			<div className="content">
