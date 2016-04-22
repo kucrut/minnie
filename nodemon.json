@@ -3,6 +3,7 @@
     "ext": "js,jsx",
     "watch": [
       "app/api",
+      "app/config.js",
       "app/routes.jsx",
       "app/server.jsx",
       "server",

@@ -1,8 +1,10 @@
 var express = require('express');
 var path = require('path');
+var configPath = path.resolve(__dirname, '../../', 'app', 'config.js');
+var config = require(configPath);
 
-module.exports = function (app, passport) {
-  app.set('port', (process.env.PORT || 9090));
+module.exports = function (app) {
+  app.set('port', config.port);
 
   // X-Powered-By header has no functional value.
   // Keeping it makes it easier for an attacker to build the site's profile

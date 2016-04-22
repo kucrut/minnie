@@ -5,12 +5,12 @@ import { RouterContext, match, createMemoryHistory } from 'react-router'
 import { Provider } from 'react-redux'
 import Helmet from 'react-helmet'
 import createRoutes from 'routes.jsx'
-import { getApiUrlFromEnv, configureAxios } from 'helpers.js'
+import { apiUrl } from 'config'
+import { configureAxios } from 'helpers.js'
 import configureStore from 'store/configureStore'
 import { fetchComponentDataBeforeRender } from 'api/fetchComponentDataBeforeRender'
 
 
-const apiUrl = getApiUrlFromEnv()
 configureAxios( apiUrl )
 
 /**

@@ -5,6 +5,5 @@ npm-debug.log
 .idea
 .swp
 public
-app/api/config.json
+app/config.js
 process.json
-

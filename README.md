@@ -20,14 +20,14 @@ Demo: http://r.kucrut.org/
 
 ### App
 1. Clone this repo.
-2. Copy `app/api/config.json-dist` to `app/api/config.json`
-3. Copy (and customize) `process.json-dist` to `process.json`. Set `WP_API_HOST` to your WordPress site's *Home URL*.
+2. Copy `app/config.js-dist` to `app/config.js`. Use your WordPress site's URL as the value of `apiUrl`.
+3. Copy (and customize) `process.json-dist` to `process.json`.
 4. Install [pm2](http://pm2.keymetrics.io/): `npm install -g pm2`
 5. Run `npm install`
 6. Run `pm2 start process.json`
 
 ## Developing
-1. Run `WP_API_HOST=http://minnie.dev npm run dev`. Make sure to use your WordPress site's URL here.
+1. Run `npm run dev`.
 2. Develop away.
 
 ## Contributing

@@ -4,13 +4,6 @@ import { forEach, has, isEmpty, omit, size, unset, trim } from 'lodash'
 import { taxonomyMap } from 'constants/index'
 
 
-export function getApiUrlFromEnv() {
-	const host = process.env.WP_API_HOST || 'localhost'
-	const port = process.env.WP_API_PORT || 80
-
-	return `${host}:${port}`
-}
-
 export function configureAxios( apiUrl ) {
 	axios.defaults.baseURL = `${ trim( apiUrl, '/' ) }/wp-json/`
 	axios.defaults.headers = {'X-Requested-With': 'minnie'}

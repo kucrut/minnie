@@ -1,0 +1,13 @@
+module.exports = {
+	port: 9090,
+	apiUrl: 'http://minnie.dev',
+	routes: {
+		tagArchive      : '/blog/tag/:tag',
+		formatArchive   : '/blog/type/:format',
+		categoryArchive : '/blog/category/:category',
+		page            : '/:slug',
+		subPage         : '/:parentslug/:slug',
+		post            : '/blog/:slug',
+		media           : '/blog/:parentslug/:slug'
+	}
+}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
-import { routes } from 'api/config.json'
+import { routes } from 'config'
 import App from 'containers/App'
 import Index from 'pages/Index'
 import Page from 'pages/Page'
