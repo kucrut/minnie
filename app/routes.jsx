@@ -28,10 +28,10 @@ export default ( store ) => {
 			<Route path={ routes.categoryArchive } component={ Index }>
 				<Route path="page/:page" component={ Index } />
 			</Route>
-			<Route path={ routes.page } component={ Page } />
-			<Route path={ routes.subPage } component={ Page } />
 			<Route path={ routes.post } component={ Post } />
 			<Route path={ routes.media } component={ Media } />
+			<Route path={ routes.page } component={ Page } />
+			<Route path={ routes.subPage } component={ Page } />
 			<Route path="*" component={ NotFound } />
 		</Route>
 	)
