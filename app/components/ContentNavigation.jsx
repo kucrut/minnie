@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import he from 'he'
 
 
-export default class ArchiveNavigation extends Component {
+export default class ContentNavigation extends Component {
 	static propTypes = {
 		isSingle: PropTypes.bool,
 		prevLink: PropTypes.string,

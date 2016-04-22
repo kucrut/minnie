@@ -5,7 +5,7 @@ import he from 'he';
 import { isEqual, forEach } from 'lodash'
 import { getAdjacentLink } from 'helpers.js'
 import { fetchArchive, fetchArchiveTerm } from 'actions/archive'
-import ArchiveNavigation from 'components/ArchiveNavigation'
+import ContentNavigation from 'components/ContentNavigation'
 import Entry from 'components/Entry'
 import EntryEmpty from 'components/EntryEmpty'
 import Spinner from 'components/Spinner'
@@ -160,7 +160,7 @@ class Index extends Component {
 		let nextLink = getAdjacentLink( true, args )
 
 		if ( prevLink || nextLink ) {
-			return ( <ArchiveNavigation prevLink={ prevLink } nextLink={ nextLink } /> )
+			return ( <ContentNavigation prevLink={ prevLink } nextLink={ nextLink } /> )
 		}
 	}
 
