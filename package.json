@@ -31,7 +31,6 @@
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
     "classnames": "^2.2.3",
-    "copy-webpack-plugin": "^1.1.1",
     "cross-env": "^1.0.7",
     "css-loader": "^0.23.1",
     "dom-closest": "^0.2.0",
