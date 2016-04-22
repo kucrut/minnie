@@ -15,7 +15,7 @@ export default class MediaContent extends EntryContent {
 		const { sizes } = this.props.data.media_details
 		let src = ''
 
-		forEach( [ 'medium', 'thumbnail', 'full' ], size => {
+		forEach( [ 'large', 'medium', 'thumbnail', 'full' ], size => {
 			if ( sizes[ size ] ) {
 				src = sizes[ size ].source_url
 				return false
