@@ -53,16 +53,6 @@ export function normalizeParams( params ) {
 	return params
 }
 
-export function isInternalLink( url ) {
-	const firstSlashPosition = url.indexOf( '/' )
-
-	if ( 0 === firstSlashPosition ) {
-		return true;
-	}
-
-	return internalLinkRegEx.test( url )
-}
-
 export function getArchiveTaxonomyTerm( params ) {
 	let result = null
 
