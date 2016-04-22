@@ -5,6 +5,7 @@ import NotFound from 'pages/404'
 import Spinner from 'components/Spinner'
 import Entry from 'components/Entry'
 
+
 export default class _Singular extends Component {
 
 	static propTypes = {
@@ -84,6 +85,11 @@ export default class _Singular extends Component {
 	}
 
 	/**
+	 * Post navigation, must be overriden in the subclass.
+	 */
+	renderNavigation() {}
+
+	/**
 	 * Render singular page content
 	 *
 	 * TODO: Render meta, comments, etc.
@@ -111,6 +117,7 @@ export default class _Singular extends Component {
 				<div id="primary" className="content-area">
 					<main id="main" className="site-main" role="main">
 						<Entry data={ data } isSingle={ true } />
+						{ this.renderNavigation() }
 					</main>
 				</div>
 			</div>
