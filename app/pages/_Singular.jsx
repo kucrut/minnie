@@ -79,7 +79,7 @@ export default class _Singular extends Component {
 			return
 		}
 
-		if ( slug !== data.slug ) {
+		if ( slug !== this.props.slug ) {
 			this.fetchData( slug )
 		}
 	}
