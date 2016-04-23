@@ -9,5 +9,13 @@ module.exports = {
 		subPage         : '/:parentslug/:slug',
 		post            : '/blog/:slug',
 		media           : '/blog/:parentslug/:slug'
+	},
+	codeHighlight: {
+		languages : [
+			'bash', 'c', 'coffeescript', 'cpp', 'css', 'css-extras', 'http',
+			'ini', 'java', 'javascript', 'json', 'jsx', 'less', 'makefile',
+			'markdown', 'nginx', 'php', 'php-extras', 'ruby', 'sass', 'scss',
+			'sql', 'yaml'
+		]
 	}
 }
