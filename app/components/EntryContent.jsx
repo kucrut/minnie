@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { forEach } from 'lodash'
+import { contentPathRegEx } from 'helpers'
 import closest from 'dom-closest'
 
 // Feels hacky ;-)
@@ -32,10 +33,16 @@ class EntryContent extends Component {
 			return
 		}
 
-		if ( anchor.hostname === location.hostname ) {
-			e.preventDefault()
-			this.props.dispatch( push( anchor.pathname ) )
+		if ( anchor.hostname !== location.hostname ) {
+			return
 		}
+
+		if ( contentPathRegEx.test( anchor.pathname ) ) {
+			return
+		}
+
+		e.preventDefault()
+		this.props.dispatch( push( anchor.pathname ) )
 	}
 
 	highlightCode() {

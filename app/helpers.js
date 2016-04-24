@@ -4,6 +4,8 @@ import { forEach, has, isEmpty, omit, size, unset, trim } from 'lodash'
 import { taxonomyMap } from 'constants/index'
 
 
+export const contentPathRegEx = new RegExp( '^/wp-content/' )
+
 export function configureAxios( apiUrl ) {
 	axios.defaults.baseURL = `${ trim( apiUrl, '/' ) }/wp-json/`
 	axios.defaults.headers = {'X-Requested-With': 'minnie'}
