@@ -1,7 +1,7 @@
 # Minnie
 React-based WordPress Client
 
-Demo: http://r.kucrut.org/
+Demo: http://kucrut.org/
 
 ## Installation
 
