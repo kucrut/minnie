@@ -17,5 +17,6 @@ module.exports = {
 			'markdown', 'nginx', 'php', 'php-extras', 'ruby', 'sass', 'scss',
 			'sql', 'yaml'
 		]
-	}
+	},
+	gaId: '' // Google Analytics ID, eg: UA-00000000-1
 }

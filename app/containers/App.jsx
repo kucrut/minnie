@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
+import { gaId } from 'config'
 import { configureAxios } from 'helpers.js'
 import { fetchInfo } from 'actions/info'
 import { fetchPostFormats } from 'actions/terms'
@@ -23,6 +24,10 @@ class App extends Component {
 		children: PropTypes.object
 	}
 
+	static contextTypes = {
+		router: PropTypes.object.isRequired
+	}
+
 	/**
 	 * Callbacks needed for server-side rendering
 	 *
@@ -38,8 +43,33 @@ class App extends Component {
 		fetchSocialMenu
 	]
 
+	insertGAScript() {
+		if ( ! gaId ) {
+			return
+		}
+
+		let el = document.createElement( 'script' )
+
+		el.src = 'https://www.google-analytics.com/analytics.js'
+		el.async = true
+		el.onload = this.initializeGA.bind( this )
+
+		document.body.appendChild( el )
+	}
+
+	initializeGA() {
+		ga( 'create', gaId, 'auto' )
+		ga( 'send', 'pageview' )
+
+		this.context.router.listen( location => {
+			ga( 'set', 'page', location.pathname )
+			ga( 'send', 'pageview' )
+		})
+	}
+
 	componentDidMount() {
 		configureAxios( this.props.apiUrl )
+		this.insertGAScript()
 	}
 
 	render() {
