@@ -33,6 +33,7 @@ function renderFullPage( html, initialState ) {
     ${ head.title.toString() }
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic|Open+Sans:400,400italic,600,600italic,700,700italic&subset=latin,greek,cyrillic,vietnamese,cyrillic-ext,latin-ext'>
     <link rel="stylesheet" href="/assets/main.css" />
+    <link rel="alternate" href="/feed" type="application/rss+xml" />
   </head>
   <body>
     <div id="app">${ html }</div>
