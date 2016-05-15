@@ -1,12 +1,12 @@
-import React from 'react'
-import { Route, IndexRoute } from 'react-router'
-import { routes } from 'config'
-import App from 'containers/App'
-import Index from 'pages/Index'
-import Page from 'pages/Page'
-import Post from 'pages/Post'
-import Media from 'pages/Media'
-import NotFound from 'pages/404'
+import React from 'react';
+import { Route, IndexRoute } from 'react-router';
+import { routes } from 'config';
+import App from 'containers/App';
+import Index from 'pages/Index';
+import Page from 'pages/Page';
+import Post from 'pages/Post';
+import Media from 'pages/Media';
+import NotFound from 'pages/404';
 
 
 /*
@@ -14,7 +14,7 @@ import NotFound from 'pages/404'
  * We require store as an argument here because we wish to get
  * state from the store after it has been authenticated.
  */
-export default ( store ) => {
+export default function () {
 	return (
 		<Route path="/" component={ App }>
 			<IndexRoute component={ Index } />
@@ -34,5 +34,5 @@ export default ( store ) => {
 			<Route path={ routes.subPage } component={ Page } />
 			<Route path="*" component={ NotFound } />
 		</Route>
-	)
+	);
 }

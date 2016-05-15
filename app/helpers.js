@@ -1,123 +1,133 @@
-import qs from 'qs'
-import axios from 'axios'
-import { forEach, has, isEmpty, omit, size, unset, trim } from 'lodash'
-import { taxonomyMap } from 'constants/index'
+import qs from 'qs';
+import axios from 'axios';
+import { forEach, has, isEmpty, omit, size, trim } from 'lodash';
+import { taxonomyMap } from 'constants/index';
 
 
-export const contentPathRegEx = new RegExp( '^/wp-content/' )
+export const contentPathRegEx = new RegExp( '^/wp-content/' );
 
 export function configureAxios( apiUrl ) {
-	axios.defaults.baseURL = `${ trim( apiUrl, '/' ) }/wp-json/`
-	axios.defaults.headers = {'X-Requested-With': 'minnie'}
+	axios.defaults.baseURL = `${trim( apiUrl, '/' )}/wp-json/`;
+	axios.defaults.headers = { 'X-Requested-With': 'minnie' };
 	axios.defaults.paramsSerializer = params => qs.stringify( params, {
 		arrayFormat: 'brackets'
-	})
+	});
 }
 
 export function normalizeParams( params ) {
-	let filters = {}
+	let filters = {};
+	let normalized = Object.assign({}, params, {
+		page: parseInt( ( params.page || 1 ), 10 )
+	});
 
-	if ( has( params, 's' ) ) {
-		params = Object.assign( {}, omit( params, 's' ), {
-			search: params.s
-		})
+
+	// Convert `s` to `search`.
+	if ( has( normalized, 's' ) ) {
+		normalized = Object.assign({}, omit( normalized, 's' ), {
+			search: normalized.s
+		});
 	}
 
-	params = Object.assign( {}, params, {
-		page: parseInt( ( params.page || 1 ), 10 )
-	})
-
-	forEach( taxonomyMap, ( props, routeParam ) => {
-		if ( has( params, routeParam ) ) {
-			let term = 'format' === routeParam ? `post-format-${params[routeParam]}` : params[ routeParam ]
-
-			filters = Object.assign( {}, filters, {
-				[ props.queryVar ]: term
-			})
-
-			unset( params, routeParam )
+	// Build `filter` param.
+	for ( const routeParam of Object.keys( taxonomyMap ) ) {
+		if ( ! has( normalized, routeParam ) ) {
+			continue;
 		}
-	})
+
+		const props = taxonomyMap[ routeParam ];
+		let term = params[ routeParam ];
+
+		if ( 'format' === routeParam ) {
+			term = `post-format-${term}`;
+		}
+
+		filters = Object.assign({}, filters, {
+			[ props.queryVar ]: term
+		});
+
+		normalized = Object.assign({}, omit( normalized, routeParam ) );
+	}
 
 	if ( ! isEmpty( filters ) ) {
-		params = Object.assign( {}, params, {
+		normalized = Object.assign({}, normalized, {
 			filter: filters
-		})
+		});
 	}
 
-	return params
+	return normalized;
 }
 
 export function getArchiveTaxonomyTerm( params ) {
-	let result = null
+	let result = null;
 
 	if ( 1 > size( params ) ) {
-		return result
+		return result;
 	}
 
-	forEach( taxonomyMap, ( props, routeParam ) => {
-		if ( has( params, routeParam ) ) {
-			let slug = params[ routeParam ]
-
-			if ( 'format' === routeParam ) {
-				slug = `post-format-${ slug }`
-			}
-
-			result = {
-				endpoint: props.endpoint,
-				slug: slug
-			}
-
-			return false
+	for ( const routeParam of Object.keys( taxonomyMap ) ) {
+		if ( ! has( params, routeParam ) ) {
+			continue;
 		}
-	})
 
-	return result
+		const props = taxonomyMap[ routeParam ];
+		let slug = params[ routeParam ];
+
+		if ( 'format' === routeParam ) {
+			slug = `post-format-${slug}`;
+		}
+
+		result = {
+			endpoint: props.endpoint,
+			slug
+		};
+	}
+
+	return result;
 }
 
 export function getAdjacentLink( next = true, args ) {
-	const { hasMore, currentPage, route, routeParams, query } = args
+	const { hasMore, currentPage, route, routeParams, query } = args;
 
 	function addSearchQuery( link ) {
 		if ( has( query, 's' ) ) {
-			link += `?s=${query.s}`
+			return `${link}?s=${query.s}`;
 		}
 
-		return link
+		return link;
 	}
 
-	let link      = ''
-	let paths     = []
-	let newPage   = next ? currentPage - 1 : currentPage + 1
-	let newParams = { page: newPage }
+	const newPage = next ? currentPage - 1 : currentPage + 1;
+	let link      = '';
+	let paths     = [];
+	let newParams = { page: newPage };
 
 	// Home's prev
 	if ( hasMore && ! route.path && ! next ) {
-		return addSearchQuery( '/page/2' )
+		return addSearchQuery( '/page/2' );
 	} else if ( 0 === newPage || ( ! hasMore && ! next ) ) {
-		return link
+		return link;
 	}
 
-	paths = [ route.path ]
+	paths = [route.path];
 
 	if ( route.childRoutes ) {
 		forEach( route.childRoutes, el => {
 			if ( el.path ) {
-				paths.push( el.path )
+				paths.push( el.path );
 			}
-		})
+		});
 	}
 
-	link = paths.join( '/' )
+	link = paths.join( '/' );
 
-	newParams = Object.assign( {}, routeParams, newParams )
+	newParams = Object.assign({}, routeParams, newParams );
 	forEach( newParams, ( value, key ) => {
-		link = link.replace( `:${key}`, value )
-	})
+		link = link.replace( `:${key}`, value );
+	});
 
-	link = link.replace( 'page/1', '' )
-	link = trim( link, '/' )
-	link = '/' + link
+	link = link.replace( 'page/1', '' );
+	link = trim( link, '/' );
+	link = `/${link}`;
 
-	return addSearchQuery( link )
+	return addSearchQuery( link );
 }

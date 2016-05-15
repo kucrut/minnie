@@ -1,17 +1,16 @@
-import path from 'path'
-import React from 'react'
-import { renderToString } from 'react-dom/server'
-import { RouterContext, match, createMemoryHistory } from 'react-router'
-import { Provider } from 'react-redux'
-import Helmet from 'react-helmet'
-import createRoutes from 'routes.jsx'
-import { apiUrl } from 'config'
-import { configureAxios } from 'helpers.js'
-import configureStore from 'store/configureStore'
-import { fetchComponentDataBeforeRender } from 'api/fetchComponentDataBeforeRender'
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { RouterContext, match, createMemoryHistory } from 'react-router';
+import { Provider } from 'react-redux';
+import Helmet from 'react-helmet';
+import createRoutes from 'routes.jsx';
+import { apiUrl } from 'config';
+import { configureAxios } from 'helpers.js';
+import configureStore from 'store/configureStore';
+import { fetchComponentDataBeforeRender } from 'api/fetchComponentDataBeforeRender';
 
 
-configureAxios( apiUrl )
+configureAxios( apiUrl );
 
 /**
  * Initial html template
@@ -23,33 +22,33 @@ configureAxios( apiUrl )
  * @return {string}              Template.
  */
 function renderFullPage( html, initialState ) {
-	let head = Helmet.rewind()
+	const head = Helmet.rewind();
 
 	return `<!doctype html>
-<html>
-  <head>
-    <meta charset=utf-8 />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    ${ head.title.toString() }
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic|Open+Sans:400,400italic,600,600italic,700,700italic&subset=latin,greek,cyrillic,vietnamese,cyrillic-ext,latin-ext'>
-    <link rel="stylesheet" href="/assets/main.css" />
-    <link rel="alternate" href="/feed" type="application/rss+xml" />
-  </head>
-  <body>
-    <div id="app">${ html }</div>
-    <script>
-      window.__INITIAL_STATE__ = ${ JSON.stringify( initialState ) };
-    </script>
-    <script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>
-  </body>
-</html>`
+		<html>
+			<head>
+				<meta charset=utf-8 />
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				${head.title.toString()}
+				<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic|Open+Sans:400,400italic,600,600italic,700,700italic&subset=latin,greek,cyrillic,vietnamese,cyrillic-ext,latin-ext'>
+				<link rel="stylesheet" href="/assets/main.css" />
+				<link rel="alternate" href="/feed" type="application/rss+xml" />
+			</head>
+		<body>
+			<div id="app">${html}</div>
+			<script>
+			  window.__INITIAL_STATE__ = ${JSON.stringify( initialState )};
+			</script>
+			<script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>
+		</body>
+	</html>`;
 }
 
 
 export default function render( req, res ) {
 	const history = createMemoryHistory();
-	const store = configureStore( { info: {
-		apiUrl: apiUrl
+	const store = configureStore({ info: {
+		apiUrl
 	} }, history );
 	const routes = createRoutes( store );
 
@@ -69,19 +68,18 @@ export default function render( req, res ) {
 	 * The three arguments to the callback function you pass to `match` are:
 	 * - error: A javascript Error object if an error occured, `undefined` otherwise.
 	 * - redirectLocation: A `Location` object if the route is a redirect, `undefined` otherwise
-	 * - renderProps: The props you should pass to the routing context if the route matched, `undefined`
-	 *                otherwise.
+	 * - renderProps: The props you should pass to the routing context if the route matched,
+	 *                `undefined` otherwise.
 	 * If all three parameters are `undefined`, this means that there was no route found matching the
 	 * given location.
 	 */
-	match( { routes, location: req.url }, ( error, redirectLocation, renderProps ) => {
+	match({ routes, location: req.url }, ( error, redirectLocation, renderProps ) => {
 		if ( error ) {
 			res.status( 500 ).send( error.message );
 		} else if ( redirectLocation ) {
 			res.redirect( 302, redirectLocation.pathname + redirectLocation.search );
 		} else if ( renderProps ) {
-
-			const fetchParams = Object.assign( {}, renderProps.params, renderProps.location.query )
+			const fetchParams = Object.assign({}, renderProps.params, renderProps.location.query );
 			const InitialView = (
 				<Provider store={ store }>
 					<RouterContext { ...renderProps } />
@@ -90,14 +88,14 @@ export default function render( req, res ) {
 
 			// This method waits for all render component promises to resolve before returning to browser.
 			fetchComponentDataBeforeRender( store.dispatch, renderProps.components, fetchParams )
-				.then( html => {
+				.then( () => {
 					const componentHTML = renderToString( InitialView );
 					const initialState = store.getState();
 
 					res.status( 200 ).end( renderFullPage( componentHTML, initialState ) );
 				})
-				.catch( err => {
-					res.end( renderFullPage( '', {} ) );
+				.catch( () => {
+					res.end( renderFullPage( '', {}) );
 				});
 		} else {
 			res.status( 404 ).send( 'Not Found' );

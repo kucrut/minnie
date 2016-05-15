@@ -1,17 +1,17 @@
 module.exports = {
-	port: 9090,
+	port:   9090,
 	apiUrl: 'http://minnie.dev',
 	routes: {
-		tagArchive      : '/blog/tag/:tag',
-		formatArchive   : '/blog/type/:format',
-		categoryArchive : '/blog/category/:category',
-		page            : '/:slug',
-		subPage         : '/:parentslug/:slug',
-		post            : '/blog/:slug',
-		media           : '/blog/:parentslug/:slug'
+		tagArchive:      '/blog/tag/:tag',
+		formatArchive:   '/blog/type/:format',
+		categoryArchive: '/blog/category/:category',
+		page:            '/:slug',
+		subPage:         '/:parentslug/:slug',
+		post:            '/blog/:slug',
+		media:           '/blog/:parentslug/:slug'
 	},
 	codeHighlight: {
-		languages : [
+		languages: [
 			'bash', 'c', 'coffeescript', 'cpp', 'css', 'css-extras', 'http',
 			'ini', 'java', 'javascript', 'json', 'jsx', 'less', 'makefile',
 			'markdown', 'nginx', 'php', 'php-extras', 'ruby', 'sass', 'scss',
@@ -19,4 +19,4 @@ module.exports = {
 		]
 	},
 	gaId: '' // Google Analytics ID, eg: UA-00000000-1
-}
+};
