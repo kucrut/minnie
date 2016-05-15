@@ -11,7 +11,7 @@ export const taxonomyMap = {
 		endpoint: 'categories',
 		queryVar: 'category_name'
 	}
-}
+};
 
 export const GET_INFO = 'GET_INFO';
 export const GET_INFO_REQUEST = 'GET_INFO_REQUEST';
