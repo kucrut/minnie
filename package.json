@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A WordPress front-end built with React.js",
   "author": "Dzikri Aziz",
-  "repository": "https://bitbucket.org/kucrut/wp-minnie",
+  "repository": "https://github.com/kucrut/minnie",
   "main": "index.js",
   "license": "GPL-2.0",
   "scripts": {
