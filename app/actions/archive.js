@@ -1,8 +1,8 @@
-import axios from 'axios'
-import { polyfill } from 'es6-promise'
-import { GET_ARCHIVE, GET_ARCHIVE_TERM, GET_ARCHIVE_TERM_FAILURE } from 'constants/index'
-import { makeTermsRequest } from 'actions/terms'
-import { normalizeParams, getArchiveTaxonomyTerm } from 'helpers.js'
+import axios from 'axios';
+import { polyfill } from 'es6-promise';
+import { GET_ARCHIVE, GET_ARCHIVE_TERM, GET_ARCHIVE_TERM_FAILURE } from 'constants';
+import { makeTermsRequest } from 'actions/terms';
+import { normalizeParams, getArchiveTaxonomyTerm } from 'helpers';
 
 
 polyfill();
@@ -10,17 +10,17 @@ polyfill();
 function makeArchiveRequest( params ) {
 	return axios({
 		method: 'get',
-		url: '/wp/v2/posts',
-		params: params
-	})
+		url:    '/wp/v2/posts',
+		params
+	});
 }
 
-export function fetchArchive( params = {} ) {
+export function fetchArchive( params = {}) {
 	return {
-		type: GET_ARCHIVE,
+		type:        GET_ARCHIVE,
 		fetchParams: params,
-		promise: makeArchiveRequest( normalizeParams( params ) )
-	}
+		promise:     makeArchiveRequest( normalizeParams( params ) )
+	};
 }
 
 /**
@@ -31,17 +31,19 @@ export function fetchArchive( params = {} ) {
  * @param  {Object} params [description]
  * @return {Object}
  */
-export function fetchArchiveTerm( params = {} ) {
-	params = getArchiveTaxonomyTerm( params )
+export function fetchArchiveTerm( params = {}) {
+	const fetchParams = getArchiveTaxonomyTerm( params );
 
-	if ( null === params || params.search ) {
+	if ( null === fetchParams || fetchParams.search ) {
 		return {
 			type: GET_ARCHIVE_TERM_FAILURE
-		}
-	} else {
-		return {
-			type: GET_ARCHIVE_TERM,
-			promise: makeTermsRequest( params.endpoint, { slug: params.slug } )
-		}
+		};
 	}
+
+	return {
+		type:    GET_ARCHIVE_TERM,
+		promise: makeTermsRequest( fetchParams.endpoint, {
+			slug: fetchParams.slug
+		})
+	};
 }
