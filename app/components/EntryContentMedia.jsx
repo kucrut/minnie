@@ -1,6 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { forEach } from 'lodash'
-import EntryContent from 'components/EntryContent'
+import React, { PropTypes } from 'react';
+import EntryContent from 'components/EntryContent';
 
 
 /**
@@ -12,40 +11,42 @@ export default class MediaContent extends EntryContent {
 	}
 
 	getImagePreviewSrc() {
-		const { sizes } = this.props.data.media_details
-		let src = ''
+		const { sizes } = this.props.data.media_details;
+		let src = '';
 
-		forEach( [ 'large', 'medium', 'thumbnail', 'full' ], size => {
+		for ( const size of ['large', 'medium', 'thumbnail', 'full'] ) {
 			if ( sizes[ size ] ) {
-				src = sizes[ size ].source_url
-				return false
+				src = sizes[ size ].source_url;
+				break;
 			}
-		})
+		}
 
-		return src
+		return src;
 	}
 
 	getContent() {
-		const { caption, description } = this.props.data
+		const { caption, description } = this.props.data;
 
 		if ( description ) {
-			return description
-		} else {
-			return `<p>${ caption }</p>`
+			return description;
 		}
+
+		return `<p>${caption}</p>`;
 	}
 
 	renderMedia() {
-		const { source_url } = this.props.data
-		let mediaSrc = this.getImagePreviewSrc()
+		let mediaSrc = this.getImagePreviewSrc();
+		let el;
 
 		if ( mediaSrc ) {
-			return (
+			el = (
 				<p className="attachment">
-					<a href={ source_url }><img src={ mediaSrc } /></a>
+					<a href={ this.props.data.source_url }><img src={ mediaSrc } alt="" /></a>
 				</p>
-			)
+			);
 		}
+
+		return el;
 	}
 
 	render() {
@@ -54,6 +55,6 @@ export default class MediaContent extends EntryContent {
 				{ this.renderMedia() }
 				<EntryContent content={ this.getContent() } wrapClass="description" />
 			</div>
-		)
+		);
 	}
 }

@@ -1,34 +1,34 @@
-import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
-import { connect } from 'react-redux'
-import { find } from 'lodash'
+import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { find } from 'lodash';
 
 
 class EntryFormat extends Component {
 	static propTypes = {
-		data: PropTypes.object.isRequired,
+		data:    PropTypes.object.isRequired,
 		formats: PropTypes.array.isRequired
 	}
 
 	getFormat() {
-		const { data, formats } = this.props
+		const { data, formats } = this.props;
 		let format = find( formats, {
-			slug: `post-format-${ data.format }`
-		})
+			slug: `post-format-${data.format}`
+		});
 
 		// Post format: Standard
 		if ( ! format ) {
 			format = {
 				name: 'Standard',
 				link: data.link
-			}
+			};
 		}
 
-		return format
+		return format;
 	}
 
 	render() {
-		const format = this.getFormat()
+		const format = this.getFormat();
 
 		return (
 			<div className="entry-format">
@@ -36,14 +36,14 @@ class EntryFormat extends Component {
 					<span className="screen-reader-text">{ format.name }</span>
 				</Link>
 			</div>
-		)
+		);
 	}
 }
 
 function mapStateToProps( state ) {
 	return {
 		formats: state.terms.items.formats
-	}
+	};
 }
 
-export default connect( mapStateToProps )( EntryFormat )
+export default connect( mapStateToProps )( EntryFormat );

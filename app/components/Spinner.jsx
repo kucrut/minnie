@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 
 export default function Spinner() {
@@ -6,5 +6,5 @@ export default function Spinner() {
 		<div className="minnie-spinner">
 			<i className="animate-spin genericon genericon-refresh" />
 		</div>
-	)
+	);
 }

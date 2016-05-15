@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from 'react'
-import SearchForm from 'components/SearchForm'
+import React, { Component, PropTypes } from 'react';
+import SearchForm from 'components/SearchForm';
 
 
 export default class EntryEmpty extends Component {
 	static propTypes = {
-		title: PropTypes.string,
+		title:   PropTypes.string,
 		content: PropTypes.string.isRequired
 	}
 
@@ -14,14 +14,14 @@ export default class EntryEmpty extends Component {
 				<p>{ this.props.content }</p>
 				<SearchForm />
 			</div>
-		)
+		);
 	}
 
 	render() {
-		const { title } = this.props
+		const { title } = this.props;
 
 		if ( ! title ) {
-			return this.renderContent()
+			return this.renderContent();
 		}
 
 		return (
@@ -32,6 +32,6 @@ export default class EntryEmpty extends Component {
 
 				{ this.renderContent() }
 			</section>
-		)
+		);
 	}
 }

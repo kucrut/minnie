@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
-import he from 'he'
+import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
+import he from 'he';
 
 
 export default class ContentNavigation extends Component {
@@ -13,46 +13,54 @@ export default class ContentNavigation extends Component {
 	}
 
 	renderPrevLink() {
-		const { prevLink, prevText } = this.props
-		let text = prevText ? prevText : 'Older posts'
+		const { prevLink, prevText } = this.props;
+		const text = prevText || 'Older posts';
+		let el;
 
 		if ( prevLink ) {
-			return (
+			el = (
 				<div className="nav-previous">
 					<Link to={ prevLink }><span className="meta-nav">←</span> { he.decode( text ) }</Link>
 				</div>
-			)
+			);
 		}
+
+		return el;
 	}
 
 
 	renderNextLink() {
-		const { nextLink, nextText } = this.props
-		let text = nextText ? nextText : 'Newer posts'
+		const { nextLink, nextText } = this.props;
+		const text = nextText || 'Newer posts';
+		let el;
 
 		if ( nextLink ) {
-			return (
+			el = (
 				<div className="nav-next">
 					<Link to={ nextLink }>{ he.decode( text ) } <span className="meta-nav">→</span></Link>
 				</div>
-			)
+			);
 		}
+
+		return el;
 	}
 
 	render() {
-		const { isSingle, prevLink, nextLink } = this.props
-		let navClass, navTitle
+		const { isSingle, prevLink, nextLink } = this.props;
+		let navClass;
+		let navTitle;
+		let el;
 
 		if ( isSingle ) {
-			navClass = 'navigation post-navigation'
-			navTitle = 'Post navigation'
+			navClass = 'navigation post-navigation';
+			navTitle = 'Post navigation';
 		} else {
-			navClass = 'navigation paging-navigation'
-			navTitle = 'Posts navigation'
+			navClass = 'navigation paging-navigation';
+			navTitle = 'Posts navigation';
 		}
 
 		if ( prevLink || nextLink ) {
-			return (
+			el = (
 				<nav className={ navClass } role="navigation">
 					<h1 className="screen-reader-text">{ navTitle }</h1>
 					<div className="nav-links">
@@ -60,7 +68,9 @@ export default class ContentNavigation extends Component {
 						{ this.renderNextLink() }
 					</div>
 				</nav>
-			)
+			);
 		}
+
+		return el;
 	}
 }

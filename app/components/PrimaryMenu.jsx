@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react'
-import MenuItem from 'components/MenuItem'
+import React, { PropTypes } from 'react';
+import MenuItem from 'components/MenuItem';
 
 
-const PrimaryMenu = ({ items }) => {
+export default function PrimaryMenu({ items }) {
 	return (
 		<nav id="site-navigation" className="main-navigation" role="navigation">
 			<div className="menu-main-container">
@@ -11,11 +11,9 @@ const PrimaryMenu = ({ items }) => {
 				</ul>
 			</div>
 		</nav>
-	)
+	);
 }
 
 PrimaryMenu.propTypes = {
 	items: PropTypes.array.isRequired
-}
-
-export default PrimaryMenu
+};

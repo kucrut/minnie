@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
-import he from 'he'
+import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
+import he from 'he';
 
 
 /**
@@ -12,36 +12,41 @@ export default class EntryMeta extends Component {
 	}
 
 	renderDate() {
-		const { link, date, date_formatted, modified, modified_formatted } = this.props.data
+		const {
+			link,
+			date,
+			modified,
+			date_formatted: dateFormatted,
+			modified_formatted: modifiedFormatted
+		} = this.props.data;
 
 		return (
 			<span className="posted-on">
 				<Link to={ link } rel="bookmark">
-					<time className="entry-date published" dateTime={ date }>{ date_formatted }</time>
-					<time className="updated" dateTime={ modified }>{ modified_formatted }</time>
+					<time className="entry-date published" dateTime={ date }>{ dateFormatted }</time>
+					<time className="updated" dateTime={ modified }>{ modifiedFormatted }</time>
 				</Link>
 			</span>
-		)
+		);
 	}
 
 	renderTerms( taxonomy ) {
-		const terms = this.props.data[ taxonomy ]
+		const terms = this.props.data[ taxonomy ];
+		let el;
 
-		if ( ! terms || ! terms.length ) {
-			return
-		}
-
-		return (
-			<span className="tags-links">
-				{ terms.map( term => {
-					return (
+		if ( terms && terms.length ) {
+			el = (
+				<span className="tags-links">
+					{ terms.map( term =>
 						<span key={ term.id }>
 							<Link to={ term.link } rel="tag">{ he.decode( term.name ) }</Link>
 						</span>
-					)
-				} )}
-			</span>
-		)
+					) }
+				</span>
+			);
+		}
+
+		return el;
 	}
 
 	/**
@@ -54,6 +59,6 @@ export default class EntryMeta extends Component {
 				{ this.renderTerms( 'categories' ) }
 				{ this.renderTerms( 'tags' ) }
 			</div>
-		)
+		);
 	}
 }
