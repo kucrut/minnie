@@ -1,11 +1,11 @@
 /**
 * This looks at static needs parameter in components and waits for the promise to be fullfilled
-* It is used to make sure server side rendered pages wait for APIs to resolve before returning res.end()
+* It is used to make sure server side rendered pages wait for APIs to resolve before returning
+* res.end().
 * As seen in: https://github.com/caljrimmer/isomorphic-redux-app
 */
 
-export function fetchComponentDataBeforeRender(dispatch, components, params) {
-
+export function fetchComponentDataBeforeRender( dispatch, components, params ) {
 	// Commenting this out since it's producing duplicates.
 	/*
 	const needs = components.reduce( (prev, current) => {
@@ -16,16 +16,16 @@ export function fetchComponentDataBeforeRender(dispatch, components, params) {
 	*/
 
 	const needs = components.reduce( ( prev, current ) => {
-		let more
+		let more;
 
 		if ( current.need && current.WrappedComponent ) {
-			more = current.WrappedComponent.need
+			more = current.WrappedComponent.need;
 		} else {
-			more = []
+			more = [];
 		}
 
-		return more.concat( prev )
-	}, [] )
+		return more.concat( prev );
+	}, [] );
 
 	const promises = needs.map( need => dispatch( need( params ) ) );
 
