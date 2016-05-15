@@ -7,7 +7,8 @@
   "main": "index.js",
   "license": "GPL-2.0",
   "scripts": {
-    "lint": "eslint app",
+    "lint:js": "eslint webpack app",
+    "lint": "npm run lint:js",
     "clean": "rimraf public",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "dev": "cross-env NODE_ENV=development nodemon",
