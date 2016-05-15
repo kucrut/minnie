@@ -1,38 +1,37 @@
-import trimEnd from 'lodash/trimEnd'
 import {
 	GET_INFO_REQUEST,
 	GET_INFO_SUCCESS,
 	GET_INFO_FAILURE
-} from 'constants/index'
+} from 'constants/index';
 
 
 const initialState = {
-	apiUrl: '', // This will be set by `render()` in `server.jsx`
-	name: '',
+	apiUrl:      '', // This will be set by `render()` in `server.jsx`
+	name:        '',
 	description: '',
-	isFetching: false
-}
+	isFetching:  false
+};
 
 export default function info( state = initialState, action ) {
 	switch ( action.type ) {
 		case GET_INFO_REQUEST:
-			return Object.assign( {}, state, {
+			return Object.assign({}, state, {
 				isFetching: true
-			})
+			});
 
 		case GET_INFO_SUCCESS:
-			return Object.assign( {}, state, {
-				name: action.req.data.name,
+			return Object.assign({}, state, {
+				name:        action.req.data.name,
 				description: action.req.data.description,
-				isFetching: false
-			})
+				isFetching:  false
+			});
 
 		case GET_INFO_FAILURE:
-			return Object.assign( {}, state, {
+			return Object.assign({}, state, {
 				isFetching: false
-			})
+			});
 
 		default:
-			return state
+			return state;
 	}
 }
