@@ -1,27 +1,29 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import classNames from 'classnames'
-import { gaId } from 'config'
-import { configureAxios } from 'helpers.js'
-import { fetchInfo } from 'actions/info'
-import { fetchPostFormats } from 'actions/terms'
-import { fetchPrimaryMenu, fetchSocialMenu } from 'actions/menu'
-import Header from 'containers/Header'
-import Footer from 'containers/Footer'
+/* global ga */
 
-require( 'css/genericons/genericons/genericons.css' )
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import classNames from 'classnames';
+import { gaId } from 'config';
+import { configureAxios } from 'helpers';
+import { fetchInfo } from 'actions/info';
+import { fetchPostFormats } from 'actions/terms';
+import { fetchPrimaryMenu, fetchSocialMenu } from 'actions/menu';
+import Header from 'containers/Header';
+import Footer from 'containers/Footer';
+
+require( 'css/genericons/genericons/genericons.css' );
 // For some reason, requiring this from `node_modules` dir will pull all css files :(
-require( `css/prism-coy.css` )
-require( 'prismjs/plugins/line-numbers/prism-line-numbers.css' )
-require( 'css/style.css' )
+require( 'css/prism-coy.css' );
+require( 'prismjs/plugins/line-numbers/prism-line-numbers.css' );
+require( 'css/style.css' );
 
 
 class App extends Component {
 
 	static propTypes = {
-		apiUrl: PropTypes.string.isRequired,
+		apiUrl:            PropTypes.string.isRequired,
 		isSidebarExpanded: PropTypes.bool.isRequired,
-		children: PropTypes.object
+		children:          PropTypes.object
 	}
 
 	static contextTypes = {
@@ -43,40 +45,40 @@ class App extends Component {
 		fetchSocialMenu
 	]
 
+	componentDidMount() {
+		configureAxios( this.props.apiUrl );
+		this.insertGAScript();
+	}
+
 	insertGAScript() {
 		if ( ! gaId ) {
-			return
+			return;
 		}
 
-		let el = document.createElement( 'script' )
+		const el = document.createElement( 'script' );
 
-		el.src = 'https://www.google-analytics.com/analytics.js'
-		el.async = true
-		el.onload = this.initializeGA.bind( this )
+		el.src    = 'https://www.google-analytics.com/analytics.js';
+		el.async  = true;
+		el.onload = this.initializeGA.bind( this );
 
-		document.body.appendChild( el )
+		document.body.appendChild( el );
 	}
 
 	initializeGA() {
-		ga( 'create', gaId, 'auto' )
-		ga( 'send', 'pageview' )
+		ga( 'create', gaId, 'auto' );
+		ga( 'send', 'pageview' );
 
 		this.context.router.listen( location => {
-			ga( 'set', 'page', location.pathname )
-			ga( 'send', 'pageview' )
-		})
-	}
-
-	componentDidMount() {
-		configureAxios( this.props.apiUrl )
-		this.insertGAScript()
+			ga( 'set', 'page', location.pathname );
+			ga( 'send', 'pageview' );
+		});
 	}
 
 	render() {
 		let pageClass = classNames({
-			'hfeed site': true,
+			'hfeed site':   true,
 			'sidebar-open': this.props.isSidebarExpanded
-		})
+		});
 
 		return (
 			<div id="page" className={ pageClass }>
@@ -90,15 +92,15 @@ class App extends Component {
 
 				<Footer />
 			</div>
-		)
+		);
 	}
 }
 
 function mapStateToProps( state ) {
 	return {
-		apiUrl: state.info.apiUrl,
+		apiUrl:            state.info.apiUrl,
 		isSidebarExpanded: state.ui.isSidebarExpanded
-	}
+	};
 }
 
-export default connect( mapStateToProps )( App )
+export default connect( mapStateToProps )( App );

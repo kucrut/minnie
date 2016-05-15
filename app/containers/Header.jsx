@@ -1,25 +1,28 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import Sidebar from 'containers/Sidebar'
-import Branding from 'components/Branding'
-import SocialMenu from 'components/SocialMenu'
-import Burger from 'components/Burger'
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import Sidebar from 'containers/Sidebar';
+import Branding from 'components/Branding';
+import SocialMenu from 'components/SocialMenu';
+import Burger from 'components/Burger';
 
 
 class Header extends Component {
 	static propTypes = {
-		info: PropTypes.object.isRequired,
+		info:  PropTypes.object.isRequired,
 		menus: PropTypes.object.isRequired
 	}
 
 	renderSocialMenu() {
-		const { social } = this.props.menus
+		const { social } = this.props.menus;
+		let el;
 
 		if ( social && social.items.length ) {
-			return (
+			el = (
 				<SocialMenu items={ social.items } />
-			)
+			);
 		}
+
+		return el;
 	}
 
 	render() {
@@ -30,15 +33,15 @@ class Header extends Component {
 				<Burger />
 				<Sidebar />
 			</header>
-		)
+		);
 	}
 }
 
 function mapStateToProps( state ) {
 	return {
-		info: state.info,
+		info:  state.info,
 		menus: state.menu.menus
-	}
+	};
 }
 
-export default connect( mapStateToProps )( Header )
+export default connect( mapStateToProps )( Header );
