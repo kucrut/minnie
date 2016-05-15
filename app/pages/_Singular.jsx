@@ -1,24 +1,24 @@
-import React, { Component, PropTypes } from 'react'
-import he from 'he'
-import Helmet from 'react-helmet'
-import NotFound from 'pages/404'
-import Spinner from 'components/Spinner'
-import Entry from 'components/Entry'
+import React, { Component, PropTypes } from 'react';
+import he from 'he';
+import Helmet from 'react-helmet';
+import NotFound from 'pages/404';
+import Spinner from 'components/Spinner';
+import Entry from 'components/Entry';
 
 
 export default class _Singular extends Component {
 
 	static propTypes = {
-		slug: PropTypes.string.isRequired,
-		info: PropTypes.object.isRequired,
+		slug:     PropTypes.string.isRequired,
+		info:     PropTypes.object.isRequired,
 		singular: PropTypes.object.isRequired,
 		dispatch: PropTypes.func.isRequired
 	}
 
 	constructor( props ) {
-		const { slug, singular } = props
+		const { slug, singular } = props;
 
-		super( props )
+		super( props );
 
 		/**
 		 * State
@@ -31,13 +31,8 @@ export default class _Singular extends Component {
 		 */
 		this.state = {
 			isWaitingForProps: ( slug !== singular.data.slug )
-		}
+		};
 	}
-
-	/**
-	 * Must be overriden in subclass
-	 */
-	fetchData( slug ) {}
 
 	/**
 	 * Before mount
@@ -49,16 +44,16 @@ export default class _Singular extends Component {
 	 *     store doesn't match the requested page.
 	 */
 	componentWillMount() {
-		const { slug, singular } = this.props
-		const { data, isFetching } = singular
+		const { slug, singular } = this.props;
+		const { data, isFetching } = singular;
 
 		if ( isFetching ) {
-			this.setState({ isWaitingForProps: false })
-			return
+			this.setState({ isWaitingForProps: false });
+			return;
 		}
 
 		if ( slug !== data.slug ) {
-			this.fetchData( slug )
+			this.fetchData( slug );
 		}
 	}
 
@@ -71,18 +66,22 @@ export default class _Singular extends Component {
 	 * @param  {object} nextProps Next properties.
 	 */
 	componentWillReceiveProps( nextProps ) {
-		const { slug, singular } = nextProps
-		const { data, isFetching } = singular
+		const { slug, singular: { isFetching } } = nextProps;
 
 		if ( isFetching ) {
-			this.setState({ isWaitingForProps: false })
-			return
+			this.setState({ isWaitingForProps: false });
+			return;
 		}
 
 		if ( slug !== this.props.slug ) {
-			this.fetchData( slug )
+			this.fetchData( slug );
 		}
 	}
+
+	/**
+	 * Must be overriden in subclass
+	 */
+	fetchData() {}
 
 	/**
 	 * Post navigation, must be overriden in the subclass.
@@ -95,23 +94,24 @@ export default class _Singular extends Component {
 	 * TODO: Render meta, comments, etc.
 	 */
 	render() {
-		const { info, singular } = this.props
-		const { data, isFetching } = singular
-		let title
+		const { info, singular } = this.props;
+		const { data, isFetching } = singular;
+		let title;
 
 		if ( isFetching || this.state.isWaitingForProps ) {
-			return ( <Spinner /> )
+			return ( <Spinner /> );
 		} else if ( ! data.id ) {
-			return ( <NotFound /> )
+			return ( <NotFound /> );
 		}
 
-		title = data.title.rendered ? data.title.rendered : data.title.from_content
+		title = data.title.rendered ? data.title.rendered : data.title.from_content;
+		title = he.decode( title );
 
 		return (
 			<div className="content">
 				<Helmet
-					title={ he.decode( title ) }
-					titleTemplate={ `%s | ${ info.name }` }
+					title={ title }
+					titleTemplate={ `%s | ${info.name}` }
 				/>
 
 				<div id="primary" className="content-area">
@@ -121,6 +121,6 @@ export default class _Singular extends Component {
 					</main>
 				</div>
 			</div>
-		)
+		);
 	}
 }

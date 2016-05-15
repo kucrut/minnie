@@ -1,9 +1,9 @@
-import React from 'react'
-import Helmet from 'react-helmet'
-import EntryEmpty from 'components/EntryEmpty'
+import React from 'react';
+import Helmet from 'react-helmet';
+import EntryEmpty from 'components/EntryEmpty';
 
 
-const NotFound = props => {
+export default function NotFound() {
 	return (
 		<div className="content">
 			<Helmet title="Oops!" />
@@ -17,7 +17,5 @@ const NotFound = props => {
 				</main>
 			</div>
 		</div>
-	)
+	);
 }
-
-export default NotFound

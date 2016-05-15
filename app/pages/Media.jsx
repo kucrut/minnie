@@ -1,8 +1,9 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { fetchMedia } from 'actions/singular'
-import _Singular from 'pages/_Singular'
-import ContentNavigation from 'components/ContentNavigation'
+import React from 'react';
+import { connect } from 'react-redux';
+import { fetchMedia } from 'actions/singular';
+import _Singular from 'pages/_Singular';
+import ContentNavigation from 'components/ContentNavigation';
+
 
 class Media extends _Singular {
 
@@ -18,14 +19,14 @@ class Media extends _Singular {
 		fetchMedia
 	]
 
-	static displayName = 'Media'
+	static displayName = 'Media';
 
 	fetchData( slug ) {
-		this.props.dispatch( fetchMedia({ slug }) )
+		this.props.dispatch( fetchMedia({ slug }) );
 	}
 
 	renderNavigation() {
-		const { parent_post } = this.props.singular.data
+		const { parent_post } = this.props.singular.data;
 
 		return (
 			<ContentNavigation
@@ -33,18 +34,18 @@ class Media extends _Singular {
 				prevLink={ parent_post.link }
 				prevText={ parent_post.title.rendered }
 			/>
-		)
+		);
 	}
 }
 
 function mapStateToProps( state, ownProps ) {
-	const { slug } = ownProps.params
+	const { slug } = ownProps.params;
 
 	return {
-		slug: slug,
-		info: state.info,
-		singular: state.singular
-	}
+		info:     state.info,
+		singular: state.singular,
+		slug
+	};
 }
 
-export default connect( mapStateToProps )( Media )
+export default connect( mapStateToProps )( Media );

@@ -1,35 +1,30 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import Helmet from 'react-helmet'
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
 import he from 'he';
-import { isEqual, forEach } from 'lodash'
-import { getAdjacentLink } from 'helpers.js'
-import { fetchArchive, fetchArchiveTerm } from 'actions/archive'
-import ContentNavigation from 'components/ContentNavigation'
-import Entry from 'components/Entry'
-import EntryEmpty from 'components/EntryEmpty'
-import Spinner from 'components/Spinner'
+import { isEqual } from 'lodash';
+import { getAdjacentLink } from 'helpers';
+import { fetchArchive, fetchArchiveTerm } from 'actions/archive';
+import ContentNavigation from 'components/ContentNavigation';
+import Entry from 'components/Entry';
+import EntryEmpty from 'components/EntryEmpty';
+import Spinner from 'components/Spinner';
 
 
 class Index extends Component {
 	static propTypes = {
-		info: PropTypes.object.isRequired,
-		archive: PropTypes.object.isRequired,
-		route: PropTypes.object.isRequired,
-		routeParams: PropTypes.object.isRequired
+		info:        PropTypes.object.isRequired,
+		archive:     PropTypes.object.isRequired,
+		query:       PropTypes.object.isRequired,
+		route:       PropTypes.object.isRequired,
+		routeParams: PropTypes.object.isRequired,
+		dispatch:    PropTypes.func.isRequired
 	}
 
 	static need = [
 		fetchArchive,
 		fetchArchiveTerm
 	]
-
-	fetchData( params ) {
-		const { dispatch } = this.props
-
-		dispatch( fetchArchive( params ) )
-		dispatch( fetchArchiveTerm( params ) )
-	}
 
 	/**
 	 * Before mount
@@ -40,18 +35,17 @@ class Index extends Component {
 	 * to fetch the data first.
 	 */
 	componentWillMount() {
-		const { archive, dispatch, routeParams, query } = this.props
-		const { isFetching, fetchParams, currentPage } = archive
-		let params
+		const { archive, routeParams, query } = this.props;
+		const { isFetching, fetchParams, currentPage } = archive;
 
 		if ( isFetching ) {
-			return
+			return;
 		}
 
-		params = Object.assign( {}, routeParams, query )
+		const params = Object.assign({}, routeParams, query );
 
 		if ( 0 === currentPage || ! isEqual( params, fetchParams ) ) {
-			this.fetchData( params )
+			this.fetchData( params );
 		}
 	}
 
@@ -63,19 +57,25 @@ class Index extends Component {
 	 * @param  {object} nextProps Next properties.
 	 */
 	componentWillReceiveProps( nextProps ) {
-		const { archive, dispatch, routeParams, query } = nextProps
-		const { isFetching, fetchParams } = archive
-		let params
+		const { archive, routeParams, query } = nextProps;
+		const { isFetching, fetchParams } = archive;
 
 		if ( isFetching ) {
-			return
+			return;
 		}
 
-		params = Object.assign( {}, routeParams, query )
+		const params = Object.assign({}, routeParams, query );
 
 		if ( ! isEqual( params, fetchParams ) ) {
-			this.fetchData( params )
+			this.fetchData( params );
 		}
+	}
+
+	fetchData( params ) {
+		const { dispatch } = this.props;
+
+		dispatch( fetchArchive( params ) );
+		dispatch( fetchArchiveTerm( params ) );
 	}
 
 	/**
@@ -84,34 +84,34 @@ class Index extends Component {
 	 * TODO: Maybe fetch this from SEO plugin?
 	 */
 	renderHelMet() {
-		const { routeParams, archive, info } =  this.props
-		const { term, searchTerm } = archive
+		const { routeParams, archive, info } =  this.props;
+		const { term, searchTerm } = archive;
 
-		let title = ''
+		let title = '';
 
 		if ( term || searchTerm ) {
 			if ( term ) {
-				title = term.name
+				title = term.name;
 			} else {
-				title = `Search results for “${searchTerm}”`
+				title = `Search results for “${searchTerm}”`;
 			}
 
 			if ( routeParams.page ) {
-				title = `${ title } — Page ${ routeParams.page }`
+				title = `${title} — Page ${routeParams.page}`;
 			}
 
-			title = `${ title } | ${ info.name }`
+			title = `${title} | ${info.name}`;
 		} else { // Home
-			title = info.name
+			title = info.name;
 
 			if ( routeParams.page ) {
-				title = `${ title } — Page ${ routeParams.page }`
+				title = `${title} — Page ${routeParams.page}`;
 			}
 		}
 
 		return (
 			<Helmet title={ he.decode( title ) } />
-		)
+		);
 	}
 
 	/**
@@ -121,85 +121,91 @@ class Index extends Component {
 	 * which is the term title ( `get_queried_object()` in WordPress ).
 	 */
 	renderTitle() {
-		const { term, searchTerm, items } = this.props.archive
-		let title
+		const { term, searchTerm, items } = this.props.archive;
+		let title;
+		let el;
 
 		if ( searchTerm ) {
-			title = `Search results for “${searchTerm}”`
+			title = `Search results for “${searchTerm}”`;
 		} else {
 			if ( term && items.length ) {
-				title = he.decode( term.name )
+				title = he.decode( term.name );
 			}
 		}
 
 		if ( title ) {
-			return (
+			el = (
 				<header className="page-header">
 					<h1 className="page-title">{ title }</h1>
 				</header>
-			)
+			);
 		}
+
+		return el;
 	}
 
 	renderNavigation() {
+		let el;
+
 		if ( ! this.props.archive.items.length ) {
-			return
+			return el;
 		}
 
-		const { archive, route, routeParams, query } = this.props
-		const { currentPage, hasMore } = archive
+		const { archive, route, routeParams, query } = this.props;
+		const { currentPage, hasMore } = archive;
 		const args = {
 			hasMore,
 			currentPage,
 			route,
 			routeParams,
 			query
-		}
+		};
 
-		let prevLink = getAdjacentLink( false, args )
-		let nextLink = getAdjacentLink( true, args )
+		let prevLink = getAdjacentLink( false, args );
+		let nextLink = getAdjacentLink( true, args );
 
 		if ( prevLink || nextLink ) {
-			return ( <ContentNavigation prevLink={ prevLink } nextLink={ nextLink } /> )
+			el = ( <ContentNavigation prevLink={ prevLink } nextLink={ nextLink } /> );
 		}
+
+		return el;
 	}
 
 	renderEmpty() {
-		const { searchTerm } = this.props.archive
-		let args
+		const { searchTerm } = this.props.archive;
+		let args;
 
 		if ( searchTerm ) {
 			args = {
-				content: "It seems we can’t find what you’re looking for. Perhaps try another search?"
-			}
+				content: 'It seems we can’t find what you’re looking for. Perhaps try another search?'
+			};
 		} else {
 			args = {
-				title: "Nothing Found.",
-				content: "It seems we can’t find what you’re looking for. Perhaps searching can help."
-			}
+				title:   'Nothing Found.',
+				content: 'It seems we can’t find what you’re looking for. Perhaps searching can help.'
+			};
 		}
 
 		return (
 			<EntryEmpty { ...args } />
-		)
+		);
 	}
 
 	renderArchive() {
-		const { items } = this.props.archive
+		const { items } = this.props.archive;
 
 		if ( items.length ) {
-			return items.map( item => <Entry key={ item.id } data={ item } isSingle={ false } /> )
-		} else {
-			return this.renderEmpty()
+			return items.map( item => <Entry key={ item.id } data={ item } isSingle={ false } /> );
 		}
+
+		return this.renderEmpty();
 	}
 
 	render() {
-		const { archive, route, routeParams } = this.props
-		const { isFetching, items, hasMore, currentPage } = archive
+		const { isFetching } = this.props.archive;
 
 		if ( isFetching ) {
-			return ( <Spinner /> )
+			return ( <Spinner /> );
 		}
 
 		return (
@@ -212,18 +218,18 @@ class Index extends Component {
 					{ this.renderNavigation() }
 				</main>
 			</div>
-		)
+		);
 	}
 }
 
 function mapStateToProps( state, ownProps ) {
 	return {
-		info: state.info,
-		archive: state.archive,
-		route: ownProps.route,
-		query: ownProps.location.query,
+		info:        state.info,
+		archive:     state.archive,
+		route:       ownProps.route,
+		query:       ownProps.location.query,
 		routeParams: ownProps.params
-	}
+	};
 }
 
-export default connect( mapStateToProps )( Index )
+export default connect( mapStateToProps )( Index );

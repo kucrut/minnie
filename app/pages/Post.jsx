@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { fetchPost } from 'actions/singular'
-import _Singular from 'pages/_Singular'
+import { connect } from 'react-redux';
+import { fetchPost } from 'actions/singular';
+import _Singular from 'pages/_Singular';
+
 
 class Post extends _Singular {
 
@@ -19,23 +19,19 @@ class Post extends _Singular {
 
 	static displayName = 'Post'
 
-	constructor( props ) {
-		super( props )
-	}
-
 	fetchData( slug ) {
-		this.props.dispatch( fetchPost({ slug }) )
+		this.props.dispatch( fetchPost({ slug }) );
 	}
 }
 
 export function mapStateToProps( state, ownProps ) {
-	const { slug } = ownProps.params
+	const { slug } = ownProps.params;
 
 	return {
-		slug: slug,
-		info: state.info,
-		singular: state.singular
-	}
+		info:     state.info,
+		singular: state.singular,
+		slug
+	};
 }
 
-export default connect( mapStateToProps )( Post )
+export default connect( mapStateToProps )( Post );
