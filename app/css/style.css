@@ -1601,3 +1601,20 @@ object {
 	font-size: 4em;
 	color: rgb(204, 204, 204);
 }
+
+form.login {
+	max-width: 15em;
+	margin: 0 auto;
+}
+form.login p {
+	margin-bottom: 1em;
+}
+form.login .submit-row {
+	text-align: right;
+}
+form.login label {
+	display: block;
+}
+form.login input {
+	width: 100%;
+}

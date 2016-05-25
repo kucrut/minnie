@@ -13,6 +13,10 @@ export const taxonomyMap = {
 	}
 };
 
+export const GET_SESSION = 'GET_SESSION';
+export const GET_SESSION_REQUEST = 'GET_SESSION_REQUEST';
+export const GET_SESSION_SUCCESS = 'GET_SESSION_SUCCESS';
+export const GET_SESSION_FAILURE = 'GET_SESSION_FAILURE';
 export const GET_INFO = 'GET_INFO';
 export const GET_INFO_REQUEST = 'GET_INFO_REQUEST';
 export const GET_INFO_SUCCESS = 'GET_INFO_SUCCESS';

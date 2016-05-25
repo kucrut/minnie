@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import { routes } from 'config';
 import App from 'containers/App';
+import Login from 'pages/Login';
 import Index from 'pages/Index';
 import Page from 'pages/Page';
 import Post from 'pages/Post';
@@ -18,6 +19,7 @@ export default function () {
 	return (
 		<Route path="/" component={ App }>
 			<IndexRoute component={ Index } />
+			<Route path="login" component={ Login } />
 			<Route path="page/:page" component={ Index } />
 			<Route path={ routes.tagArchive } component={ Index }>
 				<Route path="page/:page" component={ Index } />
