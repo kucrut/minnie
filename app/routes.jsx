@@ -8,6 +8,7 @@ import Page from 'pages/Page';
 import Post from 'pages/Post';
 import Media from 'pages/Media';
 import NotFound from 'pages/404';
+import Preview from 'pages/Preview';
 
 
 /*
@@ -34,6 +35,7 @@ export default function () {
 			<Route path={ routes.media } component={ Media } />
 			<Route path={ routes.page } component={ Page } />
 			<Route path={ routes.subPage } component={ Page } />
+			<Route path={ routes.preview } component={ Preview } />
 			<Route path="*" component={ NotFound } />
 		</Route>
 	);

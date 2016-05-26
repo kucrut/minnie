@@ -5,6 +5,11 @@ import { GET_SINGULAR } from 'constants/index';
 
 polyfill();
 
+const postTypeMap = {
+	post: 'posts',
+	page: 'pages'
+};
+
 function makeSingularRequest( slug, type = 'pages' ) {
 	return request({
 		method: 'get',
@@ -31,5 +36,25 @@ export function fetchMedia( params ) {
 	return {
 		type:    GET_SINGULAR,
 		promise: makeSingularRequest( params.slug, 'media' )
+	};
+}
+
+export function fetchPreview( params ) {
+	const { id, type } = params;
+	const postType = postTypeMap[ type ];
+
+	return ( dispatch, getState ) => {
+		const { token } = getState().session;
+
+		dispatch({
+			type:      GET_SINGULAR,
+			isPreview: true,
+			postId:    id,
+			promise:   request({
+				method:  'get',
+				url:     `/wp/v2/${postType}/${id}`,
+				headers: { Authorization: `Basic ${token}` }
+			})
+		});
 	};
 }

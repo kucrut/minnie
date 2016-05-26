@@ -9,7 +9,8 @@ module.exports = {
 		page:            '/:slug',
 		subPage:         '/:parentslug/:slug',
 		post:            '/blog/:slug',
-		media:           '/blog/:parentslug/:slug'
+		media:           '/blog/:parentslug/:slug',
+		preview:         '/preview/:type/:id'
 	},
 	codeHighlight: {
 		languages: [

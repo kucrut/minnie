@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux'
+import { push } from 'react-router-redux';
+import { get } from 'lodash';
 import Helmet from 'react-helmet';
 import { checkSession } from 'actions/session';
 
@@ -8,7 +9,8 @@ class Login extends Component {
 	static propTypes = {
 		siteName:   PropTypes.string.isRequired,
 		isChecking: PropTypes.bool.isRequired,
-		dispatch:   PropTypes.func.isRequired
+		dispatch:   PropTypes.func.isRequired,
+		redirect:   PropTypes.string
 	}
 
 	constructor( props ) {
@@ -23,9 +25,9 @@ class Login extends Component {
 		this.handleSubmit = this.handleSubmit.bind( this );
 	}
 
-	componentWillReceiveProps( nextProps, nextState ) {
+	componentWillReceiveProps( nextProps ) {
 		if ( nextProps.user.id ) {
-			nextProps.dispatch( push( '/' ) );
+			nextProps.dispatch( push( nextProps.redirect ) );
 		} else {
 			// Show error.
 		}
@@ -91,11 +93,14 @@ class Login extends Component {
 	}
 }
 
-function mapStateToProps( state ) {
+function mapStateToProps( state, ownProps ) {
+	const redirectUrl = get( ownProps, 'location.query.redirect' );
+
 	return {
 		siteName:   state.info.name,
 		isChecking: state.session.isChecking,
-		user:       state.session.user
+		user:       state.session.user,
+		redirect:   redirectUrl || '/'
 	};
 }
 

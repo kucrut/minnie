@@ -1,4 +1,4 @@
-import head from 'lodash/head';
+import { head } from 'lodash';
 import {
 	GET_SINGULAR_REQUEST,
 	GET_SINGULAR_SUCCESS,
@@ -14,6 +14,7 @@ const initialState = {
 
 export default function singular( state = initialState, action ) {
 	let data;
+	let slug;
 
 	switch ( action.type ) {
 		case GET_SINGULAR_REQUEST:
@@ -22,7 +23,13 @@ export default function singular( state = initialState, action ) {
 			});
 
 		case GET_SINGULAR_SUCCESS:
-			data = head( action.req.data, 1 );
+			if ( action.isPreview ) {
+				data = action.req.data;
+				slug = `preview-${action.postId}`;
+			} else {
+				data = head( action.req.data, 1 );
+				slug = action.req.config.params.slug;
+			}
 
 			/**
 			 * Page/post not found.
@@ -32,8 +39,8 @@ export default function singular( state = initialState, action ) {
 			 */
 			if ( ! data ) {
 				data = {
-					slug:  action.req.config.params.slug,
-					title: initialTitle
+					title: initialTitle,
+					slug
 				};
 			}
 
