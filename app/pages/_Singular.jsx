@@ -12,7 +12,8 @@ export default class _Singular extends Component {
 		slug:     PropTypes.string.isRequired,
 		info:     PropTypes.object.isRequired,
 		singular: PropTypes.object.isRequired,
-		dispatch: PropTypes.func.isRequired
+		dispatch: PropTypes.func.isRequired,
+		comments: PropTypes.object
 	}
 
 	constructor( props ) {
@@ -89,6 +90,11 @@ export default class _Singular extends Component {
 	renderNavigation() {}
 
 	/**
+	 * Comments list
+	 */
+	renderComments() {}
+
+	/**
 	 * Render singular page content
 	 *
 	 * TODO: Render meta, comments, etc.
@@ -118,6 +124,7 @@ export default class _Singular extends Component {
 					<main id="main" className="site-main" role="main">
 						<Entry data={ data } isSingle={ true } />
 						{ this.renderNavigation() }
+						{ this.renderComments() }
 					</main>
 				</div>
 			</div>

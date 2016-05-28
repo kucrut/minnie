@@ -1,7 +1,7 @@
-import { polyfill } from 'es6-promise';
 import request from 'axios';
+import { polyfill } from 'es6-promise';
 import { GET_SINGULAR } from 'constants/index';
-
+import { fetchComments } from 'actions/comments';
 
 polyfill();
 
@@ -25,11 +25,23 @@ export function fetchPage( params ) {
 	};
 }
 
+function fetchPostWithComments( dispatch, slug ) {
+	return makeSingularRequest( slug, 'posts' )
+		.then( postReq => Promise.all( [
+			postReq,
+			dispatch( fetchComments({
+				post:   postReq.data[ 0 ].id,
+				parent: 0
+			}) )
+		] ) )
+		.then( results => Promise.resolve( results[ 0 ] ) );
+}
+
 export function fetchPost( params ) {
-	return {
+	return dispatch => dispatch({
 		type:    GET_SINGULAR,
-		promise: makeSingularRequest( params.slug, 'posts' )
-	};
+		promise: fetchPostWithComments( dispatch, params.slug )
+	});
 }
 
 export function fetchMedia( params ) {

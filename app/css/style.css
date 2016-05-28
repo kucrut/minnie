@@ -1093,6 +1093,9 @@ a.current_page_item {
 	margin: 0 0 1.5em;
 	position: relative;
 }
+.comment-meta .fn::after {
+	content: ' ';
+}
 .no-comments {
 	text-align: center;
 }
