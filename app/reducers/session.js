@@ -1,5 +1,9 @@
 import { GET_SESSION_REQUEST, GET_SESSION_SUCCESS, GET_SESSION_FAILURE } from 'constants/index';
 
+function saveToken( token ) {
+	localStorage.setItem( 'minnieToken', token );
+}
+
 const initialState = {
 	isChecking: false,
 	token:      '',
@@ -14,6 +18,8 @@ export default function session( state = initialState, action ) {
 			});
 
 		case GET_SESSION_SUCCESS:
+			saveToken( action.token );
+
 			return Object.assign({}, state, {
 				isChecking: false,
 				token:      action.token,
@@ -21,6 +27,8 @@ export default function session( state = initialState, action ) {
 			});
 
 		case GET_SESSION_FAILURE:
+			saveToken( '' );
+
 			return initialState;
 
 		default:
