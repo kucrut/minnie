@@ -8,6 +8,7 @@ import { configureAxios } from 'helpers';
 import { fetchInfo } from 'actions/info';
 import { fetchPostFormats } from 'actions/terms';
 import { fetchPrimaryMenu, fetchSocialMenu } from 'actions/menu';
+import Helmet from 'react-helmet';
 import Header from 'containers/Header';
 import Footer from 'containers/Footer';
 
@@ -22,6 +23,7 @@ class App extends Component {
 
 	static propTypes = {
 		apiUrl:            PropTypes.string.isRequired,
+		siteLang:          PropTypes.string.isRequired,
 		isSidebarExpanded: PropTypes.bool.isRequired,
 		children:          PropTypes.object
 	}
@@ -82,6 +84,8 @@ class App extends Component {
 
 		return (
 			<div id="page" className={ pageClass }>
+				<Helmet htmlAttributes={ { lang: this.props.siteLang } } />
+
 				<a className="skip-link screen-reader-text" href="#content">Skip to content</a>
 
 				<Header />
@@ -99,6 +103,7 @@ class App extends Component {
 function mapStateToProps( state ) {
 	return {
 		apiUrl:            state.info.apiUrl,
+		siteLang:          state.info.lang,
 		isSidebarExpanded: state.ui.isSidebarExpanded
 	};
 }

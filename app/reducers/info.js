@@ -7,6 +7,7 @@ import {
 
 const initialState = {
 	apiUrl:      '', // This will be set by `render()` in `server.jsx`
+	lang:        '',
 	name:        '',
 	description: '',
 	isFetching:  false
@@ -21,6 +22,7 @@ export default function info( state = initialState, action ) {
 
 		case GET_INFO_SUCCESS:
 			return Object.assign({}, state, {
+				lang:        action.req.data.lang,
 				name:        action.req.data.name,
 				description: action.req.data.description,
 				isFetching:  false

@@ -6,6 +6,18 @@ import { taxonomyMap } from 'constants/index';
 
 export const contentPathRegEx = new RegExp( '^/wp-content/' );
 
+export function canUseDOM() {
+	return !!(
+		( 'undefined' !== typeof window && window.document && window.document.createElement )
+	);
+}
+
+export function getToken() {
+	const token = canUseDOM ? localStorage.getItem( 'minnieToken' ) : '';
+
+	return token;
+}
+
 export function configureAxios( apiUrl ) {
 	axios.defaults.baseURL = `${trim( apiUrl, '/' )}/wp-json/`;
 	axios.defaults.headers = { 'X-Requested-With': 'minnie' };

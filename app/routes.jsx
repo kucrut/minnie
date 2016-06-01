@@ -35,7 +35,7 @@ export default function () {
 			<Route path={ routes.media } component={ Media } />
 			<Route path={ routes.page } component={ Page } />
 			<Route path={ routes.subPage } component={ Page } />
-			<Route path={ routes.preview } component={ Preview } />
+			<Route path="/preview/:type/:id" component={ Preview } />
 			<Route path="*" component={ NotFound } />
 		</Route>
 	);
