@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { GET_SESSION } from 'constants/index';
+import { getToken } from 'helpers';
+import { GET_SESSION, GET_SESSION_FAILURE } from 'constants/index';
 
-export function checkSession( username, password ) {
-	const token = btoa( `${username}:${password}` );
-
+function makeSessionRequest( token ) {
 	return {
 		token,
 		type:    GET_SESSION,
@@ -15,4 +14,25 @@ export function checkSession( username, password ) {
 			}
 		})
 	};
+}
+
+/**
+ * Check last session
+ *
+ * This should only be called from browser.
+ */
+export function checkLastSession() {
+	const token = getToken();
+
+	if ( ! token ) {
+		return { type: GET_SESSION_FAILURE };
+	}
+
+	return makeSessionRequest( token );
+}
+
+export function checkSession( username, password ) {
+	const token = btoa( `${username}:${password}` );
+
+	return makeSessionRequest( token );
 }

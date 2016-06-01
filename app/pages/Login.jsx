@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { get } from 'lodash';
 import Helmet from 'react-helmet';
-import { checkSession } from 'actions/session';
+import { checkLastSession, checkSession } from 'actions/session';
+import Spinner from 'components/Spinner';
 
 class Login extends Component {
 	static propTypes = {
@@ -23,6 +24,10 @@ class Login extends Component {
 
 		this.handleChange = this.handleChange.bind( this );
 		this.handleSubmit = this.handleSubmit.bind( this );
+	}
+
+	componentDidMount() {
+		this.props.dispatch( checkLastSession() );
 	}
 
 	componentWillReceiveProps( nextProps ) {
@@ -51,9 +56,16 @@ class Login extends Component {
 	}
 
 	render() {
-		const { siteName, isChecking, user } = this.props;
+		const { siteName, isChecking } = this.props;
 		const { username, password } = this.state;
-		const btnAttr = ! isChecking && username && password ? {} : { disabled: 'disabled' };
+
+		if ( isChecking ) {
+			return (
+				<div className="content">
+					<Spinner />
+				</div>
+			);
+		}
 
 		return (
 			<div className="content">
@@ -83,7 +95,7 @@ class Login extends Component {
 								/>
 							</p>
 							<p className="submit-row">
-								<button type="submit" { ...btnAttr }>Log In</button>
+								<button type="submit">Log In</button>
 							</p>
 						</form>
 					</main>
