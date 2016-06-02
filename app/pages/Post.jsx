@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPost } from 'actions/singular';
 import _Singular from 'pages/_Singular';
-import Comments from 'containers/Comments';
+import CommentsSection from 'containers/Comments/Section';
 
 
 class Post extends _Singular {
@@ -26,7 +26,7 @@ class Post extends _Singular {
 	}
 
 	renderComments() {
-		return ( <Comments comments={ this.props.comments } /> );
+		return ( <CommentsSection comments={ this.props.comments } /> );
 	}
 }
 

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import CommentsList from 'containers/CommentsList';
+import CommentsList from 'containers/Comments/List';
 
 export default class Comments extends Component {
 	static propTypes = {
