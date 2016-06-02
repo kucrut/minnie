@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import CommentContent from 'components/Comment/Content';
 import CommentAuthor from 'components/Comment/Author';
-import CommentMeta from 'components/Comment/Meta';
+import CommentDate from 'components/Comment/Date';
+import CommentViewRepliesLink from 'components/Comment/ViewRepliesLink';
+import CommentReplyLink from 'components/Comment/ReplyLink';
 
 export default class Comment extends Component {
 	static propTypes = {
@@ -12,14 +14,14 @@ export default class Comment extends Component {
 		super( props );
 
 		this.handleClickReply = this.handleClickReply.bind( this );
-		this.handleViewReplies = this.handleViewReplies.bind( this );
+		this.handleClickViewReplies = this.handleClickViewReplies.bind( this );
 	}
 
 	handleClickReply() {
 		// TODO.
 	}
 
-	handleViewReplies() {
+	handleClickViewReplies() {
 		// TODO.
 	}
 
@@ -32,7 +34,7 @@ export default class Comment extends Component {
 			date_formatted: dateFormatted,
 			author_name: authorName,
 			author_avatar_urls: avatarUrls,
-			has_children: hasChildren
+			children_count: childrenCount
 		} = this.props.comment;
 
 		return (
@@ -42,14 +44,19 @@ export default class Comment extends Component {
 						<CommentAuthor authorName={ authorName } avatarUrl={ avatarUrls[ '48' ] } />
 						<CommentContent content={ content.rendered } />
 					</div>
-					<CommentMeta
-						date={ date }
-						link={ link }
-						hasChildren={ hasChildren }
-						dateFormatted={ dateFormatted }
-						handleClickReply={ this.handleClickReply }
-						handleViewReplies={ this.handleViewReplies }
-					/>
+
+					<div className="comment-metadata">
+						<CommentDate
+							link={ link }
+							date={ date }
+							dateFormatted={ dateFormatted }
+						/>
+						<CommentViewRepliesLink
+							count={ childrenCount }
+							onClick={ this.handleClickViewReplies }
+						/>
+						<CommentReplyLink onClick={ this.handleClickReply } />
+					</div>
 				</article>
 			</li>
 		);

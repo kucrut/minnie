@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import CommentsList from 'containers/Comments/List';
 
-export default function Comments( comments ) {
+// TODO: Load more button.
+export default function Comments({ comments }) {
 	return (
 		<div className="comments-area" id="comments">
 			<h2 className="comments-title">Comments</h2>
