@@ -1,19 +1,9 @@
-/* eslint global-require: 0 */
-
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { contentPathRegEx } from 'helpers';
 import closest from 'dom-closest';
-
-// Feels hacky ;-)
-import Prism from 'prismjs';
-import { codeHighlight } from 'config';
-require( 'prismjs/plugins/line-numbers/prism-line-numbers.js' );
-codeHighlight.languages.forEach( lang => {
-	require( `prismjs/components/prism-${lang}.js` );
-});
-
+import { contentPathRegEx } from 'helpers';
+import highlightCode from 'misc/highlight';
 
 class EntryContent extends Component {
 	static propTypes = {
@@ -28,7 +18,7 @@ class EntryContent extends Component {
 	}
 
 	componentDidMount() {
-		this.highlightCode();
+		highlightCode( this.refs.theContent );
 	}
 
 	handleClick( e ) {
@@ -48,19 +38,6 @@ class EntryContent extends Component {
 
 		e.preventDefault();
 		this.props.dispatch( push( anchor.pathname ) );
-	}
-
-	highlightCode() {
-		const blocks = this.refs.theContent.querySelectorAll( 'pre code' );
-
-		if ( ! blocks.length ) {
-			return;
-		}
-
-		for ( const block of blocks ) {
-			block.parentElement.classList.add( 'line-numbers' );
-			Prism.highlightElement( block );
-		}
 	}
 
 	render() {
