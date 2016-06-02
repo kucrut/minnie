@@ -10,13 +10,9 @@ export default function CommentMeta( props ) {
 
 	return (
 		<div className="comment-metadata">
-			<a href={ link }>
-				<time dateTime={ date }>{ dateFormatted }</time>
-			</a>
+			<a href={ link }><time dateTime={ date }>{ dateFormatted }</time></a>
 			<a className="comment-view-replies-link" onClick={ handleViewReplies }>View replies</a>
-			<span className="reply">
-				<a href="#" className="comment-reply-link" rel="nofollow">Reply</a>
-			</span>
+			<a href="#" className="comment-reply-link" rel="nofollow">Reply</a>
 		</div>
 	);
 }
