@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Comment from 'components/Comment';
+import Comment from 'components/Comment/Item';
 
 export default function CommentsList({ listClass, items }) {
 	return (

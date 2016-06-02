@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import CommentContent from 'components/Comment/Content';
 
 export default function Comment({ comment }) {
 	return (
@@ -17,10 +18,7 @@ export default function Comment({ comment }) {
 						</div>
 					</footer>
 
-					<div
-						className="comment-text"
-						dangerouslySetInnerHTML={ { __html: comment.content.rendered } }
-					/>
+					<CommentContent content={ comment.content.rendered } />
 				</div>
 				<div className="comment-metadata">
 					<a href={ comment.link }>
