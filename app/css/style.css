@@ -1072,7 +1072,8 @@ a.current_page_item {
 	text-decoration: none;
 }
 .comment-metadata .edit-link:before,
-.comment-reply-link:before {
+.comment-reply-link:before,
+.comment-view-replies-link:before {
 	content: '\2022';
 	display: inline;
 	margin: 0 7px;
@@ -1081,6 +1082,9 @@ a.current_page_item {
 	content: "\00BB";
 	display: inline;
 	margin-left: 3px;
+}
+.comment-view-replies-link {
+	cursor: pointer;
 }
 .comment-body {
 	font-size: 14px;
