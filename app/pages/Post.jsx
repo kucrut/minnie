@@ -25,6 +25,7 @@ class Post extends _Singular {
 		this.props.dispatch( fetchPost({ slug }) );
 	}
 
+	// TODO: Bail if discussion is disabled AND there's no comments.
 	renderComments() {
 		return ( <CommentsSection comments={ this.props.comments } /> );
 	}
