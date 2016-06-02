@@ -25,7 +25,8 @@ export default class Comment extends Component {
 			content,
 			date_formatted: dateFormatted,
 			author_name: authorName,
-			author_avatar_urls: avatarUrls
+			author_avatar_urls: avatarUrls,
+			has_children: hasChildren
 		} = this.props.comment;
 
 		return (
@@ -38,6 +39,7 @@ export default class Comment extends Component {
 					<CommentMeta
 						date={ date }
 						link={ link }
+						hasChildren={ hasChildren }
 						dateFormatted={ dateFormatted }
 						handleViewReplies={ this.handleViewReplies }
 					/>
