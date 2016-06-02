@@ -25,9 +25,16 @@ class Post extends _Singular {
 		this.props.dispatch( fetchPost({ slug }) );
 	}
 
-	// TODO: Bail if discussion is disabled AND there's no comments.
 	renderComments() {
-		return ( <CommentsSection comments={ this.props.comments } /> );
+		const { comments, singular } = this.props;
+
+		if ( 'closed' === singular.data.comment_status && ! comments.items.length ) {
+			return null;
+		}
+
+		return (
+			<CommentsSection comments={ comments } />
+		);
 	}
 }
 
