@@ -1,23 +1,18 @@
 import React, { PropTypes } from 'react';
 import CommentContent from 'components/Comment/Content';
+import CommentAuthor from 'components/Comment/Author';
 
 export default function Comment({ comment }) {
+	const {
+		author_name: authorName,
+		author_avatar_urls: avatarUrls
+	} = comment;
+
 	return (
 		<li id={ `comment-${comment.id}` } className="comment">
 			<article className="comment-body">
 				<div className="comment-content">
-					<footer className="comment-meta">
-						<div className="comment-author vcard">
-							<img
-								className="avatar"
-								src={ comment.author_avatar_urls[ '48' ] }
-								alt={ `${comment.author_name}'s avatar` }
-							/>
-							<b className="fn">{ comment.author_name }</b>
-							<span className="says">says:</span>
-						</div>
-					</footer>
-
+					<CommentAuthor authorName={ authorName } avatarUrl={ avatarUrls[ '48' ] } />
 					<CommentContent content={ comment.content.rendered } />
 				</div>
 				<div className="comment-metadata">
