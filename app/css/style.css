@@ -1022,7 +1022,6 @@ a.current_page_item {
 .comment-meta,
 .comment-author,
 .comment-content {
-	display: inline-block;
 	position: relative;
 }
 .comment .comment-content {
