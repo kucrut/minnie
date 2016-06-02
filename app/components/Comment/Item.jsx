@@ -1,9 +1,12 @@
 import React, { PropTypes } from 'react';
 import CommentContent from 'components/Comment/Content';
 import CommentAuthor from 'components/Comment/Author';
+import CommentMeta from 'components/Comment/Meta';
 
 export default function Comment({ comment }) {
 	const {
+		date,
+		link,
 		author_name: authorName,
 		author_avatar_urls: avatarUrls
 	} = comment;
@@ -15,14 +18,7 @@ export default function Comment({ comment }) {
 					<CommentAuthor authorName={ authorName } avatarUrl={ avatarUrls[ '48' ] } />
 					<CommentContent content={ comment.content.rendered } />
 				</div>
-				<div className="comment-metadata">
-					<a href={ comment.link }>
-						<time dateTime={ comment.date }>{ comment.date }</time>
-					</a>
-					<span className="reply">
-						<a href="#" className="comment-reply-link" rel="nofollow">Reply</a>
-					</span>
-				</div>
+				<CommentMeta date={ date } link={ link } />
 			</article>
 		</li>
 	);
