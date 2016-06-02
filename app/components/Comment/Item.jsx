@@ -7,6 +7,7 @@ export default function Comment({ comment }) {
 	const {
 		date,
 		link,
+		date_formatted: dateFormatted,
 		author_name: authorName,
 		author_avatar_urls: avatarUrls
 	} = comment;
@@ -18,7 +19,7 @@ export default function Comment({ comment }) {
 					<CommentAuthor authorName={ authorName } avatarUrl={ avatarUrls[ '48' ] } />
 					<CommentContent content={ comment.content.rendered } />
 				</div>
-				<CommentMeta date={ date } link={ link } />
+				<CommentMeta date={ date } link={ link } dateFormatted={ dateFormatted } />
 			</article>
 		</li>
 	);
