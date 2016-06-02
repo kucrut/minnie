@@ -19,7 +19,8 @@ export default function highlightCode( el ) {
 		return;
 	}
 
-	for ( const block of blocks ) {
+	for ( let i = 0; i < blocks.length; ++i ) {
+		const block = blocks[ i ];
 		block.parentElement.classList.add( 'line-numbers' );
 		Prism.highlightElement( block );
 	}
