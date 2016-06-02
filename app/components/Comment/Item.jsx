@@ -10,7 +10,13 @@ export default class Comment extends Component {
 
 	constructor( props ) {
 		super( props );
+
+		this.handleClickReply = this.handleClickReply.bind( this );
 		this.handleViewReplies = this.handleViewReplies.bind( this );
+	}
+
+	handleClickReply() {
+		// TODO.
 	}
 
 	handleViewReplies() {
@@ -41,6 +47,7 @@ export default class Comment extends Component {
 						link={ link }
 						hasChildren={ hasChildren }
 						dateFormatted={ dateFormatted }
+						handleClickReply={ this.handleClickReply }
 						handleViewReplies={ this.handleViewReplies }
 					/>
 				</article>

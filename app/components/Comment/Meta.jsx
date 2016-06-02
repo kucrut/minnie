@@ -6,6 +6,7 @@ export default class CommentMeta extends Component {
 		link:              PropTypes.string.isRequired,
 		dateFormatted:     PropTypes.string.isRequired,
 		hasChildren:       PropTypes.bool.isRequired,
+		handleClickReply:  PropTypes.func.isRequired,
 		handleViewReplies: PropTypes.func.isRequired
 	}
 
@@ -22,6 +23,15 @@ export default class CommentMeta extends Component {
 		return el;
 	}
 
+	// TODO: real reply link
+	renderReplyLink() {
+		const { handleClickReply } = this.props;
+
+		return (
+			<a className="comment-reply-link" onClick={ handleClickReply } rel="nofollow">Reply</a>
+		);
+	}
+
 	render() {
 		const { link, date, dateFormatted } = this.props;
 
@@ -29,7 +39,7 @@ export default class CommentMeta extends Component {
 			<div className="comment-metadata">
 				<a href={ link }><time dateTime={ date }>{ dateFormatted }</time></a>
 				{ this.renderViewReplies() }
-				<a href="#" className="comment-reply-link" rel="nofollow">Reply</a>
+				{ this.renderReplyLink() }
 			</div>
 		);
 	}
