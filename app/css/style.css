@@ -1028,12 +1028,10 @@ a.current_page_item {
 	line-height: 1.8;
 	margin-left: 70px;
 }
-.comment .comment-content > * {
-	margin-top: 1.5em;
-	margin-bottom: 0;
+.comment .comment-text {
+	margin: .25em 0 1em;
 }
 .comment .comment-metadata {
-	margin-top: 1.5em;
 	margin-left: 70px;
 }
 .comment .comment-content > p:first-of-type,
