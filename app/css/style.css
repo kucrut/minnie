@@ -1619,6 +1619,7 @@ form.login input {
 }
 
 .load-more {
+	font-size: .75em;
 	text-align: center;
 }
 .load-more a {
@@ -1626,5 +1627,5 @@ form.login input {
 	display: inline-block;
 }
 .load-more .genericon {
-	vertical-align: middle;
+	vertical-align: sub;
 }
