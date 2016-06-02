@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import CommentContent from 'components/Comment/Content';
-import CommentAuthor from 'components/Comment/Author';
+import CommentFooter from 'components/Comment/Footer';
 import CommentDate from 'components/Comment/Date';
 import CommentViewRepliesLink from 'components/Comment/ViewRepliesLink';
 import CommentReplyLink from 'components/Comment/ReplyLink';
@@ -41,7 +41,7 @@ export default class Comment extends Component {
 			<li id={ `comment-${id}` } className="comment">
 				<article className="comment-body">
 					<div className="comment-content">
-						<CommentAuthor authorName={ authorName } avatarUrl={ avatarUrls[ '48' ] } />
+						<CommentFooter authorName={ authorName } avatarUrl={ avatarUrls[ '48' ] } />
 						<CommentContent content={ content.rendered } />
 					</div>
 

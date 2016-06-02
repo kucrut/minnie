@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export default function CommentAuthor({ authorName, avatarUrl }) {
+export default function CommentFooter({ authorName, avatarUrl }) {
 	return (
 		<footer className="comment-meta">
 			<div className="comment-author vcard">
@@ -12,7 +12,7 @@ export default function CommentAuthor({ authorName, avatarUrl }) {
 	);
 }
 
-CommentAuthor.propTypes = {
+CommentFooter.propTypes = {
 	authorName: PropTypes.string.isRequired,
 	avatarUrl:  PropTypes.string.isRequired
 };
