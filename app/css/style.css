@@ -1617,3 +1617,14 @@ form.login label {
 form.login input {
 	width: 100%;
 }
+
+.load-more {
+	text-align: center;
+}
+.load-more a {
+	cursor: pointer;
+	display: inline-block;
+}
+.load-more .genericon {
+	vertical-align: middle;
+}
