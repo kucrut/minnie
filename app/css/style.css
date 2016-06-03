@@ -1069,8 +1069,7 @@ a.current_page_item {
 .comment-metadata {
 	text-align: center;
 }
-.comment-metadata .edit-link:before,
-.comment-view-replies-link:after {
+.comment-metadata .edit-link::before {
 	content: '\2022';
 	display: inline;
 	margin: 0 7px;

@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import CommentContent from 'components/Comment/Content';
 import CommentMeta from 'components/Comment/Meta';
 import CommentViewRepliesLink from 'components/Comment/ViewRepliesLink';
-import CommentReplyLink from 'components/Comment/ReplyLink';
 
 export default class Comment extends Component {
 	static defaultProps = {
@@ -61,7 +60,6 @@ export default class Comment extends Component {
 
 					<div className="comment-metadata">
 						<CommentViewRepliesLink { ...commentViewRepliesLinkArgs } />
-						<CommentReplyLink onClick={ this.handleClickReply } />
 					</div>
 				</article>
 
