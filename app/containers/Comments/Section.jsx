@@ -18,7 +18,6 @@ class Comments extends Component {
 
 		this.fetchMore = this.fetchMore.bind( this );
 		this.handleClickReply = this.handleClickReply.bind( this );
-		this.handleClickViewReplies = this.handleClickViewReplies.bind( this );
 	}
 
 	fetchMore( params ) {
@@ -32,10 +31,6 @@ class Comments extends Component {
 		// TODO.
 	}
 
-	handleClickViewReplies() {
-		// TODO.
-	}
-
 	render() {
 		const parentId = 0;
 		const { isEnabled, comments } = this.props;
@@ -46,7 +41,7 @@ class Comments extends Component {
 		}
 
 		const listArgs = {
-			onClickViewReplies: this.handleClickViewReplies,
+			onClickViewReplies: this.fetchMore,
 			onClickLoadMore:    this.fetchMore,
 			onClickReply:       this.handleClickReply,
 			listClass:          'comment-list',

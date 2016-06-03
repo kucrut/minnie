@@ -27,11 +27,24 @@ export default function CommentsList( props ) {
 		<div className={ `${listClass}-wrap` }>
 			<ol className={ listClass }>
 				{ thread.items.map( comment => {
-					const args = {
+					const childThreadId = `t${comment.id}`;
+
+					let repliesEl;
+					let repliesArgs;
+					let args = {
 						key: `comment-${comment.id}`,
 						comment,
 						...rest
 					};
+
+					if ( childThreadId in comments.threads ) {
+						repliesArgs = Object.assign({}, props, {
+							parentId:  comment.id,
+							listClass: 'children'
+						});
+						repliesEl = ( <CommentsList { ...repliesArgs } /> );
+						args = Object.assign({}, args, { repliesEl });
+					}
 
 					return ( <Comment { ...args } /> );
 				}) }

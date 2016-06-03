@@ -5,10 +5,15 @@ import CommentViewRepliesLink from 'components/Comment/ViewRepliesLink';
 import CommentReplyLink from 'components/Comment/ReplyLink';
 
 export default class Comment extends Component {
+	static defaultProps = {
+		repliesEl: null
+	}
+
 	static propTypes = {
 		comment:            PropTypes.object.isRequired,
 		onClickReply:       PropTypes.func.isRequired,
-		onClickViewReplies: PropTypes.func.isRequired
+		onClickViewReplies: PropTypes.func.isRequired,
+		repliesEl:          PropTypes.element
 	}
 
 	constructor( props ) {
@@ -59,6 +64,8 @@ export default class Comment extends Component {
 						<CommentReplyLink onClick={ this.handleClickReply } />
 					</div>
 				</article>
+
+				{ this.props.repliesEl }
 			</li>
 		);
 	}
