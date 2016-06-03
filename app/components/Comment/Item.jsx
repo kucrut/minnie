@@ -25,13 +25,14 @@ export default class Comment extends Component {
 	}
 
 	render() {
-		const { id, date, link, content, date_formatted,
-			author_name, author_avatar_urls,
+		const { id, link, content, date, date_formatted,
+			author_url, author_name, author_avatar_urls,
 			children_count: childrenCount
 		} = this.props.comment;
 
 		const commentMetaArgs = {
 			avatarUrl:     author_avatar_urls[ '48' ],
+			authorUrl:     author_url,
 			authorName:    author_name,
 			dateFormatted: date_formatted,
 			date, link
