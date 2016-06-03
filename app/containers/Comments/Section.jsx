@@ -2,13 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { fetchComments } from 'actions/comments';
 import CommentsList from 'containers/Comments/List';
-import LoadMoreButton from 'components/LoadMoreButton';
 
 class Comments extends Component {
 	static propTypes = {
+		dispatch:  PropTypes.func.isRequired,
 		isEnabled: PropTypes.bool.isRequired,
-		comments:  PropTypes.object.isRequired,
-		dispatch:  PropTypes.func.isRequired
+		comments:  PropTypes.shape({
+			postId:  PropTypes.number,
+			threads: PropTypes.object
+		}).isRequired
 	}
 
 	constructor( props ) {
@@ -39,8 +41,9 @@ class Comments extends Component {
 	}
 
 	render() {
+		const threadId = 't0';
 		const { isEnabled, comments } = this.props;
-		const { hasMore, isFetching, items } = comments;
+		const items = comments.threads[ threadId ].items;
 
 		if ( ! isEnabled && ! items.length ) {
 			return null;
@@ -50,15 +53,8 @@ class Comments extends Component {
 			onClickViewReplies: this.handleClickViewReplies,
 			onClickReply:       this.handleClickReply,
 			listClass:          'comment-list',
-			items
-		};
-
-		const buttonArgs = {
-			text:    'Load More Comments',
-			params:  { post: comments.post },
-			onClick: this.fetchMore,
-			hasMore,
-			isFetching
+			threadId,
+			comments
 		};
 
 		return (
@@ -66,7 +62,6 @@ class Comments extends Component {
 				<h2 className="comments-title">Comments</h2>
 
 				<CommentsList { ...listArgs } />
-				<LoadMoreButton { ...buttonArgs } />
 			</div>
 		);
 	}

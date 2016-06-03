@@ -20,7 +20,9 @@ export function fetchComments( params ) {
 	const fetchParams = Object.assign({}, defaultParams, params );
 
 	return {
-		type:    GET_COMMENTS,
-		promise: makeRequest( fetchParams )
+		type:     GET_COMMENTS,
+		promise:  makeRequest( fetchParams ),
+		postId:   fetchParams.post,
+		threadId: `t${fetchParams.parent}`
 	};
 }
