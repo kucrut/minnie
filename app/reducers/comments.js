@@ -39,7 +39,9 @@ export default function comments( state = initialState, action ) {
 			});
 
 		case GET_COMMENTS_FAILURE:
-			return initialState;
+			return Object.assign({}, state, {
+				isFetching: false
+			});
 
 		default:
 			return state;
