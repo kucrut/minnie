@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import CommentAuthor from 'components/Comment/Author';
 import CommentDate from 'components/Comment/Date';
 
-export default function CommentFooter( props ) {
+export default function CommentMeta( props ) {
 	const { authorName, avatarUrl, link, date, dateFormatted } =  props;
 
 	return (
@@ -16,7 +16,7 @@ export default function CommentFooter( props ) {
 	);
 }
 
-CommentFooter.propTypes = {
+CommentMeta.propTypes = {
 	link:          PropTypes.string.isRequired,
 	date:          PropTypes.string.isRequired,
 	avatarUrl:     PropTypes.string.isRequired,

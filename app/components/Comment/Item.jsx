@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import CommentContent from 'components/Comment/Content';
-import CommentFooter from 'components/Comment/Footer';
+import CommentMeta from 'components/Comment/Meta';
 import CommentViewRepliesLink from 'components/Comment/ViewRepliesLink';
 import CommentReplyLink from 'components/Comment/ReplyLink';
 
@@ -30,7 +30,7 @@ export default class Comment extends Component {
 			children_count: childrenCount
 		} = this.props.comment;
 
-		const cfArgs = {
+		const commentMetaArgs = {
 			avatarUrl:     author_avatar_urls[ '48' ],
 			authorName:    author_name,
 			dateFormatted: date_formatted,
@@ -41,7 +41,7 @@ export default class Comment extends Component {
 			<li id={ `comment-${id}` } className="comment">
 				<article className="comment-body">
 					<div className="comment-content">
-						<CommentFooter { ...cfArgs } />
+						<CommentMeta { ...commentMetaArgs } />
 						<CommentContent content={ content.rendered } />
 					</div>
 
