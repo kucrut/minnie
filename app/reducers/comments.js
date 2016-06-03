@@ -5,6 +5,7 @@ import {
 } from 'constants/index';
 
 const initialThreadState = {
+	parentId:    0,
 	items:       [],
 	hasMore:     false,
 	currentPage: 0,
@@ -18,17 +19,22 @@ const initialState = {
 	}
 };
 
-function getThread( state, id ) {
-	if ( id in state.threads ) {
-		return state.threads[ id ];
+function getThread( state, parentId ) {
+	const threadId = `t${parentId}`;
+
+	if ( threadId in state.threads ) {
+		return state.threads[ threadId ];
 	}
 
-	return initialThreadState;
+	return Object.assign({}, initialThreadState, {
+		parentId
+	});
 }
 
 export default function comments( state = initialState, action ) {
-	const { postId, threadId } = action;
-	const threadState = getThread( state, threadId );
+	const { postId, parentId } = action;
+	const threadId = `t${parentId}`;
+	const threadState = getThread( state, parentId );
 
 	let params;
 	let currentPage;
@@ -37,10 +43,12 @@ export default function comments( state = initialState, action ) {
 	switch ( action.type ) {
 		case GET_COMMENTS_REQUEST:
 			return Object.assign({}, state, {
+				postId,
 				threads: Object.assign({}, state.threads, {
-					[ threadId ]: threadState
-				}),
-				postId
+					[ threadId ]: Object.assign({}, threadState, {
+						isFetching: true
+					})
+				})
 			});
 
 		case GET_COMMENTS_SUCCESS:

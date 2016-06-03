@@ -30,7 +30,7 @@ function fetchPostWithComments( dispatch, slug ) {
 		.then( postReq => Promise.all( [
 			postReq,
 			dispatch( fetchComments({
-				post: postReq.data[ 0 ].id,
+				post: postReq.data[ 0 ].id
 			}) )
 		] ) )
 		.then( results => Promise.resolve( results[ 0 ] ) );

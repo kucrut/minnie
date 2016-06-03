@@ -22,12 +22,8 @@ class Comments extends Component {
 	}
 
 	fetchMore( params ) {
-		const { dispatch, comments } = this.props;
-		const { post, currentPage } = comments;
-		const fetchParams = Object.assign({}, params, {
-			page: currentPage + 1,
-			post
-		});
+		const { dispatch, comments: { postId } } = this.props;
+		const fetchParams = Object.assign({ post: postId }, params );
 
 		dispatch( fetchComments( fetchParams ) );
 	}
@@ -41,9 +37,9 @@ class Comments extends Component {
 	}
 
 	render() {
-		const threadId = 't0';
+		const parentId = 0;
 		const { isEnabled, comments } = this.props;
-		const items = comments.threads[ threadId ].items;
+		const items = comments.threads[ `t${parentId}` ].items;
 
 		if ( ! isEnabled && ! items.length ) {
 			return null;
@@ -51,9 +47,10 @@ class Comments extends Component {
 
 		const listArgs = {
 			onClickViewReplies: this.handleClickViewReplies,
+			onClickLoadMore:    this.fetchMore,
 			onClickReply:       this.handleClickReply,
 			listClass:          'comment-list',
-			threadId,
+			parentId,
 			comments
 		};
 

@@ -23,6 +23,6 @@ export function fetchComments( params ) {
 		type:     GET_COMMENTS,
 		promise:  makeRequest( fetchParams ),
 		postId:   fetchParams.post,
-		threadId: `t${fetchParams.parent}`
+		parentId: fetchParams.parent
 	};
 }
