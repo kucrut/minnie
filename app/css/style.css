@@ -1004,13 +1004,14 @@ a.current_page_item {
 .bypostauthor {
 	display: block;
 }
-.comment-list {
+.comment-list,
+.comment-list .children {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
-.comment-list .children {
-	list-style: none;
+.comment-list .children-wrap {
+	margin-left: 1.5em;
 }
 #respond h3,
 .comments-title {
