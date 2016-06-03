@@ -3,7 +3,9 @@ import { Link } from 'react-router';
 
 export default function CommentDate({ link, date, dateFormatted }) {
 	return (
-		<Link to={ link } rel="bookmark"><time dateTime={ date }>{ dateFormatted }</time></Link>
+		<Link to={ link } rel="bookmark" className="comment-date">
+			<time dateTime={ date }>{ dateFormatted }</time>
+		</Link>
 	);
 }
 

@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import CommentContent from 'components/Comment/Content';
 import CommentFooter from 'components/Comment/Footer';
-import CommentDate from 'components/Comment/Date';
 import CommentViewRepliesLink from 'components/Comment/ViewRepliesLink';
 import CommentReplyLink from 'components/Comment/ReplyLink';
 
@@ -26,31 +25,27 @@ export default class Comment extends Component {
 	}
 
 	render() {
-		const {
-			id,
-			date,
-			link,
-			content,
-			date_formatted: dateFormatted,
-			author_name: authorName,
-			author_avatar_urls: avatarUrls,
+		const { id, date, link, content, date_formatted,
+			author_name, author_avatar_urls,
 			children_count: childrenCount
 		} = this.props.comment;
+
+		const cfArgs = {
+			avatarUrl:     author_avatar_urls[ '48' ],
+			authorName:    author_name,
+			dateFormatted: date_formatted,
+			date, link
+		};
 
 		return (
 			<li id={ `comment-${id}` } className="comment">
 				<article className="comment-body">
 					<div className="comment-content">
-						<CommentFooter authorName={ authorName } avatarUrl={ avatarUrls[ '48' ] } />
+						<CommentFooter { ...cfArgs } />
 						<CommentContent content={ content.rendered } />
 					</div>
 
 					<div className="comment-metadata">
-						<CommentDate
-							link={ link }
-							date={ date }
-							dateFormatted={ dateFormatted }
-						/>
 						<CommentViewRepliesLink
 							count={ childrenCount }
 							onClick={ this.handleClickViewReplies }

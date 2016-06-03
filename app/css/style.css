@@ -1019,20 +1019,11 @@ a.current_page_item {
 	font-size: 2.4rem;
 	margin: 0 0 1.5em;
 }
-.comment-meta,
-.comment-author,
-.comment-content {
-	position: relative;
-}
 .comment .comment-content {
 	line-height: 1.8;
-	margin-left: 70px;
 }
 .comment .comment-text {
-	margin: .25em 0 1em;
-}
-.comment .comment-metadata {
-	margin-left: 70px;
+	margin: .5em 0;
 }
 .comment .comment-content > p:first-of-type,
 .pingback p,
@@ -1045,6 +1036,9 @@ a.current_page_item {
 	float: right;
 	text-decoration: none;
 }
+.comment-author {
+	overflow: hidden;
+}
 .comment-author,
 .comment-author a,
 .comment-author a:visited {
@@ -1053,13 +1047,14 @@ a.current_page_item {
 	font-size: 1.4rem;
 	text-decoration: none;
 }
-.comment-author .avatar {
-	margin-top: 0;
-	margin-right: 1.5em;
-	position: absolute;
-	top: 0;
-	left: -70px;
+.comment-author .fn {
+	display: block;
 }
+.comment-author .avatar {
+	float: left;
+	margin: 0 1em 0 0;
+}
+.comment-author .comment-date,
 .comment-reply-link,
 .comment-reply-link:visited,
 .comment-metadata,
@@ -1072,8 +1067,7 @@ a.current_page_item {
 	text-decoration: none;
 }
 .comment-metadata .edit-link:before,
-.comment-reply-link:before,
-.comment-view-replies-link:before {
+.comment-view-replies-link:after {
 	content: '\2022';
 	display: inline;
 	margin: 0 7px;
