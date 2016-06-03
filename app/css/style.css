@@ -1066,6 +1066,9 @@ a.current_page_item {
 	font-style: italic;
 	text-decoration: none;
 }
+.comment-metadata {
+	text-align: center;
+}
 .comment-metadata .edit-link:before,
 .comment-view-replies-link:after {
 	content: '\2022';
