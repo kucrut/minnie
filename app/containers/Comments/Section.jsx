@@ -15,18 +15,27 @@ class Comments extends Component {
 		super( props );
 
 		this.fetchMore = this.fetchMore.bind( this );
+		this.handleClickReply = this.handleClickReply.bind( this );
+		this.handleClickViewReplies = this.handleClickViewReplies.bind( this );
 	}
 
 	fetchMore( params ) {
 		const { dispatch, comments } = this.props;
 		const { post, currentPage } = comments;
 		const fetchParams = Object.assign({}, params, {
-			parent: 0,
-			page:   currentPage + 1,
+			page: currentPage + 1,
 			post
 		});
 
 		dispatch( fetchComments( fetchParams ) );
+	}
+
+	handleClickReply() {
+		// TODO.
+	}
+
+	handleClickViewReplies() {
+		// TODO.
 	}
 
 	render() {
@@ -36,6 +45,13 @@ class Comments extends Component {
 		if ( ! isEnabled && ! items.length ) {
 			return null;
 		}
+
+		const listArgs = {
+			onClickViewReplies: this.handleClickViewReplies,
+			onClickReply:       this.handleClickReply,
+			listClass:          'comment-list',
+			items
+		};
 
 		const buttonArgs = {
 			text:    'Load More Comments',
@@ -49,8 +65,7 @@ class Comments extends Component {
 			<div className="comments-area" id="comments">
 				<h2 className="comments-title">Comments</h2>
 
-				<CommentsList items={ items } listClass="comment-list" />
-
+				<CommentsList { ...listArgs } />
 				<LoadMoreButton { ...buttonArgs } />
 			</div>
 		);
