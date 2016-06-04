@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import EntryTitle from 'components/EntryTitle';
-import EntryMeta from 'components/EntryMeta';
-import EntryFormat from 'components/EntryFormat';
-import EntryContent from 'components/EntryContent';
-import EntryContentMedia from 'components/EntryContentMedia';
+import EntryTitle from 'components/Entry/Title';
+import EntryMeta from 'components/Entry/Meta';
+import EntryFormat from 'components/Entry/Format';
+import EntryContent from 'components/Entry/Content';
+import EntryContentMedia from 'components/Entry/ContentMedia';
 
 
 export default class Entry extends Component {

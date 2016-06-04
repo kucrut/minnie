@@ -5,7 +5,7 @@ import { fetchPreview } from 'actions/singular';
 import he from 'he';
 import Helmet from 'react-helmet';
 import Spinner from 'components/Spinner';
-import Entry from 'components/Entry';
+import Entry from 'components/Entry/Item';
 import NotFound from 'pages/404';
 
 

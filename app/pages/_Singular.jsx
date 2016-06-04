@@ -3,7 +3,7 @@ import he from 'he';
 import Helmet from 'react-helmet';
 import NotFound from 'pages/404';
 import Spinner from 'components/Spinner';
-import Entry from 'components/Entry';
+import Entry from 'components/Entry/Item';
 
 
 export default class _Singular extends Component {

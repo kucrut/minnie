@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import EntryContent from 'components/EntryContent';
+import EntryContent from 'components/Entry/Content';
 
 
 /**

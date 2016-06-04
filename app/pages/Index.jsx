@@ -6,8 +6,8 @@ import { isEqual } from 'lodash';
 import { getAdjacentLink } from 'helpers';
 import { fetchArchive, fetchArchiveTerm } from 'actions/archive';
 import ContentNavigation from 'components/ContentNavigation';
-import Entry from 'components/Entry';
-import EntryEmpty from 'components/EntryEmpty';
+import Entry from 'components/Entry/Item';
+import EntryEmpty from 'components/Entry/Empty';
 import Spinner from 'components/Spinner';
 
 
