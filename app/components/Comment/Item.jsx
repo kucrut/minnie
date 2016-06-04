@@ -12,7 +12,7 @@ export default class Comment extends Component {
 		comment:            PropTypes.object.isRequired,
 		onClickReply:       PropTypes.func.isRequired,
 		onClickViewReplies: PropTypes.func.isRequired,
-		repliesEl:          PropTypes.element
+		children:           PropTypes.object
 	}
 
 	constructor( props ) {
@@ -63,7 +63,7 @@ export default class Comment extends Component {
 					</div>
 				</article>
 
-				{ this.props.repliesEl }
+				{ this.props.children }
 			</li>
 		);
 	}
