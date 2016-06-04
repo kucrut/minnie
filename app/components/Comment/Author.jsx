@@ -1,10 +1,15 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
 export default function CommentAuthor({ authorName, authorUrl }) {
 	let el = ( <b className="fn">{ authorName }</b> );
 
 	if ( '' !== authorUrl ) {
-		el = ( <a href={ authorUrl } rel="external nofollow">{ el }</a> );
+		if ( 0 === authorUrl.indexOf( '/' ) ) {
+			el = ( <Link to={ authorUrl }>{ el }</Link> );
+		} else {
+			el = ( <a href={ authorUrl } rel="external nofollow">{ el }</a> );
+		}
 	}
 
 	return el;
