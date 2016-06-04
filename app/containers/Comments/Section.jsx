@@ -36,7 +36,8 @@ class Comments extends Component {
 		const { isEnabled, comments } = this.props;
 		const items = comments.threads[ `t${parentId}` ].items;
 
-		if ( ! isEnabled && ! items.length ) {
+		// TODO: Update this check when the comment form is ready.
+		if ( ! isEnabled || ! items.length ) {
 			return null;
 		}
 
