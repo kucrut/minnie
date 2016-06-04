@@ -34,6 +34,25 @@ export default class Comment extends Component {
 		onClickViewReplies({ parent: comment.id });
 	}
 
+	renderMetadata() {
+		const { comment, children } = this.props;
+
+		if ( null !== children ) {
+			return null;
+		}
+
+		const args = {
+			count:   comment.children_count,
+			onClick: this.handleClickViewReplies
+		};
+
+		return (
+			<div className="comment-metadata">
+				<CommentViewRepliesLink { ...args } />
+			</div>
+		);
+	}
+
 	render() {
 		const { comment: c }  = this.props;
 		const commentMetaArgs = {
@@ -45,11 +64,6 @@ export default class Comment extends Component {
 			dateFormatted: c.date_formatted
 		};
 
-		const commentViewRepliesLinkArgs = {
-			count:   c.children_count,
-			onClick: this.handleClickViewReplies
-		};
-
 		return (
 			<li id={ `comment-${c.id}` } className="comment">
 				<article className="comment-body">
@@ -58,9 +72,7 @@ export default class Comment extends Component {
 						<CommentContent content={ c.content.rendered } />
 					</div>
 
-					<div className="comment-metadata">
-						<CommentViewRepliesLink { ...commentViewRepliesLinkArgs } />
-					</div>
+					{ this.renderMetadata() }
 				</article>
 
 				{ this.props.children }
