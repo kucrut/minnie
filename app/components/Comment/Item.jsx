@@ -37,19 +37,13 @@ export default class Comment extends Component {
 	renderMetadata() {
 		const { comment, children } = this.props;
 
-		if ( null !== children ) {
+		// If comment doesn't have replies or the replies are already shown.
+		if ( ! comment.children_count || children ) {
 			return null;
 		}
 
-		const args = {
-			count:   comment.children_count,
-			onClick: this.handleClickViewReplies
-		};
-
 		return (
-			<div className="comment-metadata">
-				<CommentViewRepliesLink { ...args } />
-			</div>
+			<CommentViewRepliesLink onClick={ this.handleClickViewReplies } />
 		);
 	}
 
