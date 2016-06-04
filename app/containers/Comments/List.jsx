@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import Comment from 'components/Comment/Item';
+import Spinner from 'components/Spinner';
 import LoadMoreButton from 'components/LoadMoreButton';
 
-// TODO: Wrap list and append load more button.
 export default class CommentsList extends Component {
 	static propTypes = {
 		comments:           PropTypes.object.isRequired,
@@ -14,17 +14,24 @@ export default class CommentsList extends Component {
 	}
 
 	renderReplies( parentId ) {
-		if ( ! ( `t${parentId}` in this.props.comments.threads ) ) {
+		const threadId = `t${parentId}`;
+		const { threads } = this.props.comments;
+
+		if ( ! ( threadId in threads ) ) {
 			return null;
 		}
 
-		const repliesArgs = Object.assign({}, this.props, {
+		if ( threads[ threadId ].isFetching ) {
+			return ( <Spinner /> );
+		}
+
+		const args = Object.assign({}, this.props, {
 			parentId,
 			listClass: 'children'
 		});
 
 		return (
-			<CommentsList { ...repliesArgs } />
+			<CommentsList { ...args } />
 		);
 	}
 
