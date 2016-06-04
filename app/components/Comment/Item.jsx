@@ -4,10 +4,6 @@ import CommentMeta from 'components/Comment/Meta';
 import CommentViewRepliesLink from 'components/Comment/ViewRepliesLink';
 
 export default class Comment extends Component {
-	static defaultProps = {
-		repliesEl: null
-	}
-
 	static propTypes = {
 		comment:            PropTypes.object.isRequired,
 		onClickReply:       PropTypes.func.isRequired,
