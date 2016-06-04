@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import CommentAuthor from 'components/Comment/Author';
 import CommentDate from 'components/Comment/Date';
 
+// TODO: retina avatar image.
 export default function CommentMeta( props ) {
 	const { authorUrl, authorName, avatarUrl, link, date, dateFormatted } =  props;
 
