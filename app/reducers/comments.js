@@ -36,20 +36,24 @@ export default function comments( state = initialState, action ) {
 	const threadId = `t${parentId}`;
 	const threadState = getThread( state, parentId );
 
+	let threads;
 	let params;
 	let currentPage;
 	let items;
 
 	switch ( action.type ) {
 		case GET_COMMENTS_REQUEST:
-			return Object.assign({}, state, {
-				postId,
-				threads: Object.assign({}, state.threads, {
-					[ threadId ]: Object.assign({}, threadState, {
-						isFetching: true
-					})
-				})
-			});
+			if ( postId === state.postId ) {
+				threads = Object.assign({}, state.threads, {
+					[ threadId ]: Object.assign({}, threadState, { isFetching: true })
+				});
+			} else {
+				threads = Object.assign({}, {
+					[ threadId ]: Object.assign({}, threadState, { isFetching: true })
+				});
+			}
+
+			return Object.assign({}, state, { postId, threads });
 
 		case GET_COMMENTS_SUCCESS:
 			params      = action.req.config.params;
