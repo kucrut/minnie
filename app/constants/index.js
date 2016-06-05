@@ -1,3 +1,8 @@
+export const postTypeMap = {
+	post: 'posts',
+	page: 'pages'
+};
+
 export const taxonomyMap = {
 	tag: {
 		endpoint: 'tags',
