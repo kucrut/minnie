@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { fetchPreview } from 'actions/preview';
 import he from 'he';
 import Helmet from 'react-helmet';
@@ -13,8 +12,6 @@ class Preview extends Component {
 
 	static propTypes = {
 		singular: PropTypes.object.isRequired,
-		session:  PropTypes.object.isRequired,
-		path:     PropTypes.string.isRequired,
 		type:     PropTypes.string.isRequired,
 		id:       PropTypes.number.isRequired,
 		dispatch: PropTypes.func.isRequired
@@ -42,14 +39,8 @@ class Preview extends Component {
 	}
 
 	componentWillMount() {
-		const { session, path, singular, type, id, dispatch } = this.props;
+		const { singular, type, id } = this.props;
 		const { data, isFetching } = singular;
-		const { user, token } = session;
-
-		if ( ! token || ! user.id ) {
-			dispatch( push( `/login?redirect=${encodeURI( path )}` ) );
-			return;
-		}
 
 		if ( isFetching ) {
 			this.setState({ isWaitingForProps: false });
@@ -118,8 +109,6 @@ export function mapStateToProps( state, ownProps ) {
 
 	return {
 		singular: state.singular,
-		session:  state.session,
-		path:     ownProps.location.pathname,
 		id:       parseInt( id, 10 ),
 		type
 	};
