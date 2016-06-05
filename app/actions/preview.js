@@ -27,6 +27,7 @@ export function fetchPreview( params ) {
 			promise:   request({
 				method:  'get',
 				url:     `/wp/v2/${postType}/${id}`,
+				params:  { preview: 1 },
 				headers: { Authorization: `Basic ${token}` }
 			})
 		});
