@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchComments } from 'actions/comments';
+import { fetchComments, postComment } from 'actions/comments';
 import CommentsList from 'containers/Comments/List';
+import CommentForm from 'containers/Comments/Form';
 
 class Comments extends Component {
 	static propTypes = {
@@ -17,6 +18,7 @@ class Comments extends Component {
 		super( props );
 
 		this.fetchMore = this.fetchMore.bind( this );
+		this.handleSubmit = this.handleSubmit.bind( this );
 		this.handleClickReply = this.handleClickReply.bind( this );
 	}
 
@@ -29,6 +31,13 @@ class Comments extends Component {
 
 	handleClickReply() {
 		// TODO.
+	}
+
+	handleSubmit( values ) {
+		const { dispatch } = this.props;
+
+		// Do some checks here?
+		dispatch( postComment( values ) );
 	}
 
 	render() {
@@ -50,11 +59,20 @@ class Comments extends Component {
 			comments
 		};
 
+		const formArgs = {
+			onSubmit:      this.handleSubmit,
+			initialValues: {
+				comment_post_ID: comments.postId,
+				comment_parent:  parentId
+			}
+		};
+
 		return (
 			<div className="comments-area" id="comments">
 				<h2 className="comments-title">Comments</h2>
 
 				<CommentsList { ...listArgs } />
+				<CommentForm { ...formArgs } />
 			</div>
 		);
 	}
