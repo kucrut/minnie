@@ -5,12 +5,8 @@ import { reduxForm, propTypes } from 'redux-form';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
 
 function CommentForm( props ) {
-	const { fields, handleSubmit, submitting, values, onClickCancelReply } = props;
-	const {
-		author, email, url, content,
-		comment_post_ID: commentPostId,
-		comment_parent:  commentParent
-	} = fields;
+	const { postId, parentId, fields, handleSubmit, submitting, values, onClickCancelReply } = props;
+	const { author, email, url, content } = fields;
 	const {
 		content: vContent,
 		author:  vAuthor,
@@ -24,7 +20,7 @@ function CommentForm( props ) {
 	}
 
 	let cancelEl = null;
-	if ( 0 !== parseInt( values.comment_parent, 10 ) ) {
+	if ( 0 !== parentId ) {
 		cancelEl = ( <CancelReplyLink onClick={ onClickCancelReply } /> );
 	}
 
@@ -77,8 +73,8 @@ function CommentForm( props ) {
 				</p>
 				<p className="form-submit">
 					<button className="submit" { ...buttonArgs }>Post Comment</button>
-					<input type="hidden" { ...commentPostId } />
-					<input type="hidden" { ...commentParent } />
+					<input type="hidden" name="comment_post_ID" value={ postId } />
+					<input type="hidden" name="comment_parent" value={ parentId } />
 				</p>
 			</form>
 		</div>
@@ -87,10 +83,12 @@ function CommentForm( props ) {
 
 CommentForm.propTypes = {
 	...propTypes,
+	postId:             PropTypes.number.isRequired,
+	parentId:           PropTypes.number.isRequired,
 	onClickCancelReply: PropTypes.func.isRequired
 };
 
 export default reduxForm({
 	form:   'comment',
-	fields: ['author', 'email', 'url', 'content', 'comment_post_ID', 'comment_parent']
+	fields: ['author', 'email', 'url', 'content']
 })( CommentForm );

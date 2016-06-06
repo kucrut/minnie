@@ -46,10 +46,14 @@ class Comments extends Component {
 	}
 
 	handleSubmit( values ) {
-		const { dispatch } = this.props;
+		const { dispatch, comments: { postId } } = this.props;
+		const data = Object.assign({}, values, {
+			comment_post_ID: postId,
+			comment_parent:  this.state.parentId
+		});
 
-		// Do some checks here?
-		dispatch( postComment( values ) );
+		// TODO: Do some checks here?
+		dispatch( postComment( data ) );
 	}
 
 	renderCommentsList() {
@@ -90,10 +94,8 @@ class Comments extends Component {
 		const args = {
 			onClickCancelReply: this.handleClickCancelReply,
 			onSubmit:           this.handleSubmit,
-			initialValues:      {
-				comment_post_ID: postId,
-				comment_parent:  parentId
-			}
+			postId,
+			parentId
 		};
 
 		return (
