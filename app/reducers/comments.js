@@ -5,6 +5,8 @@ import {
 	POST_COMMENT_SUCCESS
 } from 'constants/index';
 
+const onHoldText = 'Your comment is waiting for moderation.';
+
 const initialThreadState = {
 	parentId:    0,
 	items:       [],
@@ -94,7 +96,7 @@ export default function comments( state = initialState, action ) {
 				newComment = Object.assign({}, newComment, {
 					content: Object.assign({}, newComment.content, {
 						original: newComment.content.rendered,
-						rendered: '<p><em>Your comment is wating for moderation.<em></p>'
+						rendered: `<p class="comment-awaiting-moderation">${onHoldText}</p>`
 					})
 				});
 			}
