@@ -13,6 +13,12 @@ export default class CommentsList extends Component {
 		onClickViewReplies: PropTypes.func.isRequired
 	}
 
+	constructor( props ) {
+		super( props );
+
+		this.renderItem = this.renderItem.bind( this );
+	}
+
 	getThread() {
 		const { parentId, comments } = this.props;
 
@@ -61,30 +67,35 @@ export default class CommentsList extends Component {
 		);
 	}
 
+	renderItem( comment ) {
+		const { onClickReply, onClickViewReplies } = this.props;
+		const args = {
+			key: `comment-${comment.id}`,
+			comment,
+			onClickReply,
+			onClickViewReplies
+		};
+
+		return (
+			<Comment { ...args }>
+				{ this.renderReplies( comment.id ) }
+			</Comment>
+		);
+	}
+
 	render() {
-		const { listClass, ...rest } = this.props;
 		const thread = this.getThread();
 
 		if ( ! thread.items.length ) {
 			return null;
 		}
 
+		const { listClass } = this.props;
+
 		return (
 			<div className={ `${listClass}-wrap` }>
 				<ol className={ listClass }>
-					{ thread.items.map( comment => {
-						const args = {
-							key: `comment-${comment.id}`,
-							comment,
-							...rest
-						};
-
-						return (
-							<Comment { ...args }>
-								{ this.renderReplies( comment.id ) }
-							</Comment>
-						);
-					}) }
+					{ thread.items.map( this.renderItem ) }
 				</ol>
 
 				{ this.renderButton() }
