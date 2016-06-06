@@ -25,6 +25,7 @@ class Comments extends Component {
 		this.renderForm = this.renderForm.bind( this );
 		this.handleSubmit = this.handleSubmit.bind( this );
 		this.handleClickReply = this.handleClickReply.bind( this );
+		this.handleClickCancelReply = this.handleClickCancelReply.bind( this );
 	}
 
 	fetchMore( params ) {
@@ -38,6 +39,10 @@ class Comments extends Component {
 		this.setState({
 			parentId: params.parent
 		});
+	}
+
+	handleClickCancelReply() {
+		this.handleClickReply({ parent: 0 });
 	}
 
 	handleSubmit( values ) {
@@ -83,8 +88,9 @@ class Comments extends Component {
 		}
 
 		const args = {
-			onSubmit:      this.handleSubmit,
-			initialValues: {
+			onClickCancelReply: this.handleClickCancelReply,
+			onSubmit:           this.handleSubmit,
+			initialValues:      {
 				comment_post_ID: postId,
 				comment_parent:  parentId
 			}

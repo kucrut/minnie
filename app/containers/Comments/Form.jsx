@@ -2,9 +2,10 @@
 
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
+import CancelReplyLink from 'components/Comment/CancelReplyLink';
 
 function CommentForm( props ) {
-	const { fields, handleSubmit, submitting, values } = props;
+	const { fields, handleSubmit, submitting, values, onClickCancelReply } = props;
 	const {
 		author, email, url, content,
 		comment_post_ID: commentPostId,
@@ -22,10 +23,14 @@ function CommentForm( props ) {
 		buttonArgs = { disabled: 'disabled' };
 	}
 
-	// TODO: Add cancel reply link.
+	let cancelEl = null;
+	if ( 0 !== parseInt( values.comment_parent, 10 ) ) {
+		cancelEl = ( <CancelReplyLink onClick={ onClickCancelReply } /> );
+	}
+
 	return (
 		<div id="respond" className="comment-respond">
-			<h3 id="reply-title" className="comment-reply-title">Leave a Reply</h3>
+			<h3 id="reply-title" className="comment-reply-title">Leave a Reply { cancelEl }</h3>
 
 			<form onSubmit={ handleSubmit } method="post" action="/wp-comments-post.php">
 				<p className="comment-notes">Your email address will not be published. Required fields are marked { reqEl }</p>
@@ -81,11 +86,12 @@ function CommentForm( props ) {
 }
 
 CommentForm.propTypes = {
-	fields:       PropTypes.object.isRequired,
-	values:       PropTypes.object.isRequired,
-	handleSubmit: PropTypes.func.isRequired,
-	submitting:   PropTypes.bool.isRequired,
-	error:        PropTypes.string
+	onClickCancelReply: PropTypes.func.isRequired,
+	fields:             PropTypes.object.isRequired,
+	values:             PropTypes.object.isRequired,
+	handleSubmit:       PropTypes.func.isRequired,
+	submitting:         PropTypes.bool.isRequired,
+	error:              PropTypes.string
 };
 
 export default reduxForm({

@@ -1034,6 +1034,7 @@ a.current_page_item {
 	margin-bottom: 1.5em;
 }
 #cancel-comment-reply-link {
+	cursor: pointer;
 	float: right;
 	text-decoration: none;
 }
