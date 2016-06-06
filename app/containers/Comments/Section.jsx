@@ -22,6 +22,7 @@ class Comments extends Component {
 		};
 
 		this.fetchMore = this.fetchMore.bind( this );
+		this.renderForm = this.renderForm.bind( this );
 		this.handleSubmit = this.handleSubmit.bind( this );
 		this.handleClickReply = this.handleClickReply.bind( this );
 	}
@@ -33,8 +34,10 @@ class Comments extends Component {
 		dispatch( fetchComments( fetchParams ) );
 	}
 
-	handleClickReply() {
-		// TODO.
+	handleClickReply( params ) {
+		this.setState({
+			parentId: params.parent
+		});
 	}
 
 	handleSubmit( values ) {
@@ -57,6 +60,7 @@ class Comments extends Component {
 			onClickViewReplies: this.fetchMore,
 			onClickLoadMore:    this.fetchMore,
 			onClickReply:       this.handleClickReply,
+			renderForm:         this.renderForm,
 			listClass:          'comment-list',
 			parentId,
 			comments
@@ -68,6 +72,10 @@ class Comments extends Component {
 	}
 
 	renderForm( parentId ) {
+		if ( parentId !== this.state.parentId ) {
+			return null;
+		}
+
 		const { isEnabled, comments: { postId } } = this.props;
 
 		if ( ! isEnabled ) {
@@ -83,7 +91,7 @@ class Comments extends Component {
 		};
 
 		return (
-			<CommentForm { ...args } />
+			<CommentForm key="comment-form" { ...args } />
 		);
 	}
 
@@ -95,14 +103,12 @@ class Comments extends Component {
 			return null;
 		}
 
-		const formEl = 0 === this.state.parentId ? this.renderForm( 0 ) : null;
-
 		return (
 			<div className="comments-area" id="comments">
 				<h2 className="comments-title">Comments</h2>
 
 				{ this.renderCommentsList() }
-				{ formEl }
+				{ this.renderForm( 0 ) }
 			</div>
 		);
 	}

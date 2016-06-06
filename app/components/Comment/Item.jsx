@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { find } from 'lodash';
 import CommentContent from 'components/Comment/Content';
 import CommentMeta from 'components/Comment/Meta';
 import CommentViewRepliesLink from 'components/Comment/ViewRepliesLink';
@@ -8,7 +9,7 @@ export default class Comment extends Component {
 		comment:            PropTypes.object.isRequired,
 		onClickReply:       PropTypes.func.isRequired,
 		onClickViewReplies: PropTypes.func.isRequired,
-		children:           PropTypes.object
+		children:           PropTypes.array
 	}
 
 	constructor( props ) {
@@ -32,9 +33,10 @@ export default class Comment extends Component {
 
 	renderMetadata() {
 		const { comment, children } = this.props;
+		const repliesEl = find( children, { key: 'children-comments' });
 
-		// If comment doesn't have replies or the replies are already shown.
-		if ( ! comment.children_count || children ) {
+		// Bail if comment doesn't have replies or the replies are already shown.
+		if ( ! comment.children_count || repliesEl ) {
 			return null;
 		}
 

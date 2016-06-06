@@ -8,6 +8,7 @@ export default class CommentsList extends Component {
 		comments:           PropTypes.object.isRequired,
 		parentId:           PropTypes.number.isRequired,
 		listClass:          PropTypes.string.isRequired,
+		renderForm:         PropTypes.func.isRequired,
 		onClickReply:       PropTypes.func.isRequired,
 		onClickLoadMore:    PropTypes.func.isRequired,
 		onClickViewReplies: PropTypes.func.isRequired
@@ -43,7 +44,7 @@ export default class CommentsList extends Component {
 		});
 
 		return (
-			<CommentsList { ...args } />
+			<CommentsList key="children-comments" { ...args } />
 		);
 	}
 
@@ -68,7 +69,7 @@ export default class CommentsList extends Component {
 	}
 
 	renderItem( comment ) {
-		const { onClickReply, onClickViewReplies } = this.props;
+		const { renderForm, onClickReply, onClickViewReplies } = this.props;
 		const args = {
 			key: `comment-${comment.id}`,
 			comment,
@@ -78,6 +79,7 @@ export default class CommentsList extends Component {
 
 		return (
 			<Comment { ...args }>
+				{ renderForm( comment.id ) }
 				{ this.renderReplies( comment.id ) }
 			</Comment>
 		);
