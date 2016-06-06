@@ -13,6 +13,12 @@ export default class CommentsList extends Component {
 		onClickViewReplies: PropTypes.func.isRequired
 	}
 
+	getThread() {
+		const { parentId, comments } = this.props;
+
+		return comments.threads[ `t${parentId}` ];
+	}
+
 	renderReplies( parentId ) {
 		const threadId = `t${parentId}`;
 		const { threads } = this.props.comments;
@@ -35,15 +41,10 @@ export default class CommentsList extends Component {
 		);
 	}
 
-	render() {
-		const { listClass, parentId, comments, onClickLoadMore, ...rest } = this.props;
-		const thread = comments.threads[ `t${parentId}` ];
-
-		if ( ! thread.items.length ) {
-			return null;
-		}
-
+	renderButton() {
+		const thread = this.getThread();
 		const { hasMore, isFetching, currentPage } = thread;
+		const { parentId, onClickLoadMore } = this.props;
 		const buttonArgs = {
 			hasMore,
 			isFetching,
@@ -54,6 +55,19 @@ export default class CommentsList extends Component {
 				page:   currentPage + 1
 			},
 		};
+
+		return (
+			<LoadMoreButton { ...buttonArgs } />
+		);
+	}
+
+	render() {
+		const { listClass, ...rest } = this.props;
+		const thread = this.getThread();
+
+		if ( ! thread.items.length ) {
+			return null;
+		}
 
 		return (
 			<div className={ `${listClass}-wrap` }>
@@ -73,7 +87,7 @@ export default class CommentsList extends Component {
 					}) }
 				</ol>
 
-				<LoadMoreButton { ...buttonArgs } />
+				{ this.renderButton() }
 			</div>
 		);
 	}
