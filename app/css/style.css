@@ -1101,6 +1101,9 @@ a.current_page_item {
 p.comment-awaiting-moderation{
 	font-style: italic;
 }
+.comments-area .load-more {
+	margin-bottom: 1em;
+}
 /*--------------------------------------------------------------
 10.4 Header/Footer
 --------------------------------------------------------------*/
