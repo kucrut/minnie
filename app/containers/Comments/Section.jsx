@@ -63,8 +63,27 @@ class Comments extends Component {
 		);
 	}
 
+	renderForm( parentId ) {
+		const { isEnabled, comments: { postId } } = this.props;
+
+		if ( ! isEnabled ) {
+			return null;
+		}
+
+		const args = {
+			onSubmit:      this.handleSubmit,
+			initialValues: {
+				comment_post_ID: postId,
+				comment_parent:  parentId
+			}
+		};
+
+		return (
+			<CommentForm { ...args } />
+		);
+	}
+
 	render() {
-		const parentId = 0;
 		const { isEnabled, comments } = this.props;
 
 		// TODO: Update this check when the comment form is ready.
@@ -72,20 +91,12 @@ class Comments extends Component {
 			return null;
 		}
 
-		const formArgs = {
-			onSubmit:      this.handleSubmit,
-			initialValues: {
-				comment_post_ID: comments.postId,
-				comment_parent:  parentId
-			}
-		};
-
 		return (
 			<div className="comments-area" id="comments">
 				<h2 className="comments-title">Comments</h2>
 
 				{ this.renderCommentsList() }
-				<CommentForm { ...formArgs } />
+				{ this.renderForm( 0 ) }
 			</div>
 		);
 	}
