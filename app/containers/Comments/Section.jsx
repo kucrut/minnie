@@ -40,17 +40,16 @@ class Comments extends Component {
 		dispatch( postComment( values ) );
 	}
 
-	render() {
+	renderCommentsList() {
 		const parentId = 0;
-		const { isEnabled, comments } = this.props;
+		const { comments } = this.props;
 		const items = comments.threads[ `t${parentId}` ].items;
 
-		// TODO: Update this check when the comment form is ready.
-		if ( ! isEnabled || ! items.length ) {
+		if ( ! items.length ) {
 			return null;
 		}
 
-		const listArgs = {
+		const args = {
 			onClickViewReplies: this.fetchMore,
 			onClickLoadMore:    this.fetchMore,
 			onClickReply:       this.handleClickReply,
@@ -58,6 +57,20 @@ class Comments extends Component {
 			parentId,
 			comments
 		};
+
+		return (
+			<CommentsList { ...args } />
+		);
+	}
+
+	render() {
+		const parentId = 0;
+		const { isEnabled, comments } = this.props;
+
+		// TODO: Update this check when the comment form is ready.
+		if ( ! isEnabled || ! comments.threads.t0.items.length ) {
+			return null;
+		}
 
 		const formArgs = {
 			onSubmit:      this.handleSubmit,
@@ -71,7 +84,7 @@ class Comments extends Component {
 			<div className="comments-area" id="comments">
 				<h2 className="comments-title">Comments</h2>
 
-				<CommentsList { ...listArgs } />
+				{ this.renderCommentsList() }
 				<CommentForm { ...formArgs } />
 			</div>
 		);
