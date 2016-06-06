@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
+import { reducer as formReducer } from 'redux-form';
 import session from 'reducers/session';
 import info from 'reducers/info';
 import menu from 'reducers/menu';
@@ -19,5 +20,6 @@ export default combineReducers({
 	archive,
 	terms,
 	comments,
-	routing
+	routing,
+	form: formReducer
 });
