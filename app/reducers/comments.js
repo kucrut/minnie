@@ -1,7 +1,8 @@
 import {
 	GET_COMMENTS_REQUEST,
 	GET_COMMENTS_SUCCESS,
-	GET_COMMENTS_FAILURE
+	GET_COMMENTS_FAILURE,
+	POST_COMMENT_SUCCESS
 } from 'constants/index';
 
 const initialThreadState = {
@@ -40,6 +41,7 @@ export default function comments( state = initialState, action ) {
 	let params;
 	let currentPage;
 	let items;
+	let newComment;
 
 	switch ( action.type ) {
 		case GET_COMMENTS_REQUEST:
@@ -82,6 +84,21 @@ export default function comments( state = initialState, action ) {
 					[ threadId ]: Object.assign({}, threadState, {
 						isFetching: false
 					})
+				})
+			});
+
+		case POST_COMMENT_SUCCESS:
+			newComment = Object.assign({}, action.req.data, {
+				content: Object.assign({}, action.req.data.content, {
+					rendered: '<p>Your comment is wating for moderation.</p>'
+				})
+			});
+
+			items = threadState.items.concat( [newComment] );
+
+			return Object.assign({}, state, {
+				threads: Object.assign({}, state.threads, {
+					[ threadId ]: Object.assign({}, threadState, { items })
 				})
 			});
 
