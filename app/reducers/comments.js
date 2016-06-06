@@ -88,11 +88,16 @@ export default function comments( state = initialState, action ) {
 			});
 
 		case POST_COMMENT_SUCCESS:
-			newComment = Object.assign({}, action.req.data, {
-				content: Object.assign({}, action.req.data.content, {
-					rendered: '<p>Your comment is wating for moderation.</p>'
-				})
-			});
+			newComment = Object.assign({}, action.req.data );
+
+			if ( 'approved' !== newComment.status ) {
+				newComment = Object.assign({}, newComment, {
+					content: Object.assign({}, newComment.content, {
+						original: newComment.content.rendered,
+						rendered: '<p><em>Your comment is wating for moderation.<em></p>'
+					})
+				});
+			}
 
 			items = threadState.items.concat( [newComment] );
 
