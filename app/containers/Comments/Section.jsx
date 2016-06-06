@@ -17,6 +17,10 @@ class Comments extends Component {
 	constructor( props ) {
 		super( props );
 
+		this.state = {
+			parentId: 0
+		};
+
 		this.fetchMore = this.fetchMore.bind( this );
 		this.handleSubmit = this.handleSubmit.bind( this );
 		this.handleClickReply = this.handleClickReply.bind( this );
@@ -91,12 +95,14 @@ class Comments extends Component {
 			return null;
 		}
 
+		const formEl = 0 === this.state.parentId ? this.renderForm( 0 ) : null;
+
 		return (
 			<div className="comments-area" id="comments">
 				<h2 className="comments-title">Comments</h2>
 
 				{ this.renderCommentsList() }
-				{ this.renderForm( 0 ) }
+				{ formEl }
 			</div>
 		);
 	}
