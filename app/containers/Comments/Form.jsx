@@ -1,7 +1,7 @@
 /* eslint max-len: ["error", 140] */
 
 import React, { PropTypes } from 'react';
-import { reduxForm } from 'redux-form';
+import { reduxForm, propTypes } from 'redux-form';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
 
 function CommentForm( props ) {
@@ -86,12 +86,8 @@ function CommentForm( props ) {
 }
 
 CommentForm.propTypes = {
-	onClickCancelReply: PropTypes.func.isRequired,
-	fields:             PropTypes.object.isRequired,
-	values:             PropTypes.object.isRequired,
-	handleSubmit:       PropTypes.func.isRequired,
-	submitting:         PropTypes.bool.isRequired,
-	error:              PropTypes.string
+	...propTypes,
+	onClickCancelReply: PropTypes.func.isRequired
 };
 
 export default reduxForm({
