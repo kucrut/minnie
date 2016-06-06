@@ -1061,6 +1061,7 @@ a.current_page_item {
 .comment-metadata,
 .comment-metadata a,
 .comment-metadata a:visited {
+	cursor: pointer;
 	color: #777;
 	font-size: 13px;
 	font-size: 1.3rem;
@@ -1070,6 +1071,7 @@ a.current_page_item {
 .comment-metadata {
 	text-align: center;
 }
+.comment-reply-link::before,
 .comment-metadata .edit-link::before {
 	content: '\2022';
 	display: inline;

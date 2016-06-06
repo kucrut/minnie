@@ -51,7 +51,8 @@ export default class Comment extends Component {
 			avatarUrl:     c.author_avatar_urls[ '48' ],
 			authorUrl:     c.author_url,
 			authorName:    c.author_name,
-			dateFormatted: c.date_formatted
+			dateFormatted: c.date_formatted,
+			onClickReply:  this.handleClickReply
 		};
 
 		return (
