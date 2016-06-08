@@ -1101,7 +1101,7 @@ p.comment-awaiting-moderation{
 	display: block;
 }
 .comment-respond input {
-	width: 10em;
+	width: 20em;
 	max-width: 100%;
 }
 /*--------------------------------------------------------------
