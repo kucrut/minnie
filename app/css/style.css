@@ -1041,6 +1041,9 @@ a.current_page_item {
 .comment-author {
 	overflow: hidden;
 }
+.comment-author p {
+	margin-bottom: 0;
+}
 .comment-author,
 .comment-author a,
 .comment-author a:visited {
@@ -1049,16 +1052,11 @@ a.current_page_item {
 	font-size: 1.4rem;
 	text-decoration: none;
 }
-.comment-author .fn {
-	display: block;
-}
 .comment-author .avatar {
 	float: left;
 	margin: 0 1em 0 0;
 }
 .comment-author .comment-date,
-.comment-reply-link,
-.comment-reply-link:visited,
 .comment-metadata,
 .comment-metadata a,
 .comment-metadata a:visited {
@@ -1072,16 +1070,16 @@ a.current_page_item {
 .comment-metadata {
 	text-align: center;
 }
-.comment-reply-link::before,
 .comment-metadata .edit-link::before {
 	content: '\2022';
 	display: inline;
 	margin: 0 7px;
 }
-.comment-reply-link:after {
-	content: "\00BB";
-	display: inline;
-	margin-left: 3px;
+.comment-reply-link {
+	margin: 0 .5em;
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
 }
 .comment-view-replies-link {
 	cursor: pointer;

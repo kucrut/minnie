@@ -16,10 +16,12 @@ export default function CommentMeta( props ) {
 	return (
 		<footer className="comment-meta">
 			<div className="comment-author vcard">
-				<img className="avatar" src={ avatarUrl } alt={ `${authorName}'s avatar` } />
-				<CommentAuthor authorName={ authorName } authorUrl={ authorUrl } />
+				<p>
+					<img className="avatar" src={ avatarUrl } alt={ `${authorName}'s avatar` } />
+					<CommentAuthor authorName={ authorName } authorUrl={ authorUrl } />
+					{ replyLinkEl }
+				</p>
 				<CommentDate link={ link } date={ date } dateFormatted={ dateFormatted } />
-				{ replyLinkEl }
 			</div>
 		</footer>
 	);
