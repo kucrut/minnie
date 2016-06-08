@@ -1073,9 +1073,12 @@ a.current_page_item {
 	margin-top: .75em;
 	cursor: pointer;
 }
+.comment-notes,
 .comment-body {
 	font-size: 14px;
 	font-size: 1.4rem;
+}
+.comment-body {
 	margin: 0 0 1.5em;
 	position: relative;
 }
