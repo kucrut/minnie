@@ -35,7 +35,7 @@ export default class Comment extends Component {
 		const { comment, children } = this.props;
 		const repliesEl = find( children, { key: 'children-comments' });
 
-		return ( comment.children_count && ! repliesEl );
+		return ( 0 < comment.children_count && ! repliesEl );
 	}
 
 	render() {
