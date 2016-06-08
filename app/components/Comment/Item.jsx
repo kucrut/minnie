@@ -50,6 +50,7 @@ export default class Comment extends Component {
 		const commentMetaArgs = {
 			date:          c.date,
 			link:          c.link,
+			status:        c.status,
 			avatarUrl:     c.author_avatar_urls[ '48' ],
 			authorUrl:     c.author_url,
 			authorName:    c.author_name,
