@@ -2,9 +2,13 @@ import React, { PropTypes } from 'react';
 
 export default function CancelReplyLink({ onClick }) {
 	return (
-		<small>
-			<a id="cancel-comment-reply-link" rel="nofollow" onClick={ onClick }>Cancel reply</a>
-		</small>
+		<a
+			id="cancel-comment-reply-link"
+			className="genericon genericon-close-alt"
+			title="Cancel reply"
+			rel="nofollow"
+			onClick={ onClick }
+		><span className="screen-reader-text">Cancel reply</span></a>
 	);
 }
 

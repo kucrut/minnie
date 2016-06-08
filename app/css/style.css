@@ -1033,11 +1033,6 @@ a.current_page_item {
 	display: inline;
 	margin-bottom: 1.5em;
 }
-#cancel-comment-reply-link {
-	cursor: pointer;
-	float: right;
-	text-decoration: none;
-}
 .comment-author {
 	overflow: hidden;
 }
@@ -1072,6 +1067,11 @@ a.current_page_item {
 }
 .comment-view-replies-link {
 	vertical-align: bottom;
+}
+#cancel-comment-reply-link {
+	float: right;
+	margin-top: .75em;
+	cursor: pointer;
 }
 .comment-body {
 	font-size: 14px;
