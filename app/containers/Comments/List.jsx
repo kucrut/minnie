@@ -9,6 +9,7 @@ export default class CommentsList extends Component {
 		parentId:           PropTypes.number.isRequired,
 		listClass:          PropTypes.string.isRequired,
 		renderForm:         PropTypes.func.isRequired,
+		allowReplies:       PropTypes.bool.isRequired,
 		onClickReply:       PropTypes.func.isRequired,
 		onClickLoadMore:    PropTypes.func.isRequired,
 		onClickViewReplies: PropTypes.func.isRequired
@@ -69,10 +70,11 @@ export default class CommentsList extends Component {
 	}
 
 	renderItem( comment ) {
-		const { renderForm, onClickReply, onClickViewReplies } = this.props;
+		const { allowReplies, renderForm, onClickReply, onClickViewReplies } = this.props;
 		const args = {
 			key: `comment-${comment.id}`,
 			comment,
+			allowReplies,
 			onClickReply,
 			onClickViewReplies
 		};

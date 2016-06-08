@@ -7,6 +7,7 @@ import CommentViewRepliesLink from 'components/Comment/ViewRepliesLink';
 export default class Comment extends Component {
 	static propTypes = {
 		comment:            PropTypes.object.isRequired,
+		allowReplies:       PropTypes.bool.isRequired,
 		onClickReply:       PropTypes.func.isRequired,
 		onClickViewReplies: PropTypes.func.isRequired,
 		children:           PropTypes.array
@@ -46,15 +47,15 @@ export default class Comment extends Component {
 	}
 
 	render() {
-		const { comment: c }  = this.props;
+		const { allowReplies, comment: c }  = this.props;
 		const commentMetaArgs = {
 			date:          c.date,
 			link:          c.link,
-			status:        c.status,
 			avatarUrl:     c.author_avatar_urls[ '48' ],
 			authorUrl:     c.author_url,
 			authorName:    c.author_name,
 			dateFormatted: c.date_formatted,
+			allowReplies:  ( allowReplies && 'approved' === c.status ),
 			onClickReply:  this.handleClickReply
 		};
 

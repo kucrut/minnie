@@ -7,17 +7,19 @@ import CommentReplyLink from 'components/Comment/ReplyLink';
 export default function CommentMeta( props ) {
 	const {
 		authorUrl, authorName, avatarUrl,
-		status, link, date, dateFormatted,
-		onClickReply
+		link, date, dateFormatted,
+		allowReplies, onClickReply
 	} =  props;
+
+	const replyLinkEl = allowReplies ? ( <CommentReplyLink onClick={ onClickReply } /> ) : null;
 
 	return (
 		<footer className="comment-meta">
 			<div className="comment-author vcard">
-				<img className="avatar"src={ avatarUrl } alt={ `${authorName}'s avatar` } />
+				<img className="avatar" src={ avatarUrl } alt={ `${authorName}'s avatar` } />
 				<CommentAuthor authorName={ authorName } authorUrl={ authorUrl } />
 				<CommentDate link={ link } date={ date } dateFormatted={ dateFormatted } />
-				<CommentReplyLink onClick={ onClickReply } status={ status } />
+				{ replyLinkEl }
 			</div>
 		</footer>
 	);
@@ -26,10 +28,10 @@ export default function CommentMeta( props ) {
 CommentMeta.propTypes = {
 	link:          PropTypes.string.isRequired,
 	date:          PropTypes.string.isRequired,
-	status:        PropTypes.string.isRequired,
 	avatarUrl:     PropTypes.string.isRequired,
 	authorUrl:     PropTypes.string.isRequired,
 	authorName:    PropTypes.string.isRequired,
 	dateFormatted: PropTypes.string.isRequired,
+	allowReplies:  PropTypes.bool.isRequired,
 	onClickReply:  PropTypes.func.isRequired
 };

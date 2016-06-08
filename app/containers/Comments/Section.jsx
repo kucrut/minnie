@@ -58,7 +58,7 @@ class Comments extends Component {
 
 	renderCommentsList() {
 		const parentId = 0;
-		const { comments } = this.props;
+		const { isEnabled, comments } = this.props;
 		const items = comments.threads[ `t${parentId}` ].items;
 
 		if ( ! items.length ) {
@@ -70,6 +70,7 @@ class Comments extends Component {
 			onClickLoadMore:    this.fetchMore,
 			onClickReply:       this.handleClickReply,
 			renderForm:         this.renderForm,
+			allowReplies:       isEnabled,
 			listClass:          'comment-list',
 			parentId,
 			comments
