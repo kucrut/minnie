@@ -1056,33 +1056,22 @@ a.current_page_item {
 	float: left;
 	margin: 0 1em 0 0;
 }
-.comment-author .comment-date,
-.comment-metadata,
-.comment-metadata a,
-.comment-metadata a:visited {
-	cursor: pointer;
+.comment-author .comment-date {
 	color: #777;
 	font-size: 13px;
 	font-size: 1.3rem;
 	font-style: italic;
 	text-decoration: none;
 }
-.comment-metadata {
-	text-align: center;
-}
-.comment-metadata .edit-link::before {
-	content: '\2022';
-	display: inline;
-	margin: 0 7px;
-}
-.comment-reply-link {
+.comment-reply-link,
+.comment-view-replies-link {
 	margin: 0 .5em;
 	display: inline-block;
 	vertical-align: middle;
 	cursor: pointer;
 }
 .comment-view-replies-link {
-	cursor: pointer;
+	vertical-align: bottom;
 }
 .comment-body {
 	font-size: 14px;
