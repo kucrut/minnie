@@ -1094,6 +1094,13 @@ p.comment-awaiting-moderation{
 .comments-area .load-more {
 	margin-bottom: 1em;
 }
+.comment-respond label {
+	display: block;
+}
+.comment-respond input {
+	width: 10em;
+	max-width: 100%;
+}
 /*--------------------------------------------------------------
 10.4 Header/Footer
 --------------------------------------------------------------*/
