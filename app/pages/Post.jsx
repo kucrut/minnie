@@ -26,10 +26,12 @@ class Post extends _Singular {
 	}
 
 	renderComments() {
-		const { singular, comments, dispatch } = this.props;
+		const { singular, comments, query, dispatch } = this.props;
+		const parentId = query.hasOwnProperty( 'replytocom' ) ? parseInt( query.replytocom, 10 ) : 0;
 		const args = {
 			isEnabled: 'open' === singular.data.comment_status,
 			comments,
+			parentId,
 			dispatch
 		};
 
@@ -46,6 +48,7 @@ export function mapStateToProps( state, ownProps ) {
 		info:     state.info,
 		singular: state.singular,
 		comments: state.comments,
+		query:    ownProps.location.query,
 		slug
 	};
 }
