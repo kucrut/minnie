@@ -6,16 +6,16 @@ import CancelReplyLink from 'components/Comment/CancelReplyLink';
 
 function CommentForm( props ) {
 	const { postId, parentId, fields, handleSubmit, submitting, values, onClickCancelReply } = props;
-	const { author, email, url, content } = fields;
+	const { author, email, url, comment } = fields;
 	const {
-		content: vContent,
+		comment: vComment,
 		author:  vAuthor,
 		email:   vEmail
 	} = values;
 	const reqEl = ( <span className="required">*</span> );
 
 	let buttonArgs = {};
-	if ( submitting || ! vAuthor || ! vEmail || ! vContent ) {
+	if ( submitting || ! vAuthor || ! vEmail || ! vComment ) {
 		buttonArgs = { disabled: 'disabled' };
 	}
 
@@ -39,7 +39,7 @@ function CommentForm( props ) {
 						maxLength="65525"
 						aria-required="true"
 						required
-						{ ...content }
+						{ ...comment }
 					></textarea>
 				</p>
 				<p className="comment-form-author">
@@ -90,5 +90,5 @@ CommentForm.propTypes = {
 
 export default reduxForm({
 	form:   'comment',
-	fields: ['author', 'email', 'url', 'content']
+	fields: ['author', 'email', 'url', 'comment']
 })( CommentForm );

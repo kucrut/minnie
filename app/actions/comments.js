@@ -41,7 +41,7 @@ export function postComment( data ) {
 				author_name:  data.author,
 				author_email: data.email,
 				author_url:   data.url,
-				content:      data.content
+				content:      data.comment
 			}
 		})
 	};
