@@ -7,6 +7,7 @@ export default class Comments extends Component {
 	static propTypes = {
 		dispatch:  PropTypes.func.isRequired,
 		isEnabled: PropTypes.bool.isRequired,
+		parentId:  PropTypes.number.isRequired,
 		comments:  PropTypes.shape({
 			postId:  PropTypes.number,
 			threads: PropTypes.object
@@ -17,7 +18,7 @@ export default class Comments extends Component {
 		super( props );
 
 		this.state = {
-			parentId: 0
+			parentId: props.parentId
 		};
 
 		this.fetchMore = this.fetchMore.bind( this );
