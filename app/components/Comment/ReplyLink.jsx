@@ -1,17 +1,16 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-export default function CommentReplyLink({ link, onClick }) {
+export default function CommentReplyLink({ link }) {
 	const cls = 'comment-reply-link genericon genericon-reply-single';
 
 	return (
-		<Link to={ link } className={ cls } onClick={ onClick } rel="nofollow" title="Reply">
+		<Link to={ link } className={ cls } rel="nofollow" title="Reply">
 			<span className="screen-reader-text">Reply</span>
 		</Link>
 	);
 }
 
 CommentReplyLink.propTypes = {
-	link:    PropTypes.string.isRequired,
-	onClick: PropTypes.func.isRequired
+	link: PropTypes.string.isRequired
 };

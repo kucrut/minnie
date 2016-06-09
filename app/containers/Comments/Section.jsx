@@ -24,8 +24,13 @@ export default class Comments extends Component {
 		this.fetchMore = this.fetchMore.bind( this );
 		this.renderForm = this.renderForm.bind( this );
 		this.handleSubmit = this.handleSubmit.bind( this );
-		this.handleClickReply = this.handleClickReply.bind( this );
 		this.handleClickCancelReply = this.handleClickCancelReply.bind( this );
+	}
+
+	componentWillReceiveProps( nextProps ) {
+		this.setState({
+			parentId: nextProps.parentId
+		});
 	}
 
 	fetchMore( params ) {
@@ -35,14 +40,10 @@ export default class Comments extends Component {
 		dispatch( fetchComments( fetchParams ) );
 	}
 
-	handleClickReply( params ) {
-		this.setState({
-			parentId: params.parent
-		});
-	}
-
 	handleClickCancelReply() {
-		this.handleClickReply({ parent: 0 });
+		this.setState({
+			parentId: 0
+		});
 	}
 
 	handleSubmit( values ) {
@@ -68,7 +69,6 @@ export default class Comments extends Component {
 		const args = {
 			onClickViewReplies: this.fetchMore,
 			onClickLoadMore:    this.fetchMore,
-			onClickReply:       this.handleClickReply,
 			renderForm:         this.renderForm,
 			allowReplies:       isEnabled,
 			listClass:          'comment-list',

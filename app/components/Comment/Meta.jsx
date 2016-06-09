@@ -15,20 +15,19 @@ export default class CommentMeta extends Component {
 		dateFormatted:      PropTypes.string.isRequired,
 		replyLink:          PropTypes.string.isRequired,
 		allowReplies:       PropTypes.bool.isRequired,
-		onClickReply:       PropTypes.func.isRequired,
 		showViewReplies:    PropTypes.bool.isRequired,
 		onClickViewReplies: PropTypes.func.isRequired
 	}
 
 	renderReplyLink() {
-		const { replyLink, allowReplies, onClickReply } = this.props;
+		const { replyLink, allowReplies } = this.props;
 
 		if ( ! allowReplies ) {
 			return null;
 		}
 
 		return (
-			<CommentReplyLink link={ replyLink } onClick={ onClickReply } />
+			<CommentReplyLink link={ replyLink } />
 		);
 	}
 

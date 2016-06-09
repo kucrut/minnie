@@ -7,7 +7,6 @@ export default class Comment extends Component {
 	static propTypes = {
 		comment:            PropTypes.object.isRequired,
 		allowReplies:       PropTypes.bool.isRequired,
-		onClickReply:       PropTypes.func.isRequired,
 		onClickViewReplies: PropTypes.func.isRequired,
 		children:           PropTypes.array
 	}
@@ -15,14 +14,7 @@ export default class Comment extends Component {
 	constructor( props ) {
 		super( props );
 
-		this.handleClickReply = this.handleClickReply.bind( this );
 		this.handleClickViewReplies = this.handleClickViewReplies.bind( this );
-	}
-
-	handleClickReply() {
-		const { comment, onClickReply } = this.props;
-
-		onClickReply({ parent: comment.id });
 	}
 
 	handleClickViewReplies() {
@@ -49,7 +41,6 @@ export default class Comment extends Component {
 			dateFormatted:      c.date_formatted,
 			allowReplies:       ( allowReplies && 'approved' === c.status ),
 			replyLink:          c.reply_link,
-			onClickReply:       this.handleClickReply,
 			showViewReplies:    this.showViewReplies(),
 			onClickViewReplies: this.handleClickViewReplies
 		};
