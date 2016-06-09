@@ -13,6 +13,7 @@ export default class CommentMeta extends Component {
 		authorUrl:          PropTypes.string.isRequired,
 		authorName:         PropTypes.string.isRequired,
 		dateFormatted:      PropTypes.string.isRequired,
+		replyLink:          PropTypes.string.isRequired,
 		allowReplies:       PropTypes.bool.isRequired,
 		onClickReply:       PropTypes.func.isRequired,
 		showViewReplies:    PropTypes.bool.isRequired,
@@ -20,14 +21,14 @@ export default class CommentMeta extends Component {
 	}
 
 	renderReplyLink() {
-		const { allowReplies, onClickReply } = this.props;
+		const { replyLink, allowReplies, onClickReply } = this.props;
 
 		if ( ! allowReplies ) {
 			return null;
 		}
 
 		return (
-			<CommentReplyLink onClick={ onClickReply } />
+			<CommentReplyLink link={ replyLink } onClick={ onClickReply } />
 		);
 	}
 

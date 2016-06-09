@@ -39,7 +39,7 @@ export default class Comment extends Component {
 	}
 
 	render() {
-		const { allowReplies, comment: c }  = this.props;
+		const { allowReplies, comment: c } = this.props;
 		const commentMetaArgs = {
 			date:               c.date,
 			link:               c.link,
@@ -48,6 +48,7 @@ export default class Comment extends Component {
 			authorName:         c.author_name,
 			dateFormatted:      c.date_formatted,
 			allowReplies:       ( allowReplies && 'approved' === c.status ),
+			replyLink:          c.reply_link,
 			onClickReply:       this.handleClickReply,
 			showViewReplies:    this.showViewReplies(),
 			onClickViewReplies: this.handleClickViewReplies
