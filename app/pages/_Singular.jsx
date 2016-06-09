@@ -13,6 +13,7 @@ export default class _Singular extends Component {
 		info:     PropTypes.object.isRequired,
 		singular: PropTypes.object.isRequired,
 		dispatch: PropTypes.func.isRequired,
+		query:    PropTypes.object,
 		comments: PropTypes.object
 	}
 
