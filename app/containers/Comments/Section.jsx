@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { fetchComments, postComment } from 'actions/comments';
 import CommentsList from 'containers/Comments/List';
 import CommentForm from 'containers/Comments/Form';
 
-class Comments extends Component {
+export default class Comments extends Component {
 	static propTypes = {
 		dispatch:  PropTypes.func.isRequired,
 		isEnabled: PropTypes.bool.isRequired,
@@ -121,11 +120,3 @@ class Comments extends Component {
 		);
 	}
 }
-
-function mapStateToProps( state ) {
-	return {
-		comments: state.comments
-	};
-}
-
-export default connect( mapStateToProps )( Comments );

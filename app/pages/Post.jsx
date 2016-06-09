@@ -26,10 +26,15 @@ class Post extends _Singular {
 	}
 
 	renderComments() {
-		const isEnabled = 'open' === this.props.singular.data.comment_status;
+		const { singular, comments, dispatch } = this.props;
+		const args = {
+			isEnabled: 'open' === singular.data.comment_status,
+			comments,
+			dispatch
+		};
 
 		return (
-			<CommentsSection isEnabled={ isEnabled } />
+			<CommentsSection { ...args } />
 		);
 	}
 }
@@ -40,6 +45,7 @@ export function mapStateToProps( state, ownProps ) {
 	return {
 		info:     state.info,
 		singular: state.singular,
+		comments: state.comments,
 		slug
 	};
 }
