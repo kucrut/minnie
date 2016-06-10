@@ -131,11 +131,6 @@ class CommentForm extends Component {
 		const { postId, parentComment, fields, handleSubmit, submitting } = this.props;
 		const reqEl = this.renderAsterisk();
 
-		let buttonArgs = {};
-		if ( submitting ) {
-			buttonArgs = { disabled: 'disabled' };
-		}
-
 		return (
 			<div id="respond" className="comment-respond">
 				{ this.renderTitle() }
@@ -146,7 +141,7 @@ class CommentForm extends Component {
 					{ Object.keys( fields ).map( this.renderField ) }
 
 					<p className="form-submit">
-						<button className="submit" { ...buttonArgs }>Post Comment</button>
+						<button className="submit" disabled={ submitting }>Post Comment</button>
 						<input type="hidden" name="comment_post_ID" value={ postId } />
 						<input type="hidden" name="comment_parent" value={ parentComment.id } />
 					</p>
