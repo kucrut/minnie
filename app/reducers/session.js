@@ -1,4 +1,9 @@
-import { GET_SESSION_REQUEST, GET_SESSION_SUCCESS, GET_SESSION_FAILURE } from 'constants/index';
+import axios from 'axios';
+import {
+	GET_SESSION_REQUEST,
+	GET_SESSION_SUCCESS,
+	GET_SESSION_FAILURE
+} from 'constants/index';
 
 function saveToken( token ) {
 	localStorage.setItem( 'minnieToken', token );
@@ -19,6 +24,10 @@ export default function session( state = initialState, action ) {
 
 		case GET_SESSION_SUCCESS:
 			saveToken( action.token );
+
+			axios.defaults.headers = Object.assign({}, axios.defaults.headers, {
+				Authorization: `Basic ${action.token}`
+			});
 
 			return Object.assign({}, state, {
 				isChecking: false,
