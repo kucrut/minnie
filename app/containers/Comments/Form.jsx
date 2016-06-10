@@ -8,26 +8,25 @@ class CommentForm extends Component {
 	static propTypes = {
 		...propTypes,
 		postId:             PropTypes.number.isRequired,
-		parentId:           PropTypes.number.isRequired,
+		parentComment:      PropTypes.object.isRequired,
 		onClickCancelReply: PropTypes.func.isRequired
 	}
 
 	renderTitle() {
-		const { parentId, onClickCancelReply } = this.props;
-		let text = 'Leave a Reply';
+		const { parentComment, onClickCancelReply } = this.props;
 		let cancelLinkEl = null;
 
-		if ( 0 < parentId ) {
+		if ( 0 < parentComment.id ) {
 			cancelLinkEl = ( <CancelReplyLink onClick={ onClickCancelReply } /> );
 		}
 
 		return (
-			<h3 id="reply-title" className="comment-reply-title">{ text } { cancelLinkEl }</h3>
+			<h3 id="reply-title" className="comment-reply-title">Leave a Reply { cancelLinkEl }</h3>
 		);
 	}
 
 	render() {
-		const { postId, parentId, fields, handleSubmit, submitting } = this.props;
+		const { postId, parentComment, fields, handleSubmit, submitting } = this.props;
 		const { author, email, url, comment } = fields;
 		const reqEl = ( <span className="required">*</span> );
 
@@ -86,7 +85,7 @@ class CommentForm extends Component {
 					<p className="form-submit">
 						<button className="submit" { ...buttonArgs }>Post Comment</button>
 						<input type="hidden" name="comment_post_ID" value={ postId } />
-						<input type="hidden" name="comment_parent" value={ parentId } />
+						<input type="hidden" name="comment_parent" value={ parentComment.id } />
 					</p>
 				</form>
 			</div>

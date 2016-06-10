@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { each, find } from 'lodash';
 import { fetchComments, postComment } from 'actions/comments';
 import CommentsList from 'containers/Comments/List';
 import CommentForm from 'containers/Comments/Form';
@@ -31,6 +32,27 @@ export default class Comments extends Component {
 		this.setState({
 			parentId: nextProps.parentId
 		});
+	}
+
+	getParentComment( id ) {
+		const { threads } = this.props.comments;
+		let parentComment;
+
+		if ( 0 === id ) {
+			parentComment = { id: 0 };
+		} else {
+			each( threads, thread => {
+				parentComment = find( thread.items, { id });
+
+				if ( parentComment ) {
+					return false;
+				}
+
+				return true;
+			});
+		}
+
+		return parentComment;
 	}
 
 	fetchMore( params ) {
@@ -95,8 +117,8 @@ export default class Comments extends Component {
 		const args = {
 			onClickCancelReply: this.handleClickCancelReply,
 			onSubmit:           this.handleSubmit,
-			postId,
-			parentId
+			parentComment:      this.getParentComment( parentId ),
+			postId
 		};
 
 		return (
