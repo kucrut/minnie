@@ -5,17 +5,12 @@ import { reduxForm, propTypes } from 'redux-form';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
 
 function CommentForm( props ) {
-	const { postId, parentId, fields, handleSubmit, submitting, values, onClickCancelReply } = props;
+	const { postId, parentId, fields, handleSubmit, submitting, onClickCancelReply } = props;
 	const { author, email, url, comment } = fields;
-	const {
-		comment: vComment,
-		author:  vAuthor,
-		email:   vEmail
-	} = values;
 	const reqEl = ( <span className="required">*</span> );
 
 	let buttonArgs = {};
-	if ( submitting || ! vAuthor || ! vEmail || ! vComment ) {
+	if ( submitting ) {
 		buttonArgs = { disabled: 'disabled' };
 	}
 
