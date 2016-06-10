@@ -12,7 +12,8 @@ export default class Comments extends Component {
 		comments:  PropTypes.shape({
 			postId:  PropTypes.number,
 			threads: PropTypes.object
-		}).isRequired
+		}).isRequired,
+		userId: PropTypes.number
 	}
 
 	constructor( props ) {
@@ -108,7 +109,7 @@ export default class Comments extends Component {
 			return null;
 		}
 
-		const { isEnabled, comments: { postId } } = this.props;
+		const { isEnabled, userId, comments: { postId } } = this.props;
 
 		if ( ! isEnabled ) {
 			return null;
