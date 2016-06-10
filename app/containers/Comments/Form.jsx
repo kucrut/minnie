@@ -139,16 +139,30 @@ class CommentForm extends Component {
 		);
 	}
 
+	// TODO: Add logout link.
+	renderNotes() {
+		const { user } = this.props;
+
+		if ( user.hasOwnProperty( 'name' ) ) {
+			return (
+				<p className="logged-in-as">Logged in as <em>{ user.name }</em>.</p>
+			);
+		}
+
+		return (
+			<p className="comment-notes">Your email address will not be published. Required fields are marked { this.renderAsterisk() }</p>
+		);
+	}
+
 	render() {
 		const { postId, parentComment, fields, handleSubmit, submitting } = this.props;
-		const reqEl = this.renderAsterisk();
 
 		return (
 			<div id="respond" className="comment-respond">
 				{ this.renderTitle() }
 
 				<form onSubmit={ handleSubmit } method="post" action="/wp-comments-post.php">
-					<p className="comment-notes">Your email address will not be published. Required fields are marked { reqEl }</p>
+					{ this.renderNotes() }
 
 					{ Object.keys( fields ).map( this.renderField ) }
 
