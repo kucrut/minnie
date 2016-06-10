@@ -7,10 +7,10 @@ import CancelReplyLink from 'components/Comment/CancelReplyLink';
 class CommentForm extends Component {
 	static propTypes = {
 		...propTypes,
-		postId:             PropTypes.number.isRequired,
-		user:               PropTypes.object.isRequired,
-		parentComment:      PropTypes.object.isRequired,
-		onClickCancelReply: PropTypes.func.isRequired,
+		postId:          PropTypes.number.isRequired,
+		user:            PropTypes.object.isRequired,
+		parentComment:   PropTypes.object.isRequired,
+		cancelReplyLink: PropTypes.string.isRequired,
 	}
 
 	constructor( props ) {
@@ -19,13 +19,13 @@ class CommentForm extends Component {
 	}
 
 	renderTitle() {
-		const { parentComment: p, onClickCancelReply } = this.props;
+		const { parentComment: p, cancelReplyLink } = this.props;
 		let text = 'Leave a Reply';
 		let cancelLinkEl = '';
 
 		if ( 0 < p.id ) {
 			text = `${text} to ${p.author_name}`;
-			cancelLinkEl = ( <CancelReplyLink onClick={ onClickCancelReply } /> );
+			cancelLinkEl = ( <CancelReplyLink link={ cancelReplyLink } /> );
 		}
 
 		return (

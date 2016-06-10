@@ -10,6 +10,7 @@ export default class Comments extends Component {
 		isEnabled: PropTypes.bool.isRequired,
 		user:      PropTypes.object.isRequired,
 		parentId:  PropTypes.number.isRequired,
+		postLink:  PropTypes.string.isRequired,
 		comments:  PropTypes.shape({
 			postId:  PropTypes.number,
 			threads: PropTypes.object
@@ -32,7 +33,6 @@ export default class Comments extends Component {
 		this.fetchMore = this.fetchMore.bind( this );
 		this.renderForm = this.renderForm.bind( this );
 		this.handleSubmit = this.handleSubmit.bind( this );
-		this.handleClickCancelReply = this.handleClickCancelReply.bind( this );
 	}
 
 	componentWillReceiveProps( nextProps ) {
@@ -67,12 +67,6 @@ export default class Comments extends Component {
 		const fetchParams = Object.assign({ post: postId }, params );
 
 		dispatch( fetchComments( fetchParams ) );
-	}
-
-	handleClickCancelReply() {
-		this.setState({
-			parentId: 0
-		});
 	}
 
 	handleSubmit( values ) {
@@ -128,17 +122,19 @@ export default class Comments extends Component {
 			return null;
 		}
 
-		const { isEnabled, user, comments: { postId } } = this.props;
+		const { isEnabled, user, postLink, comments: { postId } } = this.props;
 
 		if ( ! isEnabled ) {
 			return null;
 		}
 
+		// TODO: Better cancelReplyLink?
+
 		args = {
-			onClickCancelReply: this.handleClickCancelReply,
-			onSubmit:           this.handleSubmit,
-			parentComment:      this.getParentComment( parentId ),
-			fields:             ['comment'],
+			cancelReplyLink: postLink,
+			onSubmit:        this.handleSubmit,
+			parentComment:   this.getParentComment( parentId ),
+			fields:          ['comment'],
 			postId,
 			user
 		};

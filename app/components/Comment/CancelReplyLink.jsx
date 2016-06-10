@@ -1,17 +1,18 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
-export default function CancelReplyLink({ onClick }) {
+export default function CancelReplyLink({ link }) {
 	return (
-		<a
+		<Link
+			to={ link }
 			id="cancel-comment-reply-link"
 			className="genericon genericon-close-alt"
 			title="Cancel reply"
 			rel="nofollow"
-			onClick={ onClick }
-		><span className="screen-reader-text">Cancel reply</span></a>
+		><span className="screen-reader-text">Cancel reply</span></Link>
 	);
 }
 
 CancelReplyLink.propTypes = {
-	onClick: PropTypes.func.isRequired
+	link: PropTypes.string.isRequired
 };
