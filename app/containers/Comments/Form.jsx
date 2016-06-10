@@ -12,15 +12,17 @@ class CommentForm extends Component {
 		onClickCancelReply: PropTypes.func.isRequired
 	}
 
-	renderCancelReplyLink() {
+	renderTitle() {
 		const { parentId, onClickCancelReply } = this.props;
+		let text = 'Leave a Reply';
+		let cancelLinkEl = null;
 
-		if ( 0 === parentId ) {
-			return null;
+		if ( 0 < parentId ) {
+			cancelLinkEl = ( <CancelReplyLink onClick={ onClickCancelReply } /> );
 		}
 
 		return (
-			<CancelReplyLink onClick={ onClickCancelReply } />
+			<h3 id="reply-title" className="comment-reply-title">{ text } { cancelLinkEl }</h3>
 		);
 	}
 
@@ -36,7 +38,7 @@ class CommentForm extends Component {
 
 		return (
 			<div id="respond" className="comment-respond">
-				<h3 id="reply-title" className="comment-reply-title">Leave a Reply { this.renderCancelReplyLink() }</h3>
+				{ this.renderTitle() }
 
 				<form onSubmit={ handleSubmit } method="post" action="/wp-comments-post.php">
 					<p className="comment-notes">Your email address will not be published. Required fields are marked { reqEl }</p>
