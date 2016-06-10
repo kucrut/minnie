@@ -7,8 +7,8 @@ import CancelReplyLink from 'components/Comment/CancelReplyLink';
 class CommentForm extends Component {
 	static propTypes = {
 		...propTypes,
-		userId:             PropTypes.number.isRequired,
 		postId:             PropTypes.number.isRequired,
+		user:               PropTypes.object.isRequired,
 		parentComment:      PropTypes.object.isRequired,
 		onClickCancelReply: PropTypes.func.isRequired,
 	}
@@ -127,6 +127,18 @@ class CommentForm extends Component {
 		}
 	}
 
+	renderUserField() {
+		const { user } = this.props;
+
+		if ( ! user.hasOwnProperty( 'id' ) ) {
+			return null;
+		}
+
+		return (
+			<input type="hidden" name="comment_author_ID" value={ user.id } />
+		);
+	}
+
 	render() {
 		const { postId, parentComment, fields, handleSubmit, submitting } = this.props;
 		const reqEl = this.renderAsterisk();
@@ -142,6 +154,7 @@ class CommentForm extends Component {
 
 					<p className="form-submit">
 						<button className="submit" disabled={ submitting }>Post Comment</button>
+						{ this.renderUserField() }
 						<input type="hidden" name="comment_post_ID" value={ postId } />
 						<input type="hidden" name="comment_parent" value={ parentComment.id } />
 					</p>

@@ -30,10 +30,10 @@ class Post extends _Singular {
 		const parentId = query.hasOwnProperty( 'replytocom' ) ? parseInt( query.replytocom, 10 ) : 0;
 		const args = {
 			isEnabled: 'open' === singular.data.comment_status,
-			userId:    user.hasOwnProperty( 'id' ) ? user.id : 0,
 			comments,
 			parentId,
-			dispatch
+			dispatch,
+			user
 		};
 
 		return (

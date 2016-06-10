@@ -8,7 +8,7 @@ export default class Comments extends Component {
 	static propTypes = {
 		dispatch:  PropTypes.func.isRequired,
 		isEnabled: PropTypes.bool.isRequired,
-		userId:    PropTypes.number.isRequired,
+		user:      PropTypes.object.isRequired,
 		parentId:  PropTypes.number.isRequired,
 		comments:  PropTypes.shape({
 			postId:  PropTypes.number,
@@ -111,7 +111,7 @@ export default class Comments extends Component {
 			return null;
 		}
 
-		const { isEnabled, userId, comments: { postId } } = this.props;
+		const { isEnabled, user, comments: { postId } } = this.props;
 
 		if ( ! isEnabled ) {
 			return null;
@@ -122,11 +122,11 @@ export default class Comments extends Component {
 			onSubmit:           this.handleSubmit,
 			parentComment:      this.getParentComment( parentId ),
 			fields:             ['comment'],
-			userId,
-			postId
+			postId,
+			user
 		};
 
-		if ( 0 === userId ) {
+		if ( ! user.hasOwnProperty( 'id' ) ) {
 			args = Object.assign({}, args, {
 				fields: args.fields.concat( ['author', 'email', 'url'] )
 			});
