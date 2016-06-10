@@ -25,10 +25,9 @@ export function fetchPreview( params ) {
 			isPreview: true,
 			postId:    id,
 			promise:   request({
-				method:  'get',
-				url:     `/wp/v2/${postType}/${id}`,
-				params:  { preview: 1 },
-				headers: { Authorization: `Basic ${token}` }
+				method: 'get',
+				url:    `/wp/v2/${postType}/${id}`,
+				params: { preview: 1 }
 			})
 		});
 	};
