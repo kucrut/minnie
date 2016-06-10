@@ -48,6 +48,7 @@ export function mapStateToProps( state, ownProps ) {
 		info:     state.info,
 		singular: state.singular,
 		comments: state.comments,
+		user:     state.session.user,
 		query:    ownProps.location.query,
 		slug
 	};
