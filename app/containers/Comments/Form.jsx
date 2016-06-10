@@ -127,18 +127,6 @@ class CommentForm extends Component {
 		}
 	}
 
-	renderUserField() {
-		const { user } = this.props;
-
-		if ( ! user.hasOwnProperty( 'id' ) ) {
-			return null;
-		}
-
-		return (
-			<input type="hidden" name="comment_author_ID" value={ user.id } />
-		);
-	}
-
 	// TODO: Add logout link.
 	renderNotes() {
 		const { user } = this.props;
@@ -168,7 +156,6 @@ class CommentForm extends Component {
 
 					<p className="form-submit">
 						<button className="submit" disabled={ submitting }>Post Comment</button>
-						{ this.renderUserField() }
 						<input type="hidden" name="comment_post_ID" value={ postId } />
 						<input type="hidden" name="comment_parent" value={ parentComment.id } />
 					</p>

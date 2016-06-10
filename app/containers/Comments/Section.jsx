@@ -83,10 +83,6 @@ export default class Comments extends Component {
 			content: values.comment,
 		};
 
-		if ( user.hasOwnProperty( 'id' ) ) {
-			data = Object.assign({}, data, { author: user.id });
-		}
-
 		this.extraCommentFields.forEach( key => {
 			if ( values.hasOwnProperty( key ) ) {
 				const newKey = 'author' === key ? 'author_name' : `author_${key}`;
