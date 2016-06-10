@@ -76,7 +76,7 @@ export default class Comments extends Component {
 	}
 
 	handleSubmit( values ) {
-		const { user, dispatch, comments: { postId } } = this.props;
+		const { dispatch, comments: { postId } } = this.props;
 		let data = {
 			post:    postId,
 			parent:  this.state.parentId,
