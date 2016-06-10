@@ -13,6 +13,11 @@ class CommentForm extends Component {
 		onClickCancelReply: PropTypes.func.isRequired,
 	}
 
+	constructor( props ) {
+		super( props );
+		this.renderField = this.renderField.bind( this );
+	}
+
 	renderTitle() {
 		const { parentComment: p, onClickCancelReply } = this.props;
 		let text = 'Leave a Reply';
@@ -28,10 +33,103 @@ class CommentForm extends Component {
 		);
 	}
 
+	renderAsterisk() {
+		return (
+			<span className="required">*</span>
+		);
+	}
+
+	renderCommentField() {
+		const { comment } = this.props.fields;
+
+		return (
+			<p className="comment-form-comment" key="comment-field">
+				<label htmlFor="comment">Comment</label>
+				<textarea
+					id="comment"
+					cols="45"
+					rows="8"
+					maxLength="65525"
+					aria-required="true"
+					required
+					{ ...comment }
+				></textarea>
+			</p>
+		);
+	}
+
+	renderAuthorField() {
+		const { author } = this.props.fields;
+
+		return (
+			<p className="comment-form-author" key="author-field">
+				<label htmlFor="author">Name { this.renderAsterisk() }</label>
+				<input
+					type="text"
+					id="author"
+					size="30"
+					maxLength="245"
+					aria-required="true"
+					required
+					{ ...author }
+				/>
+			</p>
+		);
+	}
+
+	renderEmailField() {
+		const { email } = this.props.fields;
+
+		return (
+			<p className="comment-form-email" key="email-field">
+				<label htmlFor="email">Email { this.renderAsterisk() }</label>
+				<input
+					type="email"
+					id="email"
+					size="30"
+					maxLength="100"
+					aria-describedby="email-notes"
+					aria-required="true"
+					required
+					{ ...email }
+				/>
+			</p>
+		);
+	}
+
+	renderUrlField() {
+		const { url } = this.props.fields;
+
+		return (
+			<p className="comment-form-url" key="url-field">
+				<label htmlFor="url">Website</label>
+				<input type="url" id="url" size="30" maxLength="200" { ...url } />
+			</p>
+		);
+	}
+
+	renderField( key ) {
+		switch ( key ) {
+			case 'comment':
+				return this.renderCommentField();
+
+			case 'author':
+				return this.renderAuthorField();
+
+			case 'email':
+				return this.renderEmailField();
+
+			case 'url':
+				return this.renderUrlField();
+
+			default:
+				return null;
+		}
+	}
+
 	render() {
 		const { postId, parentComment, fields, handleSubmit, submitting } = this.props;
-		const { author, email, url, comment } = fields;
-		const reqEl = ( <span className="required">*</span> );
+		const reqEl = this.renderAsterisk();
 
 		let buttonArgs = {};
 		if ( submitting ) {
@@ -44,47 +142,9 @@ class CommentForm extends Component {
 
 				<form onSubmit={ handleSubmit } method="post" action="/wp-comments-post.php">
 					<p className="comment-notes">Your email address will not be published. Required fields are marked { reqEl }</p>
-					<p className="comment-form-comment">
-						<label htmlFor="comment">Comment</label>
-						<textarea
-							id="comment"
-							cols="45"
-							rows="8"
-							maxLength="65525"
-							aria-required="true"
-							required
-							{ ...comment }
-						></textarea>
-					</p>
-					<p className="comment-form-author">
-						<label htmlFor="author">Name { reqEl }</label>
-						<input
-							type="text"
-							id="author"
-							size="30"
-							maxLength="245"
-							aria-required="true"
-							required
-							{ ...author }
-						/>
-					</p>
-					<p className="comment-form-email">
-						<label htmlFor="email">Email { reqEl }</label>
-						<input
-							type="email"
-							id="email"
-							size="30"
-							maxLength="100"
-							aria-describedby="email-notes"
-							aria-required="true"
-							required
-							{ ...email }
-						/>
-					</p>
-					<p className="comment-form-url">
-						<label htmlFor="url">Website</label>
-						<input type="url" id="url" size="30" maxLength="200" { ...url } />
-					</p>
+
+					{ Object.keys( fields ).map( this.renderField ) }
+
 					<p className="form-submit">
 						<button className="submit" { ...buttonArgs }>Post Comment</button>
 						<input type="hidden" name="comment_post_ID" value={ postId } />
