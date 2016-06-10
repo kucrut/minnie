@@ -1,6 +1,7 @@
 /* eslint max-len: ["error", 140] */
 
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import { reduxForm, propTypes } from 'redux-form';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
 
@@ -13,15 +14,17 @@ class CommentForm extends Component {
 	}
 
 	renderTitle() {
-		const { parentComment, onClickCancelReply } = this.props;
-		let cancelLinkEl = null;
+		const { parentComment: p, onClickCancelReply } = this.props;
+		let cancelLinkEl = '';
+		let text = 'Leave a Reply';
 
-		if ( 0 < parentComment.id ) {
+		if ( 0 < p.id ) {
+			text = `${text} to ${p.author_name}`;
 			cancelLinkEl = ( <CancelReplyLink onClick={ onClickCancelReply } /> );
 		}
 
 		return (
-			<h3 id="reply-title" className="comment-reply-title">Leave a Reply { cancelLinkEl }</h3>
+			<h3 id="reply-title" className="comment-reply-title">{ text } { cancelLinkEl }</h3>
 		);
 	}
 
