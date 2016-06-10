@@ -23,6 +23,12 @@ export default class Comments extends Component {
 			parentId: props.parentId
 		};
 
+		this.extraCommentFields = [
+			'author',
+			'email',
+			'url'
+		];
+
 		this.fetchMore = this.fetchMore.bind( this );
 		this.renderForm = this.renderForm.bind( this );
 		this.handleSubmit = this.handleSubmit.bind( this );
@@ -70,10 +76,25 @@ export default class Comments extends Component {
 	}
 
 	handleSubmit( values ) {
-		const { dispatch, comments: { postId } } = this.props;
-		const data = Object.assign({}, values, {
-			comment_post_ID: postId,
-			comment_parent:  this.state.parentId
+		const { user, dispatch, comments: { postId } } = this.props;
+		let data = {
+			post:    postId,
+			parent:  this.state.parentId,
+			content: values.comment,
+		};
+
+		if ( user.hasOwnProperty( 'id' ) ) {
+			data = Object.assign({}, data, { author: user.id });
+		}
+
+		this.extraCommentFields.forEach( key => {
+			if ( values.hasOwnProperty( key ) ) {
+				const newKey = 'author' === key ? 'author_name' : `author_${key}`;
+
+				data = Object.assign({}, data, {
+					[ newKey ]: values[ key ]
+				});
+			}
 		});
 
 		// TODO: Do some checks here?
@@ -128,7 +149,7 @@ export default class Comments extends Component {
 
 		if ( ! user.hasOwnProperty( 'id' ) ) {
 			args = Object.assign({}, args, {
-				fields: args.fields.concat( ['author', 'email', 'url'] )
+				fields: args.fields.concat( this.extraCommentFields )
 			});
 		}
 

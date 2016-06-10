@@ -30,19 +30,12 @@ export function fetchComments( params ) {
 export function postComment( data ) {
 	return {
 		type:     POST_COMMENT,
-		postId:   data.comment_post_ID,
-		parentId: data.comment_parent,
+		postId:   data.post,
+		parentId: data.parent,
 		promise:  request({
 			method: 'post',
 			url:    '/wp/v2/comments',
-			data:   {
-				post:         data.comment_post_ID,
-				parent:       data.comment_parent,
-				author_name:  data.author,
-				author_email: data.email,
-				author_url:   data.url,
-				content:      data.comment
-			}
+			data
 		})
 	};
 }
