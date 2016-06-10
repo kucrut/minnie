@@ -7,9 +7,10 @@ import CancelReplyLink from 'components/Comment/CancelReplyLink';
 class CommentForm extends Component {
 	static propTypes = {
 		...propTypes,
+		userId:             PropTypes.number.isRequired,
 		postId:             PropTypes.number.isRequired,
 		parentComment:      PropTypes.object.isRequired,
-		onClickCancelReply: PropTypes.func.isRequired
+		onClickCancelReply: PropTypes.func.isRequired,
 	}
 
 	renderTitle() {
@@ -95,7 +96,4 @@ class CommentForm extends Component {
 	}
 }
 
-export default reduxForm({
-	form:   'comment',
-	fields: ['author', 'email', 'url', 'comment']
-})( CommentForm );
+export default reduxForm({ form: 'comment' })( CommentForm );

@@ -28,16 +28,13 @@ class Post extends _Singular {
 	renderComments() {
 		const { user, singular, comments, query, dispatch } = this.props;
 		const parentId = query.hasOwnProperty( 'replytocom' ) ? parseInt( query.replytocom, 10 ) : 0;
-		let args = {
+		const args = {
 			isEnabled: 'open' === singular.data.comment_status,
+			userId:    user.hasOwnProperty( 'id' ) ? user.id : 0,
 			comments,
 			parentId,
 			dispatch
 		};
-
-		if ( user.hasOwnProperty( 'id' ) ) {
-			args = Object.assign({}, args, { userId: user.id });
-		}
 
 		return (
 			<CommentsSection { ...args } />

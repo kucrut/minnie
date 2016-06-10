@@ -8,12 +8,12 @@ export default class Comments extends Component {
 	static propTypes = {
 		dispatch:  PropTypes.func.isRequired,
 		isEnabled: PropTypes.bool.isRequired,
+		userId:    PropTypes.number.isRequired,
 		parentId:  PropTypes.number.isRequired,
 		comments:  PropTypes.shape({
 			postId:  PropTypes.number,
 			threads: PropTypes.object
 		}).isRequired,
-		userId: PropTypes.number
 	}
 
 	constructor( props ) {
@@ -105,6 +105,8 @@ export default class Comments extends Component {
 	}
 
 	renderForm( parentId ) {
+		let args;
+
 		if ( parentId !== this.state.parentId ) {
 			return null;
 		}
@@ -115,12 +117,20 @@ export default class Comments extends Component {
 			return null;
 		}
 
-		const args = {
+		args = {
 			onClickCancelReply: this.handleClickCancelReply,
 			onSubmit:           this.handleSubmit,
 			parentComment:      this.getParentComment( parentId ),
+			fields:             ['comment'],
+			userId,
 			postId
 		};
+
+		if ( 0 === userId ) {
+			args = Object.assign({}, args, {
+				fields: args.fields.concat( ['author', 'email', 'url'] )
+			});
+		}
 
 		return (
 			<CommentForm key="comment-form" { ...args } />
