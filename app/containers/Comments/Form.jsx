@@ -14,7 +14,7 @@ export default class CommentForm extends Component {
 		handleSubmit:    PropTypes.func.isRequired,
 		isSubmitting:    PropTypes.bool.isRequired,
 		hasError:        PropTypes.bool.isRequired,
-		submitError:     PropTypes.object.isRequired,
+		error:           PropTypes.object.isRequired,
 	}
 
 	constructor( props ) {
@@ -170,12 +170,13 @@ export default class CommentForm extends Component {
 		}
 	}
 
+	// TODO: Set ref and put the div into view.
 	renderErrors() {
-		const { submitError } = this.props;
+		const { error } = this.props;
 
 		return (
 			<div className="comment-error">
-				{ Object.keys( submitError ).map( field => <p key={ `error-${field}` }>{ submitError[ field ] }</p> ) }
+				{ Object.keys( error ).map( field => <p key={ `error-${field}` }>{ error[ field ] }</p> ) }
 			</div>
 		);
 	}

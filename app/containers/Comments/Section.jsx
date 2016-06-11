@@ -156,9 +156,9 @@ export default class Comments extends Component {
 			handleSubmit:    this.handleSubmit,
 			parentComment:   this.getParentComment( parentId ),
 			fields:          { comment: '' },
-			submitError:     error,
 			isSubmitting,
 			hasError,
+			error,
 			postId,
 			user
 		};
