@@ -12,8 +12,11 @@ export default class Comments extends Component {
 		parentId:  PropTypes.number.isRequired,
 		postLink:  PropTypes.string.isRequired,
 		comments:  PropTypes.shape({
-			postId:  PropTypes.number,
-			threads: PropTypes.object
+			postId:       PropTypes.number,
+			threads:      PropTypes.object,
+			error:        PropTypes.object,
+			hasError:     PropTypes.bool,
+			isSubmitting: PropTypes.bool
 		}).isRequired,
 	}
 
@@ -122,13 +125,12 @@ export default class Comments extends Component {
 			return null;
 		}
 
-		const { isEnabled, user, postLink, comments } = this.props;
-
-		if ( ! isEnabled ) {
+		if ( ! this.props.isEnabled ) {
 			return null;
 		}
 
-		const { postId, isSubmitting } = comments;
+		const { user, postLink, comments } = this.props;
+		const { postId, isSubmitting, hasError, error } = comments;
 
 		// TODO: Better cancelReplyLink?
 
@@ -137,7 +139,9 @@ export default class Comments extends Component {
 			onSubmit:        this.handleSubmit,
 			parentComment:   this.getParentComment( parentId ),
 			fields:          ['comment'],
+			submitError:     error,
 			isSubmitting,
+			hasError,
 			postId,
 			user
 		};

@@ -1117,6 +1117,9 @@ p.comment-awaiting-moderation{
 	width: 20em;
 	max-width: 100%;
 }
+.comment-error {
+	font-style: italic;
+}
 /*--------------------------------------------------------------
 10.4 Header/Footer
 --------------------------------------------------------------*/

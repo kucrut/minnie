@@ -13,6 +13,8 @@ class CommentForm extends Component {
 		parentComment:   PropTypes.object.isRequired,
 		cancelReplyLink: PropTypes.string.isRequired,
 		isSubmitting:    PropTypes.bool.isRequired,
+		hasError:        PropTypes.bool.isRequired,
+		submitError:     PropTypes.object.isRequired,
 	}
 
 	constructor( props ) {
@@ -129,9 +131,23 @@ class CommentForm extends Component {
 		}
 	}
 
+	renderErrors() {
+		const { submitError } = this.props;
+
+		return (
+			<div className="comment-error">
+				{ Object.keys( submitError ).map( field => <p key={ `error-${field}` }>{ submitError[ field ] }</p> ) }
+			</div>
+		);
+	}
+
 	// TODO: Add logout link.
 	renderNotes() {
-		const { user } = this.props;
+		const { user, hasError } = this.props;
+
+		if ( hasError ) {
+			return this.renderErrors();
+		}
 
 		if ( user.hasOwnProperty( 'name' ) ) {
 			return (
