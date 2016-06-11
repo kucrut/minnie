@@ -122,11 +122,13 @@ export default class Comments extends Component {
 			return null;
 		}
 
-		const { isEnabled, user, postLink, comments: { postId } } = this.props;
+		const { isEnabled, user, postLink, comments } = this.props;
 
 		if ( ! isEnabled ) {
 			return null;
 		}
+
+		const { postId, isSubmitting } = comments;
 
 		// TODO: Better cancelReplyLink?
 
@@ -135,6 +137,7 @@ export default class Comments extends Component {
 			onSubmit:        this.handleSubmit,
 			parentComment:   this.getParentComment( parentId ),
 			fields:          ['comment'],
+			isSubmitting,
 			postId,
 			user
 		};
