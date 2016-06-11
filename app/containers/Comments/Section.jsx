@@ -88,16 +88,24 @@ export default class Comments extends Component {
 			parent:  this.state.parentId,
 			content: values.comment,
 		};
+		let newValues = {};
 
 		Object.keys( this.extraCommentFields ).forEach( key => {
-			if ( values.hasOwnProperty( key ) ) {
-				const newKey = 'author' === key ? 'author_name' : `author_${key}`;
+			const newKey = 'author' === key ? 'author_name' : `author_${key}`;
 
+			if ( values.hasOwnProperty( key ) ) {
 				data = Object.assign({}, data, {
 					[ newKey ]: values[ key ]
 				});
+
+				newValues = Object.assign({}, newValues, {
+					[ key ]: values[ key ]
+				});
 			}
 		});
+
+		// Save for later.
+		this.extraCommentFields = Object.assign({}, this.extraCommentFields, newValues );
 
 		// TODO: Do some checks here?
 		dispatch( postComment( data ) );

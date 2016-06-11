@@ -29,6 +29,19 @@ export default class CommentForm extends Component {
 		this.renderField = this.renderField.bind( this );
 	}
 
+	componentWillReceiveProps( nextProps ) {
+		const { hasError, isSubmitting } = nextProps;
+
+		// After successful submission: Reset comment textarea.
+		if ( ! hasError && ! isSubmitting && this.props.isSubmitting ) {
+			this.setState({
+				values: Object.assign({}, this.state.values, {
+					comment: ''
+				})
+			});
+		}
+	}
+
 	handleChange( e ) {
 		this.setState({
 			values: Object.assign({}, this.state.values, {
@@ -122,12 +135,18 @@ export default class CommentForm extends Component {
 	}
 
 	renderUrlField() {
-		const { url } = this.props.fields;
-
 		return (
 			<p className="comment-form-url" key="url-field">
 				<label htmlFor="url">Website</label>
-				<input type="url" id="url" size="30" maxLength="200" { ...url } />
+				<input
+					type="url"
+					id="url"
+					size="30"
+					maxLength="200"
+					name="url"
+					value={ this.state.values.url }
+					onChange={ this.handleChange }
+				/>
 			</p>
 		);
 	}
