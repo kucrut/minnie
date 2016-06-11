@@ -1,17 +1,17 @@
 /* eslint max-len: ["error", 140] */
 
 import React, { Component, PropTypes } from 'react';
-import { reduxForm, propTypes } from 'redux-form';
 import Spinner from 'components/Spinner';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
 
-class CommentForm extends Component {
+export default class CommentForm extends Component {
 	static propTypes = {
-		...propTypes,
 		postId:          PropTypes.number.isRequired,
 		user:            PropTypes.object.isRequired,
 		parentComment:   PropTypes.object.isRequired,
 		cancelReplyLink: PropTypes.string.isRequired,
+		fields:          PropTypes.object.isRequired,
+		handleSubmit:    PropTypes.func.isRequired,
 		isSubmitting:    PropTypes.bool.isRequired,
 		hasError:        PropTypes.bool.isRequired,
 		submitError:     PropTypes.object.isRequired,
@@ -19,7 +19,27 @@ class CommentForm extends Component {
 
 	constructor( props ) {
 		super( props );
+
+		this.state = {
+			values: Object.assign({}, props.fields )
+		};
+
+		this.handleChange = this.handleChange.bind( this );
+		this.handleSubmit = this.handleSubmit.bind( this );
 		this.renderField = this.renderField.bind( this );
+	}
+
+	handleChange( e ) {
+		this.setState({
+			values: Object.assign({}, this.state.values, {
+				[ e.target.name ]: e.target.value
+			})
+		});
+	}
+
+	handleSubmit( e ) {
+		e.preventDefault();
+		this.props.handleSubmit( this.state.values );
 	}
 
 	renderTitle() {
@@ -44,8 +64,6 @@ class CommentForm extends Component {
 	}
 
 	renderCommentField() {
-		const { comment } = this.props.fields;
-
 		return (
 			<p className="comment-form-comment" key="comment-field">
 				<label htmlFor="comment">Comment</label>
@@ -56,15 +74,15 @@ class CommentForm extends Component {
 					maxLength="65525"
 					aria-required="true"
 					required
-					{ ...comment }
+					name="comment"
+					value={ this.state.values.comment }
+					onChange={ this.handleChange }
 				></textarea>
 			</p>
 		);
 	}
 
 	renderAuthorField() {
-		const { author } = this.props.fields;
-
 		return (
 			<p className="comment-form-author" key="author-field">
 				<label htmlFor="author">Name { this.renderAsterisk() }</label>
@@ -75,15 +93,15 @@ class CommentForm extends Component {
 					maxLength="245"
 					aria-required="true"
 					required
-					{ ...author }
+					name="author"
+					value={ this.state.values.author }
+					onChange={ this.handleChange }
 				/>
 			</p>
 		);
 	}
 
 	renderEmailField() {
-		const { email } = this.props.fields;
-
 		return (
 			<p className="comment-form-email" key="email-field">
 				<label htmlFor="email">Email { this.renderAsterisk() }</label>
@@ -95,7 +113,9 @@ class CommentForm extends Component {
 					aria-describedby="email-notes"
 					aria-required="true"
 					required
-					{ ...email }
+					name="email"
+					value={ this.state.values.email }
+					onChange={ this.handleChange }
 				/>
 			</p>
 		);
@@ -171,13 +191,13 @@ class CommentForm extends Component {
 	}
 
 	render() {
-		const { postId, parentComment, fields, handleSubmit, isSubmitting } = this.props;
+		const { postId, parentComment, fields, isSubmitting } = this.props;
 
 		return (
 			<div id="respond" className="comment-respond">
 				{ this.renderTitle() }
 
-				<form onSubmit={ handleSubmit } method="post" action="/wp-comments-post.php">
+				<form onSubmit={ this.handleSubmit } method="post" action="/wp-comments-post.php">
 					{ this.renderNotes() }
 
 					{ Object.keys( fields ).map( this.renderField ) }
@@ -194,5 +214,3 @@ class CommentForm extends Component {
 		);
 	}
 }
-
-export default reduxForm({ form: 'comment' })( CommentForm );

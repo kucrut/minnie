@@ -27,11 +27,11 @@ export default class Comments extends Component {
 			parentId: props.parentId
 		};
 
-		this.extraCommentFields = [
-			'author',
-			'email',
-			'url'
-		];
+		this.extraCommentFields = {
+			author: '',
+			email:  '',
+			url:    ''
+		};
 
 		this.fetchMore = this.fetchMore.bind( this );
 		this.renderForm = this.renderForm.bind( this );
@@ -80,7 +80,7 @@ export default class Comments extends Component {
 			content: values.comment,
 		};
 
-		this.extraCommentFields.forEach( key => {
+		Object.keys( this.extraCommentFields ).forEach( key => {
 			if ( values.hasOwnProperty( key ) ) {
 				const newKey = 'author' === key ? 'author_name' : `author_${key}`;
 
@@ -136,9 +136,9 @@ export default class Comments extends Component {
 
 		args = {
 			cancelReplyLink: postLink,
-			onSubmit:        this.handleSubmit,
+			handleSubmit:    this.handleSubmit,
 			parentComment:   this.getParentComment( parentId ),
-			fields:          ['comment'],
+			fields:          { comment: '' },
 			submitError:     error,
 			isSubmitting,
 			hasError,
@@ -146,9 +146,10 @@ export default class Comments extends Component {
 			user
 		};
 
+		// Non-logged in visitor.
 		if ( ! user.hasOwnProperty( 'id' ) ) {
 			args = Object.assign({}, args, {
-				fields: args.fields.concat( this.extraCommentFields )
+				fields: Object.assign({}, args.fields, this.extraCommentFields )
 			});
 		}
 
