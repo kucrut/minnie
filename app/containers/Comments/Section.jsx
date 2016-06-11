@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { push } from 'react-router-redux';
 import { each, find } from 'lodash';
 import { fetchComments, postComment } from 'actions/comments';
 import CommentsList from 'containers/Comments/List';
@@ -12,6 +13,7 @@ export default class Comments extends Component {
 		parentId:  PropTypes.number.isRequired,
 		postLink:  PropTypes.string.isRequired,
 		comments:  PropTypes.shape({
+			newComment:   PropTypes.object,
 			postId:       PropTypes.number,
 			threads:      PropTypes.object,
 			error:        PropTypes.object,
@@ -39,9 +41,16 @@ export default class Comments extends Component {
 	}
 
 	componentWillReceiveProps( nextProps ) {
+		const { comments: { newComment }, hasError, dispatch } = nextProps;
+
 		this.setState({
 			parentId: nextProps.parentId
 		});
+
+		// After successful comment submission.
+		if ( ! hasError && newComment.id !== this.props.comments.newComment.id ) {
+			dispatch( push( newComment.link ) );
+		}
 	}
 
 	getParentComment( id ) {
