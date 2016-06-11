@@ -2,7 +2,9 @@ import {
 	GET_COMMENTS_REQUEST,
 	GET_COMMENTS_SUCCESS,
 	GET_COMMENTS_FAILURE,
-	POST_COMMENT_SUCCESS
+	POST_COMMENT_REQUEST,
+	POST_COMMENT_SUCCESS,
+	POST_COMMENT_FAILURE
 } from 'constants/index';
 
 const onHoldText = 'Your comment is waiting for moderation.';
@@ -16,10 +18,11 @@ const initialThreadState = {
 };
 
 const initialState = {
-	postId:  0,
-	threads: {
+	isSubmitting: false,
+	postId:       0,
+	threads:      {
 		t0: Object.assign({}, initialThreadState )
-	}
+	},
 };
 
 function getThread( state, parentId ) {
@@ -89,6 +92,11 @@ export default function comments( state = initialState, action ) {
 				})
 			});
 
+		case POST_COMMENT_REQUEST:
+			return Object.assign({}, state, {
+				isSubmitting: true
+			});
+
 		case POST_COMMENT_SUCCESS:
 			newComment = Object.assign({}, action.req.data );
 
@@ -104,9 +112,15 @@ export default function comments( state = initialState, action ) {
 			items = threadState.items.concat( [newComment] );
 
 			return Object.assign({}, state, {
-				threads: Object.assign({}, state.threads, {
+				isSubmitting: false,
+				threads:      Object.assign({}, state.threads, {
 					[ threadId ]: Object.assign({}, threadState, { items })
 				})
+			});
+
+		case POST_COMMENT_FAILURE:
+			return Object.assign({}, state, {
+				isSubmitting: false
 			});
 
 		default:
