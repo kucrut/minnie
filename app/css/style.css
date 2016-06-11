@@ -1097,6 +1097,19 @@ p.comment-awaiting-moderation{
 .comments-area .load-more {
 	margin-bottom: 1em;
 }
+.comment-respond {
+	position: relative;
+}
+.comment-respond .cover {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	background: rgba(255, 255, 255, .8);
+}
+.comment-respond .cover .minnie-spinner {
+	margin-top: 3em;
+}
 .comment-respond label {
 	display: block;
 }

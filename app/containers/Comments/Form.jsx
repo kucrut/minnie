@@ -2,6 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import { reduxForm, propTypes } from 'redux-form';
+import Spinner from 'components/Spinner';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
 
 class CommentForm extends Component {
@@ -11,6 +12,7 @@ class CommentForm extends Component {
 		user:            PropTypes.object.isRequired,
 		parentComment:   PropTypes.object.isRequired,
 		cancelReplyLink: PropTypes.string.isRequired,
+		isSubmitting:    PropTypes.bool.isRequired,
 	}
 
 	constructor( props ) {
@@ -142,8 +144,18 @@ class CommentForm extends Component {
 		);
 	}
 
+	renderCover() {
+		if ( ! this.props.isSubmitting ) {
+			return null;
+		}
+
+		return (
+			<div className="cover"><Spinner /></div>
+		);
+	}
+
 	render() {
-		const { postId, parentComment, fields, handleSubmit, submitting } = this.props;
+		const { postId, parentComment, fields, handleSubmit, isSubmitting } = this.props;
 
 		return (
 			<div id="respond" className="comment-respond">
@@ -155,11 +167,13 @@ class CommentForm extends Component {
 					{ Object.keys( fields ).map( this.renderField ) }
 
 					<p className="form-submit">
-						<button className="submit" disabled={ submitting }>Post Comment</button>
+						<button className="submit" disabled={ isSubmitting }>Post Comment</button>
 						<input type="hidden" name="comment_post_ID" value={ postId } />
 						<input type="hidden" name="comment_parent" value={ parentComment.id } />
 					</p>
 				</form>
+
+				{ this.renderCover() }
 			</div>
 		);
 	}
