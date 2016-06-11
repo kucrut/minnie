@@ -19,6 +19,7 @@ const initialThreadState = {
 };
 
 const initialState = {
+	newComment:   {},
 	isSubmitting: false,
 	hasError:     false,
 	error:        {},
@@ -118,6 +119,7 @@ export default function comments( state = initialState, action ) {
 			items = threadState.items.concat( [newComment] );
 
 			return Object.assign({}, state, {
+				newComment,
 				isSubmitting: false,
 				threads:      Object.assign({}, state.threads, {
 					[ threadId ]: Object.assign({}, threadState, { items })
