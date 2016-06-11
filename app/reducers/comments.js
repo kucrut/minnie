@@ -8,6 +8,7 @@ import {
 } from 'constants/index';
 
 const onHoldText = 'Your comment is waiting for moderation.';
+const dupeText = 'Duplicate comment detected; it looks as though you’ve already said that!';
 
 const initialThreadState = {
 	parentId:    0,
@@ -19,6 +20,8 @@ const initialThreadState = {
 
 const initialState = {
 	isSubmitting: false,
+	hasError:     false,
+	error:        {},
 	postId:       0,
 	threads:      {
 		t0: Object.assign({}, initialThreadState )
@@ -47,6 +50,7 @@ export default function comments( state = initialState, action ) {
 	let currentPage;
 	let items;
 	let newComment;
+	let error;
 
 	switch ( action.type ) {
 		case GET_COMMENTS_REQUEST:
@@ -94,7 +98,9 @@ export default function comments( state = initialState, action ) {
 
 		case POST_COMMENT_REQUEST:
 			return Object.assign({}, state, {
-				isSubmitting: true
+				isSubmitting: true,
+				hasError:     false,
+				error:        {},
 			});
 
 		case POST_COMMENT_SUCCESS:
@@ -119,8 +125,16 @@ export default function comments( state = initialState, action ) {
 			});
 
 		case POST_COMMENT_FAILURE:
+			if ( 409 === action.error.status ) {
+				error = { duplicate: dupeText };
+			} else {
+				error = action.error.data.data.params;
+			}
+
 			return Object.assign({}, state, {
-				isSubmitting: false
+				isSubmitting: false,
+				hasError:     true,
+				error
 			});
 
 		default:
