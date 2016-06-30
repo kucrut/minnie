@@ -17,13 +17,17 @@ function makeRequest( params ) {
 }
 
 export function fetchComments( params ) {
-	const fetchParams = Object.assign({}, defaultParams, params );
+	return ( dispatch, getState ) => {
+		const fetchParams = Object.assign({
+			per_page: getState().info.settings.comments.per_page
+		}, defaultParams, params );
 
-	return {
-		type:     GET_COMMENTS,
-		promise:  makeRequest( fetchParams ),
-		postId:   fetchParams.post,
-		parentId: fetchParams.parent
+		dispatch({
+			type:     GET_COMMENTS,
+			promise:  makeRequest( fetchParams ),
+			postId:   fetchParams.post,
+			parentId: fetchParams.parent
+		});
 	};
 }
 
