@@ -170,7 +170,6 @@ export default class CommentForm extends Component {
 		}
 	}
 
-	// TODO: Set ref and put the div into view.
 	renderErrors() {
 		const { error } = this.props;
 
