@@ -10,6 +10,7 @@ const initialState = {
 	lang:        '',
 	name:        '',
 	description: '',
+	settings:    {},
 	isFetching:  false
 };
 
@@ -25,6 +26,7 @@ export default function info( state = initialState, action ) {
 				lang:        action.req.data.lang,
 				name:        action.req.data.name,
 				description: action.req.data.description,
+				settings:    action.req.data.settings,
 				isFetching:  false
 			});
 
