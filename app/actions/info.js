@@ -8,6 +8,6 @@ polyfill();
 export function fetchInfo() {
 	return {
 		type:    GET_INFO,
-		promise: request({ url: '/' })
+		promise: request({ url: '/bridge/v1/info' })
 	};
 }
