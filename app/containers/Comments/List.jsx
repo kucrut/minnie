@@ -5,6 +5,8 @@ import LoadMoreButton from 'components/LoadMoreButton';
 
 export default class CommentsList extends Component {
 	static propTypes = {
+		maxDepth:           PropTypes.number.isRequired,
+		depth:              PropTypes.number.isRequired,
 		comments:           PropTypes.object.isRequired,
 		parentId:           PropTypes.number.isRequired,
 		listClass:          PropTypes.string.isRequired,
@@ -28,7 +30,8 @@ export default class CommentsList extends Component {
 
 	renderReplies( parentId ) {
 		const threadId = `t${parentId}`;
-		const { threads } = this.props.comments;
+		const { maxDepth, allowReplies, comments } =  this.props;
+		const { threads } = comments;
 
 		if ( ! ( threadId in threads ) ) {
 			return null;
@@ -38,9 +41,12 @@ export default class CommentsList extends Component {
 			return ( <Spinner /> );
 		}
 
-		const args = Object.assign({}, this.props, {
+		const depth = this.props.depth + 1;
+		const args  = Object.assign({}, this.props, {
+			allowReplies: ( allowReplies && depth <= maxDepth ),
+			listClass:    'children',
 			parentId,
-			listClass: 'children'
+			depth
 		});
 
 		return (

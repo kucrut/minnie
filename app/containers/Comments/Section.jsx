@@ -12,6 +12,7 @@ export default class Comments extends Component {
 		user:      PropTypes.object.isRequired,
 		parentId:  PropTypes.number.isRequired,
 		postLink:  PropTypes.string.isRequired,
+		maxDepth:  PropTypes.number.isRequired,
 		comments:  PropTypes.shape({
 			newComment:   PropTypes.object,
 			postId:       PropTypes.number,
@@ -112,8 +113,9 @@ export default class Comments extends Component {
 	}
 
 	renderCommentsList() {
+		const depth    = 1;
 		const parentId = 0;
-		const { isEnabled, comments } = this.props;
+		const { isEnabled, maxDepth, comments } = this.props;
 		const items = comments.threads[ `t${parentId}` ].items;
 
 		if ( ! items.length ) {
@@ -124,10 +126,12 @@ export default class Comments extends Component {
 			onClickViewReplies: this.fetchMore,
 			onClickLoadMore:    this.fetchMore,
 			renderForm:         this.renderForm,
-			allowReplies:       isEnabled,
+			allowReplies:       ( isEnabled && depth <= maxDepth ),
 			listClass:          'comment-list',
 			parentId,
-			comments
+			comments,
+			maxDepth,
+			depth
 		};
 
 		return (
