@@ -143,3 +143,7 @@ export function getAdjacentLink( next = true, args ) {
 
 	return addSearchQuery( link );
 }
+
+export function wait( ms ) {
+	return new Promise( resolve => setTimeout( resolve, ms ) );
+}
