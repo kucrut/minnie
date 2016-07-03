@@ -147,3 +147,25 @@ export function getAdjacentLink( next = true, args ) {
 export function wait( ms ) {
 	return new Promise( resolve => setTimeout( resolve, ms ) );
 }
+
+/**
+ *  Check other state
+ *
+ *  @param  {func}    getState From redux.
+ *  @param  {string}  State name.
+ *  @param  {number}  Check interval (ms).
+ *  @return {Promise}
+ */
+export function checkOtherState( getState, name, interval = 100 ) {
+	const store = getState();
+
+	if ( ! store.hasOwnProperty( name ) ) {
+		return Promise.reject( `"${name}" could not be found in store.` );
+	}
+
+	if ( store[ name ].isFetching ) {
+		return wait( interval ).then( () => checkOtherState( getState, name, interval ) );
+	}
+
+	return Promise.resolve( store[ name ] );
+}

@@ -1,7 +1,7 @@
 import request from 'axios';
 import { polyfill } from 'es6-promise';
 import { GET_COMMENTS, POST_COMMENT } from 'constants/index';
-import { wait } from 'helpers';
+import { checkOtherState } from 'helpers';
 
 polyfill();
 
@@ -15,22 +15,6 @@ function makeRequest( params ) {
 		url:    '/wp/v2/comments',
 		params
 	});
-}
-
-/**
- *  Check info state
- *
- *  @param  {func}    getState From redux.
- *  @return {Promise}
- */
-function checkInfo( getState ) {
-	const { info } = getState();
-
-	if ( info.isFetching ) {
-		return wait( 50 ).then( () => checkInfo( getState ) );
-	}
-
-	return Promise.resolve( info );
 }
 
 /**
@@ -49,7 +33,7 @@ export function fetchComments( params ) {
 		type:     GET_COMMENTS,
 		postId:   fetchParams.post,
 		parentId: fetchParams.parent,
-		promise:  checkInfo( getState )
+		promise:  checkOtherState( getState, 'info' )
 			.then( info => Promise.all( [
 				info,
 				makeRequest( Object.assign({
