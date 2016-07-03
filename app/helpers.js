@@ -144,8 +144,17 @@ export function getAdjacentLink( next = true, args ) {
 	return addSearchQuery( link );
 }
 
-export function wait( ms ) {
-	return new Promise( resolve => setTimeout( resolve, ms ) );
+/**
+ *  Wait for something :)
+ *
+ *  Promise-based setTimeout() as seen in
+ *  http://stackoverflow.com/a/32543590/3313333
+ *
+ *  @param  {number}  interval Wait interval (ms)
+ *  @return {Promise}
+ */
+export function wait( interval ) {
+	return new Promise( resolve => setTimeout( resolve, interval ) );
 }
 
 /**
