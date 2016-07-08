@@ -3,6 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import Spinner from 'components/Spinner';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
+import FormUrlField from 'components/Comment/FormUrlField';
 
 export default class CommentForm extends Component {
 	static propTypes = {
@@ -134,24 +135,9 @@ export default class CommentForm extends Component {
 		);
 	}
 
-	renderUrlField() {
-		return (
-			<p className="comment-form-url" key="url-field">
-				<label htmlFor="url">Website</label>
-				<input
-					type="url"
-					id="url"
-					size="30"
-					maxLength="200"
-					name="url"
-					value={ this.state.values.url }
-					onChange={ this.handleChange }
-				/>
-			</p>
-		);
-	}
-
 	renderField( key ) {
+		const { values } = this.state;
+
 		switch ( key ) {
 			case 'comment':
 				return this.renderCommentField();
@@ -163,7 +149,7 @@ export default class CommentForm extends Component {
 				return this.renderEmailField();
 
 			case 'url':
-				return this.renderUrlField();
+				return ( <FormUrlField value={ values.url } handleChange={ this.handleChange } key="url-field" /> );
 
 			default:
 				return null;
