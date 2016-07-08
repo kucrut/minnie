@@ -3,6 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import Spinner from 'components/Spinner';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
+import Required from 'components/Required';
 import FormUrlField from 'components/Comment/FormUrlField';
 
 export default class CommentForm extends Component {
@@ -71,12 +72,6 @@ export default class CommentForm extends Component {
 		);
 	}
 
-	renderAsterisk() {
-		return (
-			<span className="required">*</span>
-		);
-	}
-
 	renderCommentField() {
 		return (
 			<p className="comment-form-comment" key="comment-field">
@@ -99,7 +94,7 @@ export default class CommentForm extends Component {
 	renderAuthorField() {
 		return (
 			<p className="comment-form-author" key="author-field">
-				<label htmlFor="author">Name { this.renderAsterisk() }</label>
+				<label htmlFor="author">Name <Required /></label>
 				<input
 					type="text"
 					id="author"
@@ -118,7 +113,7 @@ export default class CommentForm extends Component {
 	renderEmailField() {
 		return (
 			<p className="comment-form-email" key="email-field">
-				<label htmlFor="email">Email { this.renderAsterisk() }</label>
+				<label htmlFor="email">Email <Required /></label>
 				<input
 					type="email"
 					id="email"
@@ -181,7 +176,7 @@ export default class CommentForm extends Component {
 		}
 
 		return (
-			<p className="comment-notes">Your email address will not be published. Required fields are marked { this.renderAsterisk() }</p>
+			<p className="comment-notes">Your email address will not be published. Required fields are marked <Required /></p>
 		);
 	}
 
