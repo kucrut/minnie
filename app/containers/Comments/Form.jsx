@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import Spinner from 'components/Spinner';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
 import Required from 'components/Required';
-import FormUrlField from 'components/Comment/FormUrlField';
+import UrlField from 'components/Comment/Form/UrlField';
 
 export default class CommentForm extends Component {
 	static propTypes = {
@@ -144,7 +144,7 @@ export default class CommentForm extends Component {
 				return this.renderEmailField();
 
 			case 'url':
-				return ( <FormUrlField value={ values.url } handleChange={ this.handleChange } key="url-field" /> );
+				return ( <UrlField value={ values.url } handleChange={ this.handleChange } key="url-field" /> );
 
 			default:
 				return null;
