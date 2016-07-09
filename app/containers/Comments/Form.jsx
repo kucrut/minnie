@@ -82,16 +82,16 @@ export default class CommentForm extends Component {
 
 		switch ( key ) {
 			case 'comment':
-				return ( <CommentField value={ comment } handleChange={ this.handleChange } key="comment-field" /> );
+				return <CommentField value={ comment } handleChange={ this.handleChange } key="comment-field" />;
 
 			case 'author':
-				return ( <AuthorField value={ author } handleChange={ this.handleChange } key="author-field" /> );
+				return <AuthorField value={ author } handleChange={ this.handleChange } key="author-field" />;
 
 			case 'email':
-				return ( <EmailField value={ email } handleChange={ this.handleChange } key="email-field" /> );
+				return <EmailField value={ email } handleChange={ this.handleChange } key="email-field" />;
 
 			case 'url':
-				return ( <UrlField value={ url } handleChange={ this.handleChange } key="url-field" /> );
+				return <UrlField value={ url } handleChange={ this.handleChange } key="url-field" />;
 
 			default:
 				return null;
