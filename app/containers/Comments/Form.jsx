@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import Spinner from 'components/Spinner';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
 import Required from 'components/Required';
+import EmailField from 'components/Comment/Form/EmailField';
 import UrlField from 'components/Comment/Form/UrlField';
 
 export default class CommentForm extends Component {
@@ -110,28 +111,8 @@ export default class CommentForm extends Component {
 		);
 	}
 
-	renderEmailField() {
-		return (
-			<p className="comment-form-email" key="email-field">
-				<label htmlFor="email">Email <Required /></label>
-				<input
-					type="email"
-					id="email"
-					size="30"
-					maxLength="100"
-					aria-describedby="email-notes"
-					aria-required="true"
-					required
-					name="email"
-					value={ this.state.values.email }
-					onChange={ this.handleChange }
-				/>
-			</p>
-		);
-	}
-
 	renderField( key ) {
-		const { values } = this.state;
+		const { email, url } = this.state.values;
 
 		switch ( key ) {
 			case 'comment':
@@ -141,10 +122,10 @@ export default class CommentForm extends Component {
 				return this.renderAuthorField();
 
 			case 'email':
-				return this.renderEmailField();
+				return ( <EmailField value={ email } handleChange={ this.handleChange } key="email-field" /> );
 
 			case 'url':
-				return ( <UrlField value={ values.url } handleChange={ this.handleChange } key="url-field" /> );
+				return ( <UrlField value={ url } handleChange={ this.handleChange } key="url-field" /> );
 
 			default:
 				return null;
