@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import Spinner from 'components/Spinner';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
 import Required from 'components/Required';
+import Errors from 'components/Comment/Form/Errors';
 import CommentField from 'components/Comment/Form/CommentField';
 import AuthorField from 'components/Comment/Form/AuthorField';
 import EmailField from 'components/Comment/Form/EmailField';
@@ -97,22 +98,12 @@ export default class CommentForm extends Component {
 		}
 	}
 
-	renderErrors() {
-		const { error } = this.props;
-
-		return (
-			<div className="comment-error">
-				{ Object.keys( error ).map( field => <p key={ `error-${field}` }>{ error[ field ] }</p> ) }
-			</div>
-		);
-	}
-
 	// TODO: Add logout link.
 	renderNotes() {
-		const { user, hasError } = this.props;
+		const { user, hasError, error } = this.props;
 
 		if ( hasError ) {
-			return this.renderErrors();
+			return <Errors error={ error } />;
 		}
 
 		if ( user.hasOwnProperty( 'name' ) ) {
