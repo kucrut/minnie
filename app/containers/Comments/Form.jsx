@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import Spinner from 'components/Spinner';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
 import Required from 'components/Required';
+import AuthorField from 'components/Comment/Form/AuthorField';
 import EmailField from 'components/Comment/Form/EmailField';
 import UrlField from 'components/Comment/Form/UrlField';
 
@@ -92,34 +93,15 @@ export default class CommentForm extends Component {
 		);
 	}
 
-	renderAuthorField() {
-		return (
-			<p className="comment-form-author" key="author-field">
-				<label htmlFor="author">Name <Required /></label>
-				<input
-					type="text"
-					id="author"
-					size="30"
-					maxLength="245"
-					aria-required="true"
-					required
-					name="author"
-					value={ this.state.values.author }
-					onChange={ this.handleChange }
-				/>
-			</p>
-		);
-	}
-
 	renderField( key ) {
-		const { email, url } = this.state.values;
+		const { author, email, url } = this.state.values;
 
 		switch ( key ) {
 			case 'comment':
 				return this.renderCommentField();
 
 			case 'author':
-				return this.renderAuthorField();
+				return ( <AuthorField value={ author } handleChange={ this.handleChange } key="author-field" /> );
 
 			case 'email':
 				return ( <EmailField value={ email } handleChange={ this.handleChange } key="email-field" /> );
