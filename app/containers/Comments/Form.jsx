@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import Spinner from 'components/Spinner';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
 import Required from 'components/Required';
+import CommentField from 'components/Comment/Form/CommentField';
 import AuthorField from 'components/Comment/Form/AuthorField';
 import EmailField from 'components/Comment/Form/EmailField';
 import UrlField from 'components/Comment/Form/UrlField';
@@ -74,31 +75,12 @@ export default class CommentForm extends Component {
 		);
 	}
 
-	renderCommentField() {
-		return (
-			<p className="comment-form-comment" key="comment-field">
-				<label htmlFor="comment">Comment</label>
-				<textarea
-					id="comment"
-					cols="45"
-					rows="8"
-					maxLength="65525"
-					aria-required="true"
-					required
-					name="comment"
-					value={ this.state.values.comment }
-					onChange={ this.handleChange }
-				></textarea>
-			</p>
-		);
-	}
-
 	renderField( key ) {
-		const { author, email, url } = this.state.values;
+		const { comment, author, email, url } = this.state.values;
 
 		switch ( key ) {
 			case 'comment':
-				return this.renderCommentField();
+				return ( <CommentField value={ comment } handleChange={ this.handleChange } key="comment-field" /> );
 
 			case 'author':
 				return ( <AuthorField value={ author } handleChange={ this.handleChange } key="author-field" /> );
