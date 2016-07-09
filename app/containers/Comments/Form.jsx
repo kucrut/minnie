@@ -8,6 +8,7 @@ import CommentField from 'components/Comment/Form/CommentField';
 import AuthorField from 'components/Comment/Form/AuthorField';
 import EmailField from 'components/Comment/Form/EmailField';
 import UrlField from 'components/Comment/Form/UrlField';
+import SubmitField from 'components/Comment/Form/SubmitField';
 
 export default class CommentForm extends Component {
 	static propTypes = {
@@ -147,11 +148,7 @@ export default class CommentForm extends Component {
 
 					{ Object.keys( fields ).map( this.renderField ) }
 
-					<p className="form-submit">
-						<button className="submit" disabled={ isSubmitting }>Post Comment</button>
-						<input type="hidden" name="comment_post_ID" value={ postId } />
-						<input type="hidden" name="comment_parent" value={ parentComment.id } />
-					</p>
+					<SubmitField isSubmitting={ isSubmitting } postId={ postId } parentId={ parentComment.id } />
 				</form>
 
 				{ this.renderCover() }
