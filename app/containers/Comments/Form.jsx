@@ -1,9 +1,9 @@
 /* eslint max-len: ["error", 140] */
 
 import React, { Component, PropTypes } from 'react';
-import Spinner from 'components/Spinner';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
 import Required from 'components/Required';
+import Cover from 'components/Comment/Form/Cover';
 import Errors from 'components/Comment/Form/Errors';
 import CommentField from 'components/Comment/Form/CommentField';
 import AuthorField from 'components/Comment/Form/AuthorField';
@@ -117,16 +117,6 @@ export default class CommentForm extends Component {
 		);
 	}
 
-	renderCover() {
-		if ( ! this.props.isSubmitting ) {
-			return null;
-		}
-
-		return (
-			<div className="cover"><Spinner /></div>
-		);
-	}
-
 	render() {
 		const { postId, parentComment, fields, isSubmitting } = this.props;
 
@@ -142,7 +132,7 @@ export default class CommentForm extends Component {
 					<SubmitField isSubmitting={ isSubmitting } postId={ postId } parentId={ parentComment.id } />
 				</form>
 
-				{ this.renderCover() }
+				<Cover isSubmitting={ isSubmitting } />
 			</div>
 		);
 	}
