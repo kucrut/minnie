@@ -2,8 +2,8 @@
 
 import React, { Component, PropTypes } from 'react';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
-import Required from 'components/Required';
 import Cover from 'components/Comment/Form/Cover';
+import Notes from 'components/Comment/Form/Notes';
 import Errors from 'components/Comment/Form/Errors';
 import CommentField from 'components/Comment/Form/CommentField';
 import AuthorField from 'components/Comment/Form/AuthorField';
@@ -106,15 +106,7 @@ export default class CommentForm extends Component {
 			return <Errors error={ error } />;
 		}
 
-		if ( user.hasOwnProperty( 'name' ) ) {
-			return (
-				<p className="logged-in-as">Logged in as <em>{ user.name }</em>.</p>
-			);
-		}
-
-		return (
-			<p className="comment-notes">Your email address will not be published. Required fields are marked <Required /></p>
-		);
+		return ( <Notes userName={ user.name || '' } /> );
 	}
 
 	render() {
