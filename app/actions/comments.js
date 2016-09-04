@@ -1,6 +1,7 @@
 import request from 'axios';
 import { polyfill } from 'es6-promise';
-import { GET_COMMENTS } from 'constants/index';
+import { GET_COMMENTS, POST_COMMENT } from 'constants/index';
+import { checkOtherState } from 'helpers';
 
 polyfill();
 
@@ -16,13 +17,42 @@ function makeRequest( params ) {
 	});
 }
 
+/**
+ *  Fetch comments
+ *
+ *  Before actually fetching the comments, we need to wait for site info
+ *  to be fetched.
+ *
+ *  @param  {object} params
+ *  @return {object}
+ */
 export function fetchComments( params ) {
 	const fetchParams = Object.assign({}, defaultParams, params );
 
-	return {
+	return ( dispatch, getState ) => dispatch({
 		type:     GET_COMMENTS,
-		promise:  makeRequest( fetchParams ),
 		postId:   fetchParams.post,
-		parentId: fetchParams.parent
+		parentId: fetchParams.parent,
+		promise:  checkOtherState( getState, 'info' )
+			.then( info => Promise.all( [
+				info,
+				makeRequest( Object.assign({
+					per_page: info.settings.comments.per_page
+				}, fetchParams ) )
+			] ).then( results => Promise.resolve( results[ 1 ] ) ) )
+			// TODO: Check if info contains error.
+	});
+}
+
+export function postComment( data ) {
+	return {
+		type:     POST_COMMENT,
+		postId:   data.post,
+		parentId: data.parent,
+		promise:  request({
+			method: 'post',
+			url:    '/wp/v2/comments',
+			data
+		})
 	};
 }

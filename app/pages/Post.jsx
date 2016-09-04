@@ -26,10 +26,20 @@ class Post extends _Singular {
 	}
 
 	renderComments() {
-		const isEnabled = 'open' === this.props.singular.data.comment_status;
+		const { info, user, singular, comments, query, dispatch } = this.props;
+		const parentId = query.hasOwnProperty( 'replytocom' ) ? parseInt( query.replytocom, 10 ) : 0;
+		const args = {
+			isEnabled: 'open' === singular.data.comment_status,
+			postLink:  singular.data.link,
+			maxDepth:  info.settings.comments.threads_depth,
+			comments,
+			parentId,
+			dispatch,
+			user
+		};
 
 		return (
-			<CommentsSection isEnabled={ isEnabled } />
+			<CommentsSection { ...args } />
 		);
 	}
 }
@@ -40,6 +50,9 @@ export function mapStateToProps( state, ownProps ) {
 	return {
 		info:     state.info,
 		singular: state.singular,
+		comments: state.comments,
+		user:     state.session.user,
+		query:    ownProps.location.query,
 		slug
 	};
 }

@@ -1013,12 +1013,12 @@ a.current_page_item {
 .comment-list .children-wrap {
 	margin-left: 1.5em;
 }
-#respond h3,
+.comment-reply-title,
 .comments-title {
 	color: #999;
 	font-size: 24px;
 	font-size: 2.4rem;
-	margin: 0 0 1.5em;
+	margin: 0 0 1em;
 }
 .comment .comment-content {
 	line-height: 1.8;
@@ -1033,12 +1033,11 @@ a.current_page_item {
 	display: inline;
 	margin-bottom: 1.5em;
 }
-#cancel-comment-reply-link {
-	float: right;
-	text-decoration: none;
-}
 .comment-author {
 	overflow: hidden;
+}
+.comment-author p {
+	margin-bottom: 0;
 }
 .comment-author,
 .comment-author a,
@@ -1048,44 +1047,38 @@ a.current_page_item {
 	font-size: 1.4rem;
 	text-decoration: none;
 }
-.comment-author .fn {
-	display: block;
-}
 .comment-author .avatar {
 	float: left;
 	margin: 0 1em 0 0;
 }
-.comment-author .comment-date,
-.comment-reply-link,
-.comment-reply-link:visited,
-.comment-metadata,
-.comment-metadata a,
-.comment-metadata a:visited {
+.comment-author .comment-date {
 	color: #777;
 	font-size: 13px;
 	font-size: 1.3rem;
 	font-style: italic;
 	text-decoration: none;
 }
-.comment-metadata {
-	text-align: center;
-}
-.comment-metadata .edit-link::before {
-	content: '\2022';
-	display: inline;
-	margin: 0 7px;
-}
-.comment-reply-link:after {
-	content: "\00BB";
-	display: inline;
-	margin-left: 3px;
-}
+.comment-reply-link,
 .comment-view-replies-link {
+	margin: 0 .5em;
+	display: inline-block;
+	vertical-align: middle;
 	cursor: pointer;
 }
+.comment-view-replies-link {
+	vertical-align: bottom;
+}
+#cancel-comment-reply-link {
+	float: right;
+	margin-top: .75em;
+	cursor: pointer;
+}
+.comment-notes,
 .comment-body {
 	font-size: 14px;
 	font-size: 1.4rem;
+}
+.comment-body {
 	margin: 0 0 1.5em;
 	position: relative;
 }
@@ -1099,6 +1092,32 @@ a.current_page_item {
 	font-size: 1.2rem;
 }
 p.comment-awaiting-moderation{
+	font-style: italic;
+}
+.comments-area .load-more {
+	margin-bottom: 1em;
+}
+.comment-respond {
+	position: relative;
+}
+.comment-respond .cover {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	background: rgba(255, 255, 255, .8);
+}
+.comment-respond .cover .minnie-spinner {
+	margin-top: 3em;
+}
+.comment-respond label {
+	display: block;
+}
+.comment-respond input {
+	width: 20em;
+	max-width: 100%;
+}
+.comment-error {
 	font-style: italic;
 }
 /*--------------------------------------------------------------

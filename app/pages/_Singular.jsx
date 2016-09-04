@@ -11,8 +11,10 @@ export default class _Singular extends Component {
 	static propTypes = {
 		slug:     PropTypes.string.isRequired,
 		info:     PropTypes.object.isRequired,
+		user:     PropTypes.object.isRequired,
 		singular: PropTypes.object.isRequired,
 		dispatch: PropTypes.func.isRequired,
+		query:    PropTypes.object,
 		comments: PropTypes.object
 	}
 

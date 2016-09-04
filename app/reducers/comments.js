@@ -1,8 +1,14 @@
 import {
 	GET_COMMENTS_REQUEST,
 	GET_COMMENTS_SUCCESS,
-	GET_COMMENTS_FAILURE
+	GET_COMMENTS_FAILURE,
+	POST_COMMENT_REQUEST,
+	POST_COMMENT_SUCCESS,
+	POST_COMMENT_FAILURE
 } from 'constants/index';
+
+const onHoldText = 'Your comment is waiting for moderation.';
+const dupeText = 'Duplicate comment detected; it looks as though you’ve already said that!';
 
 const initialThreadState = {
 	parentId:    0,
@@ -13,10 +19,14 @@ const initialThreadState = {
 };
 
 const initialState = {
-	postId:  0,
-	threads: {
+	newComment:   {},
+	isSubmitting: false,
+	hasError:     false,
+	error:        {},
+	postId:       0,
+	threads:      {
 		t0: Object.assign({}, initialThreadState )
-	}
+	},
 };
 
 function getThread( state, parentId ) {
@@ -40,6 +50,8 @@ export default function comments( state = initialState, action ) {
 	let params;
 	let currentPage;
 	let items;
+	let newComment;
+	let error;
 
 	switch ( action.type ) {
 		case GET_COMMENTS_REQUEST:
@@ -83,6 +95,48 @@ export default function comments( state = initialState, action ) {
 						isFetching: false
 					})
 				})
+			});
+
+		case POST_COMMENT_REQUEST:
+			return Object.assign({}, state, {
+				isSubmitting: true,
+				hasError:     false,
+				error:        {},
+			});
+
+		case POST_COMMENT_SUCCESS:
+			newComment = Object.assign({}, action.req.data );
+
+			if ( 'approved' !== newComment.status ) {
+				newComment = Object.assign({}, newComment, {
+					content: Object.assign({}, newComment.content, {
+						original: newComment.content.rendered,
+						rendered: `<p class="comment-awaiting-moderation">${onHoldText}</p>`
+					})
+				});
+			}
+
+			items = threadState.items.concat( [newComment] );
+
+			return Object.assign({}, state, {
+				newComment,
+				isSubmitting: false,
+				threads:      Object.assign({}, state.threads, {
+					[ threadId ]: Object.assign({}, threadState, { items })
+				})
+			});
+
+		case POST_COMMENT_FAILURE:
+			if ( 409 === action.error.status ) {
+				error = { duplicate: dupeText };
+			} else {
+				error = action.error.data.data.params;
+			}
+
+			return Object.assign({}, state, {
+				isSubmitting: false,
+				hasError:     true,
+				error
 			});
 
 		default:

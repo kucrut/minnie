@@ -143,3 +143,38 @@ export function getAdjacentLink( next = true, args ) {
 
 	return addSearchQuery( link );
 }
+
+/**
+ *  Wait for something :)
+ *
+ *  Promise-based setTimeout() as seen in
+ *  http://stackoverflow.com/a/32543590/3313333
+ *
+ *  @param  {number}  interval Wait interval (ms)
+ *  @return {Promise}
+ */
+export function wait( interval ) {
+	return new Promise( resolve => setTimeout( resolve, interval ) );
+}
+
+/**
+ *  Check other state
+ *
+ *  @param  {func}    getState From redux.
+ *  @param  {string}  State name.
+ *  @param  {number}  Check interval (ms).
+ *  @return {Promise}
+ */
+export function checkOtherState( getState, name, interval = 100 ) {
+	const store = getState();
+
+	if ( ! store.hasOwnProperty( name ) ) {
+		return Promise.reject( `"${name}" could not be found in store.` );
+	}
+
+	if ( store[ name ].isFetching ) {
+		return wait( interval ).then( () => checkOtherState( getState, name, interval ) );
+	}
+
+	return Promise.resolve( store[ name ] );
+}
