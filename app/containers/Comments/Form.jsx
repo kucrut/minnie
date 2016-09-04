@@ -28,6 +28,7 @@ export default class CommentForm extends Component {
 		super( props );
 
 		this.state = {
+			cfKey:  this.getCFKey(),
 			values: Object.assign({}, props.fields )
 		};
 
@@ -42,11 +43,16 @@ export default class CommentForm extends Component {
 		// After successful submission: Reset comment textarea.
 		if ( ! hasError && ! isSubmitting && this.props.isSubmitting ) {
 			this.setState({
+				cfKey:  this.getCFKey(),
 				values: Object.assign({}, this.state.values, {
 					comment: ''
 				})
 			});
 		}
+	}
+
+	getCFKey() {
+		return `comment-field-${Math.random()}`;
 	}
 
 	handleChange( e ) {
@@ -82,7 +88,7 @@ export default class CommentForm extends Component {
 
 		switch ( key ) {
 			case 'comment':
-				return <CommentField value={ comment } handleChange={ this.handleChange } key="comment-field" />;
+				return <CommentField value={ comment } handleChange={ this.handleChange } key={ this.state.cfKey } />;
 
 			case 'author':
 				return <AuthorField value={ author } handleChange={ this.handleChange } key="author-field" />;
