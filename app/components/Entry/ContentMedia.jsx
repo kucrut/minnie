@@ -24,14 +24,22 @@ export default class MediaContent extends EntryContent {
 		return src;
 	}
 
-	getContent() {
+	renderContent() {
 		const { caption, description } = this.props.data;
+		let content = '';
+		let el;
 
 		if ( description ) {
-			return description;
+			content = description;
+		} else if ( caption ) {
+			content = caption;
 		}
 
-		return `<p>${caption}</p>`;
+		if ( content ) {
+			el = ( <EntryContent content={ content } wrapClass="description" /> );
+		}
+
+		return el;
 	}
 
 	renderMedia() {
@@ -53,7 +61,7 @@ export default class MediaContent extends EntryContent {
 		return (
 			<div className="entry-content">
 				{ this.renderMedia() }
-				<EntryContent content={ this.getContent() } wrapClass="description" />
+				{ this.renderContent() }
 			</div>
 		);
 	}
