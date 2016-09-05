@@ -7,7 +7,7 @@ import { taxonomyMap } from 'constants/index';
 export const contentPathRegEx = new RegExp( '^/wp-content/' );
 
 export function canUseDOM() {
-	return !!(
+	return !! (
 		( 'undefined' !== typeof window && window.document && window.document.createElement )
 	);
 }

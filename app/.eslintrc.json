@@ -23,6 +23,13 @@
 			"AssignmentExpression": true
 		}}],
 		"space-in-parens": ["error", "always", { "exceptions": ["{}"] } ],
+		"space-unary-ops": ["error", {
+			"words": true,
+			"nonwords": true,
+			"overrides": {
+				"++": false
+			}
+		}],
 		"yoda": ["error", "always"],
 		"react/forbid-prop-types": 1,
 		"react/jsx-boolean-value": 0,
