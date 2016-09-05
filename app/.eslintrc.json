@@ -23,6 +23,7 @@
 			"VariableDeclarator": true,
 			"AssignmentExpression": true
 		}}],
+		"no-prototype-builtins": 0,
 		"space-in-parens": ["error", "always", { "exceptions": ["{}"] } ],
 		"space-unary-ops": ["error", {
 			"words": true,
