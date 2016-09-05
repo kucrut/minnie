@@ -44,6 +44,7 @@ function mapStateToProps( state, ownProps ) {
 	return {
 		info:     state.info,
 		singular: state.singular,
+		user:     state.session.user,
 		slug
 	};
 }
