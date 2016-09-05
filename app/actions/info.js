@@ -5,7 +5,7 @@ import { GET_INFO } from 'constants/index';
 
 polyfill();
 
-export function fetchInfo() {
+export default function fetchInfo() {
 	return {
 		type:    GET_INFO,
 		promise: request({ url: '/bridge/v1/info' })

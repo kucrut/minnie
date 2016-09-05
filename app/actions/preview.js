@@ -5,7 +5,7 @@ import { postTypeMap, GET_SINGULAR } from 'constants/index';
 
 polyfill();
 
-export function fetchPreview( params ) {
+export default function fetchPreview( params ) {
 	const { id, type } = params;
 	const postType = postTypeMap[ type ];
 

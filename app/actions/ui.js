@@ -1,7 +1,6 @@
 import { UI_TOGGLE_SIDEBAR } from 'constants/index';
 
-
-export function toggleSidebar() {
+export default function toggleSidebar() {
 	return ( dispatch, getState ) => {
 		const expand = ! getState().ui.isSidebarExpanded;
 

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { gaId } from 'config';
 import { configureAxios } from 'helpers';
-import { fetchInfo } from 'actions/info';
+import fetchInfo from 'actions/info';
 import { fetchPostFormats } from 'actions/terms';
 import { fetchPrimaryMenu, fetchSocialMenu } from 'actions/menu';
 import Helmet from 'react-helmet';

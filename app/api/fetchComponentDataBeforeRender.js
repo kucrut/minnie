@@ -5,7 +5,7 @@
 * As seen in: https://github.com/caljrimmer/isomorphic-redux-app
 */
 
-export function fetchComponentDataBeforeRender( dispatch, components, params ) {
+export default function fetchComponentDataBeforeRender( dispatch, components, params ) {
 	// Commenting this out since it's producing duplicates.
 	/*
 	const needs = components.reduce( (prev, current) => {

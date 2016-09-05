@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchPreview } from 'actions/preview';
 import he from 'he';
 import Helmet from 'react-helmet';
+import fetchPreview from 'actions/preview';
 import Spinner from 'components/Spinner';
 import Entry from 'components/Entry/Item';
 import NotFound from 'pages/404';

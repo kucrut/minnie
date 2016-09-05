@@ -7,8 +7,7 @@ import createRoutes from 'routes.jsx';
 import { apiUrl } from 'config';
 import { configureAxios } from 'helpers.js';
 import configureStore from 'store/configureStore';
-import { fetchComponentDataBeforeRender } from 'api/fetchComponentDataBeforeRender';
-
+import fetchComponentDataBeforeRender from 'api/fetchComponentDataBeforeRender';
 
 configureAxios( apiUrl );
 
