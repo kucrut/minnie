@@ -18,7 +18,7 @@ class EntryContent extends Component {
 	}
 
 	componentDidMount() {
-		highlightCode( this.refs.theContent );
+		highlightCode( this.theContent );
 	}
 
 	handleClick( e ) {
@@ -46,7 +46,7 @@ class EntryContent extends Component {
 
 		return (
 			<div
-				ref="theContent"
+				ref={ ( c ) => { this.theContent = c; } }
 				className={ divClass }
 				onClick={ this.handleClick }
 				dangerouslySetInnerHTML={ { __html: content } }
