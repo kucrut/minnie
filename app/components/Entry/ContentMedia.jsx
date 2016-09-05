@@ -35,7 +35,7 @@ export default class MediaContent extends EntryContent {
 	}
 
 	renderMedia() {
-		let mediaSrc = this.getImagePreviewSrc();
+		const mediaSrc = this.getImagePreviewSrc();
 		let el;
 
 		if ( mediaSrc ) {

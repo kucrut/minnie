@@ -42,7 +42,7 @@ class EntryContent extends Component {
 
 	render() {
 		const { content, wrapClass } = this.props;
-		let divClass = wrapClass || 'entry-content';
+		const divClass = wrapClass || 'entry-content';
 
 		return (
 			<div
