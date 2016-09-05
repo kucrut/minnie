@@ -1,4 +1,4 @@
-/* eslint global-require: 0 */
+/* eslint global-require: 0, import/newline-after-import: 0 */
 
 import Prism from 'prismjs';
 import { codeHighlight } from 'config';
