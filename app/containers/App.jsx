@@ -11,8 +11,9 @@ import { fetchPrimaryMenu, fetchSocialMenu } from 'actions/menu';
 import Helmet from 'react-helmet';
 import Header from 'containers/Header';
 import Footer from 'containers/Footer';
-import Photoswipe from 'components/Photoswipe';
-import 'react-photoswipe/lib/photoswipe.css';
+import PhotoSwipe from 'components/PhotoSwipe';
+import 'photoswipe/dist/photoswipe.css';
+import 'photoswipe/dist/default-skin/default-skin.css';
 import 'css/genericons/genericons/genericons.css';
 
 // For some reason, requiring this from `node_modules` dir will pull all css files :(
