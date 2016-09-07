@@ -78,7 +78,7 @@ class App extends Component {
 	}
 
 	render() {
-		let pageClass = classNames({
+		const pageClass = classNames({
 			'hfeed site':   true,
 			'sidebar-open': this.props.isSidebarExpanded
 		});
