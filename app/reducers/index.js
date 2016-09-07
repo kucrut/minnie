@@ -8,6 +8,7 @@ import singular from 'reducers/singular';
 import archive from 'reducers/archive';
 import terms from 'reducers/terms';
 import comments from 'reducers/comments';
+import galleries from 'reducers/galleries';
 
 // Combine reducers with routeReducer which keeps track of router state.
 export default combineReducers({
@@ -19,5 +20,6 @@ export default combineReducers({
 	archive,
 	terms,
 	comments,
+	galleries,
 	routing
 });
