@@ -26,7 +26,7 @@ class App extends Component {
 	static propTypes = {
 		apiUrl:            PropTypes.string.isRequired,
 		siteLang:          PropTypes.string.isRequired,
-		galleries:         PropTypes.array,
+		hasGalleries:      PropTypes.bool.isRequired,
 		isSidebarExpanded: PropTypes.bool.isRequired,
 		children:          PropTypes.object,
 		dispatch:          PropTypes.func.isRequired
@@ -80,11 +80,11 @@ class App extends Component {
 		});
 	}
 
-	renderPhotoswipe() {
+	renderPhotoSwipe() {
 		let el;
 
-		if ( this.props.galleries.length && ! this.Photoswipe ) {
-			el = ( <Photoswipe ref={ c => { this.Photoswipe = c; } } /> );
+		if ( this.props.hasGalleries ) {
+			el = ( <PhotoSwipe /> );
 		}
 
 		return el;
@@ -110,7 +110,7 @@ class App extends Component {
 
 				<Footer />
 
-				{ this.renderPhotoswipe() }
+				{ this.renderPhotoSwipe() }
 			</div>
 		);
 	}
@@ -120,7 +120,7 @@ function mapStateToProps( state ) {
 	return {
 		apiUrl:            state.info.apiUrl,
 		siteLang:          state.info.lang,
-		galleries:         state.galleries,
+		hasGalleries:      ( 0 < state.galleries.groups.length ),
 		isSidebarExpanded: state.ui.isSidebarExpanded
 	};
 }

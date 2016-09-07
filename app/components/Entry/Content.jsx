@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import closest from 'dom-closest';
 import { contentPathRegEx } from 'helpers';
-import { addGallery } from 'actions/galleries';
+import { addGallery, openGallery } from 'actions/galleries';
 import findGalleries from 'misc/galleries';
 import highlightCode from 'misc/highlight';
 
@@ -37,6 +37,15 @@ class EntryContent extends Component {
 
 		if ( ! anchor ) {
 			return;
+		}
+
+		const galleryItem = closest( anchor, '.gallery-item' );
+
+		if ( galleryItem ) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			this.props.dispatch( openGallery( galleryItem ) );
 		}
 
 		if ( anchor.hostname !== location.hostname ) {
