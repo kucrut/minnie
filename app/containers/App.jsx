@@ -8,6 +8,7 @@ import { configureAxios } from 'helpers';
 import fetchInfo from 'actions/info';
 import { fetchPostFormats } from 'actions/terms';
 import { fetchPrimaryMenu, fetchSocialMenu } from 'actions/menu';
+import { resetGallery } from 'actions/galleries';
 import Helmet from 'react-helmet';
 import Header from 'containers/Header';
 import Footer from 'containers/Footer';
@@ -51,6 +52,10 @@ class App extends Component {
 	componentDidMount() {
 		configureAxios( this.props.apiUrl );
 		this.insertGAScript();
+	}
+
+	componentWillUpdate() {
+		this.props.dispatch( resetGallery() );
 	}
 
 	insertGAScript() {
