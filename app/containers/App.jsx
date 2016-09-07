@@ -13,8 +13,8 @@ import Helmet from 'react-helmet';
 import Header from 'containers/Header';
 import Footer from 'containers/Footer';
 import 'react-photoswipe/lib/photoswipe.css';
+import 'css/genericons/genericons/genericons.css';
 
-require( 'css/genericons/genericons/genericons.css' );
 // For some reason, requiring this from `node_modules` dir will pull all css files :(
 require( 'css/prism-coy.css' );
 require( 'prismjs/plugins/line-numbers/prism-line-numbers.css' );
