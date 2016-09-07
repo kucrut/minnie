@@ -11,6 +11,7 @@ import { fetchPrimaryMenu, fetchSocialMenu } from 'actions/menu';
 import Helmet from 'react-helmet';
 import Header from 'containers/Header';
 import Footer from 'containers/Footer';
+import Photoswipe from 'components/Photoswipe';
 import 'react-photoswipe/lib/photoswipe.css';
 import 'css/genericons/genericons/genericons.css';
 
@@ -78,6 +79,16 @@ class App extends Component {
 		});
 	}
 
+	renderPhotoswipe() {
+		let el;
+
+		if ( this.props.galleries.length && ! this.Photoswipe ) {
+			el = ( <Photoswipe ref={ c => { this.Photoswipe = c; } } /> );
+		}
+
+		return el;
+	}
+
 	render() {
 		const pageClass = classNames({
 			'hfeed site':   true,
@@ -97,6 +108,8 @@ class App extends Component {
 				</div>
 
 				<Footer />
+
+				{ this.renderPhotoswipe() }
 			</div>
 		);
 	}
