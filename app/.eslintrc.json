@@ -25,7 +25,7 @@
 		}}],
 		"no-prototype-builtins": 0,
 		"space-in-parens": ["error", "always", { "exceptions": ["{}"] } ],
-		"space-unary-ops": ["error", {
+		"space-unary-ops": ["warn", {
 			"words": true,
 			"nonwords": true,
 			"overrides": {
