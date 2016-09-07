@@ -44,7 +44,6 @@
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.4",
     "lodash": "^4.15.0",
-    "photoswipe": "^4.1.1",
     "postcss-import": "^8.1.2",
     "postcss-loader": "^0.11.1",
     "postcss-mixins": "^5.2.0",
