@@ -25,7 +25,8 @@ class App extends Component {
 		apiUrl:            PropTypes.string.isRequired,
 		siteLang:          PropTypes.string.isRequired,
 		isSidebarExpanded: PropTypes.bool.isRequired,
-		children:          PropTypes.object
+		children:          PropTypes.object,
+		dispatch:          PropTypes.func.isRequired
 	}
 
 	static contextTypes = {
