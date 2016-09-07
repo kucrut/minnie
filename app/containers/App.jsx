@@ -25,6 +25,7 @@ class App extends Component {
 	static propTypes = {
 		apiUrl:            PropTypes.string.isRequired,
 		siteLang:          PropTypes.string.isRequired,
+		galleries:         PropTypes.array,
 		isSidebarExpanded: PropTypes.bool.isRequired,
 		children:          PropTypes.object,
 		dispatch:          PropTypes.func.isRequired
@@ -110,6 +111,7 @@ function mapStateToProps( state ) {
 	return {
 		apiUrl:            state.info.apiUrl,
 		siteLang:          state.info.lang,
+		galleries:         state.galleries,
 		isSidebarExpanded: state.ui.isSidebarExpanded
 	};
 }
