@@ -4,6 +4,7 @@ const initialState = [];
 
 export default function galleries( state = initialState, action ) {
 	switch ( action.type ) {
+		case '@@router/LOCATION_CHANGE':
 		case GALLERY_RESET:
 			return initialState;
 
