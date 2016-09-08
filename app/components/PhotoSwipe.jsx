@@ -20,6 +20,19 @@ class PhotoSwipe extends Component {
 		}
 	}
 
+	getThumbBoundsFn( index, galleryEl ) {
+		const thumbs = galleryEl.querySelectorAll( '.gallery-item' );
+		const thumbEl = thumbs[ index ];
+		const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
+		const rect = thumbEl.getBoundingClientRect();
+
+		return {
+			x: rect.left,
+			y: ( rect.top + pageYScroll ),
+			w: rect.width
+		};
+	}
+
 	open( props ) {
 		const { activeId, startIndex, groups } = props.galleries;
 		const gallery =  find( groups, { id: activeId });
@@ -34,7 +47,8 @@ class PhotoSwipe extends Component {
 		});
 
 		this.instance = new Photoswipe( this.El, PhotoswipeUi, items, {
-			index: startIndex
+			index:            startIndex,
+			getThumbBoundsFn: ( index ) => this.getThumbBoundsFn( index, gallery.el )
 		});
 
 		this.instance.listen( 'destroy', () => {

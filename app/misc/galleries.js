@@ -10,6 +10,7 @@ export default function findGalleries( el ) {
 		const galleryEl = galleryEls[ g ];
 		const itemEls = galleryEl.querySelectorAll( '.gallery-item' );
 		const gallery = {
+			el:    galleryEl,
 			id:    galleryEl.getAttribute( 'id' ),
 			items: []
 		};
@@ -17,8 +18,8 @@ export default function findGalleries( el ) {
 		for ( let t = 0; t < itemEls.length; ++t ) {
 			const itemEl = itemEls[ t ];
 			const origImgUrl = itemEl.querySelector( 'a' ).getAttribute( 'href' );
-			const img = itemEl.querySelector( 'img' );
-			const sizes = img.getAttribute( 'srcset' ).split( ', ' ).slice( -2 );
+			const imgEl = itemEl.querySelector( 'img' );
+			const sizes = imgEl.getAttribute( 'srcset' ).split( ', ' ).slice( -2 );
 			const item = [];
 
 			for ( let s = 0; s < sizes.length; ++s ) {
@@ -28,8 +29,8 @@ export default function findGalleries( el ) {
 				if ( src === origImgUrl ) {
 					item.push({
 						src: origImgUrl,
-						w:   img.getAttribute( 'data-ow' ),
-						h:   img.getAttribute( 'data-oh' )
+						w:   imgEl.getAttribute( 'data-ow' ),
+						h:   imgEl.getAttribute( 'data-oh' )
 					});
 
 					continue;
