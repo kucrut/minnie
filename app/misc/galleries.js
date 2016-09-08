@@ -1,54 +1,41 @@
-export default function findGalleries( el ) {
-	let galleries = [];
-	const galleryEls = el.querySelectorAll( 'div.gallery' );
+export default function createGallery( el ) {
+	const itemEls = el.querySelectorAll( '.gallery-item' );
+	const gallery = {
+		id:    el.getAttribute( 'id' ),
+		items: []
+	};
 
-	if ( ! galleryEls.length ) {
-		return galleries;
-	}
+	for ( let t = 0; t < itemEls.length; ++t ) {
+		const itemEl = itemEls[ t ];
+		const origImgUrl = itemEl.querySelector( 'a' ).getAttribute( 'href' );
+		const imgEl = itemEl.querySelector( 'img' );
+		const sizes = imgEl.getAttribute( 'srcset' ).split( ', ' ).slice( -2 );
+		const item = [];
 
-	for ( let g = 0; g < galleryEls.length; ++g ) {
-		const galleryEl = galleryEls[ g ];
-		const itemEls = galleryEl.querySelectorAll( '.gallery-item' );
-		const gallery = {
-			el:    galleryEl,
-			id:    galleryEl.getAttribute( 'id' ),
-			items: []
-		};
+		for ( let s = 0; s < sizes.length; ++s ) {
+			const srcW = sizes[ s ].split( ' ' );
+			const src = srcW[ 0 ];
 
-		for ( let t = 0; t < itemEls.length; ++t ) {
-			const itemEl = itemEls[ t ];
-			const origImgUrl = itemEl.querySelector( 'a' ).getAttribute( 'href' );
-			const imgEl = itemEl.querySelector( 'img' );
-			const sizes = imgEl.getAttribute( 'srcset' ).split( ', ' ).slice( -2 );
-			const item = [];
+			if ( src === origImgUrl ) {
+				item.push({
+					src: origImgUrl,
+					w:   imgEl.getAttribute( 'data-ow' ),
+					h:   imgEl.getAttribute( 'data-oh' )
+				});
 
-			for ( let s = 0; s < sizes.length; ++s ) {
-				const srcW = sizes[ s ].split( ' ' );
-				const src = srcW[ 0 ];
-
-				if ( src === origImgUrl ) {
-					item.push({
-						src: origImgUrl,
-						w:   imgEl.getAttribute( 'data-ow' ),
-						h:   imgEl.getAttribute( 'data-oh' )
-					});
-
-					continue;
-				}
-
-				const w = srcW[ 1 ].replace( 'w', '' );
-				const xPos = src.lastIndexOf( 'x' );
-				const dotPos = src.lastIndexOf( '.' );
-				const h = src.slice( ( xPos + 1 ), dotPos );
-
-				item.push({ src, w, h });
+				continue;
 			}
 
-			gallery.items.push( item );
+			const w = srcW[ 1 ].replace( 'w', '' );
+			const xPos = src.lastIndexOf( 'x' );
+			const dotPos = src.lastIndexOf( '.' );
+			const h = src.slice( ( xPos + 1 ), dotPos );
+
+			item.push({ src, w, h });
 		}
 
-		galleries = galleries.concat( gallery );
+		gallery.items.push( item );
 	}
 
-	return galleries;
+	return gallery;
 }

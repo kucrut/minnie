@@ -12,6 +12,12 @@ class PhotoSwipe extends Component {
 		dispatch:  PropTypes.func.isRequired
 	}
 
+	componentDidMount() {
+		if ( '' !== this.props.galleries.activeId ) {
+			this.open( this.props );
+		}
+	}
+
 	componentWillReceiveProps( nextProps ) {
 		if ( '' === nextProps.galleries.activeId ) {
 			this.close();
@@ -20,11 +26,9 @@ class PhotoSwipe extends Component {
 		}
 	}
 
-	getThumbBoundsFn( index, galleryEl ) {
-		const thumbs = galleryEl.querySelectorAll( '.gallery-item' );
-		const thumbEl = thumbs[ index ];
+	getThumbBoundsFn( clickedThumb ) {
 		const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
-		const rect = thumbEl.getBoundingClientRect();
+		const rect = clickedThumb.getBoundingClientRect();
 
 		return {
 			x: rect.left,
@@ -34,7 +38,7 @@ class PhotoSwipe extends Component {
 	}
 
 	open( props ) {
-		const { activeId, startIndex, groups } = props.galleries;
+		const { groups, activeId, startIndex, clickedThumb } = props.galleries;
 		const gallery =  find( groups, { id: activeId });
 		let items = [];
 
@@ -48,7 +52,7 @@ class PhotoSwipe extends Component {
 
 		this.instance = new Photoswipe( this.El, PhotoswipeUi, items, {
 			index:            startIndex,
-			getThumbBoundsFn: ( index ) => this.getThumbBoundsFn( index, gallery.el )
+			getThumbBoundsFn: () => this.getThumbBoundsFn( clickedThumb )
 		});
 
 		this.instance.listen( 'destroy', () => {

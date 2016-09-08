@@ -5,6 +5,8 @@ import {
 	GALLERY_CLOSE
 } from 'constants/index';
 import closest from 'dom-closest';
+import { find, indexOf } from 'lodash';
+import createGallery from 'misc/galleries';
 
 export function resetGallery() {
 	return dispatch => {
@@ -24,14 +26,25 @@ export function addGallery( gallery ) {
 export function openGallery( itemEl ) {
 	const galleryEl = closest( itemEl, 'div.gallery' );
 	const galleryId = galleryEl.getAttribute( 'id' );
-	const allItems = galleryEl.querySelectorAll( '.gallery-item' );
-	const itemIndex = Array.prototype.indexOf.call( allItems, itemEl );
 
-	return dispatch => {
+	return ( dispatch, getState ) => {
+		const { galleries } = getState();
+		let group = find( galleries.groups, { id: galleryId });
+
+		if ( ! group ) {
+			group = createGallery( galleryEl );
+
+			dispatch( addGallery( group ) );
+		}
+
+		const allItems = galleryEl.querySelectorAll( '.gallery-item' );
+		const itemIndex = indexOf( allItems, itemEl );
+
 		dispatch({
 			type:  GALLERY_OPEN,
 			id:    galleryId,
-			index: itemIndex
+			index: itemIndex,
+			thumb: itemEl
 		});
 	};
 }

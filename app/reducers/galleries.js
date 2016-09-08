@@ -6,9 +6,10 @@ import {
 } from 'constants/index';
 
 const initialState = {
-	activeId:   '',
-	startIndex: -1,
-	groups:     []
+	groups:       [],
+	activeId:     '',
+	startIndex:   -1,
+	clickedThumb: ''
 };
 
 export default function galleries( state = initialState, action ) {
@@ -24,14 +25,16 @@ export default function galleries( state = initialState, action ) {
 
 		case GALLERY_OPEN:
 			return Object.assign({}, state, {
-				activeId:   action.id,
-				startIndex: action.index
+				activeId:     action.id,
+				startIndex:   action.index,
+				clickedThumb: action.thumb
 			});
 
 		case GALLERY_CLOSE:
 			return Object.assign({}, state, {
-				activeId:   initialState.activeId,
-				startIndex: initialState.startIndex
+				activeId:     initialState.activeId,
+				startIndex:   initialState.startIndex,
+				clickedThumb: initialState.clickedThumb
 			});
 
 		default:
