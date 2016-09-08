@@ -29,7 +29,7 @@ class App extends Component {
 		siteLang:          PropTypes.string.isRequired,
 		hasGalleries:      PropTypes.bool.isRequired,
 		isSidebarExpanded: PropTypes.bool.isRequired,
-		prevLocation:      PropTypes.object.isRequired,
+		prevLocation:      PropTypes.object,
 		children:          PropTypes.object,
 		dispatch:          PropTypes.func.isRequired
 	}
@@ -89,7 +89,7 @@ class App extends Component {
 		const pid = getQueryVar( 'pid', location.hash );
 
 		// When we're changing pages, reset gallery store.
-		if ( location.pathname !== prevLocation.pathname ) {
+		if ( prevLocation && prevLocation.pathname !== location.pathname ) {
 			dispatch( resetGallery() );
 		}
 
