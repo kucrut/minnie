@@ -8,7 +8,7 @@ import { configureAxios, getQueryVar } from 'helpers';
 import fetchInfo from 'actions/info';
 import { fetchPostFormats } from 'actions/terms';
 import { fetchPrimaryMenu, fetchSocialMenu } from 'actions/menu';
-import { openGallery } from 'actions/galleries';
+import { openGallery, resetGallery } from 'actions/galleries';
 import Helmet from 'react-helmet';
 import Header from 'containers/Header';
 import Footer from 'containers/Footer';
@@ -29,6 +29,7 @@ class App extends Component {
 		siteLang:          PropTypes.string.isRequired,
 		hasGalleries:      PropTypes.bool.isRequired,
 		isSidebarExpanded: PropTypes.bool.isRequired,
+		prevLocation:      PropTypes.object.isRequired,
 		children:          PropTypes.object,
 		dispatch:          PropTypes.func.isRequired
 	}
@@ -83,8 +84,14 @@ class App extends Component {
 	}
 
 	initGallery( location ) {
+		const { dispatch, prevLocation } = this.props;
 		const gid = getQueryVar( 'gid', location.hash );
 		const pid = getQueryVar( 'pid', location.hash );
+
+		// When we're changing pages, reset gallery store.
+		if ( location.pathname !== prevLocation.pathname ) {
+			dispatch( resetGallery() );
+		}
 
 		if ( ! gid || ! pid ) {
 			return;
@@ -99,7 +106,7 @@ class App extends Component {
 		const index = ( parseInt( pid, 10 ) - 1 );
 		const thumbEl = galleryEl.querySelectorAll( '.gallery-item' )[ index ];
 
-		this.props.dispatch( openGallery( thumbEl ) );
+		dispatch( openGallery( thumbEl ) );
 	}
 
 	renderPhotoSwipe() {
@@ -143,7 +150,8 @@ function mapStateToProps( state ) {
 		apiUrl:            state.info.apiUrl,
 		siteLang:          state.info.lang,
 		hasGalleries:      ( 0 < state.galleries.groups.length ),
-		isSidebarExpanded: state.ui.isSidebarExpanded
+		isSidebarExpanded: state.ui.isSidebarExpanded,
+		prevLocation:      state.routing.locationBeforeTransitions
 	};
 }
 
