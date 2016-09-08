@@ -23,12 +23,17 @@ class PhotoSwipe extends Component {
 	open( props ) {
 		const { activeId, startIndex, groups } = props.galleries;
 		const gallery =  find( groups, { id: activeId });
+		let items = [];
 
 		if ( ! gallery ) {
 			return;
 		}
 
-		this.instance = new Photoswipe( this.El, PhotoswipeUi, gallery.items, {
+		gallery.items.forEach( item => {
+			items = items.concat( item.slice( -1 ) );
+		});
+
+		this.instance = new Photoswipe( this.El, PhotoswipeUi, items, {
 			index: startIndex
 		});
 
