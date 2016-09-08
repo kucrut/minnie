@@ -64,6 +64,7 @@ class PhotoSwipe extends Component {
 
 		this.instance = new Photoswipe( this.El, PhotoswipeUi, items, {
 			index:            startIndex,
+			galleryUID:       activeId.replace( 'gallery-', '' ),
 			getThumbBoundsFn: this.getThumbBoundsFn.bind( this )
 		});
 
