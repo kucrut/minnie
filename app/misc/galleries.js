@@ -9,6 +9,7 @@ export default function createGallery( el ) {
 		const itemEl = itemEls[ t ];
 		const origImgUrl = itemEl.querySelector( 'a' ).getAttribute( 'href' );
 		const imgEl = itemEl.querySelector( 'img' );
+		const msrc  = imgEl.getAttribute( 'src' );
 		const sizes = imgEl.getAttribute( 'srcset' ).split( ', ' ).slice( -2 );
 		const item = [];
 
@@ -20,7 +21,8 @@ export default function createGallery( el ) {
 				item.push({
 					src: origImgUrl,
 					w:   imgEl.getAttribute( 'data-ow' ),
-					h:   imgEl.getAttribute( 'data-oh' )
+					h:   imgEl.getAttribute( 'data-oh' ),
+					msrc
 				});
 
 				continue;
@@ -31,7 +33,7 @@ export default function createGallery( el ) {
 			const dotPos = src.lastIndexOf( '.' );
 			const h = src.slice( ( xPos + 1 ), dotPos );
 
-			item.push({ src, w, h });
+			item.push({ msrc, src, w, h });
 		}
 
 		gallery.items.push( item );
