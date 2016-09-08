@@ -26,9 +26,19 @@ class PhotoSwipe extends Component {
 		}
 	}
 
-	getThumbBoundsFn( clickedThumb ) {
+	getThumbBoundsFn( index ) {
+		let currentThumb;
+
+		if ( this.currentThumb ) {
+			currentThumb = this.currentThumb;
+		} else {
+			const galleryEl = document.getElementById( this.props.galleries.activeId );
+			const allThumbs = galleryEl.querySelectorAll( '.gallery-item' );
+			currentThumb = allThumbs[ index ];
+		}
+
 		const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
-		const rect = clickedThumb.getBoundingClientRect();
+		const rect = currentThumb.getBoundingClientRect();
 
 		return {
 			x: rect.left,
@@ -46,13 +56,19 @@ class PhotoSwipe extends Component {
 			return;
 		}
 
+		this.currentThumb = clickedThumb;
+
 		gallery.items.forEach( item => {
 			items = items.concat( item.slice( -1 ) );
 		});
 
 		this.instance = new Photoswipe( this.El, PhotoswipeUi, items, {
 			index:            startIndex,
-			getThumbBoundsFn: () => this.getThumbBoundsFn( clickedThumb )
+			getThumbBoundsFn: this.getThumbBoundsFn.bind( this )
+		});
+
+		this.instance.listen( 'initialZoomInEnd', () => {
+			this.currentThumb = null;
 		});
 
 		this.instance.listen( 'destroy', () => {
