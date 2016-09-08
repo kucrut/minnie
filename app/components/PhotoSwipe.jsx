@@ -38,7 +38,7 @@ class PhotoSwipe extends Component {
 		}
 
 		const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
-		const rect = currentThumb.getBoundingClientRect();
+		const rect = currentThumb.querySelector( 'img' ).getBoundingClientRect();
 
 		return {
 			x: rect.left,
