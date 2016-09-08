@@ -4,10 +4,11 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { gaId } from 'config';
-import { configureAxios } from 'helpers';
+import { configureAxios, getQueryVar } from 'helpers';
 import fetchInfo from 'actions/info';
 import { fetchPostFormats } from 'actions/terms';
 import { fetchPrimaryMenu, fetchSocialMenu } from 'actions/menu';
+import { openGallery } from 'actions/galleries';
 import Helmet from 'react-helmet';
 import Header from 'containers/Header';
 import Footer from 'containers/Footer';
@@ -54,6 +55,7 @@ class App extends Component {
 	componentDidMount() {
 		configureAxios( this.props.apiUrl );
 		this.insertGAScript();
+		this.context.router.listen( this.initGallery.bind( this ) );
 	}
 
 	insertGAScript() {
@@ -78,6 +80,26 @@ class App extends Component {
 			ga( 'set', 'page', location.pathname );
 			ga( 'send', 'pageview' );
 		});
+	}
+
+	initGallery( location ) {
+		const gid = getQueryVar( 'gid', location.hash );
+		const pid = getQueryVar( 'pid', location.hash );
+
+		if ( ! gid || ! pid ) {
+			return;
+		}
+
+		const galleryEl = document.getElementById( `gallery-${gid}` );
+
+		if ( ! galleryEl ) {
+			return;
+		}
+
+		const index = ( parseInt( pid, 10 ) - 1 );
+		const thumbEl = galleryEl.querySelectorAll( '.gallery-item' )[ index ];
+
+		this.props.dispatch( openGallery( thumbEl ) );
 	}
 
 	renderPhotoSwipe() {
