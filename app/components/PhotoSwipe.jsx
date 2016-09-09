@@ -62,15 +62,31 @@ class PhotoSwipe extends Component {
 			items = items.concat( item.slice( -1 ) );
 		});
 
-		this.instance = new Photoswipe( this.El, PhotoswipeUi, items, {
+		let options = {
 			index:            startIndex,
 			captionEl:        gallery.showCaption,
-			galleryUID:       activeId.replace( 'gallery-', '' ),
 			getThumbBoundsFn: this.getThumbBoundsFn.bind( this )
-		});
+		};
+
+		if ( gallery.single ) {
+			options = Object.assign({}, options, {
+				history: false,
+				shareEl: false
+			});
+		} else {
+			options = Object.assign({}, options, {
+				galleryUID: activeId.replace( 'gallery-', '' )
+			});
+		}
+
+		this.instance = new Photoswipe( this.El, PhotoswipeUi, items, options );
 
 		this.instance.listen( 'initialZoomInEnd', () => {
-			this.currentThumb = null;
+			// If this is a real gallery, unset currentThumb so that
+			// getThumbBoundsFn works when Photoswipe is closed.
+			if ( ! gallery.single ) {
+				this.currentThumb = null;
+			}
 		});
 
 		this.instance.listen( 'destroy', () => {

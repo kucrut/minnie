@@ -1,3 +1,5 @@
+import { hashCode } from 'helpers';
+
 function createGalleryItem( imgEl, origImgUrl, title = '' ) {
 	const msrc  = imgEl.getAttribute( 'src' );
 	const sizes = imgEl.getAttribute( 'srcset' ).split( ', ' ).slice( -2 );
@@ -30,11 +32,12 @@ function createGalleryItem( imgEl, origImgUrl, title = '' ) {
 	return item;
 }
 
-export default function createGallery( el ) {
+export function createGallery( el ) {
 	const itemEls = el.querySelectorAll( '.gallery-item' );
 	let gallery = {
-		id:    el.getAttribute( 'id' ),
-		items: []
+		id:     el.getAttribute( 'id' ),
+		items:  [],
+		single: false
 	};
 	let showCaption = false;
 
@@ -58,4 +61,23 @@ export default function createGallery( el ) {
 	gallery = Object.assign({}, gallery, { showCaption });
 
 	return gallery;
+}
+
+export function getZoomId( imgEl ) {
+	return `gallery-${hashCode( imgEl.parentNode.getAttribute( 'href' ) )}`;
+}
+
+export function createZoom( imgEl ) {
+	const anchorEl = imgEl.parentNode;
+	const captionEl = anchorEl.parentNode.querySelector( '.wp-caption-text' );
+	const origImgUrl = anchorEl.getAttribute( 'href' );
+	const title = captionEl ? captionEl.innerHTML : '';
+	const item = createGalleryItem( imgEl, origImgUrl, title );
+
+	return {
+		id:          getZoomId( imgEl ),
+		items:       [item],
+		single:      true,
+		showCaption: ( '' !== title )
+	};
 }

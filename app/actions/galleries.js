@@ -6,7 +6,7 @@ import {
 } from 'constants/index';
 import closest from 'dom-closest';
 import { find, indexOf } from 'lodash';
-import createGallery from 'misc/galleries';
+import { createGallery, getZoomId, createZoom } from 'misc/galleries';
 
 export function resetGallery() {
 	return dispatch => {
@@ -45,6 +45,28 @@ export function openGallery( itemEl ) {
 			id:    galleryId,
 			index: itemIndex,
 			thumb: itemEl
+		});
+	};
+}
+
+export function zoomImage( imgEl ) {
+	const zoomId = getZoomId( imgEl );
+
+	return ( dispatch, getState ) => {
+		const { galleries } = getState();
+		let zoom = find( galleries.groups, { id: zoomId });
+
+		if ( ! zoom ) {
+			zoom = createZoom( imgEl );
+
+			dispatch( addGallery( zoom ) );
+		}
+
+		dispatch({
+			type:  GALLERY_OPEN,
+			id:    zoomId,
+			index: 0,
+			thumb: imgEl.parentNode
 		});
 	};
 }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import closest from 'dom-closest';
 import { contentPathRegEx } from 'helpers';
-import { openGallery } from 'actions/galleries';
+import { openGallery, zoomImage } from 'actions/galleries';
 import highlightCode from 'misc/highlight';
 
 class EntryContent extends Component {
@@ -23,31 +23,43 @@ class EntryContent extends Component {
 	}
 
 	handleClick( e ) {
+		const { dispatch } = this.props;
 		const anchor = closest( e.target, 'a' );
 
 		if ( ! anchor ) {
 			return;
 		}
 
+		// Initialize Photoswipe for image gallery.
 		const galleryItem = closest( anchor, '.gallery-item' );
-
 		if ( galleryItem ) {
 			e.preventDefault();
-			e.stopPropagation();
+			dispatch( openGallery( galleryItem ) );
 
-			this.props.dispatch( openGallery( galleryItem ) );
+			return;
 		}
 
+		// Zoom image using Photoswipe.
+		const imgEl = anchor.querySelector( 'img' );
+		if ( imgEl && '1' === anchor.getAttribute( 'data-zoom' ) ) {
+			e.preventDefault();
+			dispatch( zoomImage( imgEl ) );
+
+			return;
+		}
+
+		// Don't bother if this is an external link
 		if ( anchor.hostname !== location.hostname ) {
 			return;
 		}
 
+		// Don't bother if this is a link to an attachment file other than images.
 		if ( contentPathRegEx.test( anchor.pathname ) ) {
 			return;
 		}
 
 		e.preventDefault();
-		this.props.dispatch( push( anchor.pathname ) );
+		dispatch( push( anchor.pathname ) );
 	}
 
 	render() {
