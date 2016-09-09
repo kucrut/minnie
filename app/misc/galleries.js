@@ -2,31 +2,36 @@ import { hashCode } from 'helpers';
 
 function createGalleryItem( imgEl, origImgUrl, title = '' ) {
 	const msrc  = imgEl.getAttribute( 'src' );
-	const sizes = imgEl.getAttribute( 'srcset' ).split( ', ' ).slice( -2 );
-	const item = [];
+	const sizes = imgEl.getAttribute( 'srcset' ).split( ', ' );
+	let item = {
+		sizes: [],
+		title,
+		msrc
+	};
 
 	for ( let s = 0; s < sizes.length; ++s ) {
 		const srcW = sizes[ s ].split( ' ' );
 		const src = srcW[ 0 ];
-		const size = title ? { title } : {};
+		let size;
 
 		if ( src === origImgUrl ) {
-			item.push( Object.assign( size, {
+			size = {
 				src: origImgUrl,
 				w:   imgEl.getAttribute( 'data-ow' ),
 				h:   imgEl.getAttribute( 'data-oh' ),
-				msrc
-			}) );
+			};
+		} else {
+			const w = srcW[ 1 ].replace( 'w', '' );
+			const xPos = src.lastIndexOf( 'x' );
+			const dotPos = src.lastIndexOf( '.' );
+			const h = src.slice( ( xPos + 1 ), dotPos );
 
-			continue;
+			size = { src, w, h };
 		}
 
-		const w = srcW[ 1 ].replace( 'w', '' );
-		const xPos = src.lastIndexOf( 'x' );
-		const dotPos = src.lastIndexOf( '.' );
-		const h = src.slice( ( xPos + 1 ), dotPos );
-
-		item.push( Object.assign( size, { msrc, src, w, h }) );
+		item = Object.assign({}, item, {
+			sizes: item.sizes.concat( size )
+		});
 	}
 
 	return item;
@@ -55,7 +60,9 @@ export function createGallery( el ) {
 			title = '';
 		}
 
-		gallery.items.push( createGalleryItem( imgEl, origImgUrl, title ) );
+		gallery = Object.assign({}, gallery, {
+			items: gallery.items.concat( createGalleryItem( imgEl, origImgUrl, title ) )
+		});
 	}
 
 	gallery = Object.assign({}, gallery, { showCaption });

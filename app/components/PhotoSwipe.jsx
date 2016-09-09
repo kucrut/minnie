@@ -59,7 +59,15 @@ class PhotoSwipe extends Component {
 		this.currentThumb = clickedThumb;
 
 		gallery.items.forEach( item => {
-			items = items.concat( item.slice( -1 ) );
+			const { msrc, title, sizes } = item;
+			const { src, w, h } = sizes[ sizes.length - 1 ];
+			let psItem = { msrc, src, w, h };
+
+			if ( title ) {
+				psItem = Object.assign({}, psItem, { title });
+			}
+
+			items = items.concat( psItem );
 		});
 
 		let options = {
