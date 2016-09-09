@@ -1645,3 +1645,10 @@ form.login input {
 .load-more .genericon {
 	vertical-align: sub;
 }
+
+/**
+ * Photoswipe
+ */
+.pswp__caption__center {
+	text-align: center;
+}
