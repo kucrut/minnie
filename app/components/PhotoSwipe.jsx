@@ -15,10 +15,9 @@ export default class PhotoSwipe extends Component {
 	constructor( props ) {
 		super( props );
 
-		this.currentThumb = props.clickedThumb;
-
 		this.state = {
-			items: []
+			currentThumb: props.clickedThumb,
+			items:        []
 		};
 	}
 
@@ -33,8 +32,8 @@ export default class PhotoSwipe extends Component {
 	getThumbBoundsFn( index ) {
 		let currentThumb;
 
-		if ( this.currentThumb ) {
-			currentThumb = this.currentThumb;
+		if ( this.state.currentThumb ) {
+			currentThumb = this.state.currentThumb;
 		} else {
 			const galleryEl = document.getElementById( this.props.gallery.id );
 			const allThumbs = galleryEl.querySelectorAll( '.gallery-item' );
@@ -94,7 +93,7 @@ export default class PhotoSwipe extends Component {
 			// If this is a real gallery, unset currentThumb so that
 			// getThumbBoundsFn works when Photoswipe is closed.
 			if ( ! gallery.single ) {
-				this.currentThumb = null;
+				this.setState({ currentThumb: '' });
 			}
 		});
 
