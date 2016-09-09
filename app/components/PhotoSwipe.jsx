@@ -14,7 +14,16 @@ export default class PhotoSwipe extends Component {
 
 	constructor( props ) {
 		super( props );
+
 		this.currentThumb = props.clickedThumb;
+
+		this.state = {
+			items: []
+		};
+	}
+
+	componentWillMount() {
+		this.setItems();
 	}
 
 	componentDidMount() {
@@ -42,11 +51,10 @@ export default class PhotoSwipe extends Component {
 		};
 	}
 
-	open() {
-		const { gallery, startIndex } = this.props;
+	setItems() {
 		let items = [];
 
-		gallery.items.forEach( item => {
+		this.props.gallery.items.forEach( item => {
 			const { msrc, title, sizes } = item;
 			const { src, w, h } = sizes[ sizes.length - 1 ];
 			let psItem = { msrc, src, w, h };
@@ -58,6 +66,11 @@ export default class PhotoSwipe extends Component {
 			items = items.concat( psItem );
 		});
 
+		this.setState({ items });
+	}
+
+	open() {
+		const { gallery, startIndex } = this.props;
 		let options = {
 			index:            startIndex,
 			captionEl:        gallery.showCaption,
@@ -75,7 +88,7 @@ export default class PhotoSwipe extends Component {
 			});
 		}
 
-		const instance = new Photoswipe( this.El, PhotoswipeUi, items, options );
+		const instance = new Photoswipe( this.El, PhotoswipeUi, this.state.items, options );
 
 		instance.listen( 'initialZoomInEnd', () => {
 			// If this is a real gallery, unset currentThumb so that
