@@ -1,29 +1,24 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { find } from 'lodash';
 import Photoswipe from 'photoswipe';
 import PhotoswipeUi from 'photoswipe/dist/photoswipe-ui-default';
 import { closeGallery } from 'actions/galleries';
 
-class PhotoSwipe extends Component {
+export default class PhotoSwipe extends Component {
 
 	static propTypes = {
-		galleries: PropTypes.object.isRequired,
-		dispatch:  PropTypes.func.isRequired
+		gallery:      PropTypes.object.isRequired,
+		startIndex:   PropTypes.number.isRequired,
+		clickedThumb: PropTypes.object.isRequired,
+		dispatch:     PropTypes.func.isRequired
+	}
+
+	constructor( props ) {
+		super( props );
+		this.currentThumb = props.clickedThumb;
 	}
 
 	componentDidMount() {
-		if ( '' !== this.props.galleries.activeId ) {
-			this.open( this.props );
-		}
-	}
-
-	componentWillReceiveProps( nextProps ) {
-		if ( '' === nextProps.galleries.activeId ) {
-			this.close();
-		} else {
-			this.open( nextProps );
-		}
+		this.open();
 	}
 
 	getThumbBoundsFn( index ) {
@@ -32,7 +27,7 @@ class PhotoSwipe extends Component {
 		if ( this.currentThumb ) {
 			currentThumb = this.currentThumb;
 		} else {
-			const galleryEl = document.getElementById( this.props.galleries.activeId );
+			const galleryEl = document.getElementById( this.props.gallery.id );
 			const allThumbs = galleryEl.querySelectorAll( '.gallery-item' );
 			currentThumb = allThumbs[ index ];
 		}
@@ -47,16 +42,9 @@ class PhotoSwipe extends Component {
 		};
 	}
 
-	open( props ) {
-		const { groups, activeId, startIndex, clickedThumb } = props.galleries;
-		const gallery =  find( groups, { id: activeId });
+	open() {
+		const { gallery, startIndex } = this.props;
 		let items = [];
-
-		if ( ! gallery ) {
-			return;
-		}
-
-		this.currentThumb = clickedThumb;
 
 		gallery.items.forEach( item => {
 			const { msrc, title, sizes } = item;
@@ -83,13 +71,13 @@ class PhotoSwipe extends Component {
 			});
 		} else {
 			options = Object.assign({}, options, {
-				galleryUID: activeId.replace( 'gallery-', '' )
+				galleryUID: gallery.id.replace( 'gallery-', '' )
 			});
 		}
 
-		this.instance = new Photoswipe( this.El, PhotoswipeUi, items, options );
+		const instance = new Photoswipe( this.El, PhotoswipeUi, items, options );
 
-		this.instance.listen( 'initialZoomInEnd', () => {
+		instance.listen( 'initialZoomInEnd', () => {
 			// If this is a real gallery, unset currentThumb so that
 			// getThumbBoundsFn works when Photoswipe is closed.
 			if ( ! gallery.single ) {
@@ -97,17 +85,11 @@ class PhotoSwipe extends Component {
 			}
 		});
 
-		this.instance.listen( 'destroy', () => {
+		instance.listen( 'destroy', () => {
 			this.props.dispatch( closeGallery() );
 		});
 
-		this.instance.init();
-	}
-
-	close() {
-		if ( this.instance ) {
-			this.instance.close();
-		}
+		instance.init();
 	}
 
 	render() {
@@ -164,11 +146,3 @@ class PhotoSwipe extends Component {
 		);
 	}
 }
-
-function mapStateToProps( state ) {
-	return {
-		galleries: state.galleries,
-	};
-}
-
-export default connect( mapStateToProps )( PhotoSwipe );

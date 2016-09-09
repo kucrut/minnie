@@ -3,6 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { find } from 'lodash';
 import { gaId } from 'config';
 import { configureAxios, getQueryVar } from 'helpers';
 import fetchInfo from 'actions/info';
@@ -27,7 +28,7 @@ class App extends Component {
 	static propTypes = {
 		apiUrl:            PropTypes.string.isRequired,
 		siteLang:          PropTypes.string.isRequired,
-		hasGalleries:      PropTypes.bool.isRequired,
+		galleries:         PropTypes.object.isRequired,
 		isSidebarExpanded: PropTypes.bool.isRequired,
 		prevLocation:      PropTypes.object,
 		children:          PropTypes.object,
@@ -110,10 +111,22 @@ class App extends Component {
 	}
 
 	renderPhotoSwipe() {
+		const { groups, activeId, startIndex, clickedThumb } = this.props.galleries;
 		let el;
 
-		if ( this.props.hasGalleries ) {
-			el = ( <PhotoSwipe /> );
+		if ( activeId ) {
+			const gallery = find( groups, { id: activeId });
+
+			if ( gallery ) {
+				el = (
+					<PhotoSwipe
+						gallery={ gallery }
+						startIndex={ startIndex }
+						clickedThumb={ clickedThumb }
+						dispatch={ this.props.dispatch }
+					/>
+				);
+			}
 		}
 
 		return el;
@@ -149,7 +162,7 @@ function mapStateToProps( state ) {
 	return {
 		apiUrl:            state.info.apiUrl,
 		siteLang:          state.info.lang,
-		hasGalleries:      ( 0 < state.galleries.groups.length ),
+		galleries:         state.galleries,
 		isSidebarExpanded: state.ui.isSidebarExpanded,
 		prevLocation:      state.routing.locationBeforeTransitions
 	};
