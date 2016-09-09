@@ -1,3 +1,4 @@
+import { sortBy } from 'lodash';
 import { hashCode } from 'helpers';
 
 function createGalleryItem( imgEl, origImgUrl, title = '' ) {
@@ -17,14 +18,14 @@ function createGalleryItem( imgEl, origImgUrl, title = '' ) {
 		if ( src === origImgUrl ) {
 			size = {
 				src: origImgUrl,
-				w:   imgEl.getAttribute( 'data-ow' ),
-				h:   imgEl.getAttribute( 'data-oh' ),
+				w:   parseInt( imgEl.getAttribute( 'data-ow' ), 10 ),
+				h:   parseInt( imgEl.getAttribute( 'data-oh' ), 10 )
 			};
 		} else {
-			const w = srcW[ 1 ].replace( 'w', '' );
+			const w = parseInt( srcW[ 1 ].replace( 'w', '' ), 10 );
 			const xPos = src.lastIndexOf( 'x' );
 			const dotPos = src.lastIndexOf( '.' );
-			const h = src.slice( ( xPos + 1 ), dotPos );
+			const h = parseInt( src.slice( ( xPos + 1 ), dotPos ), 10 );
 
 			size = { src, w, h };
 		}
@@ -33,6 +34,10 @@ function createGalleryItem( imgEl, origImgUrl, title = '' ) {
 			sizes: item.sizes.concat( size )
 		});
 	}
+
+	item = Object.assign({}, item, {
+		sizes: sortBy( item.sizes, 'w' )
+	});
 
 	return item;
 }

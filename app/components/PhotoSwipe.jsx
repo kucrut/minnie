@@ -15,14 +15,9 @@ export default class PhotoSwipe extends Component {
 	constructor( props ) {
 		super( props );
 
-		this.state = {
-			currentThumb: props.clickedThumb,
-			items:        []
-		};
-	}
-
-	componentWillMount() {
-		this.setItems();
+		this.isFresh = true;
+		this.currentThumb = props.clickedThumb;
+		this.viewportSize = document.documentElement.clientWidth * window.devicePixelRatio;
 	}
 
 	componentDidMount() {
@@ -32,8 +27,8 @@ export default class PhotoSwipe extends Component {
 	getThumbBoundsFn( index ) {
 		let currentThumb;
 
-		if ( this.state.currentThumb ) {
-			currentThumb = this.state.currentThumb;
+		if ( this.currentThumb ) {
+			currentThumb = this.currentThumb;
 		} else {
 			const galleryEl = document.getElementById( this.props.gallery.id );
 			const allThumbs = galleryEl.querySelectorAll( '.gallery-item' );
@@ -50,22 +45,39 @@ export default class PhotoSwipe extends Component {
 		};
 	}
 
-	setItems() {
+	getItem( index ) {
+		const { msrc, title, sizes } = this.props.gallery.items[ index ];
+		let itemProps;
+
+		if ( ! this.viewportSize ) {
+			itemProps = sizes[ sizes.length - 1 ];
+		} else {
+			for ( let i = sizes.length - 1; -1 < i; --i ) {
+				if ( sizes[ i ].w <= this.viewportSize || 0 === i ) {
+					itemProps = Object.assign({}, sizes[ i ] );
+					break;
+				}
+			}
+		}
+
+		const { src, w, h } = itemProps;
+		let psItem = { msrc, src, w, h };
+
+		if ( title ) {
+			psItem = Object.assign({}, psItem, { title });
+		}
+
+		return psItem;
+	}
+
+	getItems() {
 		let items = [];
 
-		this.props.gallery.items.forEach( item => {
-			const { msrc, title, sizes } = item;
-			const { src, w, h } = sizes[ sizes.length - 1 ];
-			let psItem = { msrc, src, w, h };
-
-			if ( title ) {
-				psItem = Object.assign({}, psItem, { title });
-			}
-
-			items = items.concat( psItem );
+		this.props.gallery.items.forEach( ( item, index ) => {
+			items = items.concat( this.getItem( index ) );
 		});
 
-		this.setState({ items });
+		return items;
 	}
 
 	open() {
@@ -87,13 +99,36 @@ export default class PhotoSwipe extends Component {
 			});
 		}
 
-		const instance = new Photoswipe( this.El, PhotoswipeUi, this.state.items, options );
+		const instance = new Photoswipe( this.El, PhotoswipeUi, this.getItems(), options );
+
+		instance.listen( 'beforeResize', () => {
+			const newViewportSize = instance.viewportSize.x * window.devicePixelRatio;
+
+			if ( ! this.isFresh && newViewportSize !== this.viewportSize ) {
+				this.viewportSize = newViewportSize;
+				instance.invalidateCurrItems();
+			}
+
+			if ( this.isFresh ) {
+				this.isFresh = false;
+			}
+		});
+
+		instance.listen( 'gettingData', ( index, item ) => {
+			const freshItem = this.getItem( index );
+
+			/* eslint-disable no-param-reassign */
+			item.w = freshItem.w;
+			item.h = freshItem.h;
+			item.src = freshItem.src;
+			/* eslint-enable no-param-reassign */
+		});
 
 		instance.listen( 'initialZoomInEnd', () => {
 			// If this is a real gallery, unset currentThumb so that
 			// getThumbBoundsFn works when Photoswipe is closed.
 			if ( ! gallery.single ) {
-				this.setState({ currentThumb: '' });
+				this.currentThumb = '';
 			}
 		});
 
