@@ -30,10 +30,8 @@ export default function galleries( state = initialState, action ) {
 			});
 
 		case GALLERY_CLOSE:
-			return Object.assign({}, state, {
-				activeId:     initialState.activeId,
-				startIndex:   initialState.startIndex,
-				clickedThumb: initialState.clickedThumb
+			return Object.assign({}, initialState, {
+				groups: state.groups
 			});
 
 		default:
