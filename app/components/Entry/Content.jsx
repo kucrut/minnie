@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import closest from 'dom-closest';
+import { forEach } from 'lodash';
 import { contentPathRegEx } from 'helpers';
 import { openGallery, zoomImage } from 'actions/galleries';
 import highlightCode from 'misc/highlight';
@@ -20,6 +21,25 @@ class EntryContent extends Component {
 
 	componentDidMount() {
 		highlightCode( this.theContent );
+		this.prepareGalleries();
+	}
+
+	prepareGalleries() {
+		const galleryEls = this.theContent.querySelectorAll( '.gallery' );
+
+		if ( ! galleryEls.length ) {
+			return;
+		}
+
+		forEach( galleryEls, el => {
+			const itemEls = el.querySelectorAll( '.gallery-item' );
+			const itemsCount = itemEls.length;
+
+			if ( 6 < itemsCount ) {
+				el.classList.add( 'has-more' );
+				itemEls[ 5 ].querySelector( 'a' ).setAttribute( 'data-more', itemsCount - 6 );
+			}
+		});
 	}
 
 	handleClick( e ) {
