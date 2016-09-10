@@ -3,21 +3,6 @@ export const postTypeMap = {
 	page: 'pages'
 };
 
-export const taxonomyMap = {
-	tag: {
-		endpoint: 'tags',
-		queryVar: 'tag'
-	},
-	format: {
-		endpoint: 'formats',
-		queryVar: 'post_format'
-	},
-	category: {
-		endpoint: 'categories',
-		queryVar: 'category_name'
-	}
-};
-
 export const GET_SESSION = 'GET_SESSION';
 export const GET_SESSION_REQUEST = 'GET_SESSION_REQUEST';
 export const GET_SESSION_SUCCESS = 'GET_SESSION_SUCCESS';

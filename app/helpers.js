@@ -1,7 +1,7 @@
 import qs from 'qs';
 import axios from 'axios';
 import { forEach, has, isEmpty, omit, size, trim } from 'lodash';
-import { taxonomyMap } from 'constants/index';
+import { taxonomyMap } from 'config';
 
 
 export const contentPathRegEx = new RegExp( '^/wp-content/' );
