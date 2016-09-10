@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import he from 'he';
-
+import { entryMetaTaxonomies } from 'config';
 
 /**
  * TODO: Display author link?
@@ -36,7 +36,7 @@ export default class EntryMeta extends Component {
 
 		if ( terms && terms.length ) {
 			el = (
-				<span className="tags-links">
+				<span className="tags-links" key={ taxonomy }>
 					{ terms.map( term =>
 						<span key={ term.id }>
 							<Link to={ term.link } rel="tag">{ he.decode( term.name ) }</Link>
@@ -56,8 +56,7 @@ export default class EntryMeta extends Component {
 		return (
 			<div className="entry-meta">
 				{ this.renderDate() }
-				{ this.renderTerms( 'categories' ) }
-				{ this.renderTerms( 'tags' ) }
+				{ entryMetaTaxonomies.map( taxonomy => this.renderTerms( taxonomy ) ) }
 			</div>
 		);
 	}
