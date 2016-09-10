@@ -1284,7 +1284,7 @@ object {
 	font-size: 13px;
 	font-size: 1.3rem;
 	font-style: italic;
-	padding: 0 36px 18px 36px;
+	padding: 0 1.615em .8075em;
 	text-align: left;
 }
 
@@ -1348,6 +1348,7 @@ object {
 
 .gallery-caption {
 	display: block;
+	padding-top: 18px;
 }
 
 
@@ -1649,8 +1650,24 @@ form.login input {
 /**
  * Gallery
  */
+.gallery-item img {
+	display: block;
+}
 .has-js .gallery .gallery-item:nth-child(n+7) {
 	display: none;
+}
+
+.has-js .gallery.has-more .gallery-item:nth-child(6) .gallery-icon {
+	position: relative;
+}
+.has-js .gallery.has-more .gallery-item:nth-child(6) a::after {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #fff;
+	font-size: 3em;
+	content: "+" attr( data-more );
 }
 
 /**
