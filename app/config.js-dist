@@ -36,5 +36,6 @@ module.exports = {
 			'sql', 'yaml'
 		]
 	},
-	gaId: '' // Google Analytics ID, eg: UA-00000000-1
+	gaId:                '' // Google Analytics ID, eg: UA-00000000-1,
+	entryMetaTaxonomies: ['categories', 'tags', 'places']
 };
