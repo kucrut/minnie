@@ -1,5 +1,12 @@
 # Changelog
 
+### 0.6.1
+* More gallery images, a-la Facebook.
+
+### 0.6.0
+* Requires [Minnie 0.3.0](https://github.com/kucrut/wp-minnie/releases/tag/v0.3.0).
+* [Photoswipe](http://photoswipe.com/) slideshow for galleries & article images linked to their original file.
+
 ### 0.5.0
 * Live Preview. Requires [Bridge 0.5.0](https://github.com/kucrut/wp-bridge/releases/tag/v0.5.0).
 
