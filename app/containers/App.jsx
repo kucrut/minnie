@@ -140,7 +140,12 @@ class App extends Component {
 
 		return (
 			<div id="page" className={ pageClass }>
-				<Helmet htmlAttributes={ { lang: this.props.siteLang } } />
+				<Helmet
+					htmlAttributes={ {
+						lang:  this.props.siteLang,
+						class: 'no-js'
+					} }
+				/>
 
 				<a className="skip-link screen-reader-text" href="#content">Skip to content</a>
 
