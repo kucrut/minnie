@@ -5,11 +5,11 @@ import he from 'he';
 import { isEqual } from 'lodash';
 import { getAdjacentLink } from 'helpers';
 import { fetchArchive, fetchArchiveTerm } from 'actions/archive';
+import PageHeader from 'components/PageHeader';
 import ContentNavigation from 'components/ContentNavigation';
 import Entry from 'components/Entry/Item';
 import EntryEmpty from 'components/Entry/Empty';
 import Spinner from 'components/Spinner';
-
 
 class Index extends Component {
 	static propTypes = {
@@ -123,6 +123,7 @@ class Index extends Component {
 	renderTitle() {
 		const { term, searchTerm, items } = this.props.archive;
 		let title;
+		let description;
 		let el;
 
 		if ( searchTerm ) {
@@ -130,15 +131,15 @@ class Index extends Component {
 		} else {
 			if ( term && items.length ) {
 				title = he.decode( term.name );
+
+				if ( term.description ) {
+					description = term.description;
+				}
 			}
 		}
 
 		if ( title ) {
-			el = (
-				<header className="page-header">
-					<h1 className="page-title">{ title }</h1>
-				</header>
-			);
+			el = ( <PageHeader title={ title } description={ description } /> );
 		}
 
 		return el;
