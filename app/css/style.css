@@ -1647,6 +1647,13 @@ form.login input {
 }
 
 /**
+ * Gallery
+ */
+.has-js .gallery .gallery-item:nth-child(n+7) {
+	display: none;
+}
+
+/**
  * Photoswipe
  */
 .pswp__caption__center {
