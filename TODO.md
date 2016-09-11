@@ -2,6 +2,3 @@
 
 ## Elements
 * Featured Image?
-
-## Features
-* Comments
