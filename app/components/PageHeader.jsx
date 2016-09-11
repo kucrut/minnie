@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 export default class PageHeader extends Component {
 	static propTypes = {
 		title:       PropTypes.string.isRequired,
-		description: PropTypes.string.isRequired
+		description: PropTypes.string
 	}
 
 	renderDescription() {
