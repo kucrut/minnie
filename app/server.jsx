@@ -24,7 +24,7 @@ function renderFullPage( html, initialState ) {
 	const head = Helmet.rewind();
 
 	return `<!doctype html>
-		<html ${head.htmlAttributes.toString()}>
+		<html class="no-js" ${head.htmlAttributes.toString()}>
 			<head>
 				<meta charset=utf-8 />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
