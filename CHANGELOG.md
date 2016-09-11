@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.7.0
+* Support custom taxonomies.
+  * Requires [Bridge 0.7.0](https://github.com/kucrut/wp-bridge/releases/tag/v0.7.0).
+  * Please update `app/config.js` by consulting the sample `app/config.js-dist`.
+* Bug fix for the more gallery images.
+
 ### 0.6.1
 * More gallery images, a-la Facebook.
 
