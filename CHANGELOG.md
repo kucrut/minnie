@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.8.1
+* Routes: Get login path from config
+* Gallery:
+  * Show only two rows of thumbnails
+  * Cover last thumbnail with semi-transparent layer
+
 ### 0.8.0
 * Support custom taxonomies.
   * Requires [Bridge 0.7.0](https://github.com/kucrut/wp-bridge/releases/tag/v0.7.0).
