@@ -22,7 +22,7 @@ export default function () {
 	return (
 		<Route path="/" component={ App }>
 			<IndexRoute component={ Index } />
-			<Route path="login" component={ Login } />
+			<Route path={ routes.login } component={ Login } />
 			{ pagedRoute() }
 			{ map( routes.archives, ( path, type ) =>
 				<Route path={ path } component={ Index } key={ `route-${type}` }>
