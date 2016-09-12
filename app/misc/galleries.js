@@ -93,3 +93,20 @@ export function createZoom( imgEl ) {
 		showCaption: ( '' !== title )
 	};
 }
+
+export function prepareGallery( el ) {
+	const itemEls = el.querySelectorAll( '.gallery-item' );
+	const itemsCount = itemEls.length;
+
+	if ( 6 > itemsCount ) {
+		return;
+	}
+
+	const anchor = itemEls[ 5 ].querySelector( 'a' );
+	const cover = document.createElement( 'span' );
+
+	cover.classList.add( 'cover' );
+	el.classList.add( 'has-more' );
+	anchor.appendChild( cover );
+	anchor.setAttribute( 'data-more', `${itemsCount - 6}` );
+}

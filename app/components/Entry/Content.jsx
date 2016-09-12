@@ -6,6 +6,7 @@ import { forEach } from 'lodash';
 import { contentPathRegEx } from 'helpers';
 import { openGallery, zoomImage } from 'actions/galleries';
 import highlightCode from 'misc/highlight';
+import { prepareGallery } from 'misc/galleries';
 
 class EntryContent extends Component {
 	static propTypes = {
@@ -31,20 +32,7 @@ class EntryContent extends Component {
 			return;
 		}
 
-		forEach( galleryEls, el => {
-			const itemEls = el.querySelectorAll( '.gallery-item' );
-			const itemsCount = itemEls.length;
-
-			if ( 6 < itemsCount ) {
-				const anchor = itemEls[ 5 ].querySelector( 'a' );
-				const cover = document.createElement( 'span' );
-
-				cover.classList.add( 'cover' );
-				el.classList.add( 'has-more' );
-				anchor.appendChild( cover );
-				anchor.setAttribute( 'data-more', `${itemsCount - 6}` );
-			}
-		});
+		forEach( galleryEls, prepareGallery );
 	}
 
 	handleClick( e ) {
