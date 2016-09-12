@@ -11,6 +11,8 @@ import Media from 'pages/Media';
 import NotFound from 'pages/404';
 import Preview from 'pages/Preview';
 
+const pagedRoute = () => <Route path="page/:page" component={ Index } />;
+
 /*
  * @param {Redux Store}
  * We require store as an argument here because we wish to get
@@ -21,10 +23,10 @@ export default function () {
 		<Route path="/" component={ App }>
 			<IndexRoute component={ Index } />
 			<Route path="login" component={ Login } />
-			<Route path="page/:page" component={ Index } />
+			{ pagedRoute() }
 			{ map( routes.archives, ( path, type ) =>
 				<Route path={ path } component={ Index } key={ `route-${type}` }>
-					<Route path="page/:page" component={ Index } />
+					{ pagedRoute() }
 				</Route>
 			) }
 			<Route path={ routes.post } component={ Post } />
