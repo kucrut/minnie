@@ -94,19 +94,39 @@ export function createZoom( imgEl ) {
 	};
 }
 
+/**
+ * Prepare Gallery
+ *
+ * - Find the columns setting
+ * - Limit the items shown to twice the number of columns
+ * - Hide rows 3+
+ * - Create a cover element
+ * - Add the plus text
+ *
+ * @param {object} el Gallery element.
+ */
 export function prepareGallery( el ) {
-	const itemEls = el.querySelectorAll( '.gallery-item' );
-	const itemsCount = itemEls.length;
+	const columns = el.getAttribute( 'class' ).match( /gallery-columns-(\d+)/ );
 
-	if ( 6 > itemsCount ) {
+	if ( ! columns ) {
 		return;
 	}
 
-	const anchor = itemEls[ 5 ].querySelector( 'a' );
+	const columnsCount = parseInt( columns[ 1 ], 10 );
+	const maxShown = ( columnsCount * 2 );
+	const itemEls = el.querySelectorAll( '.gallery-item' );
+	const hiddenCount = ( itemEls.length - maxShown );
+
+	if ( 0 > hiddenCount ) {
+		return;
+	}
+
+	const lastShownItemEl = itemEls[ maxShown - 1 ];
+	const anchor = lastShownItemEl.querySelector( 'a' );
 	const cover = document.createElement( 'span' );
 
+	lastShownItemEl.classList.add( 'last-shown' );
 	cover.classList.add( 'cover' );
-	el.classList.add( 'has-more' );
 	anchor.appendChild( cover );
-	anchor.setAttribute( 'data-more', `${itemsCount - 6}` );
+	anchor.setAttribute( 'data-more', `${hiddenCount}` );
 }

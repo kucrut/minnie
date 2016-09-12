@@ -1657,14 +1657,14 @@ form.login input {
 .gallery-item img {
 	display: block;
 }
-.has-js .gallery .gallery-item:nth-of-type(n+7) {
+.has-js .gallery .last-shown ~ .gallery-item {
 	display: none;
 }
 
-.has-js .gallery.has-more .gallery-item:nth-of-type(6) .gallery-icon {
+.has-js .gallery .last-shown .gallery-icon {
 	position: relative;
 }
-.has-js .gallery.has-more .gallery-item:nth-of-type(6) .cover {
+.has-js .gallery .last-shown .cover {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -1672,7 +1672,7 @@ form.login input {
 	left: 0;
 	background: rgba(0, 0, 0, .4);
 }
-.has-js .gallery.has-more .gallery-item:nth-of-type(6) a::after {
+.has-js .gallery .last-shown a::after {
 	position: absolute;
 	top: 50%;
 	left: 50%;
