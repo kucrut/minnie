@@ -36,8 +36,13 @@ class EntryContent extends Component {
 			const itemsCount = itemEls.length;
 
 			if ( 6 < itemsCount ) {
+				const anchor = itemEls[ 5 ].querySelector( 'a' );
+				const cover = document.createElement( 'span' );
+
+				cover.classList.add( 'cover' );
 				el.classList.add( 'has-more' );
-				itemEls[ 5 ].querySelector( 'a' ).setAttribute( 'data-more', itemsCount - 6 );
+				anchor.appendChild( cover );
+				anchor.setAttribute( 'data-more', `${itemsCount - 6}` );
 			}
 		});
 	}

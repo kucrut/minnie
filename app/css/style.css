@@ -1664,13 +1664,21 @@ form.login input {
 .has-js .gallery.has-more .gallery-item:nth-of-type(6) .gallery-icon {
 	position: relative;
 }
+.has-js .gallery.has-more .gallery-item:nth-of-type(6) .cover {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0, 0, 0, .4);
+}
 .has-js .gallery.has-more .gallery-item:nth-of-type(6) a::after {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	color: #fff;
-	font-size: 3em;
+	font-size: 2em;
 	content: "+" attr( data-more );
 }
 
