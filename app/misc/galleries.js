@@ -117,7 +117,7 @@ export function prepareGallery( el ) {
 	const itemEls = el.querySelectorAll( '.gallery-item' );
 	const hiddenCount = ( itemEls.length - maxShown );
 
-	if ( 0 > hiddenCount ) {
+	if ( 0 >= hiddenCount ) {
 		return;
 	}
 
