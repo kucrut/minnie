@@ -1,5 +1,8 @@
 # Changelog
 
+### 0.8.2
+* Fix gallery's plus link
+
 ### 0.8.1
 * Routes: Get login path from config
 * Gallery:
