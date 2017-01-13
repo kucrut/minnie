@@ -4,12 +4,11 @@ import classNames from 'classnames';
 import PrimaryMenu from 'components/PrimaryMenu';
 import SearchForm from 'components/SearchForm';
 
-
 class Sidebar extends Component {
 	static propTypes = {
-		menus:             PropTypes.object.isRequired,
+		menus: PropTypes.object.isRequired,
+		dispatch: PropTypes.func.isRequired,
 		isSidebarExpanded: PropTypes.bool.isRequired,
-		dispatch:          PropTypes.func.isRequired
 	}
 
 	renderMenu() {
@@ -26,10 +25,10 @@ class Sidebar extends Component {
 	render() {
 		const { isSidebarExpanded } = this.props;
 
-		const sbClass = classNames({
+		const sbClass = classNames( {
 			'slide-menu': true,
-			expanded:     isSidebarExpanded
-		});
+			expanded: isSidebarExpanded,
+		} );
 
 		return (
 			<div className={ sbClass }>
@@ -43,8 +42,8 @@ class Sidebar extends Component {
 
 function mapStateToProps( state ) {
 	return {
-		menus:             state.menu.menus,
-		isSidebarExpanded: state.ui.isSidebarExpanded
+		menus: state.menu.menus,
+		isSidebarExpanded: state.ui.isSidebarExpanded,
 	};
 }
 

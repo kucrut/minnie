@@ -13,7 +13,7 @@ export default class CommentsList extends Component {
 		renderForm:         PropTypes.func.isRequired,
 		allowReplies:       PropTypes.bool.isRequired,
 		onClickLoadMore:    PropTypes.func.isRequired,
-		onClickViewReplies: PropTypes.func.isRequired
+		onClickViewReplies: PropTypes.func.isRequired,
 	}
 
 	constructor( props ) {
@@ -42,12 +42,12 @@ export default class CommentsList extends Component {
 		}
 
 		const depth = this.props.depth + 1;
-		const args  = Object.assign({}, this.props, {
+		const args  = Object.assign( {}, this.props, {
 			allowReplies: ( allowReplies && depth <= maxDepth ),
 			listClass:    'children',
 			parentId,
-			depth
-		});
+			depth,
+		} );
 
 		return (
 			<CommentsList key="children-comments" { ...args } />
@@ -61,11 +61,11 @@ export default class CommentsList extends Component {
 		const buttonArgs = {
 			hasMore,
 			isFetching,
-			text:    'Load More Comments',
+			text: 'Load More Comments',
 			onClick: onClickLoadMore,
-			params:  {
+			params: {
 				parent: parentId,
-				page:   currentPage + 1
+				page: currentPage + 1,
 			},
 		};
 
@@ -80,7 +80,7 @@ export default class CommentsList extends Component {
 			key: `comment-${comment.id}`,
 			comment,
 			allowReplies,
-			onClickViewReplies
+			onClickViewReplies,
 		};
 
 		return (

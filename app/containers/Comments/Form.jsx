@@ -28,8 +28,8 @@ export default class CommentForm extends Component {
 		super( props );
 
 		this.state = {
-			cfKey:  this.getCFKey(),
-			values: Object.assign({}, props.fields )
+			cfKey: this.getCFKey(),
+			values: Object.assign( {}, props.fields ),
 		};
 
 		this.handleChange = this.handleChange.bind( this );
@@ -42,12 +42,10 @@ export default class CommentForm extends Component {
 
 		// After successful submission: Reset comment textarea.
 		if ( ! hasError && ! isSubmitting && this.props.isSubmitting ) {
-			this.setState({
-				cfKey:  this.getCFKey(),
-				values: Object.assign({}, this.state.values, {
-					comment: ''
-				})
-			});
+			this.setState( {
+				cfKey: this.getCFKey(),
+				values: Object.assign( {}, this.state.values, { comment: '' } ),
+			} );
 		}
 	}
 
@@ -56,11 +54,7 @@ export default class CommentForm extends Component {
 	}
 
 	handleChange( e ) {
-		this.setState({
-			values: Object.assign({}, this.state.values, {
-				[ e.target.name ]: e.target.value
-			})
-		});
+		this.setState( { values: Object.assign( {}, this.state.values, { [ e.target.name ]: e.target.value } ) } );
 	}
 
 	handleSubmit( e ) {
@@ -73,7 +67,7 @@ export default class CommentForm extends Component {
 		let text = 'Leave a Reply';
 		let cancelLinkEl = '';
 
-		if ( 0 < p.id ) {
+		if ( p.id > 0 ) {
 			text = `${text} to ${p.author_name}`;
 			cancelLinkEl = ( <CancelReplyLink link={ cancelReplyLink } /> );
 		}
@@ -87,20 +81,20 @@ export default class CommentForm extends Component {
 		const { comment, author, email, url } = this.state.values;
 
 		switch ( key ) {
-			case 'comment':
-				return <CommentField value={ comment } handleChange={ this.handleChange } key={ this.state.cfKey } />;
+		case 'comment':
+			return <CommentField value={ comment } handleChange={ this.handleChange } key={ this.state.cfKey } />;
 
-			case 'author':
-				return <AuthorField value={ author } handleChange={ this.handleChange } key="author-field" />;
+		case 'author':
+			return <AuthorField value={ author } handleChange={ this.handleChange } key="author-field" />;
 
-			case 'email':
-				return <EmailField value={ email } handleChange={ this.handleChange } key="email-field" />;
+		case 'email':
+			return <EmailField value={ email } handleChange={ this.handleChange } key="email-field" />;
 
-			case 'url':
-				return <UrlField value={ url } handleChange={ this.handleChange } key="url-field" />;
+		case 'url':
+			return <UrlField value={ url } handleChange={ this.handleChange } key="url-field" />;
 
-			default:
-				return null;
+		default:
+			return null;
 		}
 	}
 

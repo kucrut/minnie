@@ -32,12 +32,10 @@ class App extends Component {
 		isSidebarExpanded: PropTypes.bool.isRequired,
 		prevLocation:      PropTypes.object,
 		children:          PropTypes.object,
-		dispatch:          PropTypes.func.isRequired
+		dispatch:          PropTypes.func.isRequired,
 	}
 
-	static contextTypes = {
-		router: PropTypes.object.isRequired
-	}
+	static contextTypes = { router: PropTypes.object.isRequired }
 
 	/**
 	 * Callbacks needed for server-side rendering
@@ -51,7 +49,7 @@ class App extends Component {
 		fetchInfo,
 		fetchPostFormats,
 		fetchPrimaryMenu,
-		fetchSocialMenu
+		fetchSocialMenu,
 	]
 
 	componentDidMount() {
@@ -89,7 +87,7 @@ class App extends Component {
 		this.context.router.listen( location => {
 			ga( 'set', 'page', location.pathname );
 			ga( 'send', 'pageview' );
-		});
+		} );
 	}
 
 	initGallery( location ) {
@@ -123,7 +121,7 @@ class App extends Component {
 		let el;
 
 		if ( activeId ) {
-			const gallery = find( groups, { id: activeId });
+			const gallery = find( groups, { id: activeId } );
 
 			if ( gallery ) {
 				el = (
@@ -141,10 +139,10 @@ class App extends Component {
 	}
 
 	render() {
-		const pageClass = classNames({
-			'hfeed site':   true,
-			'sidebar-open': this.props.isSidebarExpanded
-		});
+		const pageClass = classNames( {
+			'hfeed site': true,
+			'sidebar-open': this.props.isSidebarExpanded,
+		} );
 
 		return (
 			<div id="page" className={ pageClass }>
@@ -172,7 +170,7 @@ function mapStateToProps( state ) {
 		siteLang:          state.info.lang,
 		galleries:         state.galleries,
 		isSidebarExpanded: state.ui.isSidebarExpanded,
-		prevLocation:      state.routing.locationBeforeTransitions
+		prevLocation:      state.routing.locationBeforeTransitions,
 	};
 }
 
