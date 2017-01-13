@@ -2,17 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import { IndexLink, Link } from 'react-router';
 import he from 'he';
 
-
 export default class MenuItem extends Component {
-	static propTypes = {
-		item: PropTypes.object.isRequired
-	}
+	static propTypes = { item: PropTypes.object.isRequired }
 
 	renderLink( item ) {
 		const title = he.decode( item.title );
 		let el;
 
-		if ( '/' === item.url ) {
+		if ( item.url === '/' ) {
 			el = (
 				<IndexLink
 					to={ item.url }

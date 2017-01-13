@@ -5,11 +5,10 @@ import Branding from 'components/Branding';
 import SocialMenu from 'components/SocialMenu';
 import Burger from 'components/Burger';
 
-
 class Header extends Component {
 	static propTypes = {
 		info:  PropTypes.object.isRequired,
-		menus: PropTypes.object.isRequired
+		menus: PropTypes.object.isRequired,
 	}
 
 	renderSocialMenu() {
@@ -39,8 +38,8 @@ class Header extends Component {
 
 function mapStateToProps( state ) {
 	return {
-		info:  state.info,
-		menus: state.menu.menus
+		info: state.info,
+		menus: state.menu.menus,
 	};
 }
 

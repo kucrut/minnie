@@ -13,27 +13,25 @@ export default class Comments extends Component {
 		parentId:  PropTypes.number.isRequired,
 		postLink:  PropTypes.string.isRequired,
 		maxDepth:  PropTypes.number.isRequired,
-		comments:  PropTypes.shape({
+		comments:  PropTypes.shape( {
 			newComment:   PropTypes.object,
 			postId:       PropTypes.number,
 			threads:      PropTypes.object,
 			error:        PropTypes.object,
 			hasError:     PropTypes.bool,
-			isSubmitting: PropTypes.bool
-		}).isRequired,
+			isSubmitting: PropTypes.bool,
+		} ).isRequired,
 	}
 
 	constructor( props ) {
 		super( props );
 
-		this.state = {
-			parentId: props.parentId
-		};
+		this.state = { parentId: props.parentId };
 
 		this.extraCommentFields = {
 			author: '',
-			email:  '',
-			url:    ''
+			email: '',
+			url: '',
 		};
 
 		this.fetchMore = this.fetchMore.bind( this );
@@ -44,9 +42,7 @@ export default class Comments extends Component {
 	componentWillReceiveProps( nextProps ) {
 		const { comments: { newComment }, hasError, dispatch } = nextProps;
 
-		this.setState({
-			parentId: nextProps.parentId
-		});
+		this.setState( { parentId: nextProps.parentId } );
 
 		// After successful comment submission.
 		if ( ! hasError && newComment.id !== this.props.comments.newComment.id ) {
@@ -58,55 +54,50 @@ export default class Comments extends Component {
 		const { threads } = this.props.comments;
 		let parentComment;
 
-		if ( 0 === id ) {
+		if ( id === 0 ) {
 			parentComment = { id: 0 };
 		} else {
 			each( threads, thread => {
-				parentComment = find( thread.items, { id });
+				parentComment = find( thread.items, { id } );
 
 				if ( parentComment ) {
 					return false;
 				}
 
 				return true;
-			});
+			} );
 		}
 
 		return parentComment;
 	}
 
 	fetchMore( params ) {
-		const { dispatch, comments: { postId } } = this.props;
-		const fetchParams = Object.assign({ post: postId }, params );
+		const { dispatch, comments: { postId }} = this.props;
+		const fetchParams = Object.assign( { post: postId }, params );
 
 		dispatch( fetchComments( fetchParams ) );
 	}
 
 	handleSubmit( values ) {
-		const { dispatch, comments: { postId } } = this.props;
+		const { dispatch, comments: { postId }} = this.props;
 		let data = {
-			post:    postId,
-			parent:  this.state.parentId,
+			post: postId,
+			parent: this.state.parentId,
 			content: values.comment,
 		};
 		let newValues = {};
 
 		Object.keys( this.extraCommentFields ).forEach( key => {
-			const newKey = 'author' === key ? 'author_name' : `author_${key}`;
+			const newKey = key === 'author' ? 'author_name' : `author_${key}`;
 
 			if ( values.hasOwnProperty( key ) ) {
-				data = Object.assign({}, data, {
-					[ newKey ]: values[ key ]
-				});
-
-				newValues = Object.assign({}, newValues, {
-					[ key ]: values[ key ]
-				});
+				data = Object.assign( {}, data, { [ newKey ]: values[ key ] } );
+				newValues = Object.assign( {}, newValues, { [ key ]: values[ key ] } );
 			}
-		});
+		} );
 
 		// Save for later.
-		this.extraCommentFields = Object.assign({}, this.extraCommentFields, newValues );
+		this.extraCommentFields = Object.assign( {}, this.extraCommentFields, newValues );
 
 		// TODO: Do some checks here?
 		dispatch( postComment( data ) );
@@ -124,14 +115,14 @@ export default class Comments extends Component {
 
 		const args = {
 			onClickViewReplies: this.fetchMore,
-			onClickLoadMore:    this.fetchMore,
-			renderForm:         this.renderForm,
-			allowReplies:       ( isEnabled && depth <= maxDepth ),
-			listClass:          'comment-list',
+			onClickLoadMore: this.fetchMore,
+			renderForm: this.renderForm,
+			allowReplies: ( isEnabled && depth <= maxDepth ),
+			listClass: 'comment-list',
 			parentId,
 			comments,
 			maxDepth,
-			depth
+			depth,
 		};
 
 		return (
@@ -157,21 +148,19 @@ export default class Comments extends Component {
 
 		args = {
 			cancelReplyLink: postLink,
-			handleSubmit:    this.handleSubmit,
-			parentComment:   this.getParentComment( parentId ),
-			fields:          { comment: '' },
+			handleSubmit: this.handleSubmit,
+			parentComment: this.getParentComment( parentId ),
+			fields: { comment: '' },
 			isSubmitting,
 			hasError,
 			error,
 			postId,
-			user
+			user,
 		};
 
 		// Non-logged in visitor.
 		if ( ! user.hasOwnProperty( 'id' ) ) {
-			args = Object.assign({}, args, {
-				fields: Object.assign({}, args.fields, this.extraCommentFields )
-			});
+			args = Object.assign( {}, args, { fields: Object.assign( {}, args.fields, this.extraCommentFields ) } );
 		}
 
 		return (

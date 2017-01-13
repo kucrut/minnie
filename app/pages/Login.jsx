@@ -11,7 +11,7 @@ class Login extends Component {
 		siteName:   PropTypes.string.isRequired,
 		isChecking: PropTypes.bool.isRequired,
 		dispatch:   PropTypes.func.isRequired,
-		redirect:   PropTypes.string
+		redirect:   PropTypes.string,
 	}
 
 	constructor( props ) {
@@ -41,9 +41,7 @@ class Login extends Component {
 	handleChange( e ) {
 		const key = e.currentTarget.getAttribute( 'name' );
 
-		this.setState({
-			[ key ]: e.currentTarget.value
-		});
+		this.setState( { [ key ]: e.currentTarget.value } );
 	}
 
 	handleSubmit( e ) {
@@ -112,7 +110,7 @@ function mapStateToProps( state, ownProps ) {
 		siteName:   state.info.name,
 		isChecking: state.session.isChecking,
 		user:       state.session.user,
-		redirect:   redirectUrl || '/'
+		redirect:   redirectUrl || '/',
 	};
 }
 

@@ -4,7 +4,6 @@ import { fetchPost } from 'actions/singular';
 import _Singular from 'pages/_Singular';
 import CommentsSection from 'containers/Comments/Section';
 
-
 class Post extends _Singular {
 
 	/**
@@ -15,27 +14,25 @@ class Post extends _Singular {
 	 *
 	 * @type {Array}
 	 */
-	static need = [
-		fetchPost
-	]
+	static need = [fetchPost]
 
 	static displayName = 'Post'
 
 	fetchData( slug ) {
-		this.props.dispatch( fetchPost({ slug }) );
+		this.props.dispatch( fetchPost( { slug } ) );
 	}
 
 	renderComments() {
 		const { info, user, singular, comments, query, dispatch } = this.props;
 		const parentId = query.hasOwnProperty( 'replytocom' ) ? parseInt( query.replytocom, 10 ) : 0;
 		const args = {
-			isEnabled: 'open' === singular.data.comment_status,
-			postLink:  singular.data.link,
-			maxDepth:  info.settings.comments.threads_depth,
+			isEnabled: singular.data.comment_status === 'open',
+			postLink: singular.data.link,
+			maxDepth: info.settings.comments.threads_depth,
 			comments,
 			parentId,
 			dispatch,
-			user
+			user,
 		};
 
 		return (
@@ -48,12 +45,12 @@ export function mapStateToProps( state, ownProps ) {
 	const { slug } = ownProps.params;
 
 	return {
-		info:     state.info,
+		info: state.info,
 		singular: state.singular,
 		comments: state.comments,
-		user:     state.session.user,
-		query:    ownProps.location.query,
-		slug
+		user: state.session.user,
+		query: ownProps.location.query,
+		slug,
 	};
 }
 

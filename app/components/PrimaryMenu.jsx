@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
 import MenuItem from 'components/MenuItem';
 
-
-export default function PrimaryMenu({ items }) {
+export default function PrimaryMenu( { items } ) {
 	return (
 		<nav id="site-navigation" className="main-navigation" role="navigation">
 			<div className="menu-main-container">
@@ -14,6 +13,4 @@ export default function PrimaryMenu({ items }) {
 	);
 }
 
-PrimaryMenu.propTypes = {
-	items: PropTypes.array.isRequired
-};
+PrimaryMenu.propTypes = { items: PropTypes.array.isRequired };

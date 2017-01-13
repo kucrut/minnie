@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
 import he from 'he';
 
-
-export default function SocialMenu({ items }) {
+export default function SocialMenu( { items } ) {
 	return (
 		<div className="social-links">
 			<ul id="menu-social" className="menu">
@@ -16,12 +15,10 @@ export default function SocialMenu({ items }) {
 							</a>
 						</li>
 					);
-				}) }
+				} ) }
 			</ul>
 		</div>
 	);
 }
 
-SocialMenu.propTypes = {
-	items: PropTypes.array.isRequired
-};
+SocialMenu.propTypes = { items: PropTypes.array.isRequired };

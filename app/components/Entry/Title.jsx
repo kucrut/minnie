@@ -2,12 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import he from 'he';
 
-
 export default class EntryTitle extends Component {
 	static propTypes = {
-		link:     PropTypes.string,
-		title:    PropTypes.string.isRequired,
-		isSingle: PropTypes.bool.isRequired
+		link: PropTypes.string,
+		title: PropTypes.string.isRequired,
+		isSingle: PropTypes.bool.isRequired,
 	}
 
 	render() {

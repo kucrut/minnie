@@ -3,24 +3,21 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { find } from 'lodash';
 
-
 class EntryFormat extends Component {
 	static propTypes = {
-		data:    PropTypes.object.isRequired,
-		formats: PropTypes.array.isRequired
+		data: PropTypes.object.isRequired,
+		formats: PropTypes.array.isRequired,
 	}
 
 	getFormat() {
 		const { data, formats } = this.props;
-		let format = find( formats, {
-			slug: `post-format-${data.format}`
-		});
+		let format = find( formats, { slug: `post-format-${data.format}` } );
 
 		// Post format: Standard
 		if ( ! format ) {
 			format = {
 				name: 'Standard',
-				link: data.link
+				link: data.link,
 			};
 		}
 
@@ -41,9 +38,7 @@ class EntryFormat extends Component {
 }
 
 function mapStateToProps( state ) {
-	return {
-		formats: state.terms.items.formats
-	};
+	return { formats: state.terms.items.formats };
 }
 
 export default connect( mapStateToProps )( EntryFormat );

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-export default function CommentDate({ link, date, dateFormatted }) {
+export default function CommentDate( { link, date, dateFormatted } ) {
 	return (
 		<Link to={ link } rel="bookmark" className="comment-date">
 			<time dateTime={ date }>{ dateFormatted }</time>
@@ -10,7 +10,7 @@ export default function CommentDate({ link, date, dateFormatted }) {
 }
 
 CommentDate.propTypes = {
-	link:          PropTypes.string.isRequired,
-	date:          PropTypes.string.isRequired,
-	dateFormatted: PropTypes.string.isRequired
+	link: PropTypes.string.isRequired,
+	date: PropTypes.string.isRequired,
+	dateFormatted: PropTypes.string.isRequired,
 };

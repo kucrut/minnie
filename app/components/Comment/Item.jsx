@@ -5,10 +5,10 @@ import CommentMeta from 'components/Comment/Meta';
 
 export default class Comment extends Component {
 	static propTypes = {
-		comment:            PropTypes.object.isRequired,
-		allowReplies:       PropTypes.bool.isRequired,
+		comment: PropTypes.object.isRequired,
+		allowReplies: PropTypes.bool.isRequired,
 		onClickViewReplies: PropTypes.func.isRequired,
-		children:           PropTypes.array
+		children: PropTypes.array,
 	}
 
 	constructor( props ) {
@@ -20,14 +20,14 @@ export default class Comment extends Component {
 	handleClickViewReplies() {
 		const { comment, onClickViewReplies } = this.props;
 
-		onClickViewReplies({ parent: comment.id });
+		onClickViewReplies( { parent: comment.id } );
 	}
 
 	showViewReplies() {
 		const { comment, children } = this.props;
-		const repliesEl = find( children, { key: 'children-comments' });
+		const repliesEl = find( children, { key: 'children-comments' } );
 
-		return ( 0 < comment.children_count && ! repliesEl );
+		return ( comment.children_count > 0 && ! repliesEl );
 	}
 
 	render() {
@@ -39,10 +39,10 @@ export default class Comment extends Component {
 			authorUrl:          c.author_url,
 			authorName:         c.author_name,
 			dateFormatted:      c.date_formatted,
-			allowReplies:       ( allowReplies && 'approved' === c.status ),
+			allowReplies:       ( allowReplies && c.status === 'approved' ),
 			replyLink:          c.reply_link,
 			showViewReplies:    this.showViewReplies(),
-			onClickViewReplies: this.handleClickViewReplies
+			onClickViewReplies: this.handleClickViewReplies,
 		};
 
 		return (

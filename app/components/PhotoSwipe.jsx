@@ -6,10 +6,10 @@ import { closeGallery } from 'actions/galleries';
 export default class PhotoSwipe extends Component {
 
 	static propTypes = {
-		gallery:      PropTypes.object.isRequired,
-		startIndex:   PropTypes.number.isRequired,
+		gallery: PropTypes.object.isRequired,
+		startIndex: PropTypes.number.isRequired,
 		clickedThumb: PropTypes.object.isRequired,
-		dispatch:     PropTypes.func.isRequired
+		dispatch: PropTypes.func.isRequired,
 	}
 
 	constructor( props ) {
@@ -41,7 +41,7 @@ export default class PhotoSwipe extends Component {
 		return {
 			x: rect.left,
 			y: ( rect.top + pageYScroll ),
-			w: rect.width
+			w: rect.width,
 		};
 	}
 
@@ -52,9 +52,9 @@ export default class PhotoSwipe extends Component {
 		if ( ! this.viewportSize ) {
 			itemProps = sizes[ sizes.length - 1 ];
 		} else {
-			for ( let i = sizes.length - 1; -1 < i; --i ) {
-				if ( sizes[ i ].w <= this.viewportSize || 0 === i ) {
-					itemProps = Object.assign({}, sizes[ i ] );
+			for ( let i = sizes.length - 1; i > - 1; --i ) {
+				if ( sizes[ i ].w <= this.viewportSize || i === 0 ) {
+					itemProps = Object.assign( {}, sizes[ i ] );
 					break;
 				}
 			}
@@ -64,7 +64,7 @@ export default class PhotoSwipe extends Component {
 		let psItem = { msrc, src, w, h };
 
 		if ( title ) {
-			psItem = Object.assign({}, psItem, { title });
+			psItem = Object.assign( {}, psItem, { title } );
 		}
 
 		return psItem;
@@ -75,7 +75,7 @@ export default class PhotoSwipe extends Component {
 
 		this.props.gallery.items.forEach( ( item, index ) => {
 			items = items.concat( this.getItem( index ) );
-		});
+		} );
 
 		return items;
 	}
@@ -83,20 +83,18 @@ export default class PhotoSwipe extends Component {
 	open() {
 		const { gallery, startIndex } = this.props;
 		let options = {
-			index:            startIndex,
-			captionEl:        gallery.showCaption,
-			getThumbBoundsFn: this.getThumbBoundsFn.bind( this )
+			index: startIndex,
+			captionEl: gallery.showCaption,
+			getThumbBoundsFn: this.getThumbBoundsFn.bind( this ),
 		};
 
 		if ( gallery.single ) {
-			options = Object.assign({}, options, {
+			options = Object.assign( {}, options, {
 				history: false,
-				shareEl: false
-			});
+				shareEl: false,
+			} );
 		} else {
-			options = Object.assign({}, options, {
-				galleryUID: gallery.id.replace( 'gallery-', '' )
-			});
+			options = Object.assign( {}, options, { galleryUID: gallery.id.replace( 'gallery-', '' ) } );
 		}
 
 		const instance = new Photoswipe( this.El, PhotoswipeUi, this.getItems(), options );
@@ -112,7 +110,7 @@ export default class PhotoSwipe extends Component {
 			if ( this.isFresh ) {
 				this.isFresh = false;
 			}
-		});
+		} );
 
 		instance.listen( 'gettingData', ( index, item ) => {
 			const freshItem = this.getItem( index );
@@ -122,7 +120,7 @@ export default class PhotoSwipe extends Component {
 			item.h = freshItem.h;
 			item.src = freshItem.src;
 			/* eslint-enable no-param-reassign */
-		});
+		} );
 
 		instance.listen( 'initialZoomInEnd', () => {
 			// If this is a real gallery, unset currentThumb so that
@@ -130,11 +128,11 @@ export default class PhotoSwipe extends Component {
 			if ( ! gallery.single ) {
 				this.currentThumb = '';
 			}
-		});
+		} );
 
 		instance.listen( 'destroy', () => {
 			this.props.dispatch( closeGallery() );
-		});
+		} );
 
 		instance.init();
 	}
@@ -146,7 +144,9 @@ export default class PhotoSwipe extends Component {
 				tabIndex="-1"
 				role="dialog"
 				aria-hidden="true"
-				ref={ c => { this.El = c; } }
+				ref={ c => {
+					this.El = c;
+				} }
 			>
 				<div className="pswp__bg" />
 				<div className="pswp__scroll-wrap">

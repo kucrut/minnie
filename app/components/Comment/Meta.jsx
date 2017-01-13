@@ -16,7 +16,7 @@ export default class CommentMeta extends Component {
 		replyLink:          PropTypes.string.isRequired,
 		allowReplies:       PropTypes.bool.isRequired,
 		showViewReplies:    PropTypes.bool.isRequired,
-		onClickViewReplies: PropTypes.func.isRequired
+		onClickViewReplies: PropTypes.func.isRequired,
 	}
 
 	renderReplyLink() {

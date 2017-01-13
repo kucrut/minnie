@@ -6,7 +6,7 @@ import toggleSidebar from 'actions/ui';
 class Burger extends Component {
 	static propTypes = {
 		isSidebarExpanded: PropTypes.bool.isRequired,
-		dispatch:          PropTypes.func.isRequired
+		dispatch: PropTypes.func.isRequired,
 	}
 
 	constructor( props ) {
@@ -19,10 +19,10 @@ class Burger extends Component {
 	}
 
 	render() {
-		const buttonClass = classNames({
+		const buttonClass = classNames( {
 			'menu-toggle': true,
-			'toggle-on':   this.props.isSidebarExpanded
-		});
+			'toggle-on': this.props.isSidebarExpanded,
+		} );
 
 		return (
 			<button className={ buttonClass } title="Sidebar" onClick={ this.onClick }>
@@ -33,9 +33,7 @@ class Burger extends Component {
 }
 
 function mapStateToProps( state ) {
-	return {
-		isSidebarExpanded: state.ui.isSidebarExpanded
-	};
+	return { isSidebarExpanded: state.ui.isSidebarExpanded };
 }
 
 export default connect( mapStateToProps )( Burger );

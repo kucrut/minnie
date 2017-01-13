@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-export default function CommentReplyLink({ link }) {
+export default function CommentReplyLink( { link } ) {
 	const cls = 'comment-reply-link genericon genericon-reply-single';
 
 	return (
@@ -11,6 +11,4 @@ export default function CommentReplyLink({ link }) {
 	);
 }
 
-CommentReplyLink.propTypes = {
-	link: PropTypes.string.isRequired
-};
+CommentReplyLink.propTypes = { link: PropTypes.string.isRequired };

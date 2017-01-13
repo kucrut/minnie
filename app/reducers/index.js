@@ -11,7 +11,7 @@ import comments from 'reducers/comments';
 import galleries from 'reducers/galleries';
 
 // Combine reducers with routeReducer which keeps track of router state.
-export default combineReducers({
+export default combineReducers( {
 	session,
 	info,
 	menu,
@@ -21,5 +21,5 @@ export default combineReducers({
 	terms,
 	comments,
 	galleries,
-	routing
-});
+	routing,
+} );

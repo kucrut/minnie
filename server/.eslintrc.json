@@ -1,9 +1,9 @@
 {
-	"extends": "eslint:recommended",
-	"env": {
-		"node": true
-	},
-	"rules": {
-		"indent": ["error", "tab"]
-	}
+  "extends": "eslint:recommended",
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "indent": ["error", "tab"]
+  }
 }

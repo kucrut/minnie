@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export default function Errors({ error }) {
+export default function Errors( { error } ) {
 	return (
 		<div className="comment-error">
 			{ Object.keys( error ).map( field => <p key={ `error-${field}` }>{ error[ field ] }</p> ) }
@@ -8,6 +8,4 @@ export default function Errors({ error }) {
 	);
 }
 
-Errors.propTypes = {
-	error: PropTypes.object.isRequired
-};
+Errors.propTypes = { error: PropTypes.object.isRequired };

@@ -5,11 +5,10 @@ import EntryFormat from 'components/Entry/Format';
 import EntryContent from 'components/Entry/Content';
 import EntryContentMedia from 'components/Entry/ContentMedia';
 
-
 export default class Entry extends Component {
 	static propTypes = {
 		isSingle: PropTypes.bool.isRequired,
-		data:     PropTypes.object.isRequired
+		data: PropTypes.object.isRequired,
 	}
 
 	constructor( props ) {
@@ -57,7 +56,7 @@ export default class Entry extends Component {
 		const { isSingle, data } = this.props;
 		let content;
 
-		if ( isSingle || 'standard' !== data.format ) {
+		if ( isSingle || data.format !== 'standard' ) {
 			content = data.content.rendered;
 		} else {
 			content = data.excerpt.rendered;
@@ -69,11 +68,11 @@ export default class Entry extends Component {
 	removeScripts() {
 		this.scriptEls.forEach( el => {
 			el.remove();
-		});
+		} );
 	}
 
 	injectScripts() {
-		if ( 'attachment' === this.props.data.type ) {
+		if ( this.props.data.type === 'attachment' ) {
 			return;
 		}
 
@@ -92,7 +91,7 @@ export default class Entry extends Component {
 
 			document.body.appendChild( el );
 			scriptEls.push( el );
-		});
+		} );
 
 		this.scriptEls = scriptEls;
 	}
@@ -101,7 +100,7 @@ export default class Entry extends Component {
 		const { data } = this.props;
 		let el;
 
-		if ( 'post' === data.type || 'attachment' === data.type ) {
+		if ( data.type === 'post' || data.type === 'attachment' ) {
 			el = ( <EntryMeta data={ data } /> );
 		}
 
@@ -112,7 +111,7 @@ export default class Entry extends Component {
 		const { data } = this.props;
 		let el;
 
-		if ( 'post' === data.type ) {
+		if ( data.type === 'post' ) {
 			el = ( <EntryFormat data={ data } /> );
 		}
 
@@ -123,7 +122,7 @@ export default class Entry extends Component {
 		const { data } = this.props;
 		let el;
 
-		if ( 'attachment' === data.type ) {
+		if ( data.type === 'attachment' ) {
 			el = ( <EntryContentMedia data={ data } /> );
 		} else {
 			el = ( <EntryContent content={ this.getContent() } /> );

@@ -4,9 +4,8 @@ import {
 	GET_ARCHIVE_SUCCESS,
 	GET_ARCHIVE_FAILURE,
 	GET_ARCHIVE_TERM_SUCCESS,
-	GET_ARCHIVE_TERM_FAILURE
+	GET_ARCHIVE_TERM_FAILURE,
 } from 'constants/index';
-
 
 const initialState = {
 	items:       [],
@@ -16,7 +15,7 @@ const initialState = {
 	currentPage: 0,
 	hasMore:     false,
 	fetchParams: {},
-	isFetching:  false
+	isFetching:  false,
 };
 
 export default function archive( state = initialState, action ) {
@@ -25,40 +24,40 @@ export default function archive( state = initialState, action ) {
 	let searchTerm;
 
 	switch ( action.type ) {
-		case GET_ARCHIVE_REQUEST:
-			return Object.assign({}, state, {
-				isFetching: true
-			});
+	case GET_ARCHIVE_REQUEST:
+		return Object.assign( {}, state, {
+			isFetching: true,
+		} );
 
-		case GET_ARCHIVE_SUCCESS:
-			params      = action.req.config.params;
-			currentPage = parseInt( params.page, 10 ) || 1;
-			searchTerm  = params.search || '';
+	case GET_ARCHIVE_SUCCESS:
+		params      = action.req.config.params;
+		currentPage = parseInt( params.page, 10 ) || 1;
+		searchTerm  = params.search || '';
 
-			return Object.assign({}, state, {
-				items:       action.req.data,
-				isHome:      ( 2 > size( params ) && '' === searchTerm ),
-				hasMore:     currentPage < action.req.headers[ 'x-wp-totalpages' ],
-				fetchParams: action.fetchParams,
-				isFetching:  false,
-				searchTerm,
-				currentPage
-			});
+		return Object.assign( {}, state, {
+			items: action.req.data,
+			isHome: ( size( params ) < 1 && searchTerm === '' ),
+			hasMore: currentPage < action.req.headers[ 'x-wp-totalpages' ],
+			fetchParams: action.fetchParams,
+			isFetching: false,
+			searchTerm,
+			currentPage,
+		} );
 
-		case GET_ARCHIVE_FAILURE:
-			return initialState;
+	case GET_ARCHIVE_FAILURE:
+		return initialState;
 
-		case GET_ARCHIVE_TERM_SUCCESS:
-			return Object.assign({}, state, {
-				term: head( action.req.data )
-			});
+	case GET_ARCHIVE_TERM_SUCCESS:
+		return Object.assign( {}, state, {
+			term: head( action.req.data ),
+		} );
 
-		case GET_ARCHIVE_TERM_FAILURE:
-			return Object.assign({}, state, {
-				term: null
-			});
+	case GET_ARCHIVE_TERM_FAILURE:
+		return Object.assign( {}, state, {
+			term: null,
+		} );
 
-		default:
-			return state;
+	default:
+		return state;
 	}
 }

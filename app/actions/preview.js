@@ -20,15 +20,15 @@ export default function fetchPreview( params ) {
 			return;
 		}
 
-		dispatch({
-			type:      GET_SINGULAR,
+		dispatch( {
+			type: GET_SINGULAR,
 			isPreview: true,
-			postId:    id,
-			promise:   request({
+			postId: id,
+			promise: request( {
 				method: 'get',
-				url:    `/wp/v2/${postType}/${id}`,
-				params: { preview: 1 }
-			})
-		});
+				url: `/wp/v2/${postType}/${id}`,
+				params: { preview: 1 },
+			} ),
+		} );
 	};
 }

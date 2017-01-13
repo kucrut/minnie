@@ -2,27 +2,24 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-
 class SearchForm extends Component {
 	static propTypes = {
-		apiUrl:     PropTypes.string.isRequired,
+		apiUrl: PropTypes.string.isRequired,
 		searchTerm: PropTypes.string.isRequired,
-		dispatch:   PropTypes.func.isRequired
+		dispatch: PropTypes.func.isRequired,
 	}
 
 	constructor( props ) {
 		super( props );
 
-		this.state = {
-			searchTerm: decodeURIComponent( props.searchTerm )
-		};
+		this.state = { searchTerm: decodeURIComponent( props.searchTerm ) };
 
 		this.handleChange = this.handleChange.bind( this );
 		this.handleSubmit = this.handleSubmit.bind( this );
 	}
 
 	handleChange( e ) {
-		this.setState({ searchTerm: e.target.value });
+		this.setState( { searchTerm: e.target.value } );
 	}
 
 	handleSubmit( e ) {
@@ -37,7 +34,7 @@ class SearchForm extends Component {
 			method:     'get',
 			className:  'search-form',
 			formAction: apiUrl,
-			onSubmit:   this.handleSubmit
+			onSubmit:   this.handleSubmit,
 		};
 		const inputAttrs = {
 			name:        's',
@@ -45,7 +42,7 @@ class SearchForm extends Component {
 			className:   'search-field',
 			placeholder: 'Search…',
 			value:       searchTerm,
-			onChange:    this.handleChange
+			onChange:    this.handleChange,
 		};
 
 		return (
@@ -62,8 +59,8 @@ class SearchForm extends Component {
 
 function mapStateToProps( state ) {
 	return {
-		apiUrl:     state.info.apiUrl,
-		searchTerm: state.archive.searchTerm
+		apiUrl: state.info.apiUrl,
+		searchTerm: state.archive.searchTerm,
 	};
 }
 

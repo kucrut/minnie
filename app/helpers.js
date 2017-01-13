@@ -3,12 +3,11 @@ import axios from 'axios';
 import { forEach, has, isEmpty, omit, size, trim } from 'lodash';
 import { taxonomyMap } from 'config';
 
-
 export const contentPathRegEx = new RegExp( '^/wp-content/' );
 
 export function canUseDOM() {
 	return !! (
-		( 'undefined' !== typeof window && window.document && window.document.createElement )
+		( typeof window !== 'undefined' && window.document && window.document.createElement )
 	);
 }
 
@@ -21,23 +20,16 @@ export function getToken() {
 export function configureAxios( apiUrl ) {
 	axios.defaults.baseURL = `${trim( apiUrl, '/' )}/wp-json/`;
 	axios.defaults.headers = { 'X-Requested-With': 'minnie' };
-	axios.defaults.paramsSerializer = params => qs.stringify( params, {
-		arrayFormat: 'brackets'
-	});
+	axios.defaults.paramsSerializer = params => qs.stringify( params, { arrayFormat: 'brackets' } );
 }
 
 export function normalizeParams( params ) {
 	let filters = {};
-	let normalized = Object.assign({}, params, {
-		page: parseInt( ( params.page || 1 ), 10 )
-	});
-
+	let normalized = Object.assign( {}, params, { page: parseInt( ( params.page || 1 ), 10 ) } );
 
 	// Convert `s` to `search`.
 	if ( has( normalized, 's' ) ) {
-		normalized = Object.assign({}, omit( normalized, 's' ), {
-			search: normalized.s
-		});
+		normalized = Object.assign( {}, omit( normalized, 's' ), { search: normalized.s } );
 	}
 
 	// Build `filter` param.
@@ -49,21 +41,17 @@ export function normalizeParams( params ) {
 		const props = taxonomyMap[ routeParam ];
 		let term = params[ routeParam ];
 
-		if ( 'format' === routeParam ) {
+		if ( routeParam === 'format' ) {
 			term = `post-format-${term}`;
 		}
 
-		filters = Object.assign({}, filters, {
-			[ props.queryVar ]: term
-		});
+		filters = Object.assign( {}, filters, { [ props.queryVar ]: term } );
 
-		normalized = Object.assign({}, omit( normalized, routeParam ) );
+		normalized = Object.assign( {}, omit( normalized, routeParam ) );
 	}
 
 	if ( ! isEmpty( filters ) ) {
-		normalized = Object.assign({}, normalized, {
-			filter: filters
-		});
+		normalized = Object.assign( {}, normalized, { filter: filters } );
 	}
 
 	return normalized;
@@ -72,7 +60,7 @@ export function normalizeParams( params ) {
 export function getArchiveTaxonomyTerm( params ) {
 	let result = null;
 
-	if ( 1 > size( params ) ) {
+	if ( size( params ) < 1 ) {
 		return result;
 	}
 
@@ -84,13 +72,13 @@ export function getArchiveTaxonomyTerm( params ) {
 		const props = taxonomyMap[ routeParam ];
 		let slug = params[ routeParam ];
 
-		if ( 'format' === routeParam ) {
+		if ( routeParam === 'format' ) {
 			slug = `post-format-${slug}`;
 		}
 
 		result = {
 			endpoint: props.endpoint,
-			slug
+			slug,
 		};
 	}
 
@@ -116,7 +104,7 @@ export function getAdjacentLink( next = true, args ) {
 	// Home's prev
 	if ( hasMore && ! route.path && ! next ) {
 		return addSearchQuery( '/page/2' );
-	} else if ( 0 === newPage || ( ! hasMore && ! next ) ) {
+	} else if ( newPage === 0 || ( ! hasMore && ! next ) ) {
 		return link;
 	}
 
@@ -127,15 +115,15 @@ export function getAdjacentLink( next = true, args ) {
 			if ( el.path ) {
 				paths.push( el.path );
 			}
-		});
+		} );
 	}
 
 	link = paths.join( '/' );
 
-	newParams = Object.assign({}, routeParams, newParams );
+	newParams = Object.assign( {}, routeParams, newParams );
 	forEach( newParams, ( value, key ) => {
 		link = link.replace( `:${key}`, value );
-	});
+	} );
 
 	link = link.replace( 'page/1', '' );
 	link = trim( link, '/' );
@@ -180,7 +168,7 @@ export function checkOtherState( getState, name, interval = 100 ) {
 }
 
 export function getQueryVar( name, url ) {
-	const qvar = name.replace( /[\[\]]/g, '\\$&' );
+	const qvar = name.replace( /[[]]/g, '\\$&' );
 	const regex = new RegExp( `[?&]${qvar}(=([^&#]*)|&|#|$)` );
 	const results = regex.exec( url );
 

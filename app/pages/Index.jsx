@@ -18,12 +18,12 @@ class Index extends Component {
 		query:       PropTypes.object.isRequired,
 		route:       PropTypes.object.isRequired,
 		routeParams: PropTypes.object.isRequired,
-		dispatch:    PropTypes.func.isRequired
+		dispatch:    PropTypes.func.isRequired,
 	}
 
 	static need = [
 		fetchArchive,
-		fetchArchiveTerm
+		fetchArchiveTerm,
 	]
 
 	/**
@@ -42,9 +42,9 @@ class Index extends Component {
 			return;
 		}
 
-		const params = Object.assign({}, routeParams, query );
+		const params = Object.assign( {}, routeParams, query );
 
-		if ( 0 === currentPage || ! isEqual( params, fetchParams ) ) {
+		if ( currentPage === 0 || ! isEqual( params, fetchParams ) ) {
 			this.fetchData( params );
 		}
 	}
@@ -64,7 +64,7 @@ class Index extends Component {
 			return;
 		}
 
-		const params = Object.assign({}, routeParams, query );
+		const params = Object.assign( {}, routeParams, query );
 
 		if ( ! isEqual( params, fetchParams ) ) {
 			this.fetchData( params );
@@ -159,7 +159,7 @@ class Index extends Component {
 			currentPage,
 			route,
 			routeParams,
-			query
+			query,
 		};
 
 		let prevLink = getAdjacentLink( false, args );
@@ -177,13 +177,11 @@ class Index extends Component {
 		let args;
 
 		if ( searchTerm ) {
-			args = {
-				content: 'It seems we can’t find what you’re looking for. Perhaps try another search?'
-			};
+			args = { content: 'It seems we can’t find what you’re looking for. Perhaps try another search?' };
 		} else {
 			args = {
 				title:   'Nothing Found.',
-				content: 'It seems we can’t find what you’re looking for. Perhaps searching can help.'
+				content: 'It seems we can’t find what you’re looking for. Perhaps searching can help.',
 			};
 		}
 
@@ -229,7 +227,7 @@ function mapStateToProps( state, ownProps ) {
 		archive:     state.archive,
 		route:       ownProps.route,
 		query:       ownProps.location.query,
-		routeParams: ownProps.params
+		routeParams: ownProps.params,
 	};
 }
 

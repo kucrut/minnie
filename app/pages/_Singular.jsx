@@ -5,7 +5,6 @@ import NotFound from 'pages/404';
 import Spinner from 'components/Spinner';
 import Entry from 'components/Entry/Item';
 
-
 export default class _Singular extends Component {
 
 	static propTypes = {
@@ -15,7 +14,7 @@ export default class _Singular extends Component {
 		singular: PropTypes.object.isRequired,
 		dispatch: PropTypes.func.isRequired,
 		query:    PropTypes.object,
-		comments: PropTypes.object
+		comments: PropTypes.object,
 	}
 
 	constructor( props ) {
@@ -32,9 +31,7 @@ export default class _Singular extends Component {
 		 * @type {Object}
 		 * @see  {@link https://github.com/reactjs/react-redux/issues/210}
 		 */
-		this.state = {
-			isWaitingForProps: ( slug !== singular.data.slug )
-		};
+		this.state = { isWaitingForProps: ( slug !== singular.data.slug ) };
 	}
 
 	/**
@@ -51,7 +48,7 @@ export default class _Singular extends Component {
 		const { data, isFetching } = singular;
 
 		if ( isFetching ) {
-			this.setState({ isWaitingForProps: false });
+			this.setState( { isWaitingForProps: false } );
 			return;
 		}
 
@@ -69,10 +66,10 @@ export default class _Singular extends Component {
 	 * @param  {object} nextProps Next properties.
 	 */
 	componentWillReceiveProps( nextProps ) {
-		const { slug, singular: { isFetching } } = nextProps;
+		const { slug, singular: { isFetching }} = nextProps;
 
 		if ( isFetching ) {
-			this.setState({ isWaitingForProps: false });
+			this.setState( { isWaitingForProps: false } );
 			return;
 		}
 

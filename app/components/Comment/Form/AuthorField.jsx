@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Required from 'components/Required';
 
-export default function AuthorField({ value, handleChange }) {
+export default function AuthorField( { value, handleChange } ) {
 	return (
 		<p className="comment-form-author" key="author-field">
 			<label htmlFor="author">Name <Required /></label>
@@ -21,6 +21,6 @@ export default function AuthorField({ value, handleChange }) {
 }
 
 AuthorField.propTypes = {
-	value:        PropTypes.string.isRequired,
-	handleChange: PropTypes.func.isRequired
+	value: PropTypes.string.isRequired,
+	handleChange: PropTypes.func.isRequired,
 };

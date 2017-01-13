@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export default function SubmitField({ isSubmitting, postId, parentId }) {
+export default function SubmitField( { isSubmitting, postId, parentId } ) {
 	return (
 		<p className="form-submit">
 			<button className="submit" disabled={ isSubmitting }>Post Comment</button>
@@ -11,7 +11,7 @@ export default function SubmitField({ isSubmitting, postId, parentId }) {
 }
 
 SubmitField.propTypes = {
-	postId:       PropTypes.number.isRequired,
-	parentId:     PropTypes.number.isRequired,
-	isSubmitting: PropTypes.bool.isRequired
+	postId: PropTypes.number.isRequired,
+	parentId: PropTypes.number.isRequired,
+	isSubmitting: PropTypes.bool.isRequired,
 };

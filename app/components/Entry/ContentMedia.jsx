@@ -1,20 +1,17 @@
 import React, { PropTypes } from 'react';
 import EntryContent from 'components/Entry/Content';
 
-
 /**
  * TODO: Support more media types.
  */
 export default class MediaContent extends EntryContent {
-	static propTypes = {
-		data: PropTypes.object.isRequired
-	}
+	static propTypes = { data: PropTypes.object.isRequired }
 
 	getImagePreviewSrc() {
 		const { sizes } = this.props.data.media_details;
 		let src = '';
 
-		for ( const size of ['large', 'medium', 'thumbnail', 'full'] ) {
+		for ( const size of [ 'large', 'medium', 'thumbnail', 'full' ] ) {
 			if ( sizes[ size ] ) {
 				src = sizes[ size ].source_url;
 				break;
