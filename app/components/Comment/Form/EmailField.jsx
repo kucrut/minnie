@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Required from 'components/Required';
 
-export default function EmailField({ value, handleChange }) {
+export default function EmailField( { value, handleChange } ) {
 	return (
 		<p className="comment-form-email">
 			<label htmlFor="email">Email <Required /></label>
@@ -22,6 +22,6 @@ export default function EmailField({ value, handleChange }) {
 }
 
 EmailField.propTypes = {
-	value:        PropTypes.string.isRequired,
-	handleChange: PropTypes.func.isRequired
+	value: PropTypes.string.isRequired,
+	handleChange: PropTypes.func.isRequired,
 };

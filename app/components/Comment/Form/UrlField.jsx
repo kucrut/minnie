@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export default function CommentFormUrlField({ value, handleChange }) {
+export default function CommentFormUrlField( { value, handleChange } ) {
 	return (
 		<p className="comment-form-url">
 			<label htmlFor="url">Website</label>
@@ -18,6 +18,6 @@ export default function CommentFormUrlField({ value, handleChange }) {
 }
 
 CommentFormUrlField.propTypes = {
-	value:        PropTypes.string.isRequired,
-	handleChange: PropTypes.func.isRequired
+	value: PropTypes.string.isRequired,
+	handleChange: PropTypes.func.isRequired,
 };

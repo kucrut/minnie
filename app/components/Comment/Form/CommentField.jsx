@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Required from 'components/Required';
 
-export default function CommentField({ value, handleChange }) {
+export default function CommentField( { value, handleChange } ) {
 	return (
 		<p className="comment-form-comment">
 			<label htmlFor="comment">Comment <Required /></label>
@@ -21,6 +21,6 @@ export default function CommentField({ value, handleChange }) {
 }
 
 CommentField.propTypes = {
-	value:        PropTypes.string.isRequired,
-	handleChange: PropTypes.func.isRequired
+	value: PropTypes.string.isRequired,
+	handleChange: PropTypes.func.isRequired,
 };

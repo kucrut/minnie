@@ -3,7 +3,7 @@
 import React, { PropTypes } from 'react';
 import Required from 'components/Required';
 
-export default function Notes({ userName }) {
+export default function Notes( { userName } ) {
 	if ( userName ) {
 		return (
 			<p className="logged-in-as">Logged in as <em>{ userName }</em>.</p>
@@ -15,6 +15,4 @@ export default function Notes({ userName }) {
 	);
 }
 
-Notes.propTypes = {
-	userName: PropTypes.string
-};
+Notes.propTypes = { userName: PropTypes.string };
