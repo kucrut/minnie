@@ -1,10 +1,10 @@
 {
-	"apps" : [{
-		"name"        : "minnie",
-		"script"      : "server/index.js",
-		"watch"       : true,
-		"env": {
-			"NODE_ENV" : "production"
-		}
-	}]
+  "apps": [{
+    "name": "minnie",
+    "script": "server/index.js",
+    "watch": true,
+    "env": {
+      "NODE_ENV": "production"
+    }
+  }]
 }
