@@ -4,7 +4,6 @@ import { fetchMedia } from 'actions/singular';
 import _Singular from 'pages/_Singular';
 import ContentNavigation from 'components/ContentNavigation';
 
-
 class Media extends _Singular {
 
 	/**
@@ -15,14 +14,12 @@ class Media extends _Singular {
 	 *
 	 * @type {Array}
 	 */
-	static need = [
-		fetchMedia
-	]
+	static need = [fetchMedia]
 
 	static displayName = 'Media';
 
 	fetchData( slug ) {
-		this.props.dispatch( fetchMedia({ slug }) );
+		this.props.dispatch( fetchMedia( { slug } ) );
 	}
 
 	renderNavigation() {
@@ -45,7 +42,7 @@ function mapStateToProps( state, ownProps ) {
 		info:     state.info,
 		singular: state.singular,
 		user:     state.session.user,
-		slug
+		slug,
 	};
 }
 

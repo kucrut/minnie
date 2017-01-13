@@ -2,7 +2,6 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import EntryEmpty from 'components/Entry/Empty';
 
-
 export default function NotFound() {
 	return (
 		<div className="content">
