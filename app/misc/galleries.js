@@ -7,7 +7,7 @@ function createGalleryItem( imgEl, origImgUrl, title = '' ) {
 	let item = {
 		sizes: [],
 		title,
-		msrc
+		msrc,
 	};
 
 	for ( let s = 0; s < sizes.length; ++s ) {
@@ -18,8 +18,8 @@ function createGalleryItem( imgEl, origImgUrl, title = '' ) {
 		if ( src === origImgUrl ) {
 			size = {
 				src: origImgUrl,
-				w:   parseInt( imgEl.getAttribute( 'data-ow' ), 10 ),
-				h:   parseInt( imgEl.getAttribute( 'data-oh' ), 10 )
+				w: parseInt( imgEl.getAttribute( 'data-ow' ), 10 ),
+				h: parseInt( imgEl.getAttribute( 'data-oh' ), 10 ),
 			};
 		} else {
 			const w = parseInt( srcW[ 1 ].replace( 'w', '' ), 10 );
@@ -30,14 +30,10 @@ function createGalleryItem( imgEl, origImgUrl, title = '' ) {
 			size = { src, w, h };
 		}
 
-		item = Object.assign({}, item, {
-			sizes: item.sizes.concat( size )
-		});
+		item = Object.assign( {}, item, { sizes: item.sizes.concat( size ) } );
 	}
 
-	item = Object.assign({}, item, {
-		sizes: sortBy( item.sizes, 'w' )
-	});
+	item = Object.assign( {}, item, { sizes: sortBy( item.sizes, 'w' ) } );
 
 	return item;
 }
@@ -45,9 +41,9 @@ function createGalleryItem( imgEl, origImgUrl, title = '' ) {
 export function createGallery( el ) {
 	const itemEls = el.querySelectorAll( '.gallery-item' );
 	let gallery = {
-		id:     el.getAttribute( 'id' ),
-		items:  [],
-		single: false
+		id: el.getAttribute( 'id' ),
+		items: [],
+		single: false,
 	};
 	let showCaption = false;
 
@@ -65,12 +61,10 @@ export function createGallery( el ) {
 			title = '';
 		}
 
-		gallery = Object.assign({}, gallery, {
-			items: gallery.items.concat( createGalleryItem( imgEl, origImgUrl, title ) )
-		});
+		gallery = Object.assign( {}, gallery, { items: gallery.items.concat( createGalleryItem( imgEl, origImgUrl, title ) ) } );
 	}
 
-	gallery = Object.assign({}, gallery, { showCaption });
+	gallery = Object.assign( {}, gallery, { showCaption } );
 
 	return gallery;
 }
@@ -87,10 +81,10 @@ export function createZoom( imgEl ) {
 	const item = createGalleryItem( imgEl, origImgUrl, title );
 
 	return {
-		id:          getZoomId( imgEl ),
-		items:       [item],
-		single:      true,
-		showCaption: ( '' !== title )
+		id: getZoomId( imgEl ),
+		items: [item],
+		single: true,
+		showCaption: ( title !== '' ),
 	};
 }
 
@@ -117,7 +111,7 @@ export function prepareGallery( el ) {
 	const itemEls = el.querySelectorAll( '.gallery-item' );
 	const hiddenCount = ( itemEls.length - maxShown );
 
-	if ( 0 >= hiddenCount ) {
+	if ( hiddenCount < 1 ) {
 		return;
 	}
 

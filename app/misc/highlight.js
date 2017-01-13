@@ -5,7 +5,7 @@ import { codeHighlight } from 'config';
 require( 'prismjs/plugins/line-numbers/prism-line-numbers.js' );
 codeHighlight.languages.forEach( lang => {
 	require( `prismjs/components/prism-${lang}.js` );
-});
+} );
 
 /**
  * Highlight code with Prism.js
