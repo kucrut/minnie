@@ -13,26 +13,8 @@
     }
   },
   "rules": {
-    "comma-dangle": 0,
-    "computed-property-spacing": ["error", "always" ],
-    "indent": [ "error", "tab", {"SwitchCase": 1} ],
-    "key-spacing": ["error", { "align": "value" }],
-    "no-extra-parens": ["error", "functions" ],
+    "key-spacing": [ "error", { "mode": "minimum" }],
     "no-continue": 0,
-    "no-multi-spaces": ["error", { "exceptions": {
-      "VariableDeclarator": true,
-      "AssignmentExpression": true
-    }}],
-    "no-prototype-builtins": 0,
-    "space-in-parens": ["error", "always", { "exceptions": ["{}"] } ],
-    "space-unary-ops": ["warn", {
-      "words": true,
-      "nonwords": true,
-      "overrides": {
-        "++": false
-      }
-    }],
-    "yoda": ["error", "always"],
     "react/forbid-prop-types": 1,
     "react/jsx-boolean-value": 0,
     "react/jsx-indent": ["error", "tab"],
