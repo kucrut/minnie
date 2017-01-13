@@ -4,22 +4,21 @@ import { GET_ARCHIVE, GET_ARCHIVE_TERM, GET_ARCHIVE_TERM_FAILURE } from 'constan
 import { makeTermsRequest } from 'actions/terms';
 import { normalizeParams, getArchiveTaxonomyTerm } from 'helpers';
 
-
 polyfill();
 
 function makeArchiveRequest( params ) {
-	return axios({
+	return axios( {
 		method: 'get',
 		url:    '/wp/v2/posts',
-		params
-	});
+		params,
+	} );
 }
 
-export function fetchArchive( params = {}) {
+export function fetchArchive( params = {} ) {
 	return {
-		type:        GET_ARCHIVE,
+		type: GET_ARCHIVE,
 		fetchParams: params,
-		promise:     makeArchiveRequest( normalizeParams( params ) )
+		promise: makeArchiveRequest( normalizeParams( params ) ),
 	};
 }
 
@@ -31,19 +30,15 @@ export function fetchArchive( params = {}) {
  * @param  {Object} params [description]
  * @return {Object}
  */
-export function fetchArchiveTerm( params = {}) {
+export function fetchArchiveTerm( params = {} ) {
 	const fetchParams = getArchiveTaxonomyTerm( params );
 
-	if ( null === fetchParams || fetchParams.search ) {
-		return {
-			type: GET_ARCHIVE_TERM_FAILURE
-		};
+	if ( fetchParams === null || fetchParams.search ) {
+		return { type: GET_ARCHIVE_TERM_FAILURE };
 	}
 
 	return {
-		type:    GET_ARCHIVE_TERM,
-		promise: makeTermsRequest( fetchParams.endpoint, {
-			slug: fetchParams.slug
-		})
+		type: GET_ARCHIVE_TERM,
+		promise: makeTermsRequest( fetchParams.endpoint, { slug: fetchParams.slug } ),
 	};
 }

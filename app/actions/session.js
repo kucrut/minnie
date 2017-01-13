@@ -5,14 +5,12 @@ import { GET_SESSION, GET_SESSION_FAILURE } from 'constants/index';
 function makeSessionRequest( token ) {
 	return {
 		token,
-		type:    GET_SESSION,
-		promise: axios({
-			method:  'get',
-			url:     '/wp/v2/users/me',
-			headers: {
-				Authorization: `Basic ${token}`
-			}
-		})
+		type: GET_SESSION,
+		promise: axios( {
+			method: 'get',
+			url: '/wp/v2/users/me',
+			headers: { Authorization: `Basic ${token}` },
+		} ),
 	};
 }
 

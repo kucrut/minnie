@@ -4,9 +4,9 @@ export default function toggleSidebar() {
 	return ( dispatch, getState ) => {
 		const expand = ! getState().ui.isSidebarExpanded;
 
-		dispatch({
+		dispatch( {
 			type: UI_TOGGLE_SIDEBAR,
-			expand
-		});
+			expand,
+		} );
 	};
 }

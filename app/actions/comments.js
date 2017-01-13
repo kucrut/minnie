@@ -5,16 +5,14 @@ import { checkOtherState } from 'helpers';
 
 polyfill();
 
-const defaultParams = {
-	parent: 0
-};
+const defaultParams = { parent: 0 };
 
 function makeRequest( params ) {
-	return request({
+	return request( {
 		method: 'get',
-		url:    '/wp/v2/comments',
-		params
-	});
+		url: '/wp/v2/comments',
+		params,
+	} );
 }
 
 /**
@@ -27,32 +25,30 @@ function makeRequest( params ) {
  *  @return {object}
  */
 export function fetchComments( params ) {
-	const fetchParams = Object.assign({}, defaultParams, params );
+	const fetchParams = Object.assign( {}, defaultParams, params );
 
-	return ( dispatch, getState ) => dispatch({
-		type:     GET_COMMENTS,
-		postId:   fetchParams.post,
+	return ( dispatch, getState ) => dispatch( {
+		type: GET_COMMENTS,
+		postId: fetchParams.post,
 		parentId: fetchParams.parent,
-		promise:  checkOtherState( getState, 'info' )
+		promise: checkOtherState( getState, 'info' )
 			.then( info => Promise.all( [
 				info,
-				makeRequest( Object.assign({
-					per_page: info.settings.comments.per_page
-				}, fetchParams ) )
-			] ).then( results => Promise.resolve( results[ 1 ] ) ) )
+				makeRequest( Object.assign( { per_page: info.settings.comments.per_page }, fetchParams ) ),
+			] ).then( results => Promise.resolve( results[ 1 ] ) ) ),
 			// TODO: Check if info contains error.
-	});
+	} );
 }
 
 export function postComment( data ) {
 	return {
-		type:     POST_COMMENT,
-		postId:   data.post,
+		type: POST_COMMENT,
+		postId: data.post,
 		parentId: data.parent,
-		promise:  request({
+		promise: request( {
 			method: 'post',
 			url:    '/wp/v2/comments',
-			data
-		})
+			data,
+		} ),
 	};
 }
