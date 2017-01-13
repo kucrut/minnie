@@ -2,14 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import he from 'he';
 
-
 export default class ContentNavigation extends Component {
 	static propTypes = {
 		isSingle: PropTypes.bool,
 		prevLink: PropTypes.string,
 		prevText: PropTypes.string,
 		nextLink: PropTypes.string,
-		nextText: PropTypes.string
+		nextText: PropTypes.string,
 	}
 
 	renderPrevLink() {
@@ -27,7 +26,6 @@ export default class ContentNavigation extends Component {
 
 		return el;
 	}
-
 
 	renderNextLink() {
 		const { nextLink, nextText } = this.props;

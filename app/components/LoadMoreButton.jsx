@@ -3,16 +3,16 @@ import classNames from 'classnames';
 
 export default class LoadMoreButton extends Component {
 	static defaultProps = {
-		text:   'Load More',
-		params: {}
+		text: 'Load More',
+		params: {},
 	}
 
 	static propTypes = {
-		onClick:    PropTypes.func.isRequired,
-		hasMore:    PropTypes.bool.isRequired,
+		onClick: PropTypes.func.isRequired,
+		hasMore: PropTypes.bool.isRequired,
 		isFetching: PropTypes.bool.isRequired,
-		text:       PropTypes.string,
-		params:     PropTypes.object
+		text: PropTypes.string,
+		params: PropTypes.object,
 	}
 
 	constructor( props ) {
@@ -35,12 +35,12 @@ export default class LoadMoreButton extends Component {
 			return null;
 		}
 
-		const iconClass = classNames({
-			genericon:            true,
-			'animate-spin':       isFetching,
-			'genericon-refresh':  isFetching,
-			'genericon-download': ! isFetching
-		});
+		const iconClass = classNames( {
+			genericon: true,
+			'animate-spin': isFetching,
+			'genericon-refresh': isFetching,
+			'genericon-download': ! isFetching,
+		} );
 
 		return (
 			<div className="load-more">
