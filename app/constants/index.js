@@ -1,6 +1,6 @@
 export const postTypeMap = {
 	post: 'posts',
-	page: 'pages'
+	page: 'pages',
 };
 
 export const GET_SESSION = 'GET_SESSION';
