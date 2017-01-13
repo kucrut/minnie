@@ -7,9 +7,7 @@ import { entryMetaTaxonomies } from 'config';
  * TODO: Display author link?
  */
 export default class EntryMeta extends Component {
-	static propTypes = {
-		data: PropTypes.object.isRequired
-	}
+	static propTypes = { data: PropTypes.object.isRequired }
 
 	renderDate() {
 		const {
@@ -17,7 +15,7 @@ export default class EntryMeta extends Component {
 			date,
 			modified,
 			date_formatted: dateFormatted,
-			modified_formatted: modifiedFormatted
+			modified_formatted: modifiedFormatted,
 		} = this.props.data;
 
 		return (

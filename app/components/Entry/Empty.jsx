@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import SearchForm from 'components/SearchForm';
 
-
 export default class EntryEmpty extends Component {
 	static propTypes = {
-		title:   PropTypes.string,
-		content: PropTypes.string.isRequired
+		title: PropTypes.string,
+		content: PropTypes.string.isRequired,
 	}
 
 	renderContent() {

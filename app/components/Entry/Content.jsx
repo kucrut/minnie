@@ -12,7 +12,7 @@ class EntryContent extends Component {
 	static propTypes = {
 		content:   PropTypes.string.isRequired,
 		wrapClass: PropTypes.string,
-		dispatch:  PropTypes.func.isRequired
+		dispatch:  PropTypes.func.isRequired,
 	}
 
 	constructor( props ) {
@@ -54,7 +54,7 @@ class EntryContent extends Component {
 
 		// Zoom image using Photoswipe.
 		const imgEl = anchor.querySelector( 'img' );
-		if ( imgEl && '1' === anchor.getAttribute( 'data-zoom' ) ) {
+		if ( imgEl && anchor.getAttribute( 'data-zoom' ) === '1' ) {
 			e.preventDefault();
 			dispatch( zoomImage( imgEl ) );
 
@@ -81,7 +81,9 @@ class EntryContent extends Component {
 
 		return (
 			<div
-				ref={ ( c ) => { this.theContent = c; } }
+				ref={ c => {
+					this.theContent = c;
+				} }
 				className={ divClass }
 				onClick={ this.handleClick }
 				dangerouslySetInnerHTML={ { __html: content } }
