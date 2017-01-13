@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-export default function CommentAuthor({ authorName, authorUrl }) {
+export default function CommentAuthor( { authorName, authorUrl } ) {
 	let el = ( <b className="fn">{ authorName }</b> );
 
-	if ( '' !== authorUrl ) {
-		if ( 0 === authorUrl.indexOf( '/' ) ) {
+	if ( authorUrl !== '' ) {
+		if ( authorUrl.indexOf( '/' ) === 0 ) {
 			el = ( <Link to={ authorUrl }>{ el }</Link> );
 		} else {
 			el = ( <a href={ authorUrl } rel="external nofollow">{ el }</a> );
@@ -16,6 +16,6 @@ export default function CommentAuthor({ authorName, authorUrl }) {
 }
 
 CommentAuthor.propTypes = {
-	authorUrl:  PropTypes.string.isRequired,
-	authorName: PropTypes.string.isRequired
+	authorUrl: PropTypes.string.isRequired,
+	authorName: PropTypes.string.isRequired,
 };

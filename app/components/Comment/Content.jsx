@@ -2,9 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import highlightCode from 'misc/highlight';
 
 export default class CommentContent extends Component {
-	static propTypes = {
-		content: PropTypes.string.isRequired
-	}
+	static propTypes = { content: PropTypes.string.isRequired }
 
 	componentDidMount() {
 		highlightCode( this.refs.theComment );

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-export default function CancelReplyLink({ link }) {
+export default function CancelReplyLink( { link } ) {
 	return (
 		<Link
 			to={ link }
@@ -13,6 +13,4 @@ export default function CancelReplyLink({ link }) {
 	);
 }
 
-CancelReplyLink.propTypes = {
-	link: PropTypes.string.isRequired
-};
+CancelReplyLink.propTypes = { link: PropTypes.string.isRequired };

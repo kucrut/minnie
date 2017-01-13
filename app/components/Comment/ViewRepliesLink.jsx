@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export default function CommentViewRepliesLink({ onClick }) {
+export default function CommentViewRepliesLink( { onClick } ) {
 	const cls = 'comment-view-replies-link genericon genericon-downarrow';
 
 	return (
@@ -10,6 +10,4 @@ export default function CommentViewRepliesLink({ onClick }) {
 	);
 }
 
-CommentViewRepliesLink.propTypes = {
-	onClick: PropTypes.func.isRequired
-};
+CommentViewRepliesLink.propTypes = { onClick: PropTypes.func.isRequired };
