@@ -12,7 +12,7 @@ import configureStore from 'store/configureStore';
 function hashLinkScroll() {
 	const { hash } = window.location;
 
-	if ( '' === hash ) {
+	if ( hash === '' ) {
 		return;
 	}
 

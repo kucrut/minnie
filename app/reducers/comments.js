@@ -4,7 +4,7 @@ import {
 	GET_COMMENTS_FAILURE,
 	POST_COMMENT_REQUEST,
 	POST_COMMENT_SUCCESS,
-	POST_COMMENT_FAILURE
+	POST_COMMENT_FAILURE,
 } from 'constants/index';
 
 const onHoldText = 'Your comment is waiting for moderation.';
@@ -15,7 +15,7 @@ const initialThreadState = {
 	items:       [],
 	hasMore:     false,
 	currentPage: 0,
-	isFetching:  false
+	isFetching:  false,
 };
 
 const initialState = {
@@ -25,7 +25,7 @@ const initialState = {
 	error:        {},
 	postId:       0,
 	threads:      {
-		t0: Object.assign({}, initialThreadState )
+		t0: Object.assign( {}, initialThreadState ),
 	},
 };
 
@@ -36,9 +36,9 @@ function getThread( state, parentId ) {
 		return state.threads[ threadId ];
 	}
 
-	return Object.assign({}, initialThreadState, {
-		parentId
-	});
+	return Object.assign( {}, initialThreadState, {
+		parentId,
+	} );
 }
 
 export default function comments( state = initialState, action ) {
@@ -54,92 +54,92 @@ export default function comments( state = initialState, action ) {
 	let error;
 
 	switch ( action.type ) {
-		case GET_COMMENTS_REQUEST:
-			if ( postId === state.postId ) {
-				threads = Object.assign({}, state.threads, {
-					[ threadId ]: Object.assign({}, threadState, { isFetching: true })
-				});
-			} else {
-				threads = Object.assign({}, {
-					[ threadId ]: Object.assign({}, threadState, { isFetching: true })
-				});
-			}
+	case GET_COMMENTS_REQUEST:
+		if ( postId === state.postId ) {
+			threads = Object.assign( {}, state.threads, {
+				[ threadId ]: Object.assign( {}, threadState, { isFetching: true } ),
+			} );
+		} else {
+			threads = Object.assign( {}, {
+				[ threadId ]: Object.assign( {}, threadState, { isFetching: true } ),
+			} );
+		}
 
-			return Object.assign({}, state, { postId, threads });
+		return Object.assign( {}, state, { postId, threads } );
 
-		case GET_COMMENTS_SUCCESS:
-			params      = action.req.config.params;
-			currentPage = parseInt( params.page, 10 ) || 1;
+	case GET_COMMENTS_SUCCESS:
+		params      = action.req.config.params;
+		currentPage = parseInt( params.page, 10 ) || 1;
 
-			if ( 1 < currentPage ) {
-				items = threadState.items.concat( action.req.data );
-			} else {
-				items = action.req.data;
-			}
+		if ( currentPage > 1 ) {
+			items = threadState.items.concat( action.req.data );
+		} else {
+			items = action.req.data;
+		}
 
-			return Object.assign({}, state, {
-				threads: Object.assign({}, state.threads, {
-					[ threadId ]: Object.assign({}, threadState, {
-						hasMore:    currentPage < action.req.headers[ 'x-wp-totalpages' ],
-						isFetching: false,
-						currentPage,
-						items
-					})
-				})
-			});
+		return Object.assign( {}, state, {
+			threads: Object.assign( {}, state.threads, {
+				[ threadId ]: Object.assign( {}, threadState, {
+					hasMore: currentPage < action.req.headers[ 'x-wp-totalpages' ],
+					isFetching: false,
+					currentPage,
+					items,
+				} ),
+			} ),
+		} );
 
-		case GET_COMMENTS_FAILURE:
-			return Object.assign({}, state, {
-				threads: Object.assign({}, state.threads, {
-					[ threadId ]: Object.assign({}, threadState, {
-						isFetching: false
-					})
-				})
-			});
+	case GET_COMMENTS_FAILURE:
+		return Object.assign( {}, state, {
+			threads: Object.assign( {}, state.threads, {
+				[ threadId ]: Object.assign( {}, threadState, {
+					isFetching: false,
+				} ),
+			} ),
+		} );
 
-		case POST_COMMENT_REQUEST:
-			return Object.assign({}, state, {
-				isSubmitting: true,
-				hasError:     false,
-				error:        {},
-			});
+	case POST_COMMENT_REQUEST:
+		return Object.assign( {}, state, {
+			isSubmitting: true,
+			hasError:     false,
+			error:        {},
+		} );
 
-		case POST_COMMENT_SUCCESS:
-			newComment = Object.assign({}, action.req.data );
+	case POST_COMMENT_SUCCESS:
+		newComment = Object.assign( {}, action.req.data );
 
-			if ( 'approved' !== newComment.status ) {
-				newComment = Object.assign({}, newComment, {
-					content: Object.assign({}, newComment.content, {
-						original: newComment.content.rendered,
-						rendered: `<p class="comment-awaiting-moderation">${onHoldText}</p>`
-					})
-				});
-			}
+		if ( newComment.status !== 'approved' ) {
+			newComment = Object.assign( {}, newComment, {
+				content: Object.assign( {}, newComment.content, {
+					original: newComment.content.rendered,
+					rendered: `<p class="comment-awaiting-moderation">${onHoldText}</p>`,
+				} ),
+			} );
+		}
 
-			items = threadState.items.concat( [newComment] );
+		items = threadState.items.concat( [newComment] );
 
-			return Object.assign({}, state, {
-				newComment,
-				isSubmitting: false,
-				threads:      Object.assign({}, state.threads, {
-					[ threadId ]: Object.assign({}, threadState, { items })
-				})
-			});
+		return Object.assign( {}, state, {
+			newComment,
+			isSubmitting: false,
+			threads: Object.assign( {}, state.threads, {
+				[ threadId ]: Object.assign( {}, threadState, { items } ),
+			} ),
+		} );
 
-		case POST_COMMENT_FAILURE:
-			if ( 409 === action.error.status ) {
-				error = { duplicate: dupeText };
-			} else {
-				error = action.error.data.data.params;
-			}
+	case POST_COMMENT_FAILURE:
+		if ( action.error.status === 409 ) {
+			error = { duplicate: dupeText };
+		} else {
+			error = action.error.data.data.params;
+		}
 
-			return Object.assign({}, state, {
-				isSubmitting: false,
-				hasError:     true,
-				error
-			});
+		return Object.assign( {}, state, {
+			isSubmitting: false,
+			hasError: true,
+			error,
+		} );
 
-		default:
-			return state;
+	default:
+		return state;
 	}
 }

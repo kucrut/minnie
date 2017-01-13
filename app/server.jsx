@@ -43,12 +43,11 @@ function renderFullPage( html, initialState ) {
 	</html>`;
 }
 
-
 export default function render( req, res ) {
 	const history = createMemoryHistory();
-	const store = configureStore({ info: {
-		apiUrl
-	} }, history );
+	const store = configureStore( { info: {
+		apiUrl,
+	}}, history );
 	const routes = createRoutes( store );
 
 	/*
@@ -72,13 +71,13 @@ export default function render( req, res ) {
 	 * If all three parameters are `undefined`, this means that there was no route found matching the
 	 * given location.
 	 */
-	match({ routes, location: req.url }, ( error, redirectLocation, renderProps ) => {
+	match( { routes, location: req.url }, ( error, redirectLocation, renderProps ) => {
 		if ( error ) {
 			res.status( 500 ).send( error.message );
 		} else if ( redirectLocation ) {
 			res.redirect( 302, redirectLocation.pathname + redirectLocation.search );
 		} else if ( renderProps ) {
-			const fetchParams = Object.assign({}, renderProps.params, renderProps.location.query );
+			const fetchParams = Object.assign( {}, renderProps.params, renderProps.location.query );
 			const InitialView = (
 				<Provider store={ store }>
 					<RouterContext { ...renderProps } />
@@ -92,12 +91,12 @@ export default function render( req, res ) {
 					const initialState = store.getState();
 
 					res.status( 200 ).end( renderFullPage( componentHTML, initialState ) );
-				})
+				} )
 				.catch( () => {
-					res.end( renderFullPage( '', {}) );
-				});
+					res.end( renderFullPage( '', {} ) );
+				} );
 		} else {
 			res.status( 404 ).send( 'Not Found' );
 		}
-	});
+	} );
 }
