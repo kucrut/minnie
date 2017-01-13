@@ -1,5 +1,5 @@
 {
-	"extends": "airbnb",
+	"extends": "humanmade",
 	"env": {
 		"browser": true,
 		"node": true
