@@ -1,9 +1,8 @@
-/* eslint no-console: 0 */
+/* eslint-disable no-console */
 
-var express    = require( 'express' );
-var path       = require( 'path' );
-var configPath = path.resolve( __dirname, '../../', 'app', 'config.js' );
-var config     = require( configPath );
+const express = require( 'express' );
+const path = require( 'path' );
+const config = require.resolve( '../../config/app/config.js' );
 
 module.exports = function ( app ) {
 	app.set( 'port', config.port );
@@ -12,8 +11,8 @@ module.exports = function ( app ) {
 	// Keeping it makes it easier for an attacker to build the site's profile
 	// It can be removed safely
 	app.disable( 'x-powered-by' );
-	app.set( 'views', path.join( __dirname, '..', 'views' ) );
 
+	app.set( 'views', path.join( __dirname, '..', 'views' ) );
 	app.set( 'view cache', false );
 
 	app.use( express.static( path.join( __dirname, '../..', 'public' ) ) );
@@ -30,7 +29,7 @@ module.exports = function ( app ) {
 	// loopback - 127.0.0.1/8, ::1/128
 	app.set( 'trust proxy', 'loopback' );
 
-	var node_env = process.env.NODE_ENV;
+	const node_env = process.env.NODE_ENV;
 	console.log( '--------------------------' );
 	console.log( '===> 😊  Starting Server . . .' );
 	console.log( '===>  Environment: ' + node_env );
