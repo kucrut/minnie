@@ -1,19 +1,20 @@
-var express = require( 'express' );
-var webpack = require( 'webpack' );
-var app     = express();
+const express = require( 'express' );
+const webpack = require( 'webpack' );
+const app = express();
 
-var isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === 'development';
 
 if ( isDev ) {
-	var config   = require( '../webpack/webpack.config.dev-client.js' );
-	var compiler = webpack( config );
-
-	app.use( require( 'webpack-dev-middleware' )( compiler, {
+	const config = require( '../config/webpack/dev-client.js' );
+	const compiler = webpack( config );
+	const devMiddleware = require( 'webpack-dev-middleware' )( compiler, {
 		noInfo: true,
-		publicPath: config.output.publicPath
-	}) );
+		publicPath: config.output.publicPath,
+	} );
+	const hotMiddleware = require( 'webpack-hot-middleware' )( compiler );
 
-	app.use( require( 'webpack-hot-middleware' )( compiler ) );
+	app.use( devMiddleware );
+	app.use( hotMiddleware );
 }
 
 // Bootstrap application settings
