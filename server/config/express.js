@@ -2,7 +2,7 @@
 
 const express = require( 'express' );
 const path = require( 'path' );
-const config = require.resolve( '../../config/app/config.js' );
+const config = require( '../../config/app/config.js' );
 
 module.exports = function ( app ) {
 	app.set( 'port', config.port );
