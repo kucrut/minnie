@@ -14,10 +14,15 @@
     "dev": "npm run clean && cross-env NODE_ENV=development nodemon",
     "build:dev": "cross-env NODE_ENV=development webpack --colors --config ./webpack/webpack.config.dev-server.js",
     "build:prod": "cross-env NODE_ENV=production webpack --colors --config ./webpack/webpack.config.prod.js",
-    "build": "npm run clean && npm run build:prod",
-    "postinstall": "npm run build"
+    "build": "npm run clean && npm run build:prod"
   },
   "dependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-transform-react-jsx": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/runtime-corejs2": "^7.1.2",
     "axios": "^0.14.0",
     "classnames": "^2.2.5",
     "cross-env": "^2.0.1",
