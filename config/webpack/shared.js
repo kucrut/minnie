@@ -13,11 +13,14 @@ function getSharedConfig( env ) {
 		mode: env,
 		context: cwd,
 		resolve: {
-			extensions: [ '.js' ],
+			extensions: [ '.js', '.json' ],
 		},
 		module: {
 			strictExportPresence: true,
 			rules: [ {
+				test: /\.html$/,
+				loader: 'html-loader',
+			}, {
 				test: /\.js$/,
 				loader: 'babel-loader',
 				exclude: /(node_modules|bower_components)/,
