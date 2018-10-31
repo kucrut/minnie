@@ -12,8 +12,8 @@
     "clean": "rimraf public",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "dev": "npm run clean && cross-env NODE_ENV=development nodemon",
-    "build:dev": "cross-env NODE_ENV=development webpack --colors --config ./webpack/webpack.config.dev-server.js",
-    "build:prod": "cross-env NODE_ENV=production webpack --colors --config ./webpack/webpack.config.prod.js",
+    "build:dev": "cross-env webpack --env=development --colors --config ./webpack/dev-server.js",
+    "build:prod": "cross-env webpack --env=production --colors --config ./config/webpack/prod.js",
     "build": "npm run clean && npm run build:prod"
   },
   "dependencies": {
@@ -55,6 +55,7 @@
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
     "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2",
     "webpack-merge": "^4.1.4"
   },
   "devDependencies": {
