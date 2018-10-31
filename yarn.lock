@@ -794,6 +794,11 @@
     "@webassemblyjs/wast-parser" "1.7.10"
     "@xtuc/long" "4.2.1"
 
+"@wordpress/browserslist-config@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@wordpress/browserslist-config/-/browserslist-config-2.2.2.tgz#8bc88e9e3b363ba9d64207b811d5daaaecee3ee6"
+  integrity sha512-RZ9XeDeXTc/l3RdSnfYYwcsylFPouV+2ZpQQaAgALSXthMWJT2wU61zD4mH9aMI5Oo6Z8OUVI2vOZM/7HObPxw==
+
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@xtuc/ieee754/-/ieee754-1.2.0.tgz#eef014a3145ae477a1cbc00cd1e552336dceb790"
