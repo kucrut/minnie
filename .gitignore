@@ -6,5 +6,5 @@ node_modules
 *.swp
 
 public
-app/config.js
+/config/app/config.js
 process.json
