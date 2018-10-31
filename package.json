@@ -28,7 +28,6 @@
     "cross-env": "^2.0.1",
     "css-loader": "^1.0.1",
     "dom-closest": "^0.2.0",
-    "es6-promise": "^3.2.1",
     "express": "^4.14.0",
     "file-loader": "^2.0.0",
     "he": "^1.1.0",
