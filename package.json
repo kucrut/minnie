@@ -25,6 +25,7 @@
     "@babel/runtime-corejs2": "^7.1.2",
     "@wordpress/browserslist-config": "^2.2.2",
     "axios": "^0.18.0",
+    "babel-loader": "^8.0.4",
     "classnames": "^2.2.5",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.1",
