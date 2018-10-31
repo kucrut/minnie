@@ -1,10 +1,7 @@
 import axios from 'axios';
-import { polyfill } from 'es6-promise';
 import { GET_ARCHIVE, GET_ARCHIVE_TERM, GET_ARCHIVE_TERM_FAILURE } from 'constants/index';
 import { makeTermsRequest } from 'actions/terms';
 import { normalizeParams, getArchiveTaxonomyTerm } from 'helpers';
-
-polyfill();
 
 function makeArchiveRequest( params ) {
 	return axios( {

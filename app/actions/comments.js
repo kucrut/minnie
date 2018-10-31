@@ -1,9 +1,6 @@
 import request from 'axios';
-import { polyfill } from 'es6-promise';
 import { GET_COMMENTS, POST_COMMENT } from 'constants/index';
 import { checkOtherState } from 'helpers';
-
-polyfill();
 
 const defaultParams = { parent: 0 };
 

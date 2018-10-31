@@ -1,8 +1,5 @@
-import { polyfill } from 'es6-promise';
 import request from 'axios';
 import { GET_TAXONOMIES } from 'constants/index';
-
-polyfill();
 
 export default function fetchTaxonomies() {
 	return {

@@ -1,9 +1,6 @@
 import request from 'axios';
-import { polyfill } from 'es6-promise';
 import { push } from 'react-router-redux';
 import { postTypeMap, GET_SINGULAR } from 'constants/index';
-
-polyfill();
 
 export default function fetchPreview( params ) {
 	const { id, type } = params;

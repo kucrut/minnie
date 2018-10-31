@@ -1,9 +1,6 @@
 import request from 'axios';
-import { polyfill } from 'es6-promise';
 import { GET_SINGULAR } from 'constants/index';
 import { fetchComments } from 'actions/comments';
-
-polyfill();
 
 function makeSingularRequest( slug, type = 'pages' ) {
 	return request( {
