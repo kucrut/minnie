@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchMedia } from 'actions/singular';
-import _Singular from 'pages/_Singular';
-import ContentNavigation from 'components/ContentNavigation';
+
+import { fetchMedia } from '../actions/singular';
+import ContentNavigation from '../components/ContentNavigation';
+import _Singular from './_Singular';
 
 class Media extends _Singular {
 

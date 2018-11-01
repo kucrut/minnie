@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
-import { fetchPage } from 'actions/singular';
-import _Singular from 'pages/_Singular';
+
+import { fetchPage } from '../actions/singular';
+import _Singular from './_Singular';
 
 class Page extends _Singular {
 

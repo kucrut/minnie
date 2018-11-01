@@ -5,8 +5,8 @@ import { push } from 'react-router-redux';
 import { get } from 'lodash';
 import Helmet from 'react-helmet';
 
-import { checkLastSession, checkSession } from 'actions/session';
-import Spinner from 'components/Spinner';
+import { checkLastSession, checkSession } from '../actions/session';
+import Spinner from '../components/Spinner';
 
 class Login extends Component {
 	static propTypes = {

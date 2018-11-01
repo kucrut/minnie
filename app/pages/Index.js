@@ -5,13 +5,13 @@ import Helmet from 'react-helmet';
 import he from 'he';
 import { isEqual } from 'lodash';
 
-import { getAdjacentLink } from 'helpers';
-import { fetchArchive, fetchArchiveTerm } from 'actions/archive';
-import PageHeader from 'components/PageHeader';
-import ContentNavigation from 'components/ContentNavigation';
-import Entry from 'components/Entry/Item';
-import EntryEmpty from 'components/Entry/Empty';
-import Spinner from 'components/Spinner';
+import { getAdjacentLink } from '../helpers';
+import { fetchArchive, fetchArchiveTerm } from '../actions/archive';
+import PageHeader from '../components/PageHeader';
+import ContentNavigation from '../components/ContentNavigation';
+import Entry from '../components/Entry/Item';
+import EntryEmpty from '../components/Entry/Empty';
+import Spinner from '../components/Spinner';
 
 class Index extends Component {
 	static propTypes = {

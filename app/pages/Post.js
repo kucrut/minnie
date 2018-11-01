@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchPost } from 'actions/singular';
-import _Singular from 'pages/_Singular';
-import CommentsSection from 'containers/Comments/Section';
+
+import { fetchPost } from '../actions/singular';
+import _Singular from './_Singular';
+import CommentsSection from '../containers/Comments/Section';
 
 class Post extends _Singular {
 
