@@ -1,5 +1,6 @@
 import { sortBy } from 'lodash';
-import { hashCode } from 'helpers';
+
+import { hashCode } from '../helpers';
 
 function createGalleryItem( imgEl, origImgUrl, title = '' ) {
 	const msrc  = imgEl.getAttribute( 'src' );
