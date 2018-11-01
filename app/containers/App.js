@@ -1,22 +1,25 @@
 /* global ga */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
 import classNames from 'classnames';
 import { find } from 'lodash';
-import { gaId } from 'config';
-import { configureAxios, getQueryVar } from 'helpers';
-import fetchInfo from 'actions/info';
-import { fetchPostFormats } from 'actions/terms';
-import { fetchPrimaryMenu, fetchSocialMenu } from 'actions/menu';
-import { openGallery, resetGallery } from 'actions/galleries';
-import Helmet from 'react-helmet';
-import Header from 'containers/Header';
-import Footer from 'containers/Footer';
-import PhotoSwipe from 'components/PhotoSwipe';
+
+import { gaId } from '../../config/app/config';
+import { configureAxios, getQueryVar } from '../helpers';
+import fetchInfo from '../actions/info';
+import { fetchPostFormats } from '../actions/terms';
+import { fetchPrimaryMenu, fetchSocialMenu } from './actions/menu';
+import { openGallery, resetGallery } from './actions/galleries';
+import Header from './Header';
+import Footer from './Footer';
+import PhotoSwipe from '../components/PhotoSwipe';
+
 import 'photoswipe/dist/photoswipe.css';
 import 'photoswipe/dist/default-skin/default-skin.css';
-import 'css/genericons/genericons/genericons.css';
+import '../css/genericons/genericons/genericons.css';
 
 // For some reason, requiring this from `node_modules` dir will pull all css files :(
 require( 'css/prism-coy.css' );
