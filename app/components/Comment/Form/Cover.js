@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Spinner from 'components/Spinner';
+
+import Spinner from '../../Spinner';
 
 export default function Cover( { isSubmitting } ) {
 	if ( isSubmitting ) {

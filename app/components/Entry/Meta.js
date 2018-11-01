@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { Link } from 'react-router';
 import he from 'he';
-import { entryMetaTaxonomies } from 'config';
+
+import { entryMetaTaxonomies } from '../../../config/app/config';
 
 /**
  * TODO: Display author link?

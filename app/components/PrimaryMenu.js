@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MenuItem from 'components/MenuItem';
+import MenuItem from './MenuItem';
 
 export default function PrimaryMenu( { items } ) {
 	return (

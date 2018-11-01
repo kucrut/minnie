@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { find } from 'lodash';
 
-import CommentContent from 'components/Comment/Content';
-import CommentMeta from 'components/Comment/Meta';
+import CommentContent from './Content';
+import CommentMeta from './Meta';
 
 export default class Comment extends Component {
 	static propTypes = {

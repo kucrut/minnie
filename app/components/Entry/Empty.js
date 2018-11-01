@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import SearchForm from 'components/SearchForm';
+import SearchForm from '../SearchForm';
 
 export default class EntryEmpty extends Component {
 	static propTypes = {

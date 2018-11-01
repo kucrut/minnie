@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CommentAuthor from 'components/Comment/Author';
-import CommentDate from 'components/Comment/Date';
-import CommentReplyLink from 'components/Comment/ReplyLink';
-import CommentViewRepliesLink from 'components/Comment/ViewRepliesLink';
+
+import CommentAuthor from './Author';
+import CommentDate from './Date';
+import CommentReplyLink from './ReplyLink';
+import CommentViewRepliesLink from './ViewRepliesLink';
 
 // TODO: retina avatar image.
 export default class CommentMeta extends Component {

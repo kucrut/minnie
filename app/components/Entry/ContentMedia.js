@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import EntryContent from 'components/Entry/Content';
+
+import EntryContent from './Content';
 
 /**
  * TODO: Support more media types.

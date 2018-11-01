@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import highlightCode from 'misc/highlight';
+
+import highlightCode from '../../misc/highlight';
 
 export default class CommentContent extends Component {
 	static propTypes = { content: PropTypes.string.isRequired }

@@ -5,10 +5,10 @@ import { push } from 'react-router-redux';
 import closest from 'dom-closest';
 import { forEach } from 'lodash';
 
-import { contentPathRegEx } from 'helpers';
-import { openGallery, zoomImage } from 'actions/galleries';
-import highlightCode from 'misc/highlight';
-import { prepareGallery } from 'misc/galleries';
+import { contentPathRegEx } from '../../helpers';
+import { openGallery, zoomImage } from '../../actions/galleries';
+import highlightCode from '../../misc/highlight';
+import { prepareGallery } from '../.../misc/galleries';
 
 class EntryContent extends Component {
 	static propTypes = {

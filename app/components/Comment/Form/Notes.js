@@ -2,7 +2,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Required from 'components/Required';
+
+import Required from '../../Required';
 
 export default function Notes( { userName } ) {
 	if ( userName ) {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import toggleSidebar from 'actions/ui';
+import toggleSidebar from '../actions/ui';
 
 class Burger extends Component {
 	static propTypes = {
