@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 import { each, find } from 'lodash';
 
-import { fetchComments, postComment } from 'actions/comments';
-import CommentsList from 'containers/Comments/List';
-import CommentForm from 'containers/Comments/Form';
+import { fetchComments, postComment } from '../../actions/comments';
+import CommentsList from './List';
+import CommentForm from './Form';
 
 export default class Comments extends Component {
 	static propTypes = {

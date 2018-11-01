@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Comment from 'components/Comment/Item';
-import Spinner from 'components/Spinner';
-import LoadMoreButton from 'components/LoadMoreButton';
+
+import Comment from '../../components/Comment/Item';
+import Spinner from '../../components/Spinner';
+import LoadMoreButton from '../../components/LoadMoreButton';
 
 export default class CommentsList extends Component {
 	static propTypes = {

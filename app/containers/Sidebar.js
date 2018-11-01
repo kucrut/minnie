@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import PrimaryMenu from 'components/PrimaryMenu';
-import SearchForm from 'components/SearchForm';
+import PrimaryMenu from '../components/PrimaryMenu';
+import SearchForm from '../components/SearchForm';
 
 class Sidebar extends Component {
 	static propTypes = {

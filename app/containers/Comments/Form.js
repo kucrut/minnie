@@ -2,15 +2,16 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CancelReplyLink from 'components/Comment/CancelReplyLink';
-import Cover from 'components/Comment/Form/Cover';
-import Notes from 'components/Comment/Form/Notes';
-import Errors from 'components/Comment/Form/Errors';
-import CommentField from 'components/Comment/Form/CommentField';
-import AuthorField from 'components/Comment/Form/AuthorField';
-import EmailField from 'components/Comment/Form/EmailField';
-import UrlField from 'components/Comment/Form/UrlField';
-import SubmitField from 'components/Comment/Form/SubmitField';
+
+import CancelReplyLink from '../../components/Comment/CancelReplyLink';
+import Cover from '../../components/Comment/Form/Cover';
+import Notes from '../../components/Comment/Form/Notes';
+import Errors from '../../components/Comment/Form/Errors';
+import CommentField from '../../components/Comment/Form/CommentField';
+import AuthorField from '../../components/Comment/Form/AuthorField';
+import EmailField from '../../components/Comment/Form/EmailField';
+import UrlField from '../../components/Comment/Form/UrlField';
+import SubmitField from '../../components/Comment/Form/SubmitField';
 
 export default class CommentForm extends Component {
 	static propTypes = {
