@@ -1,6 +1,7 @@
 /* eslint max-len: ["error", 140] */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import CancelReplyLink from 'components/Comment/CancelReplyLink';
 import Cover from 'components/Comment/Form/Cover';
 import Notes from 'components/Comment/Form/Notes';

@@ -1,6 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 import { each, find } from 'lodash';
+
 import { fetchComments, postComment } from 'actions/comments';
 import CommentsList from 'containers/Comments/List';
 import CommentForm from 'containers/Comments/Form';

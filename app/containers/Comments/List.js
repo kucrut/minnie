@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Comment from 'components/Comment/Item';
 import Spinner from 'components/Spinner';
 import LoadMoreButton from 'components/LoadMoreButton';

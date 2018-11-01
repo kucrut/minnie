@@ -1,5 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import Sidebar from 'containers/Sidebar';
 import Branding from 'components/Branding';
 import SocialMenu from 'components/SocialMenu';
