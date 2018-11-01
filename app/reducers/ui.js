@@ -1,4 +1,4 @@
-import { UI_TOGGLE_SIDEBAR } from 'constants/index';
+import { UI_TOGGLE_SIDEBAR } from '../constants';
 
 const initialState = { isSidebarExpanded: false };
 

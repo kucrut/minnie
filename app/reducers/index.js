@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
-import session from 'reducers/session';
-import info from 'reducers/info';
-import menu from 'reducers/menu';
-import ui from 'reducers/ui';
-import singular from 'reducers/singular';
-import archive from 'reducers/archive';
-import terms from 'reducers/terms';
-import comments from 'reducers/comments';
-import galleries from 'reducers/galleries';
+import session from './session';
+import info from './info';
+import menu from './menu';
+import ui from './ui';
+import singular from './singular';
+import archive from './archive';
+import terms from './terms';
+import comments from './comments';
+import galleries from './galleries';
 
 // Combine reducers with routeReducer which keeps track of router state.
 export default combineReducers( {

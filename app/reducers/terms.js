@@ -2,7 +2,7 @@ import {
 	GET_TERMS_REQUEST,
 	GET_TERMS_SUCCESS,
 	GET_TERMS_FAILURE,
-} from 'constants/index';
+} from '../constants';
 
 const initialState = {
 	items: {},

@@ -3,7 +3,7 @@ import {
 	GALLERY_RESET,
 	GALLERY_OPEN,
 	GALLERY_CLOSE,
-} from 'constants/index';
+} from '../constants';
 
 const initialState = {
 	groups: [],

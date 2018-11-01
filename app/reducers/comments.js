@@ -5,7 +5,7 @@ import {
 	POST_COMMENT_REQUEST,
 	POST_COMMENT_SUCCESS,
 	POST_COMMENT_FAILURE,
-} from 'constants/index';
+} from '../constants';
 
 const onHoldText = 'Your comment is waiting for moderation.';
 const dupeText = 'Duplicate comment detected; it looks as though you’ve already said that!';

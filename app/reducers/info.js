@@ -2,7 +2,7 @@ import {
 	GET_INFO_REQUEST,
 	GET_INFO_SUCCESS,
 	GET_INFO_FAILURE,
-} from 'constants/index';
+} from '../constants';
 
 const initialState = {
 	apiUrl: '', // This will be set by `render()` in `server.jsx`

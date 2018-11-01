@@ -3,7 +3,7 @@ import {
 	GET_SESSION_REQUEST,
 	GET_SESSION_SUCCESS,
 	GET_SESSION_FAILURE,
-} from 'constants/index';
+} from '../constants';
 
 function saveToken( token ) {
 	localStorage.setItem( 'minnieToken', token );

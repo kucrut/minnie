@@ -1,11 +1,12 @@
 import { head, size } from 'lodash';
+
 import {
 	GET_ARCHIVE_REQUEST,
 	GET_ARCHIVE_SUCCESS,
 	GET_ARCHIVE_FAILURE,
 	GET_ARCHIVE_TERM_SUCCESS,
 	GET_ARCHIVE_TERM_FAILURE,
-} from 'constants/index';
+} from '../constants';
 
 const initialState = {
 	items: [],

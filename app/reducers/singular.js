@@ -1,9 +1,10 @@
 import { head } from 'lodash';
+
 import {
 	GET_SINGULAR_REQUEST,
 	GET_SINGULAR_SUCCESS,
 	GET_SINGULAR_FAILURE,
-} from 'constants/index';
+} from '../constants';
 
 const initialTitle = 'Oops! That page can&rsquo;t be found.';
 const initialState = {

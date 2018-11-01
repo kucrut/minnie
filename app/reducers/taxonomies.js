@@ -2,7 +2,7 @@ import {
 	GET_TAXONOMIES_REQUEST,
 	GET_TAXONOMIES_SUCCESS,
 	GET_TAXONOMIES_FAILURE,
-} from 'constants/index';
+} from '../constants';
 
 const initialState = {
 	items: {},
