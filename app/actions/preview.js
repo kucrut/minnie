@@ -1,5 +1,4 @@
 import request from 'axios';
-import { push } from 'react-router-redux';
 
 import { postTypeMap, GET_SINGULAR } from '../constants';
 
@@ -8,6 +7,7 @@ export default function fetchPreview( params ) {
 	const postType = postTypeMap[ type ];
 
 	return ( dispatch, getState ) => {
+		/*
 		const { user, token } = getState().session;
 		let path;
 
@@ -17,6 +17,7 @@ export default function fetchPreview( params ) {
 			dispatch( push( `/login?redirect=${encodeURI( path )}` ) );
 			return;
 		}
+		*/
 
 		dispatch( {
 			type: GET_SINGULAR,

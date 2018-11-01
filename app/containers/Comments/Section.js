@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { push } from 'react-router-redux';
 import { each, find } from 'lodash';
 
 import { fetchComments, postComment } from '../../actions/comments';
@@ -47,9 +46,11 @@ export default class Comments extends Component {
 		this.setState( { parentId: nextProps.parentId } );
 
 		// After successful comment submission.
+		/*
 		if ( ! hasError && newComment.id !== this.props.comments.newComment.id ) {
 			dispatch( push( newComment.link ) );
 		}
+		*/
 	}
 
 	getParentComment( id ) {

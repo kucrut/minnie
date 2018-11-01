@@ -99,6 +99,7 @@ class App extends Component {
 		const pid = getQueryVar( 'pid', location.hash );
 
 		// When we're changing pages, reset gallery store.
+		// TODO
 		if ( prevLocation && prevLocation.pathname !== location.pathname ) {
 			dispatch( resetGallery() );
 		}
@@ -173,7 +174,7 @@ function mapStateToProps( state ) {
 		siteLang: state.info.lang,
 		galleries: state.galleries,
 		isSidebarExpanded: state.ui.isSidebarExpanded,
-		prevLocation: state.routing.locationBeforeTransitions,
+		// prevLocation: state.routing.locationBeforeTransitions,
 	};
 }
 

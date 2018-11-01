@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 
 class SearchForm extends Component {
 	static propTypes = {
@@ -25,7 +24,7 @@ class SearchForm extends Component {
 
 	handleSubmit( e ) {
 		e.preventDefault();
-		this.props.dispatch( push( `/?s=${encodeURIComponent( this.state.searchTerm )}` ) );
+		// this.props.dispatch( push( `/?s=${encodeURIComponent( this.state.searchTerm )}` ) );
 	}
 
 	render() {

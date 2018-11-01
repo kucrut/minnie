@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { routerReducer as routing } from 'react-router-redux';
 import session from './session';
 import info from './info';
 import menu from './menu';
@@ -21,5 +20,4 @@ export default combineReducers( {
 	terms,
 	comments,
 	galleries,
-	routing,
 } );

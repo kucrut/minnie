@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import closest from 'dom-closest';
 import { forEach } from 'lodash';
 
@@ -74,7 +73,7 @@ class EntryContent extends Component {
 		}
 
 		e.preventDefault();
-		dispatch( push( anchor.pathname ) );
+		// dispatch( push( anchor.pathname ) );
 	}
 
 	render() {

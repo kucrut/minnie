@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { get } from 'lodash';
 import Helmet from 'react-helmet';
 
@@ -32,6 +31,7 @@ class Login extends Component {
 		this.props.dispatch( checkLastSession() );
 	}
 
+	/*
 	componentWillReceiveProps( nextProps ) {
 		if ( nextProps.user.id ) {
 			nextProps.dispatch( push( nextProps.redirect ) );
@@ -39,6 +39,7 @@ class Login extends Component {
 			// Show error.
 		}
 	}
+	*/
 
 	handleChange( e ) {
 		const key = e.currentTarget.getAttribute( 'name' );
