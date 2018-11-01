@@ -9,18 +9,18 @@ import CommentForm from 'containers/Comments/Form';
 
 export default class Comments extends Component {
 	static propTypes = {
-		dispatch:  PropTypes.func.isRequired,
+		dispatch: PropTypes.func.isRequired,
 		isEnabled: PropTypes.bool.isRequired,
-		user:      PropTypes.object.isRequired,
-		parentId:  PropTypes.number.isRequired,
-		postLink:  PropTypes.string.isRequired,
-		maxDepth:  PropTypes.number.isRequired,
-		comments:  PropTypes.shape( {
-			newComment:   PropTypes.object,
-			postId:       PropTypes.number,
-			threads:      PropTypes.object,
-			error:        PropTypes.object,
-			hasError:     PropTypes.bool,
+		user: PropTypes.object.isRequired,
+		parentId: PropTypes.number.isRequired,
+		postLink: PropTypes.string.isRequired,
+		maxDepth: PropTypes.number.isRequired,
+		comments: PropTypes.shape( {
+			newComment: PropTypes.object,
+			postId: PropTypes.number,
+			threads: PropTypes.object,
+			error: PropTypes.object,
+			hasError: PropTypes.bool,
 			isSubmitting: PropTypes.bool,
 		} ).isRequired,
 	}
@@ -74,14 +74,14 @@ export default class Comments extends Component {
 	}
 
 	fetchMore( params ) {
-		const { dispatch, comments: { postId }} = this.props;
+		const { dispatch, comments: { postId } } = this.props;
 		const fetchParams = Object.assign( { post: postId }, params );
 
 		dispatch( fetchComments( fetchParams ) );
 	}
 
 	handleSubmit( values ) {
-		const { dispatch, comments: { postId }} = this.props;
+		const { dispatch, comments: { postId } } = this.props;
 		let data = {
 			post: postId,
 			parent: this.state.parentId,

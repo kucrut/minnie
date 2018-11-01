@@ -14,15 +14,15 @@ import SubmitField from 'components/Comment/Form/SubmitField';
 
 export default class CommentForm extends Component {
 	static propTypes = {
-		postId:          PropTypes.number.isRequired,
-		user:            PropTypes.object.isRequired,
-		parentComment:   PropTypes.object.isRequired,
+		postId: PropTypes.number.isRequired,
+		user: PropTypes.object.isRequired,
+		parentComment: PropTypes.object.isRequired,
 		cancelReplyLink: PropTypes.string.isRequired,
-		fields:          PropTypes.object.isRequired,
-		handleSubmit:    PropTypes.func.isRequired,
-		isSubmitting:    PropTypes.bool.isRequired,
-		hasError:        PropTypes.bool.isRequired,
-		error:           PropTypes.object.isRequired,
+		fields: PropTypes.object.isRequired,
+		handleSubmit: PropTypes.func.isRequired,
+		isSubmitting: PropTypes.bool.isRequired,
+		hasError: PropTypes.bool.isRequired,
+		error: PropTypes.object.isRequired,
 	}
 
 	constructor( props ) {
@@ -82,20 +82,20 @@ export default class CommentForm extends Component {
 		const { comment, author, email, url } = this.state.values;
 
 		switch ( key ) {
-		case 'comment':
-			return <CommentField value={ comment } handleChange={ this.handleChange } key={ this.state.cfKey } />;
+			case 'comment':
+				return <CommentField value={ comment } handleChange={ this.handleChange } key={ this.state.cfKey } />;
 
-		case 'author':
-			return <AuthorField value={ author } handleChange={ this.handleChange } key="author-field" />;
+			case 'author':
+				return <AuthorField value={ author } handleChange={ this.handleChange } key="author-field" />;
 
-		case 'email':
-			return <EmailField value={ email } handleChange={ this.handleChange } key="email-field" />;
+			case 'email':
+				return <EmailField value={ email } handleChange={ this.handleChange } key="email-field" />;
 
-		case 'url':
-			return <UrlField value={ url } handleChange={ this.handleChange } key="url-field" />;
+			case 'url':
+				return <UrlField value={ url } handleChange={ this.handleChange } key="url-field" />;
 
-		default:
-			return null;
+			default:
+				return null;
 		}
 	}
 

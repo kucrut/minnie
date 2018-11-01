@@ -6,14 +6,14 @@ import LoadMoreButton from 'components/LoadMoreButton';
 
 export default class CommentsList extends Component {
 	static propTypes = {
-		maxDepth:           PropTypes.number.isRequired,
-		depth:              PropTypes.number.isRequired,
-		comments:           PropTypes.object.isRequired,
-		parentId:           PropTypes.number.isRequired,
-		listClass:          PropTypes.string.isRequired,
-		renderForm:         PropTypes.func.isRequired,
-		allowReplies:       PropTypes.bool.isRequired,
-		onClickLoadMore:    PropTypes.func.isRequired,
+		maxDepth: PropTypes.number.isRequired,
+		depth: PropTypes.number.isRequired,
+		comments: PropTypes.object.isRequired,
+		parentId: PropTypes.number.isRequired,
+		listClass: PropTypes.string.isRequired,
+		renderForm: PropTypes.func.isRequired,
+		allowReplies: PropTypes.bool.isRequired,
+		onClickLoadMore: PropTypes.func.isRequired,
 		onClickViewReplies: PropTypes.func.isRequired,
 	}
 
@@ -45,7 +45,7 @@ export default class CommentsList extends Component {
 		const depth = this.props.depth + 1;
 		const args  = Object.assign( {}, this.props, {
 			allowReplies: ( allowReplies && depth <= maxDepth ),
-			listClass:    'children',
+			listClass: 'children',
 			parentId,
 			depth,
 		} );

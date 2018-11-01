@@ -29,13 +29,13 @@ require( 'css/style.css' );
 class App extends Component {
 
 	static propTypes = {
-		apiUrl:            PropTypes.string.isRequired,
-		siteLang:          PropTypes.string.isRequired,
-		galleries:         PropTypes.object.isRequired,
+		apiUrl: PropTypes.string.isRequired,
+		siteLang: PropTypes.string.isRequired,
+		galleries: PropTypes.object.isRequired,
 		isSidebarExpanded: PropTypes.bool.isRequired,
-		prevLocation:      PropTypes.object,
-		children:          PropTypes.object,
-		dispatch:          PropTypes.func.isRequired,
+		prevLocation: PropTypes.object,
+		children: PropTypes.object,
+		dispatch: PropTypes.func.isRequired,
 	}
 
 	static contextTypes = { router: PropTypes.object.isRequired }
@@ -169,11 +169,11 @@ class App extends Component {
 
 function mapStateToProps( state ) {
 	return {
-		apiUrl:            state.info.apiUrl,
-		siteLang:          state.info.lang,
-		galleries:         state.galleries,
+		apiUrl: state.info.apiUrl,
+		siteLang: state.info.lang,
+		galleries: state.galleries,
 		isSidebarExpanded: state.ui.isSidebarExpanded,
-		prevLocation:      state.routing.locationBeforeTransitions,
+		prevLocation: state.routing.locationBeforeTransitions,
 	};
 }
 

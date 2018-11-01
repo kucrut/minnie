@@ -9,7 +9,7 @@ import Burger from 'components/Burger';
 
 class Header extends Component {
 	static propTypes = {
-		info:  PropTypes.object.isRequired,
+		info: PropTypes.object.isRequired,
 		menus: PropTypes.object.isRequired,
 	}
 
