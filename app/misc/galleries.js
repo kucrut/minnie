@@ -27,7 +27,11 @@ function createGalleryItem( imgEl, origImgUrl, title = '' ) {
 			const dotPos = src.lastIndexOf( '.' );
 			const h = parseInt( src.slice( ( xPos + 1 ), dotPos ), 10 );
 
-			size = { src, w, h };
+			size = {
+				src,
+				w,
+				h,
+			};
 		}
 
 		item = Object.assign( {}, item, { sizes: item.sizes.concat( size ) } );
@@ -82,7 +86,7 @@ export function createZoom( imgEl ) {
 
 	return {
 		id: getZoomId( imgEl ),
-		items: [item],
+		items: [ item ],
 		single: true,
 		showCaption: ( title !== '' ),
 	};
