@@ -33,7 +33,7 @@ export function fetchComments( params ) {
 				info,
 				makeRequest( Object.assign( { per_page: info.settings.comments.per_page }, fetchParams ) ),
 			] ).then( results => Promise.resolve( results[ 1 ] ) ) ),
-			// TODO: Check if info contains error.
+		// TODO: Check if info contains error.
 	} );
 }
 
@@ -44,7 +44,7 @@ export function postComment( data ) {
 		parentId: data.parent,
 		promise: request( {
 			method: 'post',
-			url:    '/wp/v2/comments',
+			url: '/wp/v2/comments',
 			data,
 		} ),
 	};

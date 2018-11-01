@@ -6,7 +6,7 @@ import { normalizeParams, getArchiveTaxonomyTerm } from 'helpers';
 function makeArchiveRequest( params ) {
 	return axios( {
 		method: 'get',
-		url:    '/wp/v2/posts',
+		url: '/wp/v2/posts',
 		params,
 	} );
 }
