@@ -1,6 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import he from 'he';
 import Helmet from 'react-helmet';
+
 import NotFound from 'pages/404';
 import Spinner from 'components/Spinner';
 import Entry from 'components/Entry/Item';

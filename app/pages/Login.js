@@ -1,8 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { get } from 'lodash';
 import Helmet from 'react-helmet';
+
 import { checkLastSession, checkSession } from 'actions/session';
 import Spinner from 'components/Spinner';
 

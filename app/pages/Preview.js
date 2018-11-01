@@ -1,7 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import he from 'he';
 import Helmet from 'react-helmet';
+
 import fetchPreview from 'actions/preview';
 import Spinner from 'components/Spinner';
 import Entry from 'components/Entry/Item';

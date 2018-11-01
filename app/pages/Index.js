@@ -1,8 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import he from 'he';
 import { isEqual } from 'lodash';
+
 import { getAdjacentLink } from 'helpers';
 import { fetchArchive, fetchArchiveTerm } from 'actions/archive';
 import PageHeader from 'components/PageHeader';
