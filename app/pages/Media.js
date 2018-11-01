@@ -14,7 +14,7 @@ class Media extends _Singular {
 	 *
 	 * @type {Array}
 	 */
-	static need = [fetchMedia]
+	static need = [ fetchMedia ]
 
 	static displayName = 'Media';
 
@@ -39,9 +39,9 @@ function mapStateToProps( state, ownProps ) {
 	const { slug } = ownProps.params;
 
 	return {
-		info:     state.info,
+		info: state.info,
 		singular: state.singular,
-		user:     state.session.user,
+		user: state.session.user,
 		slug,
 	};
 }

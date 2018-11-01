@@ -10,10 +10,10 @@ import Spinner from 'components/Spinner';
 
 class Login extends Component {
 	static propTypes = {
-		siteName:   PropTypes.string.isRequired,
+		siteName: PropTypes.string.isRequired,
 		isChecking: PropTypes.bool.isRequired,
-		dispatch:   PropTypes.func.isRequired,
-		redirect:   PropTypes.string,
+		dispatch: PropTypes.func.isRequired,
+		redirect: PropTypes.string,
 	}
 
 	constructor( props ) {
@@ -109,10 +109,10 @@ function mapStateToProps( state, ownProps ) {
 	const redirectUrl = get( ownProps, 'location.query.redirect' );
 
 	return {
-		siteName:   state.info.name,
+		siteName: state.info.name,
 		isChecking: state.session.isChecking,
-		user:       state.session.user,
-		redirect:   redirectUrl || '/',
+		user: state.session.user,
+		redirect: redirectUrl || '/',
 	};
 }
 

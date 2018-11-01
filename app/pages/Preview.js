@@ -13,8 +13,8 @@ class Preview extends Component {
 
 	static propTypes = {
 		singular: PropTypes.object.isRequired,
-		type:     PropTypes.string.isRequired,
-		id:       PropTypes.number.isRequired,
+		type: PropTypes.string.isRequired,
+		id: PropTypes.number.isRequired,
 		dispatch: PropTypes.func.isRequired,
 	}
 
@@ -60,7 +60,7 @@ class Preview extends Component {
 	 * @param  {object} nextProps Next properties.
 	 */
 	componentWillReceiveProps( nextProps ) {
-		const { type, id, singular: { isFetching }} = nextProps;
+		const { type, id, singular: { isFetching } } = nextProps;
 
 		if ( isFetching ) {
 			this.setState( { isWaitingForProps: false } );
@@ -73,11 +73,14 @@ class Preview extends Component {
 	}
 
 	fetchData( type, id ) {
-		this.props.dispatch( fetchPreview( { type, id } ) );
+		this.props.dispatch( fetchPreview( {
+			type,
+			id,
+		} ) );
 	}
 
 	render() {
-		const { singular: { isFetching, data }} = this.props;
+		const { singular: { isFetching, data } } = this.props;
 		let title;
 
 		if ( isFetching || this.state.isWaitingForProps ) {

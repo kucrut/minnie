@@ -12,7 +12,7 @@ class Page extends _Singular {
 	 *
 	 * @type {Array}
 	 */
-	static need = [fetchPage]
+	static need = [ fetchPage ]
 
 	static displayName = 'Page'
 

@@ -10,12 +10,12 @@ import Entry from 'components/Entry/Item';
 export default class _Singular extends Component {
 
 	static propTypes = {
-		slug:     PropTypes.string.isRequired,
-		info:     PropTypes.object.isRequired,
-		user:     PropTypes.object.isRequired,
+		slug: PropTypes.string.isRequired,
+		info: PropTypes.object.isRequired,
+		user: PropTypes.object.isRequired,
 		singular: PropTypes.object.isRequired,
 		dispatch: PropTypes.func.isRequired,
-		query:    PropTypes.object,
+		query: PropTypes.object,
 		comments: PropTypes.object,
 	}
 
@@ -68,7 +68,7 @@ export default class _Singular extends Component {
 	 * @param  {object} nextProps Next properties.
 	 */
 	componentWillReceiveProps( nextProps ) {
-		const { slug, singular: { isFetching }} = nextProps;
+		const { slug, singular: { isFetching } } = nextProps;
 
 		if ( isFetching ) {
 			this.setState( { isWaitingForProps: false } );

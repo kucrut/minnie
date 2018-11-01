@@ -14,7 +14,7 @@ class Post extends _Singular {
 	 *
 	 * @type {Array}
 	 */
-	static need = [fetchPost]
+	static need = [ fetchPost ]
 
 	static displayName = 'Post'
 

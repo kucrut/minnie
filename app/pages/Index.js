@@ -15,12 +15,12 @@ import Spinner from 'components/Spinner';
 
 class Index extends Component {
 	static propTypes = {
-		info:        PropTypes.object.isRequired,
-		archive:     PropTypes.object.isRequired,
-		query:       PropTypes.object.isRequired,
-		route:       PropTypes.object.isRequired,
+		info: PropTypes.object.isRequired,
+		archive: PropTypes.object.isRequired,
+		query: PropTypes.object.isRequired,
+		route: PropTypes.object.isRequired,
 		routeParams: PropTypes.object.isRequired,
-		dispatch:    PropTypes.func.isRequired,
+		dispatch: PropTypes.func.isRequired,
 	}
 
 	static need = [
@@ -182,7 +182,7 @@ class Index extends Component {
 			args = { content: 'It seems we can’t find what you’re looking for. Perhaps try another search?' };
 		} else {
 			args = {
-				title:   'Nothing Found.',
+				title: 'Nothing Found.',
 				content: 'It seems we can’t find what you’re looking for. Perhaps searching can help.',
 			};
 		}
@@ -225,10 +225,10 @@ class Index extends Component {
 
 function mapStateToProps( state, ownProps ) {
 	return {
-		info:        state.info,
-		archive:     state.archive,
-		route:       ownProps.route,
-		query:       ownProps.location.query,
+		info: state.info,
+		archive: state.archive,
+		route: ownProps.route,
+		query: ownProps.location.query,
 		routeParams: ownProps.params,
 	};
 }
