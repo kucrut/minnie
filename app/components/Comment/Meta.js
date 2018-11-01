@@ -8,15 +8,15 @@ import CommentViewRepliesLink from 'components/Comment/ViewRepliesLink';
 // TODO: retina avatar image.
 export default class CommentMeta extends Component {
 	static propTypes = {
-		link:               PropTypes.string.isRequired,
-		date:               PropTypes.string.isRequired,
-		avatarUrl:          PropTypes.string.isRequired,
-		authorUrl:          PropTypes.string.isRequired,
-		authorName:         PropTypes.string.isRequired,
-		dateFormatted:      PropTypes.string.isRequired,
-		replyLink:          PropTypes.string.isRequired,
-		allowReplies:       PropTypes.bool.isRequired,
-		showViewReplies:    PropTypes.bool.isRequired,
+		link: PropTypes.string.isRequired,
+		date: PropTypes.string.isRequired,
+		avatarUrl: PropTypes.string.isRequired,
+		authorUrl: PropTypes.string.isRequired,
+		authorName: PropTypes.string.isRequired,
+		dateFormatted: PropTypes.string.isRequired,
+		replyLink: PropTypes.string.isRequired,
+		allowReplies: PropTypes.bool.isRequired,
+		showViewReplies: PropTypes.bool.isRequired,
 		onClickViewReplies: PropTypes.func.isRequired,
 	}
 

@@ -31,19 +31,19 @@ class SearchForm extends Component {
 	render() {
 		const { apiUrl, searchTerm }  = this.state;
 		const formAttrs = {
-			role:       'search',
-			method:     'get',
-			className:  'search-form',
+			role: 'search',
+			method: 'get',
+			className: 'search-form',
 			formAction: apiUrl,
-			onSubmit:   this.handleSubmit,
+			onSubmit: this.handleSubmit,
 		};
 		const inputAttrs = {
-			name:        's',
-			type:        'search',
-			className:   'search-field',
+			name: 's',
+			type: 'search',
+			className: 'search-field',
 			placeholder: 'Search…',
-			value:       searchTerm,
-			onChange:    this.handleChange,
+			value: searchTerm,
+			onChange: this.handleChange,
 		};
 
 		return (

@@ -38,9 +38,9 @@ export default class EntryMeta extends Component {
 			el = (
 				<span className="tags-links" key={ taxonomy }>
 					{ terms.map( term =>
-						<span key={ term.id }>
+						( <span key={ term.id }>
 							<Link to={ term.link } rel="tag">{ he.decode( term.name ) }</Link>
-						</span>
+						</span> )
 					) }
 				</span>
 			);

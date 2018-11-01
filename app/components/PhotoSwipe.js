@@ -54,7 +54,7 @@ export default class PhotoSwipe extends Component {
 		if ( ! this.viewportSize ) {
 			itemProps = sizes[ sizes.length - 1 ];
 		} else {
-			for ( let i = sizes.length - 1; i > - 1; --i ) {
+			for ( let i = sizes.length - 1; i > -1; --i ) {
 				if ( sizes[ i ].w <= this.viewportSize || i === 0 ) {
 					itemProps = Object.assign( {}, sizes[ i ] );
 					break;
@@ -63,7 +63,12 @@ export default class PhotoSwipe extends Component {
 		}
 
 		const { src, w, h } = itemProps;
-		let psItem = { msrc, src, w, h };
+		let psItem = {
+			msrc,
+			src,
+			w,
+			h,
+		};
 
 		if ( title ) {
 			psItem = Object.assign( {}, psItem, { title } );

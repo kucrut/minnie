@@ -12,9 +12,9 @@ import { prepareGallery } from 'misc/galleries';
 
 class EntryContent extends Component {
 	static propTypes = {
-		content:   PropTypes.string.isRequired,
+		content: PropTypes.string.isRequired,
 		wrapClass: PropTypes.string,
-		dispatch:  PropTypes.func.isRequired,
+		dispatch: PropTypes.func.isRequired,
 	}
 
 	constructor( props ) {
@@ -64,7 +64,7 @@ class EntryContent extends Component {
 		}
 
 		// Don't bother if this is an external link
-		if ( anchor.hostname !== location.hostname ) {
+		if ( anchor.hostname !== window.location.hostname ) {
 			return;
 		}
 

@@ -35,15 +35,15 @@ export default class Comment extends Component {
 	render() {
 		const { allowReplies, comment: c } = this.props;
 		const commentMetaArgs = {
-			date:               c.date,
-			link:               c.link,
-			avatarUrl:          c.author_avatar_urls[ '48' ],
-			authorUrl:          c.author_url,
-			authorName:         c.author_name,
-			dateFormatted:      c.date_formatted,
-			allowReplies:       ( allowReplies && c.status === 'approved' ),
-			replyLink:          c.reply_link,
-			showViewReplies:    this.showViewReplies(),
+			date: c.date,
+			link: c.link,
+			avatarUrl: c.author_avatar_urls[ '48' ],
+			authorUrl: c.author_url,
+			authorName: c.author_name,
+			dateFormatted: c.date_formatted,
+			allowReplies: ( allowReplies && c.status === 'approved' ),
+			replyLink: c.reply_link,
+			showViewReplies: this.showViewReplies(),
 			onClickViewReplies: this.handleClickViewReplies,
 		};
 
