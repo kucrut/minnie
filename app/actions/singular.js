@@ -1,6 +1,7 @@
 import request from 'axios';
-import { GET_SINGULAR } from 'constants/index';
-import { fetchComments } from 'actions/comments';
+
+import { GET_SINGULAR } from '../constants';
+import { fetchComments } from './comments';
 
 function makeSingularRequest( slug, type = 'pages' ) {
 	return request( {

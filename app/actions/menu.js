@@ -1,5 +1,6 @@
 import request from 'axios';
-import { GET_MENU } from 'constants/index';
+
+import { GET_MENU } from '../constants';
 
 function makeMenuRequest( location ) {
 	return request( {

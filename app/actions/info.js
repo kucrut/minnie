@@ -1,5 +1,6 @@
 import request from 'axios';
-import { GET_INFO } from 'constants/index';
+
+import { GET_INFO } from '../constants';
 
 export default function fetchInfo() {
 	return {

@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { GET_ARCHIVE, GET_ARCHIVE_TERM, GET_ARCHIVE_TERM_FAILURE } from 'constants/index';
-import { makeTermsRequest } from 'actions/terms';
-import { normalizeParams, getArchiveTaxonomyTerm } from 'helpers';
+
+import { GET_ARCHIVE, GET_ARCHIVE_TERM, GET_ARCHIVE_TERM_FAILURE } from '../constants';
+import { makeTermsRequest } from './terms';
+import { normalizeParams, getArchiveTaxonomyTerm } from '../helpers';
 
 function makeArchiveRequest( params ) {
 	return axios( {

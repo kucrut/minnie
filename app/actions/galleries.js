@@ -1,12 +1,13 @@
+import closest from 'dom-closest';
+import { find, indexOf } from 'lodash';
+
 import {
 	GALLERY_ADD,
 	GALLERY_RESET,
 	GALLERY_OPEN,
 	GALLERY_CLOSE,
-} from 'constants/index';
-import closest from 'dom-closest';
-import { find, indexOf } from 'lodash';
-import { createGallery, getZoomId, createZoom } from 'misc/galleries';
+} from '../constants';
+import { createGallery, getZoomId, createZoom } from '../misc/galleries';
 
 export function resetGallery() {
 	return dispatch => {

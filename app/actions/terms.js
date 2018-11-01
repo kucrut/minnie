@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { GET_TERMS } from 'constants/index';
+
+import { GET_TERMS } from '../constants';
 
 export function makeTermsRequest( taxonomy, params ) {
 	return axios( {

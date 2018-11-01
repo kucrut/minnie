@@ -1,5 +1,6 @@
 import request from 'axios';
-import { GET_TAXONOMIES } from 'constants/index';
+
+import { GET_TAXONOMIES } from '../constants';
 
 export default function fetchTaxonomies() {
 	return {
