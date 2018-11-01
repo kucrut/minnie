@@ -1,6 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Photoswipe from 'photoswipe';
 import PhotoswipeUi from 'photoswipe/dist/photoswipe-ui-default';
+
 import { closeGallery } from 'actions/galleries';
 
 export default class PhotoSwipe extends Component {

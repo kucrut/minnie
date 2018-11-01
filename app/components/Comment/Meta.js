@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import CommentAuthor from 'components/Comment/Author';
 import CommentDate from 'components/Comment/Date';
 import CommentReplyLink from 'components/Comment/ReplyLink';

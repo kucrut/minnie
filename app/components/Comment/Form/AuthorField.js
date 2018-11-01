@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Required from 'components/Required';
 
 export default function AuthorField( { value, handleChange } ) {

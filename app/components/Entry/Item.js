@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import EntryTitle from 'components/Entry/Title';
 import EntryMeta from 'components/Entry/Meta';
 import EntryFormat from 'components/Entry/Format';

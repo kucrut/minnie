@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import highlightCode from 'misc/highlight';
 
 export default class CommentContent extends Component {

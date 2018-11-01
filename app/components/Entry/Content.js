@@ -1,8 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import closest from 'dom-closest';
 import { forEach } from 'lodash';
+
 import { contentPathRegEx } from 'helpers';
 import { openGallery, zoomImage } from 'actions/galleries';
 import highlightCode from 'misc/highlight';

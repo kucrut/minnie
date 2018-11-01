@@ -1,5 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { find } from 'lodash';
+
 import CommentContent from 'components/Comment/Content';
 import CommentMeta from 'components/Comment/Meta';
 
