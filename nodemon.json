@@ -1,11 +1,11 @@
 {
     "verbose": true,
-    "ext": "js,jsx",
+    "ext": "js",
     "watch": [
       "app/api",
       "app/config.js",
-      "app/routes.jsx",
-      "app/server.jsx",
+      "app/routes.js",
+      "app/server.js",
       "server",
       "webpack"
     ],
