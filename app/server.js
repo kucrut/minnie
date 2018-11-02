@@ -1,102 +1,79 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { RouterContext, match, createMemoryHistory } from 'react-router';
+import { StaticRouter, matchPath } from 'react-router';
 import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
-import createRoutes from 'routes.jsx';
-import { apiUrl } from 'config';
-import { configureAxios } from 'helpers.js';
-import configureStore from 'store/configureStore';
-import fetchComponentDataBeforeRender from 'api/fetchComponentDataBeforeRender';
 
-configureAxios( apiUrl );
+import routes from './routes';
+import { apiUrl } from '../config/app/config';
+import configureStore from './store/configureStore';
+import fetchComponentDataBeforeRender from './api/fetchComponentDataBeforeRender';
+import { configureAxios } from './helpers';
+import App from './containers/App';
 
 /**
- * Initial html template
+ * Initial html
  *
- * TODO: Get and print the real document title.
+ * TODO: Add feed URLs <link rel="alternate" href="/feed" type="application/rss+xml" />.
+ * TODO: Add sitemap URLs.
  *
- * @param  {string} html         Content.
+ * @param  {string} content      Content.
  * @param  {object} initialState Initial state.
  * @return {string}              Template.
  */
-function renderFullPage( html, initialState ) {
-	const head = Helmet.rewind();
+function createInitialHtml( content, initialState ) {
+	const { htmlAttributes, title } = Helmet.rewind();
 
 	return `<!doctype html>
-		<html class="no-js" ${head.htmlAttributes.toString()}>
-			<head>
-				<meta charset=utf-8 />
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				${head.title.toString()}
-				<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic|Open+Sans:400,400italic,600,600italic,700,700italic&subset=latin,greek,cyrillic,vietnamese,cyrillic-ext,latin-ext'>
-				<link rel="stylesheet" href="/assets/main.css" />
-				<link rel="alternate" href="/feed" type="application/rss+xml" />
-			</head>
-		<body>
-			<div id="app">${html}</div>
-			<script>
-			  window.__INITIAL_STATE__ = ${JSON.stringify( initialState )};
-			</script>
-			<script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>
-		</body>
-	</html>`;
+<html class="no-js" ${ htmlAttributes.toString() }>
+	<head>
+		<meta charset=utf-8 />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		${ title.toString() }
+		<!--link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic|Open+Sans:400,400italic,600,600italic,700,700italic&subset=latin,greek,cyrillic,vietnamese,cyrillic-ext,latin-ext'-->
+		<!--link rel="stylesheet" href="/assets/main.css" /-->
+	</head>
+	<body>
+		<div id="app">${ content }</div>
+		<script>window.__INITIAL_STATE__ = ${JSON.stringify( initialState )};</script>
+		<script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>
+	</body>
+</html>`;
 }
 
-export default function render( req, res ) {
-	const history = createMemoryHistory();
-	const store = configureStore( { info: {
-		apiUrl,
-	}}, history );
-	const routes = createRoutes( store );
+export default function render( req, res, next ) {
+	const store = configureStore( {
+		info: { apiUrl },
+	} );
 
-	/*
-	 * From the react-router docs:
-	 *
-	 * This function is to be used for server-side rendering. It matches a set of routes to
-	 * a location, without rendering, and calls a callback(error, redirectLocation, renderProps)
-	 * when it's done.
-	 *
-	 * The function will create a `history` for you, passing additional `options` to create it.
-	 * These options can include `basename` to control the base name for URLs, as well as the pair
-	 * of `parseQueryString` and `stringifyQuery` to control query string parsing and serializing.
-	 * You can also pass in an already instantiated `history` object, which can be constructured
-	 * however you like.
-	 *
-	 * The three arguments to the callback function you pass to `match` are:
-	 * - error: A javascript Error object if an error occured, `undefined` otherwise.
-	 * - redirectLocation: A `Location` object if the route is a redirect, `undefined` otherwise
-	 * - renderProps: The props you should pass to the routing context if the route matched,
-	 *                `undefined` otherwise.
-	 * If all three parameters are `undefined`, this means that there was no route found matching the
-	 * given location.
-	 */
-	match( { routes, location: req.url }, ( error, redirectLocation, renderProps ) => {
-		if ( error ) {
-			res.status( 500 ).send( error.message );
-		} else if ( redirectLocation ) {
-			res.redirect( 302, redirectLocation.pathname + redirectLocation.search );
-		} else if ( renderProps ) {
-			const fetchParams = Object.assign( {}, renderProps.params, renderProps.location.query );
+	// TODO: Move this out.
+	let match;
+	const activeRoute = routes.find( route => {
+		match = matchPath( req.url, route );
+		return Boolean( match );
+	} );
+	const components = [ activeRoute.component, App ];
+	const context = {};
+
+	configureAxios( apiUrl );
+
+	fetchComponentDataBeforeRender( store.dispatch, components, match.params )
+		.then( () => {
 			const InitialView = (
 				<Provider store={ store }>
-					<RouterContext { ...renderProps } />
+					<StaticRouter location={ req.url } context={ context }>
+						<App />
+					</StaticRouter>
 				</Provider>
 			);
+			const markup = createInitialHtml(
+				renderToString( InitialView ),
+				store.getState()
+			);
 
-			// This method waits for all render component promises to resolve before returning to browser.
-			fetchComponentDataBeforeRender( store.dispatch, renderProps.components, fetchParams )
-				.then( () => {
-					const componentHTML = renderToString( InitialView );
-					const initialState = store.getState();
+			res.status( 200 ).end( markup );
+		} )
+		.catch( next );
 
-					res.status( 200 ).end( renderFullPage( componentHTML, initialState ) );
-				} )
-				.catch( () => {
-					res.end( renderFullPage( '', {} ) );
-				} );
-		} else {
-			res.status( 404 ).send( 'Not Found' );
-		}
-	} );
+	// TODO: 30x, 40x, 50x.
 }
