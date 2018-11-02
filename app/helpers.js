@@ -86,8 +86,10 @@ export function getArchiveTaxonomyTerm( params ) {
 	return result;
 }
 
+// TODO: Seriously, refactor this!
 export function getAdjacentLink( next = true, args ) {
-	const { hasMore, currentPage, route, routeParams, query } = args;
+	const { hasMore, currentPage, route, query } = args;
+	const { path, params } = route;
 
 	function addSearchQuery( link ) {
 		if ( has( query, 's' ) ) {
@@ -98,19 +100,21 @@ export function getAdjacentLink( next = true, args ) {
 	}
 
 	const newPage = next ? currentPage - 1 : currentPage + 1;
-	let link      = '';
-	let paths     = [];
+	let link = '';
+	let paths = [];
 	let newParams = { page: newPage };
 
 	// Home's prev
-	if ( hasMore && ! route.path && ! next ) {
+	if ( hasMore && path === '/' && ! next ) {
 		return addSearchQuery( '/page/2' );
 	} else if ( newPage === 0 || ( ! hasMore && ! next ) ) {
 		return link;
 	}
 
-	paths = [route.path];
+	paths = [ path ];
 
+	// TODO: ??? :D
+	/*
 	if ( route.childRoutes ) {
 		forEach( route.childRoutes, el => {
 			if ( el.path ) {
@@ -118,10 +122,15 @@ export function getAdjacentLink( next = true, args ) {
 			}
 		} );
 	}
+	*/
 
 	link = paths.join( '/' );
 
-	newParams = Object.assign( {}, routeParams, newParams );
+	newParams = {
+		...params,
+		...newParams,
+	};
+
 	forEach( newParams, ( value, key ) => {
 		link = link.replace( `:${key}`, value );
 	} );
