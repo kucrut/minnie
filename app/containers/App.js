@@ -60,8 +60,8 @@ class App extends Component {
 	componentDidMount() {
 		configureAxios( this.props.apiUrl );
 		this.updateHtmlClass();
-		this.insertGAScript();
-		this.context.router.listen( this.initGallery.bind( this ) );
+		// this.insertGAScript();
+		// this.context.router.listen( this.initGallery.bind( this ) );
 	}
 
 	updateHtmlClass() {
