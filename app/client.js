@@ -1,12 +1,10 @@
-/* eslint no-underscore-dangle: 0 */
-
 import React from 'react';
-import { render } from 'react-dom';
+import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-import createRoutes from 'routes.jsx';
-import configureStore from 'store/configureStore';
+import { BrowserRouter } from 'react-router-dom';
+
+import App from './containers/App';
+import configureStore from './store/configureStore';
 
 // Stolen from https://github.com/reactjs/react-router/issues/394#issuecomment-220221604
 function hashLinkScroll() {
@@ -31,15 +29,13 @@ function hashLinkScroll() {
 
 // Grab the state from a global injected into server-generated HTML
 const initialState = window.__INITIAL_STATE__;
-const store = configureStore( initialState, browserHistory );
-const history = syncHistoryWithStore( browserHistory, store );
-const routes = createRoutes( store );
+const store = configureStore( initialState );
 
-render(
+hydrate(
 	<Provider store={ store }>
-		<Router history={ history } onUpdate={ hashLinkScroll }>
-			{ routes }
-		</Router>
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
 	</Provider>,
 	document.getElementById( 'app' )
 );
