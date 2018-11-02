@@ -1,13 +1,17 @@
 const path = require( 'path' );
+const autoprefixer = require( 'autoprefixer' );
+const postcssFlexbugsFixes = require( 'postcss-flexbugs-fixes' );
+const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 
 /**
  * Get shared config
  *
- * @param {string} env Environment.
+ * @param {string}  env      Environment.
+ * @param {boolean} isServer Whether to get configuration for server or client.
  *
  * @return {Object}
  */
-function getSharedConfig( env ) {
+function getSharedConfig( env, isServer = false ) {
 	const cwd = process.cwd();
 	const isProduction = env === 'production';
 
@@ -67,6 +71,51 @@ function getSharedConfig( env ) {
 					name: '[name].[ext]',
 					limit: 10000,
 				},
+			}, {
+				test: /\.css$/,
+				// NOTE: Order is important.
+				use: [
+					( ( ! isProduction && ! isServer ) && { loader: 'style-loader' } ),
+					( ( isProduction && ! isServer ) && MiniCssExtractPlugin.loader ),
+					{
+						loader: 'css-loader',
+						options: {
+							importLoaders: 1,
+							sourceMap: true,
+						},
+					},
+					{
+						loader: 'clean-css-loader',
+						options: isProduction
+							? {
+								level: 2,
+								inline: [ 'remote' ],
+								format: {
+									wrapAt: 200,
+								},
+							}
+							: { level: 0 },
+					},
+					{
+						loader: 'postcss-loader',
+						options: {
+							ident: 'postcss',
+							plugins: [
+								postcssFlexbugsFixes,
+								autoprefixer( {
+									browsers: [
+										'>1%',
+										'last 4 versions',
+										'Firefox ESR',
+										'not ie < 10',
+									],
+									flexbox: 'no-2009',
+								} ),
+								require( 'postcss-nested' ),
+							],
+						},
+					},
+				].filter( Boolean ),
 			}, {
 				// Exclude all extensions that have their own loader.
 				exclude: [
