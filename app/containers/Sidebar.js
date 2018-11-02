@@ -1,52 +1,36 @@
-import React, { Component } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import PrimaryMenu from '../components/PrimaryMenu';
 import SearchForm from '../components/SearchForm';
 
-class Sidebar extends Component {
-	static propTypes = {
-		menus: PropTypes.object.isRequired,
-		dispatch: PropTypes.func.isRequired,
-		isSidebarExpanded: PropTypes.bool.isRequired,
-	}
+export default function Sidebar( props ) {
+	const { isExpanded, menu } = props;
 
-	renderMenu() {
-		const { primary } = this.props.menus;
-		let el;
+	const sbClass = classNames( {
+		'slide-menu': true,
+		expanded: isExpanded,
+	} );
 
-		if ( primary && primary.items.length ) {
-			el = ( <PrimaryMenu items={ primary.items } /> );
-		}
-
-		return el;
-	}
-
-	render() {
-		const { isSidebarExpanded } = this.props;
-
-		const sbClass = classNames( {
-			'slide-menu': true,
-			expanded: isSidebarExpanded,
-		} );
-
-		return (
-			<div className={ sbClass }>
-				<h2 className="widget-title">Menu</h2>
-				{ this.renderMenu() }
-				<SearchForm />
-			</div>
-		);
-	}
+	return (
+		<div className={ sbClass }>
+			{ ( menu && menu.items.length ) ? (
+				<Fragment>
+					<h2 className="widget-title">Menu</h2>
+					<PrimaryMenu items={ menu.items } />
+				</Fragment>
+			) : null }
+			<SearchForm />
+		</div>
+	);
 }
 
-function mapStateToProps( state ) {
-	return {
-		menus: state.menu.menus,
-		isSidebarExpanded: state.ui.isSidebarExpanded,
-	};
-}
+Sidebar.defaultProps = {
+	menu: null,
+};
 
-export default connect( mapStateToProps )( Sidebar );
+Sidebar.propTypes = {
+	isExpanded: PropTypes.bool.isRequired,
+	menu: PropTypes.object,
+};
