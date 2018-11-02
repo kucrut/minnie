@@ -3,7 +3,7 @@ const merge = require( 'webpack-merge' );
 const getSharedConfig = require( './shared' );
 
 module.exports = env => {
-	const config = merge( getSharedConfig( env ), {
+	const config = merge( getSharedConfig( env, true ), {
 		name: 'server-dev',
 		entry: {
 			server: './app/server',
