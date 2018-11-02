@@ -58,14 +58,15 @@ class App extends Component {
 	}
 
 	render() {
+		const { isSidebarExpanded, siteLang } = this.props;
 		const pageClass = classNames( {
 			'hfeed site': true,
-			'sidebar-open': this.props.isSidebarExpanded,
+			'sidebar-open': isSidebarExpanded,
 		} );
 
 		return (
 			<div id="page" className={ pageClass }>
-				<Helmet htmlAttributes={ { lang: this.props.siteLang } } />
+				<Helmet htmlAttributes={ { lang: siteLang } } />
 
 				<a className="skip-link screen-reader-text" href="#content">Skip to content</a>
 
