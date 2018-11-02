@@ -21,7 +21,7 @@ import App from './containers/App';
  * @param  {object} initialState Initial state.
  * @return {string}              Template.
  */
-function createInitialHtml( content, initialState ) {
+function createInitialHtml( content, initialState, env = 'production' ) {
 	const { htmlAttributes, title } = Helmet.rewind();
 
 	return `<!doctype html>
@@ -31,7 +31,7 @@ function createInitialHtml( content, initialState ) {
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		${ title.toString() }
 		<!--link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic|Open+Sans:400,400italic,600,600italic,700,700italic&subset=latin,greek,cyrillic,vietnamese,cyrillic-ext,latin-ext'-->
-		<!--link rel="stylesheet" href="/assets/main.css" /-->
+		${ env === 'production' ? '<link rel="stylesheet" href="/assets/main.css" />' : '' }
 	</head>
 	<body>
 		<div id="app">${ content }</div>
@@ -41,7 +41,7 @@ function createInitialHtml( content, initialState ) {
 </html>`;
 }
 
-export default function render( req, res, next ) {
+export default function render( env, req, res, next ) {
 	const store = configureStore( {
 		info: { apiUrl },
 	} );
@@ -68,7 +68,8 @@ export default function render( req, res, next ) {
 			);
 			const markup = createInitialHtml(
 				renderToString( InitialView ),
-				store.getState()
+				store.getState(),
+				env,
 			);
 
 			res.status( 200 ).end( markup );
