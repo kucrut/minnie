@@ -1,4 +1,5 @@
 const path = require( 'path' );
+const cors = require( 'cors' );
 const express = require( 'express' );
 const webpack = require( 'webpack' );
 
@@ -21,6 +22,7 @@ if ( process.env.NODE_ENV === 'development' ) {
 }
 
 // Bootstrap application settings.
+app.use( cors() );
 app.set( 'port', port );
 // X-Powered-By header has no functional value.
 // Keeping it makes it easier for an attacker to build the site's profile
