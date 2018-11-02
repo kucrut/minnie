@@ -5,7 +5,7 @@ const app = express();
 const isDev = process.env.NODE_ENV === 'development';
 
 if ( isDev ) {
-	const config = require( '../config/webpack/dev-client.js' );
+	const config = require( '../config/webpack/dev-client' )( 'development' );
 	const compiler = webpack( config );
 	const devMiddleware = require( 'webpack-dev-middleware' )( compiler, {
 		noInfo: true,
