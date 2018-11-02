@@ -7,8 +7,9 @@ const { port } = require( '../config/app/config' );
 const App = require( '../public/assets/server.js' );
 
 const app = express();
+const env = process.env.NODE_ENV;
 
-if ( process.env.NODE_ENV === 'development' ) {
+if ( env === 'development' ) {
 	const webpackConfig = require( '../config/webpack/dev-client' )( 'development' );
 	const compiler = webpack( webpackConfig );
 	const devMiddleware = require( 'webpack-dev-middleware' )( compiler, {
@@ -34,13 +35,13 @@ app.use( express.static( path.join( __dirname, '..', 'public' ) ) );
 // Routing.
 // TODO: Check config before disabling favicon.
 app.get( '/favicon.ico', ( req, res ) => res.status( 204 ) );
-app.get( '*', ( ...args ) => App.default( ...args ) );
+app.get( '*', ( ...args ) => App.default( env, ...args ) );
 
 /* eslint-disable-next-line no-console */
 console.log( `
 ----------------------------
 => Starting Server...'
-=> Environment: ${ process.env.NODE_ENV }
+=> Environment: ${ env }
 ----------------------------
 ` );
 
