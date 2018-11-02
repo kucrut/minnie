@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -7,42 +7,32 @@ import Branding from '../components/Branding';
 import SocialMenu from '../components/SocialMenu';
 import Burger from '../components/Burger';
 
-class Header extends Component {
-	static propTypes = {
-		info: PropTypes.object.isRequired,
-		menus: PropTypes.object.isRequired,
-	}
+function Header( props ) {
+	const { isSidebarExpanded, menus, siteName } = props;
+	const { primary, social } = menus;
 
-	renderSocialMenu() {
-		const { social } = this.props.menus;
-		let el;
-
-		if ( social && social.items.length ) {
-			el = (
+	return (
+		<header id="masthead" className="site-header" role="banner">
+			<Branding name={ siteName } />
+			{ ( social && social.items.length ) ? (
 				<SocialMenu items={ social.items } />
-			);
-		}
-
-		return el;
-	}
-
-	render() {
-		return (
-			<header id="masthead" className="site-header" role="banner">
-				<Branding name={ this.props.info.name } />
-				{ this.renderSocialMenu() }
-				<Burger />
-				<Sidebar />
-			</header>
-		);
-	}
+			) : null }
+			<Burger />
+			<Sidebar menu={ primary } isExpanded={ isSidebarExpanded } />
+		</header>
+	);
 }
 
-function mapStateToProps( state ) {
-	return {
-		info: state.info,
-		menus: state.menu.menus,
-	};
-}
+Header.propTypes = {
+	isSidebarExpanded: PropTypes.bool.isRequired,
+	menus: PropTypes.object.isRequired,
+	siteName: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = state => ( {
+	isSidebarExpanded: state.ui.isSidebarExpanded,
+	menus: state.menu.menus,
+	siteName: state.info.name,
+} );
 
 export default connect( mapStateToProps )( Header );
