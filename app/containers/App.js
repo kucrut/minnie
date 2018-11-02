@@ -159,12 +159,24 @@ class App extends Component {
 				<Header />
 
 				<div id="content" className="site-content">
-					{ this.props.children }
+					<Switch>
+						{ routes.map( route => {
+							const { path, exact, component: Component, ...rest } = route;
+							const routeProps = {
+								path,
+								exact,
+								key: path,
+								render: props => <Component { ...props } { ...rest } />,
+							};
+
+							return <Route { ...routeProps } />;
+						} ) }
+					</Switch>
 				</div>
 
 				<Footer />
 
-				{ this.renderPhotoSwipe() }
+				{ /* this.renderPhotoSwipe() */ }
 			</div>
 		);
 	}
