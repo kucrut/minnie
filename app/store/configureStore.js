@@ -19,7 +19,7 @@ export default function configureStore( initialState ) {
 		module.hot.accept( '../reducers', () => {
 			const nextReducer = require( '../reducers' );
 
-			store.replaceReducer( nextReducer );
+			store.replaceReducer( nextReducer.default );
 		} );
 	}
 
