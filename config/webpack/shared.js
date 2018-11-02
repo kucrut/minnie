@@ -14,7 +14,7 @@ function getSharedConfig( env ) {
 	let config = {
 		mode: env,
 		context: cwd,
-		devtool: isProduction ? 'hidden-source-map' : 'cheap-module-source-map',
+		devtool: isProduction ? 'hidden-source-map' : 'cheap-module-eval-source-map',
 		resolve: {
 			extensions: [ '.js', '.json' ],
 		},
