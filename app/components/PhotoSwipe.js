@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Photoswipe from 'photoswipe';
 import PhotoswipeUi from 'photoswipe/dist/photoswipe-ui-default';
 
-import { closeGallery } from 'actions/galleries';
+import { closeGallery } from '../actions/galleries';
 
 export default class PhotoSwipe extends Component {
 

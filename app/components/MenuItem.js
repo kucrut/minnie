@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { IndexLink, Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import he from 'he';
 
 export default class MenuItem extends Component {
@@ -23,8 +23,9 @@ export default class MenuItem extends Component {
 				<Link to={ item.url } activeClassName="current-menu-item">{ title }</Link>
 			);
 		}
+		*/
 
-		return el;
+		return <Link to={ item.url } activeClassName="current-menu-item">{ title }</Link>;
 	}
 
 	renderChildren() {
