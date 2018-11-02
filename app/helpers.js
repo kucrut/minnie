@@ -88,8 +88,7 @@ export function getArchiveTaxonomyTerm( params ) {
 
 // TODO: Seriously, refactor this!
 export function getAdjacentLink( next = true, args ) {
-	const { hasMore, currentPage, route, query } = args;
-	const { path, params } = route;
+	const { hasMore, currentPage, path, params, query } = args;
 
 	function addSearchQuery( link ) {
 		if ( has( query, 's' ) ) {
