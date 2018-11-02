@@ -6,8 +6,8 @@
       "app/config.js",
       "app/routes.js",
       "app/server.js",
-      "server",
-      "webpack"
+      "config",
+      "server"
     ],
     "exec": "npm run build:dev && node server/index.js"
 }
