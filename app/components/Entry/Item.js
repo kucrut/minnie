@@ -1,3 +1,5 @@
+// TODO: Update lifecycles
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -28,11 +30,12 @@ export default class Entry extends Component {
 		this.scriptEls = [];
 	}
 
+	/*
 	componentDidMount() {
 		this.injectScripts();
 	}
 
-	componentWillUpdate() {
+	componentWillUpdateX() {
 		this.removeScripts();
 	}
 
@@ -43,6 +46,7 @@ export default class Entry extends Component {
 	componentWillUnmount() {
 		this.removeScripts();
 	}
+	*/
 
 	getElClass() {
 		const { data } = this.props;
