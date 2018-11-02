@@ -23,13 +23,11 @@ class Page extends _Singular {
 }
 
 export function mapStateToProps( state, ownProps ) {
-	const { slug } = ownProps.params;
-
 	return {
 		info: state.info,
 		singular: state.singular,
 		user: state.session.user,
-		slug,
+		slug: ownProps.match.params.slug,
 	};
 }
 
