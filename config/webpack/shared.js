@@ -1,3 +1,5 @@
+const path = require( 'path' );
+
 /**
  * Get shared config
  *
@@ -12,8 +14,17 @@ function getSharedConfig( env ) {
 	let config = {
 		mode: env,
 		context: cwd,
+		devtool: isProduction ? 'hidden-source-map' : 'cheap-module-source-map',
 		resolve: {
 			extensions: [ '.js', '.json' ],
+		},
+		output: {
+			// The output directory as absolute path.
+			path: path.join( cwd, 'public', 'assets' ),
+			// The filename of the entry chunk as relative path inside the output.path directory.
+			filename: '[name].js',
+			// The output path from the view of the JavaScript.
+			publicPath: '/assets/',
 		},
 		module: {
 			strictExportPresence: true,
