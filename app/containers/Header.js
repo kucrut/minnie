@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Sidebar from './Sidebar';
-import Branding from './Branding';
+import Branding from '../components/Branding';
 import SocialMenu from '../components/SocialMenu';
 import Burger from '../components/Burger';
 

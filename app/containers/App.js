@@ -3,28 +3,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router';
 import Helmet from 'react-helmet';
 import classNames from 'classnames';
 import { find } from 'lodash';
 
+import routes from '../routes';
 import { gaId } from '../../config/app/config';
 import { configureAxios, getQueryVar } from '../helpers';
 import fetchInfo from '../actions/info';
 import { fetchPostFormats } from '../actions/terms';
-import { fetchPrimaryMenu, fetchSocialMenu } from './actions/menu';
-import { openGallery, resetGallery } from './actions/galleries';
+import { fetchPrimaryMenu, fetchSocialMenu } from '../actions/menu';
+import { openGallery, resetGallery } from '../actions/galleries';
 import Header from './Header';
 import Footer from './Footer';
 import PhotoSwipe from '../components/PhotoSwipe';
 
-import 'photoswipe/dist/photoswipe.css';
-import 'photoswipe/dist/default-skin/default-skin.css';
-import '../css/genericons/genericons/genericons.css';
+// import 'photoswipe/dist/photoswipe.css';
+// import 'photoswipe/dist/default-skin/default-skin.css';
+// import '../css/genericons/genericons/genericons.css';
 
 // For some reason, requiring this from `node_modules` dir will pull all css files :(
-require( 'css/prism-coy.css' );
-require( 'prismjs/plugins/line-numbers/prism-line-numbers.css' );
-require( 'css/style.css' );
+// require( 'css/prism-coy.css' );
+// require( 'prismjs/plugins/line-numbers/prism-line-numbers.css' );
+// require( 'css/style.css' );
 
 class App extends Component {
 
