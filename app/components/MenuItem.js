@@ -1,46 +1,32 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import he from 'he';
 
 export default class MenuItem extends Component {
-	static propTypes = { item: PropTypes.object.isRequired }
+	static propTypes = {
+		item: PropTypes.object.isRequired,
+	}
 
 	renderLink( item ) {
 		const title = he.decode( item.title );
-		let el;
 
-		if ( item.url === '/' ) {
-			el = (
-				<IndexLink
-					to={ item.url }
-					onlyActiveOnIndex={ true }
-					activeClassName="current-menu-item"
-				>{ title }</IndexLink>
-			);
-		} else {
-			el = (
-				<Link to={ item.url } activeClassName="current-menu-item">{ title }</Link>
-			);
-		}
-		*/
-
-		return <Link to={ item.url } activeClassName="current-menu-item">{ title }</Link>;
+		return <NavLink to={ item.url } activeClassName="current-menu-item">{ title }</NavLink>;
 	}
 
 	renderChildren() {
-		const { children } = this.props.item;
-		let el;
+		const { item } = this.props;
+		const { children } = item;
 
-		if ( children.length ) {
-			el = (
-				<ul className="sub-menu">
-					{ children.map( child => <MenuItem key={ child.id } item={ child } /> ) }
-				</ul>
-			);
+		if ( ! children.length ) {
+			return null;
 		}
 
-		return el;
+		return (
+			<ul className="sub-menu">
+				{ children.map( child => <MenuItem key={ child.id } item={ child } /> ) }
+			</ul>
+		);
 	}
 
 	render() {
