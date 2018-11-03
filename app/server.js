@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
 
 import routes from './config/routes';
-import { apiUrl } from '../config/app/config';
+import { apiUrl } from './config/app';
 import configureStore from './store';
 import fetchComponentDataBeforeRender from './api/fetchComponentDataBeforeRender';
 import { configureAxios } from './helpers';

@@ -1,4 +1,4 @@
-import { taxonomyMap } from '../../config/app/config';
+import { taxonomyMap } from '../config/app';
 import Login from '../pages/Login';
 import Index from '../pages/Index';
 import Page from '../pages/Page';

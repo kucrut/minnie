@@ -3,7 +3,7 @@ const cors = require( 'cors' );
 const express = require( 'express' );
 const webpack = require( 'webpack' );
 
-const { port } = require( '../config/app/config' );
+const { port } = require( '../app/config/app' );
 const App = require( '../public/assets/server.js' );
 
 const app = express();

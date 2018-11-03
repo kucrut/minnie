@@ -1,7 +1,7 @@
 /* eslint global-require: 0, import/newline-after-import: 0 */
 
 import Prism from 'prismjs';
-import { codeHighlight } from '../../config/app/config';
+import { codeHighlight } from '../config/app';
 require( 'prismjs/plugins/line-numbers/prism-line-numbers.js' );
 codeHighlight.languages.forEach( lang => {
 	require( `prismjs/components/prism-${lang}.js` );
