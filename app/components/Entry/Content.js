@@ -76,7 +76,7 @@ class EntryContent extends Component {
 			return;
 		}
 
-		e.preventDefault();
+		// e.preventDefault();
 		// dispatch( push( anchor.pathname ) );
 	}
 
@@ -90,7 +90,7 @@ class EntryContent extends Component {
 					this.theContent = c;
 				} }
 				className={ divClass }
-				onClick={ this.handleClick }
+				// onClick={ this.handleClick }
 				dangerouslySetInnerHTML={ { __html: content } }
 			/>
 		);
