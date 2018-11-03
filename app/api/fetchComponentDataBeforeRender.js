@@ -16,12 +16,10 @@ export default function fetchComponentDataBeforeRender( dispatch, components, pa
 	*/
 
 	const needs = components.reduce( ( prev, current ) => {
-		let more;
+		let more = [];
 
 		if ( current.need && current.WrappedComponent ) {
 			more = current.WrappedComponent.need;
-		} else {
-			more = [];
 		}
 
 		return more.concat( prev );

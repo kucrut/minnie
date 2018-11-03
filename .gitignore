@@ -1,9 +1,10 @@
 .DS_Store
 node_modules
-npm-debug.log
-.tmp
-.idea
-.swp
+*.log
+*.tmp
+*.idea
+*.swp
+
 public
-app/config.js
+/config/app/config.js
 process.json

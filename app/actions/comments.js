@@ -1,9 +1,7 @@
 import request from 'axios';
-import { polyfill } from 'es6-promise';
-import { GET_COMMENTS, POST_COMMENT } from 'constants/index';
-import { checkOtherState } from 'helpers';
 
-polyfill();
+import { GET_COMMENTS, POST_COMMENT } from '../constants';
+import { checkOtherState } from '../helpers';
 
 const defaultParams = { parent: 0 };
 
@@ -31,12 +29,13 @@ export function fetchComments( params ) {
 		type: GET_COMMENTS,
 		postId: fetchParams.post,
 		parentId: fetchParams.parent,
+		// TODO: Seriously, REFACTOR this!
 		promise: checkOtherState( getState, 'info' )
 			.then( info => Promise.all( [
 				info,
 				makeRequest( Object.assign( { per_page: info.settings.comments.per_page }, fetchParams ) ),
 			] ).then( results => Promise.resolve( results[ 1 ] ) ) ),
-			// TODO: Check if info contains error.
+		// TODO: Check if info contains error.
 	} );
 }
 
@@ -47,7 +46,7 @@ export function postComment( data ) {
 		parentId: data.parent,
 		promise: request( {
 			method: 'post',
-			url:    '/wp/v2/comments',
+			url: '/wp/v2/comments',
 			data,
 		} ),
 	};

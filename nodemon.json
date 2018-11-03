@@ -1,13 +1,13 @@
 {
     "verbose": true,
-    "ext": "js,jsx",
+    "ext": "js",
     "watch": [
       "app/api",
       "app/config.js",
-      "app/routes.jsx",
-      "app/server.jsx",
-      "server",
-      "webpack"
+      "app/routes.js",
+      "app/server.js",
+      "config",
+      "server"
     ],
     "exec": "npm run build:dev && node server/index.js"
 }

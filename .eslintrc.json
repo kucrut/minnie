@@ -1,0 +1,7 @@
+{
+  "extends": "humanmade",
+  "env": {
+    "browser": true,
+    "node": true
+  }
+}

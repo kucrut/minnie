@@ -1,23 +1,48 @@
-var express = require( 'express' );
-var webpack = require( 'webpack' );
-var app     = express();
+const path = require( 'path' );
+const cors = require( 'cors' );
+const express = require( 'express' );
+const webpack = require( 'webpack' );
 
-var isDev = process.env.NODE_ENV === 'development';
+const { port } = require( '../config/app/config' );
+const App = require( '../public/assets/server.js' );
 
-if ( isDev ) {
-	var config   = require( '../webpack/webpack.config.dev-client.js' );
-	var compiler = webpack( config );
+const app = express();
+const env = process.env.NODE_ENV;
 
-	app.use( require( 'webpack-dev-middleware' )( compiler, {
+if ( env === 'development' ) {
+	const webpackConfig = require( '../config/webpack/client' )( 'development' );
+	const compiler = webpack( webpackConfig );
+	const devMiddleware = require( 'webpack-dev-middleware' )( compiler, {
 		noInfo: true,
-		publicPath: config.output.publicPath
-	}) );
+		publicPath: webpackConfig.output.publicPath,
+	} );
+	const hotMiddleware = require( 'webpack-hot-middleware' )( compiler );
 
-	app.use( require( 'webpack-hot-middleware' )( compiler ) );
+	app.use( devMiddleware );
+	app.use( hotMiddleware );
 }
 
-// Bootstrap application settings
-require( './config/express' )( app );
-require( './config/routes' )( app );
+// Bootstrap application settings.
+app.use( cors() );
+app.set( 'port', port );
+// X-Powered-By header has no functional value.
+// Keeping it makes it easier for an attacker to build the site's profile
+// It can be removed safely
+app.disable( 'x-powered-by' );
+app.set( 'view cache', false );
+app.use( express.static( path.join( __dirname, '..', 'public' ) ) );
+
+// Routing.
+// TODO: Check config before disabling favicon.
+app.get( '/favicon.ico', ( req, res ) => res.status( 204 ) );
+app.get( '*', ( ...args ) => App.default( env, ...args ) );
+
+/* eslint-disable-next-line no-console */
+console.log( `
+----------------------------
+=> Starting Server...
+=> Environment: ${ env }
+----------------------------
+` );
 
 app.listen( app.get( 'port' ) );

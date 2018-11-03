@@ -1,25 +1,37 @@
 import axios from 'axios';
-import { polyfill } from 'es6-promise';
-import { GET_ARCHIVE, GET_ARCHIVE_TERM, GET_ARCHIVE_TERM_FAILURE } from 'constants/index';
-import { makeTermsRequest } from 'actions/terms';
-import { normalizeParams, getArchiveTaxonomyTerm } from 'helpers';
 
-polyfill();
+import { GET_ARCHIVE, GET_ARCHIVE_TERM, GET_ARCHIVE_TERM_FAILURE } from '../constants';
+import { makeTermsRequest } from './terms';
+import { checkOtherState, normalizeParams, getArchiveTaxonomyTerm } from '../helpers';
 
 function makeArchiveRequest( params ) {
 	return axios( {
 		method: 'get',
-		url:    '/wp/v2/posts',
+		url: '/wp/v2/posts',
 		params,
 	} );
 }
 
 export function fetchArchive( params = {} ) {
-	return {
+	return ( dispatch, getState ) => dispatch( {
 		type: GET_ARCHIVE,
 		fetchParams: params,
-		promise: makeArchiveRequest( normalizeParams( params ) ),
-	};
+		// TODO: Seriously, REFACTOR this!
+		promise: checkOtherState( getState, 'info' )
+			.then( info => {
+				const { settings } = info;
+				const { archive } = settings;
+				const { per_page } = archive;
+
+				return Promise.all( [
+					info,
+					makeArchiveRequest( normalizeParams( {
+						...params,
+						per_page,
+					} ) ),
+				] ).then( results => Promise.resolve( results[ 1 ] ) );
+			 } ),
+	} );
 }
 
 /**

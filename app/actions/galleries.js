@@ -1,12 +1,13 @@
+import closest from 'dom-closest';
+import { find, indexOf } from 'lodash';
+
 import {
 	GALLERY_ADD,
 	GALLERY_RESET,
 	GALLERY_OPEN,
 	GALLERY_CLOSE,
-} from 'constants/index';
-import closest from 'dom-closest';
-import { find, indexOf } from 'lodash';
-import { createGallery, getZoomId, createZoom } from 'misc/galleries';
+} from '../constants';
+import { createGallery, getZoomId, createZoom } from '../misc/galleries';
 
 export function resetGallery() {
 	return dispatch => {
@@ -41,8 +42,8 @@ export function openGallery( itemEl ) {
 		const itemIndex = indexOf( allItems, itemEl );
 
 		dispatch( {
-			type:  GALLERY_OPEN,
-			id:    galleryId,
+			type: GALLERY_OPEN,
+			id: galleryId,
 			index: itemIndex,
 			thumb: itemEl,
 		} );
@@ -63,8 +64,8 @@ export function zoomImage( imgEl ) {
 		}
 
 		dispatch( {
-			type:  GALLERY_OPEN,
-			id:    zoomId,
+			type: GALLERY_OPEN,
+			id: zoomId,
 			index: 0,
 			thumb: imgEl.parentNode,
 		} );

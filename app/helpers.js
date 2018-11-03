@@ -1,7 +1,8 @@
 import qs from 'qs';
 import axios from 'axios';
-import { forEach, has, isEmpty, omit, size, trim } from 'lodash';
-import { taxonomyMap } from 'config';
+import { forEach, has, size, trim } from 'lodash';
+
+import { taxonomyMap } from '../config/app/config';
 
 export const contentPathRegEx = new RegExp( '^/wp-content/' );
 
@@ -24,34 +25,65 @@ export function configureAxios( apiUrl ) {
 }
 
 export function normalizeParams( params ) {
-	let filters = {};
-	let normalized = Object.assign( {}, params, { page: parseInt( ( params.page || 1 ), 10 ) } );
+	const taxNames = Object.keys( taxonomyMap );
+	let filter = {};
+	let normalized = {};
 
-	// Convert `s` to `search`.
-	if ( has( normalized, 's' ) ) {
-		normalized = Object.assign( {}, omit( normalized, 's' ), { search: normalized.s } );
-	}
-
-	// Build `filter` param.
-	for ( const routeParam of Object.keys( taxonomyMap ) ) {
-		if ( ! has( normalized, routeParam ) ) {
-			continue;
+	Object.keys( params ).forEach( key => {
+		// This is to avoid useless params such as { '0': '/' }.
+		if ( ! isNaN( key ) ) {
+			return;
 		}
 
-		const props = taxonomyMap[ routeParam ];
-		let term = params[ routeParam ];
+		switch ( key ) {
+			case 'page': {
+				const value = Number( params[ key ] );
+				if ( value > 1 ) {
+					normalized = {
+						...normalized,
+						page: value,
+					};
+				}
+			}
+				break;
 
-		if ( routeParam === 'format' ) {
-			term = `post-format-${term}`;
+			case 's': {
+				const value = params[ key ].trim();
+				if ( value ) {
+					normalized = {
+						...normalized,
+						search: value,
+					};
+				}
+			}
+				break;
+
+			default: {
+				const value = params[ key ];
+
+				if ( taxNames.includes( key ) ) {
+					const { queryVar } = taxonomyMap[ key ];
+					filter = {
+						...filter,
+						[ queryVar ]: key === 'format'
+							? `post-format-${ value }`
+							: value,
+					};
+				} else {
+					normalized = {
+						...normalized,
+						[ key ]: value,
+					};
+				}
+			}
 		}
+	} );
 
-		filters = Object.assign( {}, filters, { [ props.queryVar ]: term } );
-
-		normalized = Object.assign( {}, omit( normalized, routeParam ) );
-	}
-
-	if ( ! isEmpty( filters ) ) {
-		normalized = Object.assign( {}, normalized, { filter: filters } );
+	if ( Object.keys( filter ).length ) {
+		normalized = {
+			...normalized,
+			filter,
+		};
 	}
 
 	return normalized;
@@ -85,8 +117,9 @@ export function getArchiveTaxonomyTerm( params ) {
 	return result;
 }
 
+// TODO: Seriously, refactor this!
 export function getAdjacentLink( next = true, args ) {
-	const { hasMore, currentPage, route, routeParams, query } = args;
+	const { hasMore, currentPage, path, params, query } = args;
 
 	function addSearchQuery( link ) {
 		if ( has( query, 's' ) ) {
@@ -97,19 +130,21 @@ export function getAdjacentLink( next = true, args ) {
 	}
 
 	const newPage = next ? currentPage - 1 : currentPage + 1;
-	let link      = '';
-	let paths     = [];
+	let link = '';
+	let paths = [];
 	let newParams = { page: newPage };
 
 	// Home's prev
-	if ( hasMore && ! route.path && ! next ) {
+	if ( hasMore && path === '/' && ! next ) {
 		return addSearchQuery( '/page/2' );
 	} else if ( newPage === 0 || ( ! hasMore && ! next ) ) {
 		return link;
 	}
 
-	paths = [route.path];
+	paths = [ path ];
 
+	// TODO: ??? :D
+	/*
 	if ( route.childRoutes ) {
 		forEach( route.childRoutes, el => {
 			if ( el.path ) {
@@ -117,10 +152,15 @@ export function getAdjacentLink( next = true, args ) {
 			}
 		} );
 	}
+	*/
 
 	link = paths.join( '/' );
 
-	newParams = Object.assign( {}, routeParams, newParams );
+	newParams = {
+		...params,
+		...newParams,
+	};
+
 	forEach( newParams, ( value, key ) => {
 		link = link.replace( `:${key}`, value );
 	} );

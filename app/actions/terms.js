@@ -1,8 +1,6 @@
 import axios from 'axios';
-import { polyfill } from 'es6-promise';
-import { GET_TERMS } from 'constants/index';
 
-polyfill();
+import { GET_TERMS } from '../constants';
 
 export function makeTermsRequest( taxonomy, params ) {
 	return axios( {

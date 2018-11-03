@@ -1,8 +1,6 @@
-import { polyfill } from 'es6-promise';
 import request from 'axios';
-import { GET_MENU } from 'constants/index';
 
-polyfill();
+import { GET_MENU } from '../constants';
 
 function makeMenuRequest( location ) {
 	return request( {

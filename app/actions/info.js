@@ -1,8 +1,6 @@
-import { polyfill } from 'es6-promise';
 import request from 'axios';
-import { GET_INFO } from 'constants/index';
 
-polyfill();
+import { GET_INFO } from '../constants';
 
 export default function fetchInfo() {
 	return {
