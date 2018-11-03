@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import he from 'he';
+import { parse } from 'qs';
 import { isEqual } from 'lodash';
 
 import { getAdjacentLink } from '../helpers';
@@ -17,10 +18,16 @@ class Index extends Component {
 	static propTypes = {
 		info: PropTypes.object.isRequired,
 		archive: PropTypes.object.isRequired,
+		match: PropTypes.shape( {
+			isExact: PropTypes.bool.isRequired,
+			params: PropTypes.object.isRequired,
+			path: PropTypes.string.isRequired,
+			url: PropTypes.string.isRequired,
+		} ).isRequired,
 		query: PropTypes.object.isRequired,
-		route: PropTypes.object.isRequired,
-		routeParams: PropTypes.object.isRequired,
 		dispatch: PropTypes.func.isRequired,
+		// route: PropTypes.object.isRequired,
+		// routeParams: PropTypes.object.isRequired,
 	}
 
 	static need = [
@@ -36,7 +43,7 @@ class Index extends Component {
 	 * `fetchComponentDataBeforeRender()`. However, when invoked on the client, we need
 	 * to fetch the data first.
 	 */
-	componentWillMount() {
+	componentWillMountX() {
 		const { archive, routeParams, query } = this.props;
 		const { isFetching, fetchParams, currentPage } = archive;
 
@@ -47,7 +54,7 @@ class Index extends Component {
 		const params = Object.assign( {}, routeParams, query );
 
 		if ( currentPage === 0 || ! isEqual( params, fetchParams ) ) {
-			this.fetchData( params );
+			// this.fetchData( params );
 		}
 	}
 
@@ -58,7 +65,7 @@ class Index extends Component {
 	 *
 	 * @param  {object} nextProps Next properties.
 	 */
-	componentWillReceiveProps( nextProps ) {
+	componentWillReceivePropsX( nextProps ) {
 		const { archive, routeParams, query } = nextProps;
 		const { isFetching, fetchParams } = archive;
 
@@ -71,6 +78,25 @@ class Index extends Component {
 		if ( ! isEqual( params, fetchParams ) ) {
 			this.fetchData( params );
 		}
+	}
+
+	componentDidUpdate( prevProps ) {
+		const { archive, location, match, query } = this.props;
+		const { location: prevLocation } = prevProps;
+		const { isFetching } = archive;
+
+		if ( isFetching ) {
+			return;
+		}
+
+		if ( isEqual( prevLocation, location ) ) {
+			return;
+		}
+
+		this.fetchData( {
+			...match.params,
+			...query,
+		} );
 	}
 
 	fetchData( params ) {
@@ -86,8 +112,10 @@ class Index extends Component {
 	 * TODO: Maybe fetch this from SEO plugin?
 	 */
 	renderHelMet() {
-		const { routeParams, archive, info } =  this.props;
+		const { archive, info, match } =  this.props;
 		const { term, searchTerm } = archive;
+		const { params } = match;
+		const { page } = params;
 
 		let title = '';
 
@@ -98,16 +126,16 @@ class Index extends Component {
 				title = `Search results for “${searchTerm}”`;
 			}
 
-			if ( routeParams.page ) {
-				title = `${title} — Page ${routeParams.page}`;
+			if ( page ) {
+				title = `${title} — Page ${page}`;
 			}
 
 			title = `${title} | ${info.name}`;
 		} else { // Home
 			title = info.name;
 
-			if ( routeParams.page ) {
-				title = `${title} — Page ${routeParams.page}`;
+			if ( page ) {
+				title = `${title} — Page ${page}`;
 			}
 		}
 
@@ -148,30 +176,29 @@ class Index extends Component {
 	}
 
 	renderNavigation() {
-		let el;
+		const { archive, location, match, query } = this.props;
 
-		if ( ! this.props.archive.items.length ) {
-			return el;
+		if ( ! archive.items.length ) {
+			return null;
 		}
 
-		const { archive, route, routeParams, query } = this.props;
 		const { currentPage, hasMore } = archive;
 		const args = {
 			hasMore,
 			currentPage,
-			route,
-			routeParams,
 			query,
+			path: location.pathname,
+			params: match.params,
 		};
 
-		let prevLink = getAdjacentLink( false, args );
-		let nextLink = getAdjacentLink( true, args );
+		const prevLink = getAdjacentLink( false, args );
+		const nextLink = getAdjacentLink( true, args );
 
-		if ( prevLink || nextLink ) {
-			el = ( <ContentNavigation prevLink={ prevLink } nextLink={ nextLink } /> );
+		if ( ! ( prevLink || nextLink ) ) {
+			return null;
 		}
 
-		return el;
+		return <ContentNavigation { ...{ prevLink, nextLink } } />;
 	}
 
 	renderEmpty() {
@@ -203,7 +230,8 @@ class Index extends Component {
 	}
 
 	render() {
-		const { isFetching } = this.props.archive;
+		const { archive } = this.props;
+		const { isFetching } = archive;
 
 		if ( isFetching ) {
 			return ( <Spinner /> );
@@ -227,9 +255,9 @@ function mapStateToProps( state, ownProps ) {
 	return {
 		info: state.info,
 		archive: state.archive,
-		route: ownProps.route,
-		query: ownProps.location.query,
-		routeParams: ownProps.params,
+		query: parse( ownProps.location.search, {
+			ignoreQueryPrefix: true,
+		} ),
 	};
 }
 
