@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { parse } from 'qs';
 
 import { fetchPost } from '../actions/singular';
 import _Singular from './_Singular';
@@ -43,15 +44,16 @@ class Post extends _Singular {
 }
 
 export function mapStateToProps( state, ownProps ) {
-	const { slug } = ownProps.params;
+	const query = parse( ownProps.location.search, { ignoreQueryPrefix: true } );
+	const { slug } = ownProps.match.params;
 
 	return {
+		query,
+		slug,
 		info: state.info,
 		singular: state.singular,
 		comments: state.comments,
 		user: state.session.user,
-		query: ownProps.location.query,
-		slug,
 	};
 }
 
