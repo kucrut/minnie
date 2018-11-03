@@ -59,16 +59,8 @@ export default class Entry extends Component {
 	}
 
 	getContent() {
-		const { isSingle, data } = this.props;
-		let content;
-
-		if ( isSingle || data.format !== 'standard' ) {
-			content = data.content.rendered;
-		} else {
-			content = data.excerpt.rendered;
-		}
-
-		return content;
+		// TODO: Support displaying excerpt only.
+		return this.props.data.content.rendered;
 	}
 
 	removeScripts() {
