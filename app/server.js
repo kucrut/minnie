@@ -1,6 +1,6 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter, matchPath } from 'react-router';
+import { StaticRouter, matchPath } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
 
@@ -46,18 +46,21 @@ export default function render( env, req, res, next ) {
 		info: { apiUrl },
 	} );
 
-	// TODO: Move this out.
 	let match;
 	const activeRoute = routes.find( route => {
 		match = matchPath( req.url, route );
 		return Boolean( match );
 	} );
 	const components = [ activeRoute.component, App ];
+	const fetchParams = {
+		...match.params,
+		...req.query,
+	};
 	const context = {};
 
 	configureAxios( apiUrl );
 
-	fetchComponentDataBeforeRender( store.dispatch, components, match.params )
+	fetchComponentDataBeforeRender( store.dispatch, components, fetchParams )
 		.then( () => {
 			const InitialView = (
 				<Provider store={ store }>
