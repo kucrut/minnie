@@ -29,6 +29,7 @@ export function fetchComments( params ) {
 		type: GET_COMMENTS,
 		postId: fetchParams.post,
 		parentId: fetchParams.parent,
+		// TODO: Seriously, REFACTOR this!
 		promise: checkOtherState( getState, 'info' )
 			.then( info => Promise.all( [
 				info,
