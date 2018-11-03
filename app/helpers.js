@@ -1,6 +1,6 @@
 import qs from 'qs';
 import axios from 'axios';
-import { forEach, has, isEmpty, omit, size, trim } from 'lodash';
+import { forEach, has, size, trim } from 'lodash';
 
 import { taxonomyMap } from '../config/app/config';
 
@@ -25,34 +25,65 @@ export function configureAxios( apiUrl ) {
 }
 
 export function normalizeParams( params ) {
-	let filters = {};
-	let normalized = Object.assign( {}, params, { page: parseInt( ( params.page || 1 ), 10 ) } );
+	const taxNames = Object.keys( taxonomyMap );
+	let filter = {};
+	let normalized = {};
 
-	// Convert `s` to `search`.
-	if ( has( normalized, 's' ) ) {
-		normalized = Object.assign( {}, omit( normalized, 's' ), { search: normalized.s } );
-	}
-
-	// Build `filter` param.
-	for ( const routeParam of Object.keys( taxonomyMap ) ) {
-		if ( ! has( normalized, routeParam ) ) {
-			continue;
+	Object.keys( params ).forEach( key => {
+		// This is to avoid useless params such as { '0': '/' }.
+		if ( ! isNaN( key ) ) {
+			return;
 		}
 
-		const props = taxonomyMap[ routeParam ];
-		let term = params[ routeParam ];
+		switch ( key ) {
+			case 'page': {
+				const value = Number( params[ key ] );
+				if ( value > 1 ) {
+					normalized = {
+						...normalized,
+						page: value,
+					};
+				}
+			}
+				break;
 
-		if ( routeParam === 'format' ) {
-			term = `post-format-${term}`;
+			case 's': {
+				const value = params[ key ].trim();
+				if ( value ) {
+					normalized = {
+						...normalized,
+						search: value,
+					};
+				}
+			}
+				break;
+
+			default: {
+				const value = params[ key ];
+
+				if ( taxNames.includes( key ) ) {
+					const { queryVar } = taxonomyMap[ key ];
+					filter = {
+						...filter,
+						[ queryVar ]: key === 'format'
+							? `post-format-${ value }`
+							: value,
+					};
+				} else {
+					normalized = {
+						...normalized,
+						[ key ]: value,
+					};
+				}
+			}
 		}
+	} );
 
-		filters = Object.assign( {}, filters, { [ props.queryVar ]: term } );
-
-		normalized = Object.assign( {}, omit( normalized, routeParam ) );
-	}
-
-	if ( ! isEmpty( filters ) ) {
-		normalized = Object.assign( {}, normalized, { filter: filters } );
+	if ( Object.keys( filter ).length ) {
+		normalized = {
+			...normalized,
+			filter,
+		};
 	}
 
 	return normalized;
