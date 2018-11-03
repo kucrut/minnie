@@ -4,7 +4,7 @@ import { StaticRouter, matchPath } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
 
-import routes from './routes';
+import routes from './config/routes';
 import { apiUrl } from '../config/app/config';
 import configureStore from './store';
 import fetchComponentDataBeforeRender from './api/fetchComponentDataBeforeRender';

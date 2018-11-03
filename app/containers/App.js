@@ -5,7 +5,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import classNames from 'classnames';
 
-import routes from '../routes';
+import routes from '../config/routes';
 import { configureAxios } from '../helpers';
 import fetchInfo from '../store/actions/info';
 import { fetchPostFormats } from '../store/actions/terms';

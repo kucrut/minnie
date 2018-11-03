@@ -1,10 +1,10 @@
-import { taxonomyMap } from '../config/app/config';
-import Login from './pages/Login';
-import Index from './pages/Index';
-import Page from './pages/Page';
-import Post from './pages/Post';
-import Media from './pages/Media';
-import Preview from './pages/Preview';
+import { taxonomyMap } from '../../config/app/config';
+import Login from '../pages/Login';
+import Index from '../pages/Index';
+import Page from '../pages/Page';
+import Post from '../pages/Post';
+import Media from '../pages/Media';
+import Preview from '../pages/Preview';
 
 export default [].concat(
 	[
