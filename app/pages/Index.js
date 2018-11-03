@@ -149,7 +149,7 @@ class Index extends Component {
 				<main id="main" className="site-main" role="main">
 					{ this.renderTitle() }
 					{ this.renderArchive() }
-					{ this.renderNavigation() }
+					{/* { this.renderNavigation() } */}
 				</main>
 			</div>
 		);
