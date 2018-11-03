@@ -31,16 +31,6 @@ class Login extends Component {
 		this.props.dispatch( checkLastSession() );
 	}
 
-	/*
-	componentWillReceiveProps( nextProps ) {
-		if ( nextProps.user.id ) {
-			nextProps.dispatch( push( nextProps.redirect ) );
-		} else {
-			// Show error.
-		}
-	}
-	*/
-
 	handleChange( e ) {
 		const key = e.currentTarget.getAttribute( 'name' );
 
