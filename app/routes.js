@@ -1,3 +1,4 @@
+import { taxonomyMap } from '../config/app/config';
 import Login from './pages/Login';
 import Index from './pages/Index';
 import Page from './pages/Page';
@@ -11,6 +12,17 @@ export default [].concat(
 			path: '/login',
 			component: Login,
 		},
+	],
+	Object.keys( taxonomyMap ).map( tax => {
+		// TODO: Refactor taxonomyMap.
+		const route = tax === 'format' ? 'type' : tax;
+
+		return {
+			path: `/blog/${ route }/:${ tax }`,
+			component: Index,
+		};
+	 } ),
+	[
 		{
 			path: '/blog/:slug',
 			component: Post,
