@@ -1,3 +1,5 @@
+// TODO: Move gallery & code higlight handlers out.
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -21,10 +23,12 @@ class EntryContent extends Component {
 		this.handleClick = this.handleClick.bind( this );
 	}
 
+	/*
 	componentDidMount() {
 		highlightCode( this.theContent );
 		this.prepareGalleries();
 	}
+	*/
 
 	prepareGalleries() {
 		const galleryEls = this.theContent.querySelectorAll( '.gallery' );
