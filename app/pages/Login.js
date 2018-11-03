@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { get } from 'lodash';
 import Helmet from 'react-helmet';
 
-import { checkLastSession, checkSession } from '../actions/session';
+import { checkLastSession, checkSession } from '../store/actions/session';
 import Spinner from '../components/Spinner';
 
 class Login extends Component {

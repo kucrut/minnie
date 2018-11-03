@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { parse } from 'qs';
 
-import { fetchPost } from '../actions/singular';
+import { fetchPost } from '../store/actions/singular';
 import _Singular from './_Singular';
 import CommentsSection from '../containers/Comments/Section';
 

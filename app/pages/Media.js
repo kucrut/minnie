@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchMedia } from '../actions/singular';
+import { fetchMedia } from '../store/actions/singular';
 import ContentNavigation from '../components/ContentNavigation';
 import _Singular from './_Singular';
 

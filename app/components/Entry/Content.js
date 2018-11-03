@@ -7,7 +7,7 @@ import closest from 'dom-closest';
 import { forEach } from 'lodash';
 
 import { contentPathRegEx } from '../../helpers';
-import { openGallery, zoomImage } from '../../actions/galleries';
+import { openGallery, zoomImage } from '../../store/actions/galleries';
 import highlightCode from '../../misc/highlight';
 import { prepareGallery } from '../../misc/galleries';
 
