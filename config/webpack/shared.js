@@ -130,6 +130,11 @@ function getSharedConfig( env, isServer = false ) {
 		performance: {
 			assetFilter: assetFilename => ! ( /\.map$/.test( assetFilename ) ),
 		},
+		plugins: [
+			( isProduction && new MiniCssExtractPlugin( {
+				filename: '[name].css',
+			} ) ),
+		].filter( Boolean ),
 	};
 
 	return config;

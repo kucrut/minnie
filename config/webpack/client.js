@@ -3,7 +3,7 @@ const merge = require( 'webpack-merge' );
 const getSharedConfig = require( './shared' );
 
 module.exports = env => merge( getSharedConfig( env ), {
-	name: 'browser-dev',
+	name: `browser-${ env }`,
 	// Multiple entry with hot loader
 	// https://github.com/glenjamin/webpack-hot-middleware/blob/master/example/webpack.config.multientry.js
 	entry: {

@@ -4,7 +4,7 @@ const getSharedConfig = require( './shared' );
 
 module.exports = env => {
 	const config = merge( getSharedConfig( env, true ), {
-		name: 'server-dev',
+		name: `server-${ env }`,
 		entry: {
 			server: './app/server',
 		},
