@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import classNames from 'classnames';
 
@@ -13,22 +13,24 @@ import { fetchPrimaryMenu, fetchSocialMenu } from '../actions/menu';
 import Header from './Header';
 import Footer from './Footer';
 
-// import '../css/genericons/genericons/genericons.css';
-// require( 'css/style.css' );
+import '../css/genericons/genericons/genericons.css';
+import '../css/style.css';
 
 class App extends Component {
 
 	static propTypes = {
 		apiUrl: PropTypes.string.isRequired,
 		siteLang: PropTypes.string.isRequired,
-		galleries: PropTypes.object.isRequired,
 		isSidebarExpanded: PropTypes.bool.isRequired,
-		prevLocation: PropTypes.object,
-		children: PropTypes.object,
-		dispatch: PropTypes.func.isRequired,
+		// dispatch: PropTypes.func.isRequired,
+		// galleries: PropTypes.object.isRequired,
+		// prevLocation: PropTypes.object,
 	}
 
-	static contextTypes = { router: PropTypes.object.isRequired }
+	// TODO: ???
+	static contextTypes = {
+		router: PropTypes.object.isRequired,
+	}
 
 	/**
 	 * Callbacks needed for server-side rendering
@@ -70,7 +72,7 @@ class App extends Component {
 
 				<a className="skip-link screen-reader-text" href="#content">Skip to content</a>
 
-				<Header />
+				{ <Header /> }
 
 				<div id="content" className="site-content">
 					<Switch>
@@ -98,8 +100,8 @@ function mapStateToProps( state ) {
 	return {
 		apiUrl: state.info.apiUrl,
 		siteLang: state.info.lang,
-		galleries: state.galleries,
 		isSidebarExpanded: state.ui.isSidebarExpanded,
+		// galleries: state.galleries,
 		// prevLocation: state.routing.locationBeforeTransitions,
 	};
 }
