@@ -4,12 +4,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import closest from 'dom-closest';
-import { forEach } from 'lodash';
+// import { forEach } from 'lodash';
 
 import { contentPathRegEx } from '../../helpers';
+/*
 import { openGallery, zoomImage } from '../../store/actions/galleries';
 import highlightCode from '../../misc/highlight';
 import { prepareGallery } from '../../misc/galleries';
+*/
 
 class EntryContent extends Component {
 	static propTypes = {
@@ -28,7 +30,6 @@ class EntryContent extends Component {
 		highlightCode( this.theContent );
 		this.prepareGalleries();
 	}
-	*/
 
 	prepareGalleries() {
 		const galleryEls = this.theContent.querySelectorAll( '.gallery' );
@@ -39,6 +40,7 @@ class EntryContent extends Component {
 
 		forEach( galleryEls, prepareGallery );
 	}
+	*/
 
 	handleClick( e ) {
 		const { dispatch } = this.props;
