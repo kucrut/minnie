@@ -10,7 +10,7 @@ const app = express();
 const env = process.env.NODE_ENV;
 
 if ( env === 'development' ) {
-	const webpackConfig = require( '../config/webpack/dev-client' )( 'development' );
+	const webpackConfig = require( '../config/webpack/client' )( 'development' );
 	const compiler = webpack( webpackConfig );
 	const devMiddleware = require( 'webpack-dev-middleware' )( compiler, {
 		noInfo: true,
@@ -40,7 +40,7 @@ app.get( '*', ( ...args ) => App.default( env, ...args ) );
 /* eslint-disable-next-line no-console */
 console.log( `
 ----------------------------
-=> Starting Server...'
+=> Starting Server...
 => Environment: ${ env }
 ----------------------------
 ` );
