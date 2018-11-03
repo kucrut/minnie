@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import classNames from 'classnames';
 
@@ -106,4 +106,4 @@ function mapStateToProps( state ) {
 	};
 }
 
-export default connect( mapStateToProps )( App );
+export default withRouter( connect( mapStateToProps )( App ) );
