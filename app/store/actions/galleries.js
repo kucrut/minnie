@@ -7,7 +7,7 @@ import {
 	GALLERY_OPEN,
 	GALLERY_CLOSE,
 } from '../constants';
-import { createGallery, getZoomId, createZoom } from '../misc/galleries';
+import { createGallery, getZoomId, createZoom } from '../../misc/galleries';
 
 export function resetGallery() {
 	return dispatch => {
