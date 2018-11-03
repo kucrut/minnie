@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import he from 'he';
 import { parse } from 'qs';
 
-import { fetchArchive, fetchArchiveTerm } from '../actions/archive';
+import { fetchArchive, fetchArchiveTerm } from '../store/actions/archive';
 import PageHeader from '../components/PageHeader';
 import Entry from '../components/Entry/Item';
 import EntryEmpty from '../components/Entry/Empty';

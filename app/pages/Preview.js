@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import he from 'he';
 import Helmet from 'react-helmet';
 
-import fetchPreview from '../actions/preview';
+import fetchPreview from '../store/actions/preview';
 import Spinner from '../components/Spinner';
 import Entry from '../components/Entry/Item';
 import NotFound from './404';

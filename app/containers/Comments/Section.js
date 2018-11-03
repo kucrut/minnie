@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { each, find } from 'lodash';
 
-import { fetchComments, postComment } from '../../actions/comments';
+import { fetchComments, postComment } from '../../store/actions/comments';
 import CommentsList from './List';
 import CommentForm from './Form';
 

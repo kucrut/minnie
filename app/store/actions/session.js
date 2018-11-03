@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getToken } from '../helpers';
+import { getToken } from '../../helpers';
 import { GET_SESSION, GET_SESSION_FAILURE } from '../constants';
 
 function makeSessionRequest( token ) {

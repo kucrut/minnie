@@ -1,7 +1,7 @@
 import request from 'axios';
 
 import { GET_COMMENTS, POST_COMMENT } from '../constants';
-import { checkOtherState } from '../helpers';
+import { checkOtherState } from '../../helpers';
 
 const defaultParams = { parent: 0 };
 

@@ -5,11 +5,11 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import classNames from 'classnames';
 
-import routes from '../routes';
+import routes from '../config/routes';
 import { configureAxios } from '../helpers';
-import fetchInfo from '../actions/info';
-import { fetchPostFormats } from '../actions/terms';
-import { fetchPrimaryMenu, fetchSocialMenu } from '../actions/menu';
+import fetchInfo from '../store/actions/info';
+import { fetchPostFormats } from '../store/actions/terms';
+import { fetchPrimaryMenu, fetchSocialMenu } from '../store/actions/menu';
 import Header from './Header';
 import Footer from './Footer';
 

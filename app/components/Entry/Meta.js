@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import he from 'he';
 
-import { entryMetaTaxonomies } from '../../../config/app/config';
+import { entryMetaTaxonomies } from '../../config/app';
 
 /**
  * TODO: Display author link?

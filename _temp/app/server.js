@@ -6,7 +6,7 @@ import Helmet from 'react-helmet';
 import createRoutes from './routes';
 import { apiUrl } from '../config/app/config';
 import { configureAxios } from './helpers';
-import configureStore from './store/configureStore';
+import configureStore from './store';
 import fetchComponentDataBeforeRender from './api/fetchComponentDataBeforeRender';
 
 configureAxios( apiUrl );

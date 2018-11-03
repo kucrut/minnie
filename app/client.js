@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './containers/App';
-import configureStore from './store/configureStore';
+import configureStore from './store';
 
 // TODO: Check if we need to work-around hash link scroll.
 
