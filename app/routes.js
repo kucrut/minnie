@@ -12,16 +12,16 @@ export default [].concat(
 			component: Login,
 		},
 		{
+			path: '/blog/:slug',
+			component: Post,
+		},
+		{
 			path: '/page/:page',
 			component: Index,
 		},
 		{
 			path: '/:parentslug/:slug',
 			component: Page,
-		},
-		{
-			path: '/blog/:slug',
-			component: Post,
 		},
 		{
 			path: '/blog/:parentslug/:slug',
