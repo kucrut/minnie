@@ -5,10 +5,9 @@ import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
 import axios from 'axios';
 
-import createRoutes from './routes';
 import { siteUrl } from './config';
+import createRoutes from './routes';
 import configureStore from './store';
-// import fetchTaxonomies from '../store/actions/taxonomies';
 import fetchInitialData from './api/fetchInitialData';
 import { collectItems, configureAxios, discoverApi } from './api/utils';
 import App from './containers/App';
