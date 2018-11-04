@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { trim } from 'lodash';
+import { stringify } from 'qs';
 
 import { taxonomyMap } from '../config/app';
 
@@ -93,4 +94,17 @@ export function normalizeParams( params ) {
 	}
 
 	return normalized;
+}
+
+/**
+ * Configure axios' defaults
+ *
+ * @param {string} apiRoot API Root.
+ */
+export function configureAxios( apiRoot ) {
+	axios.defaults.baseURL = apiRoot;
+	axios.defaults.headers = { 'X-Requested-With': 'minnie' };
+	axios.defaults.paramsSerializer = params => stringify( params, {
+		arrayFormat: 'brackets',
+	} );
 }
