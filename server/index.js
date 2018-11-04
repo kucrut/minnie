@@ -2,13 +2,13 @@ const path = require( 'path' );
 const cors = require( 'cors' );
 const express = require( 'express' );
 
-const App = require( '../public/assets/server.js' );
+const App = require( '../public/server/main.js' );
 
 const app = express();
 const env = process.env.NODE_ENV;
 const port = parseInt( process.env.PORT, 10 ) || 9000;
 
-const manifestPath = '../public/assets/client-manifest.json';
+const manifestPath = '../public/client/assets/manifest.json';
 let manifest;
 
 if ( env === 'production' ) {
@@ -44,7 +44,7 @@ app.set( 'port', port );
 // It can be removed safely
 app.disable( 'x-powered-by' );
 app.set( 'view cache', false );
-app.use( express.static( path.join( __dirname, '..', 'public' ) ) );
+app.use( express.static( path.join( __dirname, '..', 'public', 'client' ) ) );
 
 // Routing.
 // TODO: Check config before disabling favicon.

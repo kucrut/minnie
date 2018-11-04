@@ -76,14 +76,6 @@ module.exports = function getSharedConfig( env, isServer = false ) {
 		resolve: {
 			extensions: [ '.js', '.json' ],
 		},
-		output: {
-			// The output directory as absolute path.
-			path: path.join( cwd, 'public', 'assets' ),
-			// The filename of the entry chunk as relative path inside the output.path directory.
-			filename: '[name].[hash].js',
-			// The output path from the view of the JavaScript.
-			publicPath: '/assets/',
-		},
 		module: {
 			strictExportPresence: true,
 			rules: [ {
@@ -145,7 +137,7 @@ module.exports = function getSharedConfig( env, isServer = false ) {
 		},
 		plugins: [
 			( ! isServer && new ManifestPlugin( {
-				fileName: 'client-manifest.json',
+				fileName: 'manifest.json',
 				writeToFileEmit: isProduction,
 			} ) ),
 			( ( isProduction && ! isServer ) && new MiniCssExtractPlugin( {
