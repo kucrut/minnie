@@ -8,7 +8,6 @@ import classNames from 'classnames';
 
 import routes from '../config/routes';
 import { configureAxios } from '../api/utils';
-import fetchInfo from '../store/actions/info';
 import { fetchPostFormats } from '../store/actions/terms';
 import { fetchPrimaryMenu, fetchSocialMenu } from '../store/actions/menu';
 import Header from './Header';
@@ -42,7 +41,6 @@ class App extends Component {
 	 * @type {Array}
 	 */
 	static need = [
-		fetchInfo,
 		fetchPostFormats,
 		fetchPrimaryMenu,
 		fetchSocialMenu,
