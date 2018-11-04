@@ -2,11 +2,12 @@ const path = require( 'path' );
 const cors = require( 'cors' );
 const express = require( 'express' );
 
-const { port } = require( '../src/config/app' );
 const App = require( '../public/assets/server.js' );
 
 const app = express();
 const env = process.env.NODE_ENV;
+const port = parseInt( process.env.PORT, 10 ) || 9000;
+
 const manifestPath = '../public/assets/client-manifest.json';
 let manifest;
 
@@ -55,7 +56,8 @@ console.log( `
 ----------------------------
 => Starting Server...
 => Environment: ${ env }
+=> Port: ${ port }
 ----------------------------
 ` );
 
-app.listen( app.get( 'port' ) );
+app.listen( port );
