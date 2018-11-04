@@ -8,6 +8,7 @@ import routes from './config/routes';
 import { apiUrl } from './config/app';
 import configureStore from './store';
 import fetchInitialData from './api/fetchInitialData';
+import { discoverApi } from './api/utils';
 import { configureAxios } from './helpers';
 import App from './containers/App';
 
@@ -42,9 +43,13 @@ function createInitialHtml( manifest, content, initialState, env = 'production' 
 </html>`;
 }
 
-export default function render( env, manifest, req, res, next ) {
+export default async function render( env, manifest, req, res, next ) {
+	const apiRoot = await discoverApi( apiUrl );
 	const store = configureStore( {
-		info: { apiUrl },
+		info: {
+			apiRoot,
+			apiUrl,
+		},
 	} );
 
 	let match;
