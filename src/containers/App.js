@@ -6,7 +6,6 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import classNames from 'classnames';
 
-import routes from '../config/routes';
 import { configureAxios } from '../api/utils';
 import { fetchPostFormats } from '../store/actions/terms';
 import { fetchPrimaryMenu, fetchSocialMenu } from '../store/actions/menu';
@@ -22,6 +21,9 @@ class App extends Component {
 		apiRoot: PropTypes.string.isRequired,
 		siteLang: PropTypes.string.isRequired,
 		isSidebarExpanded: PropTypes.bool.isRequired,
+		routes: PropTypes.arrayOf( PropTypes.shape( {
+			path: PropTypes.string.isRequired,
+		} ) ).isRequired,
 		// dispatch: PropTypes.func.isRequired,
 		// galleries: PropTypes.object.isRequired,
 		// prevLocation: PropTypes.object,
@@ -60,7 +62,7 @@ class App extends Component {
 	}
 
 	render() {
-		const { isSidebarExpanded, siteLang } = this.props;
+		const { isSidebarExpanded, routes, siteLang } = this.props;
 		const pageClass = classNames( {
 			'hfeed site': true,
 			'sidebar-open': isSidebarExpanded,
