@@ -1,5 +1,3 @@
-import qs from 'qs';
-import axios from 'axios';
 import { forEach, has, size, trim } from 'lodash';
 
 import { taxonomyMap } from './config/app';
@@ -16,12 +14,6 @@ export function getToken() {
 	const token = canUseDOM ? localStorage.getItem( 'minnieToken' ) : '';
 
 	return token;
-}
-
-export function configureAxios( apiUrl ) {
-	axios.defaults.baseURL = `${trim( apiUrl, '/' )}/wp-json/`;
-	axios.defaults.headers = { 'X-Requested-With': 'minnie' };
-	axios.defaults.paramsSerializer = params => qs.stringify( params, { arrayFormat: 'brackets' } );
 }
 
 export function getArchiveTaxonomyTerm( params ) {
