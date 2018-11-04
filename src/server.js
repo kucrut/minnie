@@ -3,12 +3,14 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter, matchPath } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
+import axios from 'axios';
 
 import routes from './config/routes';
 import { siteUrl } from './config/app';
 import configureStore from './store';
+// import fetchTaxonomies from '../store/actions/taxonomies';
 import fetchInitialData from './api/fetchInitialData';
-import { configureAxios, discoverApi } from './api/utils';
+import { collectItems, configureAxios, discoverApi } from './api/utils';
 import App from './containers/App';
 
 /**
@@ -42,14 +44,31 @@ function createInitialHtml( manifest, content, initialState, env = 'production' 
 </html>`;
 }
 
+// TODO: Move this out.
+async function getTaxonomies() {
+	try {
+		const response = await axios.get( '/wp/v2/taxonomies' );
+		return collectItems( response.data );
+	} catch ( e ) {
+		// TODO.
+	}
+}
+
 export default async function render( env, manifest, req, res, next ) {
 	const apiRoot = await discoverApi( siteUrl );
 	// TODO: Send error if the above fails.
 
+	// Set axios' defaults for node.
+	configureAxios( apiRoot );
+
+	const taxonomies = await getTaxonomies();
 	const store = configureStore( {
 		info: {
 			apiRoot,
 			siteUrl,
+		},
+		taxonomies: {
+			items: taxonomies,
 		},
 	} );
 
@@ -64,9 +83,6 @@ export default async function render( env, manifest, req, res, next ) {
 		...req.query,
 	};
 	const context = {};
-
-	// Set axios' defaults for node.
-	configureAxios( apiRoot );
 
 	fetchInitialData( store.dispatch, components, fetchParams )
 		.then( () => {
