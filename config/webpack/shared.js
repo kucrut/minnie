@@ -4,6 +4,59 @@ const postcssFlexbugsFixes = require( 'postcss-flexbugs-fixes' );
 const ManifestPlugin = require( 'webpack-manifest-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 
+function getCssLoaders( isProduction, isServer = false ) {
+	if ( isServer ) {
+		return [ {
+			loader: 'ignore-loader',
+		} ];
+	}
+
+	return [
+		( isProduction
+			? MiniCssExtractPlugin.loader
+			: { loader: 'style-loader' }
+		),
+		{
+			loader: 'css-loader',
+			options: {
+				importLoaders: 1,
+				sourceMap: true,
+			},
+		},
+		{
+			loader: 'clean-css-loader',
+			options: isProduction
+				? {
+					level: 2,
+					inline: [ 'remote' ],
+					format: {
+						wrapAt: 200,
+					},
+				}
+				: { level: 0 },
+		},
+		{
+			loader: 'postcss-loader',
+			options: {
+				ident: 'postcss',
+				plugins: [
+					postcssFlexbugsFixes,
+					autoprefixer( {
+						browsers: [
+							'>1%',
+							'last 4 versions',
+							'Firefox ESR',
+							'not ie < 10',
+						],
+						flexbox: 'no-2009',
+					} ),
+					require( 'postcss-nested' ),
+				],
+			},
+		},
+	].filter( Boolean );
+}
+
 /**
  * Get shared config
  *
@@ -12,10 +65,9 @@ const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
  *
  * @return {Object}
  */
-function getSharedConfig( env, isServer = false ) {
+module.exports = function getSharedConfig( env, isServer = false ) {
 	const cwd = process.cwd();
 	const isProduction = env === 'production';
-	const publicPath = '/assets/';
 
 	let config = {
 		mode: env,
@@ -30,7 +82,7 @@ function getSharedConfig( env, isServer = false ) {
 			// The filename of the entry chunk as relative path inside the output.path directory.
 			filename: '[name].js',
 			// The output path from the view of the JavaScript.
-			publicPath,
+			publicPath: '/assets/',
 		},
 		module: {
 			strictExportPresence: true,
@@ -76,48 +128,7 @@ function getSharedConfig( env, isServer = false ) {
 			}, {
 				test: /\.css$/,
 				// NOTE: Order is important.
-				use: [
-					( ( ! isProduction && ! isServer ) && { loader: 'style-loader' } ),
-					( ( isProduction && ! isServer ) && MiniCssExtractPlugin.loader ),
-					{
-						loader: 'css-loader',
-						options: {
-							importLoaders: 1,
-							sourceMap: true,
-						},
-					},
-					{
-						loader: 'clean-css-loader',
-						options: isProduction
-							? {
-								level: 2,
-								inline: [ 'remote' ],
-								format: {
-									wrapAt: 200,
-								},
-							}
-							: { level: 0 },
-					},
-					{
-						loader: 'postcss-loader',
-						options: {
-							ident: 'postcss',
-							plugins: [
-								postcssFlexbugsFixes,
-								autoprefixer( {
-									browsers: [
-										'>1%',
-										'last 4 versions',
-										'Firefox ESR',
-										'not ie < 10',
-									],
-									flexbox: 'no-2009',
-								} ),
-								require( 'postcss-nested' ),
-							],
-						},
-					},
-				].filter( Boolean ),
+				use: getCssLoaders( isProduction, isServer ),
 			}, {
 				// Exclude all extensions that have their own loader.
 				exclude: [
@@ -145,5 +156,3 @@ function getSharedConfig( env, isServer = false ) {
 
 	return config;
 }
-
-module.exports = getSharedConfig;
