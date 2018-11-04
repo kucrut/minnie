@@ -16,7 +16,7 @@ module.exports = env => {
 		plugins: [
 			new webpack.DefinePlugin( {
 				__DEVCLIENT__: false,
-				__DEVSERVER__: true,
+				__DEVSERVER__: env === 'development',
 			} ),
 		],
 	} );

@@ -15,7 +15,7 @@ module.exports = env => merge( getSharedConfig( env ), {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DefinePlugin( {
-			__DEVCLIENT__: true,
+			__DEVCLIENT__: env === 'development',
 			__DEVSERVER__: false,
 		} ),
 	],
