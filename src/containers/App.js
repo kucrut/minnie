@@ -7,7 +7,7 @@ import Helmet from 'react-helmet';
 import classNames from 'classnames';
 
 import routes from '../config/routes';
-import { configureAxios } from '../helpers';
+import { configureAxios } from '../api/utils';
 import fetchInfo from '../store/actions/info';
 import { fetchPostFormats } from '../store/actions/terms';
 import { fetchPrimaryMenu, fetchSocialMenu } from '../store/actions/menu';
@@ -20,7 +20,7 @@ import '../css/style.css';
 class App extends Component {
 
 	static propTypes = {
-		apiUrl: PropTypes.string.isRequired,
+		apiRoot: PropTypes.string.isRequired,
 		siteLang: PropTypes.string.isRequired,
 		isSidebarExpanded: PropTypes.bool.isRequired,
 		// dispatch: PropTypes.func.isRequired,
@@ -49,7 +49,8 @@ class App extends Component {
 	]
 
 	componentDidMount() {
-		configureAxios( this.props.apiUrl );
+		// Set axios' defaults for browser.
+		configureAxios( this.props.apiRoot );
 		this.updateHtmlClass();
 	}
 
@@ -99,7 +100,7 @@ class App extends Component {
 
 function mapStateToProps( state ) {
 	return {
-		apiUrl: state.info.apiUrl,
+		apiRoot: state.info.apiRoot,
 		siteLang: state.info.lang,
 		isSidebarExpanded: state.ui.isSidebarExpanded,
 		// galleries: state.galleries,

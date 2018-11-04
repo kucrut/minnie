@@ -8,8 +8,7 @@ import routes from './config/routes';
 import { apiUrl } from './config/app';
 import configureStore from './store';
 import fetchInitialData from './api/fetchInitialData';
-import { discoverApi } from './api/utils';
-import { configureAxios } from './helpers';
+import { configureAxios, discoverApi } from './api/utils';
 import App from './containers/App';
 
 /**
@@ -64,7 +63,8 @@ export default async function render( env, manifest, req, res, next ) {
 	};
 	const context = {};
 
-	configureAxios( apiUrl );
+	// Set axios' defaults for node.
+	configureAxios( apiRoot );
 
 	fetchInitialData( store.dispatch, components, fetchParams )
 		.then( () => {
