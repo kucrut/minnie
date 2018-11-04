@@ -1,7 +1,6 @@
 const path = require( 'path' );
 const cors = require( 'cors' );
 const express = require( 'express' );
-const webpack = require( 'webpack' );
 
 const { port } = require( '../src/config/app' );
 const App = require( '../public/assets/server.js' );
@@ -15,11 +14,12 @@ if ( env === 'production' ) {
 	// On production, the manifest is already created, as real file so just require() it.
 	manifest = require( manifestPath );
 } else {
-	const webpackConfig = require( '../config/webpack/client' )( 'development' );
-	const compiler = webpack( webpackConfig );
+	const webpack = require( 'webpack' );
+	const config = require( '../config/webpack/client' )( 'development' );
+	const compiler = webpack( config );
 	const devMiddleware = require( 'webpack-dev-middleware' )( compiler, {
 		noInfo: true,
-		publicPath: webpackConfig.output.publicPath,
+		publicPath: config.output.publicPath,
 	} );
 	const hotMiddleware = require( 'webpack-hot-middleware' )( compiler );
 
