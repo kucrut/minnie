@@ -52,7 +52,7 @@ export default function render( env, manifest, req, res, next ) {
 		match = matchPath( req.url, route );
 		return Boolean( match );
 	} );
-	const components = [ activeRoute.component, App ];
+	const components = [ App, activeRoute.component ];
 	const fetchParams = {
 		...match.params,
 		...req.query,
