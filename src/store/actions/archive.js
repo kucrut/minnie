@@ -2,7 +2,8 @@ import axios from 'axios';
 
 import { GET_ARCHIVE, GET_ARCHIVE_TERM, GET_ARCHIVE_TERM_FAILURE } from '../constants';
 import { makeTermsRequest } from './terms';
-import { checkOtherState, normalizeParams, getArchiveTaxonomyTerm } from '../../helpers';
+import { normalizeParams } from '../../api/utils';
+import { checkOtherState, getArchiveTaxonomyTerm } from '../../helpers';
 
 function makeArchiveRequest( params ) {
 	return axios( {
