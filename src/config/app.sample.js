@@ -1,5 +1,4 @@
 module.exports = {
-	port:   9090,
 	apiUrl: 'http://minnie.dev',
 	routes: {
 		login:    '/login',
