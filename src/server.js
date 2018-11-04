@@ -6,7 +6,7 @@ import Helmet from 'react-helmet';
 import axios from 'axios';
 
 import createRoutes from './routes';
-import { siteUrl } from './config/app';
+import { siteUrl } from './config';
 import configureStore from './store';
 // import fetchTaxonomies from '../store/actions/taxonomies';
 import fetchInitialData from './api/fetchInitialData';

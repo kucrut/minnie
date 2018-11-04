@@ -1,6 +1,6 @@
 import { forEach, has, size, trim } from 'lodash';
 
-import { taxonomyMap } from './config/app';
+import { taxonomyMap } from './config';
 
 export const contentPathRegEx = new RegExp( '^/wp-content/' );
 
