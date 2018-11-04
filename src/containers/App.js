@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { hot } from 'react-hot-loader';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import classNames from 'classnames';
@@ -106,4 +107,4 @@ function mapStateToProps( state ) {
 	};
 }
 
-export default withRouter( connect( mapStateToProps )( App ) );
+export default hot( module )( withRouter( connect( mapStateToProps )( App ) ) );
