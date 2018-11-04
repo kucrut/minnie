@@ -1,4 +1,3 @@
-const path = require( 'path' );
 const autoprefixer = require( 'autoprefixer' );
 const postcssFlexbugsFixes = require( 'postcss-flexbugs-fixes' );
 const ManifestPlugin = require( 'webpack-manifest-plugin' );
