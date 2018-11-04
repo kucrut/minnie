@@ -54,6 +54,16 @@ async function getTaxonomies() {
 	}
 }
 
+// TODO: Move this out.
+async function getInfo() {
+	try {
+		const response = await axios.get( '/bridge/v1/info' );
+		return response.data;
+	} catch ( e ) {
+		// TODO.
+	}
+}
+
 export default async function render( env, manifest, req, res, next ) {
 	const apiRoot = await discoverApi( siteUrl );
 	// TODO: Send error if the above fails.
@@ -61,11 +71,13 @@ export default async function render( env, manifest, req, res, next ) {
 	// Set axios' defaults for node.
 	configureAxios( apiRoot );
 
+	const info = await getInfo();
 	const taxonomies = await getTaxonomies();
 	const store = configureStore( {
 		info: {
 			apiRoot,
 			siteUrl,
+			...info,
 		},
 		taxonomies: {
 			items: taxonomies,
