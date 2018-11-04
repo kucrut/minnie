@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
 import axios from 'axios';
 
-import routes from './config/routes';
+import createRoutes from './config/routes';
 import { siteUrl } from './config/app';
 import configureStore from './store';
 // import fetchTaxonomies from '../store/actions/taxonomies';
@@ -73,6 +73,7 @@ export default async function render( env, manifest, req, res, next ) {
 
 	const info = await getInfo();
 	const taxonomies = await getTaxonomies();
+	const routes = createRoutes( taxonomies );
 	const store = configureStore( {
 		info: {
 			apiRoot,
@@ -101,7 +102,7 @@ export default async function render( env, manifest, req, res, next ) {
 			const InitialView = (
 				<Provider store={ store }>
 					<StaticRouter location={ req.url } context={ context }>
-						<App />
+						<App routes={ routes } />
 					</StaticRouter>
 				</Provider>
 			);
