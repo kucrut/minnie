@@ -22,11 +22,11 @@ module.exports = env => {
 			].filter( Boolean ),
 		},
 		plugins: [
-			new webpack.HotModuleReplacementPlugin(),
+			( ! isProduction && new webpack.HotModuleReplacementPlugin() ),
 			new webpack.DefinePlugin( {
 				__DEVCLIENT__: ! isProduction,
 				__DEVSERVER__: false,
 			} ),
-		],
+		].filter( Boolean ),
 	} );
 }
