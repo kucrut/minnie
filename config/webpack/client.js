@@ -18,7 +18,7 @@ module.exports = env => {
 		entry: {
 			main: [
 				'./src/client',
-				( ! isProduction && 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true' ),
+				( ! isProduction && 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false' ),
 			].filter( Boolean ),
 		},
 		plugins: [
