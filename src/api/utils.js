@@ -108,3 +108,17 @@ export function configureAxios( apiRoot ) {
 		arrayFormat: 'brackets',
 	} );
 }
+
+/**
+ * Collect response data as items array
+ *
+ * @param {object|array} data Response data.
+ * @return array
+ */
+export function collectItems( data ) {
+	return Object.keys( data ).map( slug => {
+		const { _links, ...props } = data[ slug ];
+
+		return props;
+	} );
+}
