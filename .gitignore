@@ -5,6 +5,6 @@ node_modules
 *.idea
 *.swp
 
-public
-/app/config/app.js
+/public
+/src/config/app.js
 process.json

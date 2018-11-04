@@ -8,7 +8,7 @@ module.exports = env => merge( getSharedConfig( env ), {
 	// https://github.com/glenjamin/webpack-hot-middleware/blob/master/example/webpack.config.multientry.js
 	entry: {
 		app: [
-			'./app/client',
+			'./src/client',
 			'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
 		],
 	},

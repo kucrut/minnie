@@ -6,7 +6,7 @@ module.exports = env => {
 	const config = merge( getSharedConfig( env, true ), {
 		name: `server-${ env }`,
 		entry: {
-			server: './app/server',
+			server: './src/server',
 		},
 		target: 'node',
 		output: {
