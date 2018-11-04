@@ -10,6 +10,7 @@ module.exports = env => {
 		},
 		target: 'node',
 		output: {
+			filename: '[name].js',
 			libraryTarget: 'commonjs2',
 		},
 		plugins: [

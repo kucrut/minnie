@@ -80,7 +80,7 @@ module.exports = function getSharedConfig( env, isServer = false ) {
 			// The output directory as absolute path.
 			path: path.join( cwd, 'public', 'assets' ),
 			// The filename of the entry chunk as relative path inside the output.path directory.
-			filename: '[name].js',
+			filename: '[name].[hash].js',
 			// The output path from the view of the JavaScript.
 			publicPath: '/assets/',
 		},
@@ -148,8 +148,8 @@ module.exports = function getSharedConfig( env, isServer = false ) {
 				fileName: 'client-manifest.json',
 				writeToFileEmit: true,
 			} ) ),
-			( isProduction && new MiniCssExtractPlugin( {
-				filename: '[name].css',
+			( ( isProduction && ! isServer ) && new MiniCssExtractPlugin( {
+				filename: '[name].[hash].css',
 			} ) ),
 		].filter( Boolean ),
 	};
