@@ -9,6 +9,11 @@ import Preview from '../pages/Preview';
 export default [].concat(
 	[
 		{
+			path: '/',
+			exact: true,
+			component: Index,
+		},
+		{
 			path: '/login',
 			component: Login,
 		},
