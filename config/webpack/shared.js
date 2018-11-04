@@ -1,6 +1,7 @@
 const path = require( 'path' );
 const autoprefixer = require( 'autoprefixer' );
 const postcssFlexbugsFixes = require( 'postcss-flexbugs-fixes' );
+const ManifestPlugin = require( 'webpack-manifest-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 
 /**
@@ -14,6 +15,7 @@ const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 function getSharedConfig( env, isServer = false ) {
 	const cwd = process.cwd();
 	const isProduction = env === 'production';
+	const publicPath = '/assets/';
 
 	let config = {
 		mode: env,
@@ -28,7 +30,7 @@ function getSharedConfig( env, isServer = false ) {
 			// The filename of the entry chunk as relative path inside the output.path directory.
 			filename: '[name].js',
 			// The output path from the view of the JavaScript.
-			publicPath: '/assets/',
+			publicPath,
 		},
 		module: {
 			strictExportPresence: true,
@@ -131,6 +133,10 @@ function getSharedConfig( env, isServer = false ) {
 			assetFilter: assetFilename => ! ( /\.map$/.test( assetFilename ) ),
 		},
 		plugins: [
+			new ManifestPlugin( {
+				fileName: isServer ? 'server-manifest.json' : 'client-manifest.json',
+				writeToFileEmit: true,
+			} ),
 			( isProduction && new MiniCssExtractPlugin( {
 				filename: '[name].css',
 			} ) ),
