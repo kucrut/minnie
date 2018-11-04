@@ -2,8 +2,6 @@ import axios from 'axios';
 import { trim } from 'lodash';
 import { stringify } from 'qs';
 
-import { taxonomyMap } from '../config/app';
-
 /**
  * Discover API.
  *
@@ -31,8 +29,8 @@ export async function discoverApi( siteUrl ) {
  * @param {object} params Fetch parameters.
  * @return {object}
  */
-export function normalizeParams( params ) {
-	const taxNames = Object.keys( taxonomyMap );
+export function normalizeParams( params, taxonomies ) {
+	const taxNames = taxonomies.map( tax => tax.slug );
 	let filter = {};
 	let normalized = {};
 
@@ -69,7 +67,16 @@ export function normalizeParams( params ) {
 				const value = params[ key ];
 
 				if ( taxNames.includes( key ) ) {
-					const { queryVar } = taxonomyMap[ key ];
+					const tax = taxonomies.find( tax => key === tax.slug );
+
+					if ( ! tax ) {
+						break;
+					}
+
+					const queryVar = key === 'category'
+						? 'category_name'
+						: key;
+
 					filter = {
 						...filter,
 						[ queryVar ]: key === 'format'
