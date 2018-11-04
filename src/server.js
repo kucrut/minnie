@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
 import axios from 'axios';
 
-import createRoutes from './config/routes';
+import createRoutes from './routes';
 import { siteUrl } from './config/app';
 import configureStore from './store';
 // import fetchTaxonomies from '../store/actions/taxonomies';

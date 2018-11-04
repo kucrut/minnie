@@ -3,7 +3,7 @@ import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import createRoutes from './config/routes';
+import createRoutes from './routes';
 import App from './containers/App';
 import configureStore from './store';
 

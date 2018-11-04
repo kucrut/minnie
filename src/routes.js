@@ -1,9 +1,9 @@
-import Login from '../pages/Login';
-import Index from '../pages/Index';
-import Page from '../pages/Page';
-import Post from '../pages/Post';
-import Media from '../pages/Media';
-import Preview from '../pages/Preview';
+import Login from './pages/Login';
+import Index from './pages/Index';
+import Page from './pages/Page';
+import Post from './pages/Post';
+import Media from './pages/Media';
+import Preview from './pages/Preview';
 
 function createTermRoutes( taxonomies ) {
 	return taxonomies.map( tax => {
