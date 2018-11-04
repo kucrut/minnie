@@ -7,7 +7,7 @@ import Helmet from 'react-helmet';
 import routes from './config/routes';
 import { apiUrl } from './config/app';
 import configureStore from './store';
-import fetchComponentDataBeforeRender from './api/fetchComponentDataBeforeRender';
+import fetchInitialData from './api/fetchInitialData';
 import { configureAxios } from './helpers';
 import App from './containers/App';
 
@@ -61,7 +61,7 @@ export default function render( env, manifest, req, res, next ) {
 
 	configureAxios( apiUrl );
 
-	fetchComponentDataBeforeRender( store.dispatch, components, fetchParams )
+	fetchInitialData( store.dispatch, components, fetchParams )
 		.then( () => {
 			const InitialView = (
 				<Provider store={ store }>
