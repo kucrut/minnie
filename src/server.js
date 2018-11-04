@@ -44,6 +44,8 @@ function createInitialHtml( manifest, content, initialState, env = 'production' 
 
 export default async function render( env, manifest, req, res, next ) {
 	const apiRoot = await discoverApi( siteUrl );
+	// TODO: Send error if the above fails.
+
 	const store = configureStore( {
 		info: {
 			apiRoot,
