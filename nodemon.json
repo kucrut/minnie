@@ -2,10 +2,9 @@
     "verbose": true,
     "ext": "js",
     "watch": [
-      "app/api",
-      "app/config.js",
-      "app/routes.js",
-      "app/server.js",
+      "src/api",
+      "src/config",
+      "src/server.js",
       "config",
       "server"
     ],
