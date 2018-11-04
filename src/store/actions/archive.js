@@ -3,7 +3,7 @@ import axios from 'axios';
 import { GET_ARCHIVE, GET_ARCHIVE_TERM, GET_ARCHIVE_TERM_FAILURE } from '../constants';
 import { makeTermsRequest } from './terms';
 import { normalizeParams } from '../../api/utils';
-import { checkOtherState, getArchiveTaxonomyTerm } from '../../helpers';
+import { getArchiveTaxonomyTerm } from '../../helpers';
 
 function makeArchiveRequest( params ) {
 	return axios( {
@@ -14,25 +14,22 @@ function makeArchiveRequest( params ) {
 }
 
 export function fetchArchive( params = {} ) {
-	return ( dispatch, getState ) => dispatch( {
-		type: GET_ARCHIVE,
-		fetchParams: params,
-		// TODO: Seriously, REFACTOR this!
-		promise: checkOtherState( getState, 'info' )
-			.then( info => {
-				const { settings } = info;
-				const { archive } = settings;
-				const { per_page } = archive;
+	return ( dispatch, getState ) => {
+		const { info, taxonomies } = getState();
+		const { settings } = info;
+		const { archive } = settings;
+		const { per_page } = archive;
+		const fetchParams = normalizeParams( {
+			...params,
+			per_page,
+		}, taxonomies );
 
-				return Promise.all( [
-					info,
-					makeArchiveRequest( normalizeParams( {
-						...params,
-						per_page,
-					} ) ),
-				] ).then( results => Promise.resolve( results[ 1 ] ) );
-			 } ),
-	} );
+		return dispatch( {
+			fetchParams,
+			type: GET_ARCHIVE,
+			promise: makeArchiveRequest( fetchParams ),
+		} );
+	};
 }
 
 /**
