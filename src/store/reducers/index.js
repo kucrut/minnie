@@ -1,21 +1,24 @@
 import { combineReducers } from 'redux';
-import session from './session';
+
+import archive from './archive';
+import comments from './comments';
 import info from './info';
 import menu from './menu';
-import ui from './ui';
+import session from './session';
 import singular from './singular';
-import archive from './archive';
+import taxonomies from './taxonomies';
 import terms from './terms';
-import comments from './comments';
+import ui from './ui';
 
 // Combine reducers with routeReducer which keeps track of router state.
 export default combineReducers( {
-	session,
+	archive,
+	comments,
 	info,
 	menu,
-	ui,
+	session,
 	singular,
-	archive,
+	taxonomies,
 	terms,
-	comments,
+	ui,
 } );
