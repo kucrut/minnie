@@ -1,4 +1,26 @@
+import axios from 'axios';
+import { trim } from 'lodash';
+
 import { taxonomyMap } from '../config/app';
+
+/**
+ * Discover API.
+ *
+ * @param {string} siteUrl Site URL.
+ * @return {string} apiRoot.
+ */
+export async function discoverApi( siteUrl ) {
+	return axios.head( siteUrl )
+		.then( response => {
+			const { headers } = response;
+			const { link } = headers;
+			const regex = RegExp( '<(.*)>; rel="https://api.w.org/"' );
+			const result = regex.exec( link );
+			const apiRoot = trim( result[ 1 ], '/' );
+
+			return apiRoot;
+		} );
+}
 
 /**
  * Normalize fetch parameters
