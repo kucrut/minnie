@@ -5,6 +5,7 @@ import {
 } from '../constants';
 
 const initialState = {
+	apiRoot: '',
 	apiUrl: '', // This will be set by `render()` in `server.jsx`
 	lang: '',
 	name: '',
