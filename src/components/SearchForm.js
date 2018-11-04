@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 class SearchForm extends Component {
 	static propTypes = {
-		apiUrl: PropTypes.string.isRequired,
+		siteUrl: PropTypes.string.isRequired,
 		searchTerm: PropTypes.string.isRequired,
 		dispatch: PropTypes.func.isRequired,
 	}
@@ -28,12 +28,12 @@ class SearchForm extends Component {
 	}
 
 	render() {
-		const { apiUrl, searchTerm }  = this.state;
+		const { siteUrl, searchTerm }  = this.state;
 		const formAttrs = {
 			role: 'search',
 			method: 'get',
 			className: 'search-form',
-			formAction: apiUrl,
+			formAction: siteUrl,
 			onSubmit: this.handleSubmit,
 		};
 		const inputAttrs = {
@@ -59,7 +59,7 @@ class SearchForm extends Component {
 
 function mapStateToProps( state ) {
 	return {
-		apiUrl: state.info.apiUrl,
+		siteUrl: state.info.siteUrl,
 		searchTerm: state.archive.searchTerm,
 	};
 }

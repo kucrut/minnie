@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
 
 import routes from './config/routes';
-import { apiUrl } from './config/app';
+import { siteUrl } from './config/app';
 import configureStore from './store';
 import fetchInitialData from './api/fetchInitialData';
 import { configureAxios, discoverApi } from './api/utils';
@@ -43,11 +43,11 @@ function createInitialHtml( manifest, content, initialState, env = 'production' 
 }
 
 export default async function render( env, manifest, req, res, next ) {
-	const apiRoot = await discoverApi( apiUrl );
+	const apiRoot = await discoverApi( siteUrl );
 	const store = configureStore( {
 		info: {
 			apiRoot,
-			apiUrl,
+			siteUrl,
 		},
 	} );
 

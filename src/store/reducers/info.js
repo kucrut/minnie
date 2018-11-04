@@ -6,7 +6,7 @@ import {
 
 const initialState = {
 	apiRoot: '',
-	apiUrl: '', // This will be set by `render()` in `server.jsx`
+	siteUrl: '',
 	lang: '',
 	name: '',
 	description: '',
