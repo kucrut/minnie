@@ -144,10 +144,10 @@ module.exports = function getSharedConfig( env, isServer = false ) {
 			assetFilter: assetFilename => ! ( /\.map$/.test( assetFilename ) ),
 		},
 		plugins: [
-			new ManifestPlugin( {
-				fileName: isServer ? 'server-manifest.json' : 'client-manifest.json',
+			( ! isServer && new ManifestPlugin( {
+				fileName: 'client-manifest.json',
 				writeToFileEmit: true,
-			} ),
+			} ) ),
 			( isProduction && new MiniCssExtractPlugin( {
 				filename: '[name].css',
 			} ) ),
