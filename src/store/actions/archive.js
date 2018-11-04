@@ -22,7 +22,7 @@ export function fetchArchive( params = {} ) {
 		const fetchParams = normalizeParams( {
 			...params,
 			per_page,
-		}, taxonomies );
+		}, taxonomies.items );
 
 		return dispatch( {
 			fetchParams,
