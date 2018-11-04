@@ -1,3 +1,4 @@
+import { collectItems } from '../../api/utils';
 import {
 	GET_TAXONOMIES_REQUEST,
 	GET_TAXONOMIES_SUCCESS,
@@ -5,7 +6,7 @@ import {
 } from '../constants';
 
 const initialState = {
-	items: {},
+	items: [],
 	isFetching: false,
 };
 
@@ -19,7 +20,7 @@ export default function taxonomies( state = initialState, action ) {
 		case GET_TAXONOMIES_SUCCESS:
 			return Object.assign( {}, state, {
 				isFetching: false,
-				items: action.req.data,
+				items: collectItems( action.req.data ),
 			} );
 
 		case GET_TAXONOMIES_FAILURE:
