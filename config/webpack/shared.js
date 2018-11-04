@@ -146,7 +146,7 @@ module.exports = function getSharedConfig( env, isServer = false ) {
 		plugins: [
 			( ! isServer && new ManifestPlugin( {
 				fileName: 'client-manifest.json',
-				writeToFileEmit: true,
+				writeToFileEmit: isProduction,
 			} ) ),
 			( ( isProduction && ! isServer ) && new MiniCssExtractPlugin( {
 				filename: '[name].[hash].css',

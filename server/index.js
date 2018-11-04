@@ -12,7 +12,7 @@ const manifestPath = '../public/assets/client-manifest.json';
 let manifest;
 
 if ( env === 'production' ) {
-	// On production, the manifest is already created, so just require() it.
+	// On production, the manifest is already created, as real file so just require() it.
 	manifest = require( manifestPath );
 } else {
 	const webpackConfig = require( '../config/webpack/client' )( 'development' );
@@ -26,7 +26,11 @@ if ( env === 'production' ) {
 	app.use( devMiddleware );
 	app.use( hotMiddleware );
 	app.use( ( req, res, next ) => {
-		manifest = require( manifestPath );
+		// On development, the manifest only exists in memory.
+		manifest = JSON.parse(
+			compiler.outputFileSystem.readFileSync( path.join( __dirname, manifestPath ) ),
+			'utf8',
+		);
 		next();
 	} );
 }
