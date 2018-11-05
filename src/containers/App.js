@@ -62,7 +62,7 @@ class App extends Component {
 	}
 
 	render() {
-		const { isSidebarExpanded, routes, siteLang } = this.props;
+		const { isSidebarExpanded, location, routes, siteLang } = this.props;
 		const pageClass = classNames( {
 			'hfeed site': true,
 			'sidebar-open': isSidebarExpanded,
@@ -74,21 +74,11 @@ class App extends Component {
 
 				<a className="skip-link screen-reader-text" href="#content">Skip to content</a>
 
-				{ <Header /> }
+				<Header location={ location } />
 
 				<div id="content" className="site-content">
 					<Switch>
-						{ routes.map( route => {
-							const { path, exact, component: Component, ...rest } = route;
-							const routeProps = {
-								path,
-								exact,
-								key: path,
-								render: props => <Component { ...props } { ...rest } />,
-							};
-
-							return <Route { ...routeProps } />;
-						} ) }
+						{ routes.map( ( route, i ) => <Route key={ i } { ...route } /> ) }
 					</Switch>
 				</div>
 
@@ -104,7 +94,6 @@ function mapStateToProps( state ) {
 		siteLang: state.info.lang,
 		isSidebarExpanded: state.ui.isSidebarExpanded,
 		// galleries: state.galleries,
-		// prevLocation: state.routing.locationBeforeTransitions,
 	};
 }
 
