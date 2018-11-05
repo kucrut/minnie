@@ -17,18 +17,23 @@ const initialState = {
 	hasMore: false,
 	fetchParams: {},
 	isFetching: false,
+	url: '',
 };
 
 export default function archive( state = initialState, action ) {
+	const { type, url } = action;
+
 	let params;
 	let currentPage;
 	let searchTerm;
 
-	switch ( action.type ) {
+	switch ( type ) {
 		case GET_ARCHIVE_REQUEST:
-			return Object.assign( {}, state, {
+			return {
+				...state,
+				url,
 				isFetching: true,
-			} );
+			};
 
 		case GET_ARCHIVE_SUCCESS:
 			params      = action.req.config.params;
@@ -50,7 +55,7 @@ export default function archive( state = initialState, action ) {
 
 		case GET_ARCHIVE_TERM_SUCCESS:
 			return Object.assign( {}, state, {
-				term: head( action.req.data ),
+				term: action.term || head( action.req.data ),
 			} );
 
 		case GET_ARCHIVE_TERM_FAILURE:
