@@ -29,7 +29,7 @@ const initialState = {
  * @return {object}
  */
 function setLinks( state ) {
-	const regex = /\/page\/[\d+]/;
+	const regex = /\/page\/\d+/;
 	const { currentPage, hasMore, url, searchTerm } = state;
 	let nextLink = '';
 	let prevLink = '';
