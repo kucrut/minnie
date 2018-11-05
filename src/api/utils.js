@@ -130,3 +130,37 @@ export function collectItems( data ) {
 		return props;
 	} );
 }
+
+/**
+ * Get fetch params for archive term
+ *
+ * @param {object} params     Route fetch params.
+ * @param {array}  taxonomies Taxonomies.
+ *
+ * @return {object|null}
+ */
+export function getArchiveTermParams( params, taxonomies ) {
+	// Search results page.
+	if ( params.hasOwnProperty( 'search' ) ) {
+		return null;
+	}
+
+	let termParams = null;
+	Object.entries( params ).forEach( param => {
+		const [ key, value ] = param;
+		const tax = taxonomies.find( item => item.slug === key );
+
+		if ( ! tax ) {
+			return;
+		}
+
+		termParams = {
+			endpoint: tax.rest_base,
+			slug: key === 'post_format'
+				? `post-format-${ value }`
+				: value,
+		}
+	} );
+
+	return termParams;
+}
