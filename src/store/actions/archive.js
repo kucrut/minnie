@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-import { GET_ARCHIVE, GET_ARCHIVE_TERM, GET_ARCHIVE_TERM_FAILURE } from '../constants';
+import {
+	GET_ARCHIVE,
+	GET_ARCHIVE_TERM,
+	GET_ARCHIVE_TERM_FAILURE,
+	GET_ARCHIVE_TERM_SUCCESS,
+} from '../constants';
 import { makeTermsRequest } from './terms';
 import { normalizeParams, getArchiveTermParams } from '../../api/utils';
 
@@ -12,18 +17,21 @@ function makeArchiveRequest( params ) {
 	} );
 }
 
-export function fetchArchive( params = {} ) {
+export function fetchArchive( args ) {
 	return ( dispatch, getState ) => {
 		const { info, taxonomies } = getState();
 		const { settings } = info;
 		const { archive } = settings;
 		const { per_page } = archive;
+
+		const { url, params } = args;
 		const fetchParams = normalizeParams( {
 			...params,
 			per_page,
 		}, taxonomies.items );
 
 		return dispatch( {
+			url,
 			fetchParams,
 			type: GET_ARCHIVE,
 			promise: makeArchiveRequest( fetchParams ),
