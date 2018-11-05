@@ -1,7 +1,5 @@
 import { forEach, has, size, trim } from 'lodash';
 
-import { taxonomyMap } from './config';
-
 export const contentPathRegEx = new RegExp( '^/wp-content/' );
 
 export function canUseDOM() {
@@ -14,34 +12,6 @@ export function getToken() {
 	const token = canUseDOM ? localStorage.getItem( 'minnieToken' ) : '';
 
 	return token;
-}
-
-export function getArchiveTaxonomyTerm( params ) {
-	let result = null;
-
-	if ( size( params ) < 1 ) {
-		return result;
-	}
-
-	for ( const routeParam of Object.keys( taxonomyMap ) ) {
-		if ( ! has( params, routeParam ) ) {
-			continue;
-		}
-
-		const props = taxonomyMap[ routeParam ];
-		let slug = params[ routeParam ];
-
-		if ( routeParam === 'format' ) {
-			slug = `post-format-${slug}`;
-		}
-
-		result = {
-			endpoint: props.endpoint,
-			slug,
-		};
-	}
-
-	return result;
 }
 
 // TODO: Seriously, refactor this!
