@@ -11,7 +11,7 @@ export default function MenuItem( props ) {
 
 	return (
 		<li id={ idAttr } className={ `menu-item ${ idAttr }` }>
-			<NavLink to={ url } activeClassName="current-menu-item">{ text }</NavLink>
+			<NavLink exact to={ url } activeClassName="current-menu-item">{ text }</NavLink>
 			{ children.length ? (
 				<ul className="sub-menu">
 					{ children.map( child => <MenuItem key={ child.id } item={ child } /> ) }
