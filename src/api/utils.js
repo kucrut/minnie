@@ -73,9 +73,15 @@ export function normalizeParams( params, taxonomies ) {
 						break;
 					}
 
-					const queryVar = key === 'category'
-						? 'category_name'
-						: key;
+					let queryVar;
+					if ( key === 'category' ) {
+						queryVar = 'category_name';
+					} else if ( key === 'post_tag' ) {
+						queryVar = 'tag'
+					} else {
+						queryVar = key;
+					}
+
 					const queryValue = key === 'post_format'
 						? `post-format-${ value }`
 						: value;
