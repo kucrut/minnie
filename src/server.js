@@ -4,7 +4,6 @@ import { StaticRouter, matchPath } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
 import axios from 'axios';
-import { parse } from 'qs';
 
 import { siteUrl } from './config';
 import createRoutes from './routes';
@@ -91,12 +90,12 @@ export default async function render( env, manifest, req, res, next ) {
 		return Boolean( match );
 	} );
 	const { params } = match;
-	const { query = '', ...restParams } = params;
+	const { ignored, ...restParams } = params;
 	const args = {
 		url: req.url,
 		params: {
 			...restParams,
-			...parse( query, { ignoreQueryPrefix: true } ),
+			...req.query,
 		},
 	};
 	const components = [ App, activeRoute.component ];
