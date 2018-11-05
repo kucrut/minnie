@@ -1,5 +1,3 @@
-import { head, size } from 'lodash';
-
 import {
 	GET_ARCHIVE_REQUEST,
 	GET_ARCHIVE_SUCCESS,
@@ -9,61 +7,65 @@ import {
 } from '../constants';
 
 const initialState = {
-	items: [],
-	isHome: true,
-	term: null,
-	searchTerm: '',
 	currentPage: 0,
-	hasMore: false,
 	fetchParams: {},
+	hasMore: false,
 	isFetching: false,
+	isHome: true,
+	items: [],
+	searchTerm: '',
+	term: null,
 	url: '',
 };
 
 export default function archive( state = initialState, action ) {
-	const { type, url } = action;
-
-	let params;
-	let currentPage;
-	let searchTerm;
+	const { type } = action;
 
 	switch ( type ) {
-		case GET_ARCHIVE_REQUEST:
+		case GET_ARCHIVE_REQUEST: {
 			return {
 				...state,
-				url,
 				isFetching: true,
+				url: action.url,
+				fetchParams: action.fetchParams,
 			};
+		}
 
-		case GET_ARCHIVE_SUCCESS:
-			params      = action.req.config.params;
-			currentPage = parseInt( params.page, 10 ) || 1;
-			searchTerm  = params.search || '';
+		case GET_ARCHIVE_SUCCESS: {
+			const { fetchParams } = state;
+			const { page, search: searchTerm = '' } = fetchParams;
+			const currentPage = Number( page ) || 1;
 
 			return Object.assign( {}, state, {
-				items: action.req.data,
-				isHome: ( size( params ) < 1 && searchTerm === '' ),
-				hasMore: currentPage < action.req.headers[ 'x-wp-totalpages' ],
-				fetchParams: action.fetchParams,
-				isFetching: false,
 				searchTerm,
 				currentPage,
+				items: action.req.data,
+				isHome: ( Object.keys( fetchParams ).length < 2 && searchTerm === '' ),
+				hasMore: currentPage < Number( action.req.headers[ 'x-wp-totalpages' ] ),
+				isFetching: false,
 			} );
+		}
 
-		case GET_ARCHIVE_FAILURE:
+		case GET_ARCHIVE_FAILURE: {
 			return initialState;
+		}
 
-		case GET_ARCHIVE_TERM_SUCCESS:
-			return Object.assign( {}, state, {
-				term: action.term || head( action.req.data ),
-			} );
+		case GET_ARCHIVE_TERM_SUCCESS: {
+			return {
+				...state,
+				term: action.term || action.req.data[0],
+			};
+		}
 
-		case GET_ARCHIVE_TERM_FAILURE:
-			return Object.assign( {}, state, {
+		case GET_ARCHIVE_TERM_FAILURE: {
+			return {
+				...state,
 				term: null,
-			} );
+			};
+		}
 
-		default:
+		default: {
 			return state;
+		}
 	}
 }
