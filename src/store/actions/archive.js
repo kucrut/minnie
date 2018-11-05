@@ -49,7 +49,7 @@ export function fetchArchive( args ) {
  */
 export function fetchArchiveTerm( params = {} ) {
 	return ( dispatch, getState ) => {
-		const { taxonomies } = getState();
+		const { taxonomies, terms } = getState();
 		const fetchParams = getArchiveTermParams( params, taxonomies.items );
 
 		if ( ! fetchParams ) {
@@ -59,6 +59,17 @@ export function fetchArchiveTerm( params = {} ) {
 		}
 
 		const { endpoint, slug } = fetchParams;
+
+		if ( terms.items.hasOwnProperty( endpoint ) ) {
+			const term = terms.items[ endpoint ].find( item => item.slug === slug );
+
+			if ( term ) {
+				return dispatch( {
+					type: GET_ARCHIVE_TERM_SUCCESS,
+					term,
+				} );
+			}
+		}
 
 		return dispatch( {
 			type: GET_ARCHIVE_TERM,
