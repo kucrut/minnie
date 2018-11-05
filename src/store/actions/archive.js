@@ -2,8 +2,7 @@ import axios from 'axios';
 
 import { GET_ARCHIVE, GET_ARCHIVE_TERM, GET_ARCHIVE_TERM_FAILURE } from '../constants';
 import { makeTermsRequest } from './terms';
-import { normalizeParams } from '../../api/utils';
-import { getArchiveTaxonomyTerm } from '../../helpers';
+import { normalizeParams, getArchiveTermParams } from '../../api/utils';
 
 function makeArchiveRequest( params ) {
 	return axios( {
@@ -41,14 +40,21 @@ export function fetchArchive( params = {} ) {
  * @return {Object}
  */
 export function fetchArchiveTerm( params = {} ) {
-	const fetchParams = getArchiveTaxonomyTerm( params );
+	return ( dispatch, getState ) => {
+		const { taxonomies } = getState();
+		const fetchParams = getArchiveTermParams( params, taxonomies.items );
 
-	if ( fetchParams === null || fetchParams.search ) {
-		return { type: GET_ARCHIVE_TERM_FAILURE };
+		if ( ! fetchParams ) {
+			return {
+				type: GET_ARCHIVE_TERM_FAILURE,
+			};
+		}
+
+		const { endpoint, slug } = fetchParams;
+
+		return dispatch( {
+			type: GET_ARCHIVE_TERM,
+			promise: makeTermsRequest( endpoint, { slug } ),
+		} );
 	}
-
-	return {
-		type: GET_ARCHIVE_TERM,
-		promise: makeTermsRequest( fetchParams.endpoint, { slug: fetchParams.slug } ),
-	};
 }
