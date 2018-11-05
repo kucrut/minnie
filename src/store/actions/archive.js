@@ -1,8 +1,13 @@
 import axios from 'axios';
 
-import { GET_ARCHIVE, GET_ARCHIVE_TERM, GET_ARCHIVE_TERM_FAILURE } from '../constants';
+import {
+	GET_ARCHIVE,
+	GET_ARCHIVE_TERM,
+	GET_ARCHIVE_TERM_FAILURE,
+	GET_ARCHIVE_TERM_SUCCESS,
+} from '../constants';
 import { makeTermsRequest } from './terms';
-import { checkOtherState, normalizeParams, getArchiveTaxonomyTerm } from '../../helpers';
+import { normalizeParams, getArchiveTermParams } from '../../api/utils';
 
 function makeArchiveRequest( params ) {
 	return axios( {
@@ -12,26 +17,26 @@ function makeArchiveRequest( params ) {
 	} );
 }
 
-export function fetchArchive( params = {} ) {
-	return ( dispatch, getState ) => dispatch( {
-		type: GET_ARCHIVE,
-		fetchParams: params,
-		// TODO: Seriously, REFACTOR this!
-		promise: checkOtherState( getState, 'info' )
-			.then( info => {
-				const { settings } = info;
-				const { archive } = settings;
-				const { per_page } = archive;
+export function fetchArchive( args ) {
+	return ( dispatch, getState ) => {
+		const { info, taxonomies } = getState();
+		const { settings } = info;
+		const { archive } = settings;
+		const { per_page } = archive;
 
-				return Promise.all( [
-					info,
-					makeArchiveRequest( normalizeParams( {
-						...params,
-						per_page,
-					} ) ),
-				] ).then( results => Promise.resolve( results[ 1 ] ) );
-			 } ),
-	} );
+		const { url, params } = args;
+		const fetchParams = normalizeParams( {
+			...params,
+			per_page,
+		}, taxonomies.items );
+
+		return dispatch( {
+			url,
+			fetchParams,
+			type: GET_ARCHIVE,
+			promise: makeArchiveRequest( fetchParams ),
+		} );
+	};
 }
 
 /**
@@ -43,14 +48,33 @@ export function fetchArchive( params = {} ) {
  * @return {Object}
  */
 export function fetchArchiveTerm( params = {} ) {
-	const fetchParams = getArchiveTaxonomyTerm( params );
+	return ( dispatch, getState ) => {
+		const { taxonomies, terms } = getState();
+		const fetchParams = getArchiveTermParams( params, taxonomies.items );
 
-	if ( fetchParams === null || fetchParams.search ) {
-		return { type: GET_ARCHIVE_TERM_FAILURE };
+		// The index page is NOT a term archive page.
+		if ( ! fetchParams ) {
+			return dispatch( {
+				type: GET_ARCHIVE_TERM_FAILURE,
+			} );
+		}
+
+		const { endpoint, slug } = fetchParams;
+
+		if ( terms.items.hasOwnProperty( endpoint ) ) {
+			const term = terms.items[ endpoint ].find( item => item.slug === slug );
+
+			if ( term ) {
+				return dispatch( {
+					type: GET_ARCHIVE_TERM_SUCCESS,
+					term,
+				} );
+			}
+		}
+
+		return dispatch( {
+			type: GET_ARCHIVE_TERM,
+			promise: makeTermsRequest( endpoint, { slug } ),
+		} );
 	}
-
-	return {
-		type: GET_ARCHIVE_TERM,
-		promise: makeTermsRequest( fetchParams.endpoint, { slug: fetchParams.slug } ),
-	};
 }

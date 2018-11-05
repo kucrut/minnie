@@ -15,13 +15,6 @@ class Index extends Component {
 	static propTypes = {
 		info: PropTypes.object.isRequired,
 		archive: PropTypes.object.isRequired,
-		match: PropTypes.shape( {
-			isExact: PropTypes.bool.isRequired,
-			params: PropTypes.object.isRequired,
-			path: PropTypes.string.isRequired,
-			url: PropTypes.string.isRequired,
-		} ).isRequired,
-		query: PropTypes.object.isRequired,
 		dispatch: PropTypes.func.isRequired,
 	}
 
@@ -30,11 +23,38 @@ class Index extends Component {
 		fetchArchiveTerm,
 	]
 
-	fetchData( params ) {
-		const { dispatch } = this.props;
+	componentDidMount() {
+		const { archive, url } = this.props;
+		const { items } = archive;
 
-		dispatch( fetchArchive( params ) );
+		if ( ! items.length || archive.url !== url ) {
+			this.fetchData();
+		}
+	}
+
+	componentDidUpdate( prevProps ) {
+		if ( this.props.location.pathname !== prevProps.location.pathname ) {
+			this.fetchData();
+		}
+	}
+
+	fetchData() {
+		const { dispatch, location, match, url } = this.props;
+		const { search } = location;
+
+		let { params } = match;
+		if ( search ) {
+			params = {
+				...params,
+				...parse( search, { ignoreQueryPrefix: true } ),
+			};
+		}
+
 		dispatch( fetchArchiveTerm( params ) );
+		dispatch( fetchArchive( {
+			url,
+			params,
+		} ) );
 	}
 
 	/**
@@ -157,12 +177,13 @@ class Index extends Component {
 }
 
 function mapStateToProps( state, ownProps ) {
+	const { location } = ownProps;
+	const { pathname, search } = location;
+
 	return {
 		info: state.info,
 		archive: state.archive,
-		query: parse( ownProps.location.search, {
-			ignoreQueryPrefix: true,
-		} ),
+		url: pathname + search,
 	};
 }
 

@@ -5,7 +5,8 @@ import {
 } from '../constants';
 
 const initialState = {
-	apiUrl: '', // This will be set by `render()` in `server.jsx`
+	apiRoot: '',
+	siteUrl: '',
 	lang: '',
 	name: '',
 	description: '',
@@ -16,23 +17,21 @@ const initialState = {
 export default function info( state = initialState, action ) {
 	switch ( action.type ) {
 		case GET_INFO_REQUEST:
-			return Object.assign( {}, state, {
+			return {
 				isFetching: true,
-			} );
+			};
 
 		case GET_INFO_SUCCESS:
-			return Object.assign( {}, state, {
-				lang: action.req.data.lang,
-				name: action.req.data.name,
-				description: action.req.data.description,
-				settings: action.req.data.settings,
+			return {
+				...state,
+				...action.req.data,
 				isFetching: false,
-			} );
+			};
 
 		case GET_INFO_FAILURE:
-			return Object.assign( {}, state, {
+			return {
 				isFetching: false,
-			} );
+			};
 
 		default:
 			return state;

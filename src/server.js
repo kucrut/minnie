@@ -3,12 +3,13 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter, matchPath } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
+import axios from 'axios';
 
-import routes from './config/routes';
-import { apiUrl } from './config/app';
+import { siteUrl } from './config';
+import createRoutes from './routes';
 import configureStore from './store';
-import fetchComponentDataBeforeRender from './api/fetchComponentDataBeforeRender';
-import { configureAxios } from './helpers';
+import fetchInitialData from './api/fetchInitialData';
+import { collectItems, configureAxios, discoverApi } from './api/utils';
 import App from './containers/App';
 
 /**
@@ -42,9 +43,45 @@ function createInitialHtml( manifest, content, initialState, env = 'production' 
 </html>`;
 }
 
-export default function render( env, manifest, req, res, next ) {
+// TODO: Move this out.
+async function getTaxonomies() {
+	try {
+		const response = await axios.get( '/wp/v2/taxonomies' );
+		return collectItems( response.data );
+	} catch ( e ) {
+		// TODO.
+	}
+}
+
+// TODO: Move this out.
+async function getInfo() {
+	try {
+		const response = await axios.get( '/bridge/v1/info' );
+		return response.data;
+	} catch ( e ) {
+		// TODO.
+	}
+}
+
+export default async function render( env, manifest, req, res, next ) {
+	const apiRoot = await discoverApi( siteUrl );
+	// TODO: Send error if the above fails.
+
+	// Set axios' defaults for node.
+	configureAxios( apiRoot );
+
+	const info = await getInfo();
+	const taxonomies = await getTaxonomies();
+	const routes = createRoutes( taxonomies );
 	const store = configureStore( {
-		info: { apiUrl },
+		info: {
+			apiRoot,
+			siteUrl,
+			...info,
+		},
+		taxonomies: {
+			items: taxonomies,
+		},
 	} );
 
 	let match;
@@ -52,21 +89,24 @@ export default function render( env, manifest, req, res, next ) {
 		match = matchPath( req.url, route );
 		return Boolean( match );
 	} );
-	const components = [ activeRoute.component, App ];
-	const fetchParams = {
-		...match.params,
-		...req.query,
+	const { params } = match;
+	const { ignored, ...restParams } = params;
+	const args = {
+		url: req.url,
+		params: {
+			...restParams,
+			...req.query,
+		},
 	};
+	const components = [ App, activeRoute.component ];
 	const context = {};
 
-	configureAxios( apiUrl );
-
-	fetchComponentDataBeforeRender( store.dispatch, components, fetchParams )
+	fetchInitialData( store.dispatch, components, args )
 		.then( () => {
 			const InitialView = (
 				<Provider store={ store }>
 					<StaticRouter location={ req.url } context={ context }>
-						<App />
+						<App routes={ routes } />
 					</StaticRouter>
 				</Provider>
 			);

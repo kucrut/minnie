@@ -6,9 +6,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import classNames from 'classnames';
 
-import routes from '../config/routes';
-import { configureAxios } from '../helpers';
-import fetchInfo from '../store/actions/info';
+import { configureAxios } from '../api/utils';
 import { fetchPostFormats } from '../store/actions/terms';
 import { fetchPrimaryMenu, fetchSocialMenu } from '../store/actions/menu';
 import Header from './Header';
@@ -20,9 +18,12 @@ import '../css/style.css';
 class App extends Component {
 
 	static propTypes = {
-		apiUrl: PropTypes.string.isRequired,
+		apiRoot: PropTypes.string.isRequired,
 		siteLang: PropTypes.string.isRequired,
 		isSidebarExpanded: PropTypes.bool.isRequired,
+		routes: PropTypes.arrayOf( PropTypes.shape( {
+			path: PropTypes.string.isRequired,
+		} ) ).isRequired,
 		// dispatch: PropTypes.func.isRequired,
 		// galleries: PropTypes.object.isRequired,
 		// prevLocation: PropTypes.object,
@@ -42,14 +43,14 @@ class App extends Component {
 	 * @type {Array}
 	 */
 	static need = [
-		fetchInfo,
 		fetchPostFormats,
 		fetchPrimaryMenu,
 		fetchSocialMenu,
 	]
 
 	componentDidMount() {
-		configureAxios( this.props.apiUrl );
+		// Set axios' defaults for browser.
+		configureAxios( this.props.apiRoot );
 		this.updateHtmlClass();
 	}
 
@@ -61,7 +62,7 @@ class App extends Component {
 	}
 
 	render() {
-		const { isSidebarExpanded, siteLang } = this.props;
+		const { isSidebarExpanded, location, routes, siteLang } = this.props;
 		const pageClass = classNames( {
 			'hfeed site': true,
 			'sidebar-open': isSidebarExpanded,
@@ -73,21 +74,11 @@ class App extends Component {
 
 				<a className="skip-link screen-reader-text" href="#content">Skip to content</a>
 
-				{ <Header /> }
+				<Header location={ location } />
 
 				<div id="content" className="site-content">
 					<Switch>
-						{ routes.map( route => {
-							const { path, exact, component: Component, ...rest } = route;
-							const routeProps = {
-								path,
-								exact,
-								key: path,
-								render: props => <Component { ...props } { ...rest } />,
-							};
-
-							return <Route { ...routeProps } />;
-						} ) }
+						{ routes.map( ( route, i ) => <Route key={ i } { ...route } /> ) }
 					</Switch>
 				</div>
 
@@ -99,11 +90,10 @@ class App extends Component {
 
 function mapStateToProps( state ) {
 	return {
-		apiUrl: state.info.apiUrl,
+		apiRoot: state.info.apiRoot,
 		siteLang: state.info.lang,
 		isSidebarExpanded: state.ui.isSidebarExpanded,
 		// galleries: state.galleries,
-		// prevLocation: state.routing.locationBeforeTransitions,
 	};
 }
 
