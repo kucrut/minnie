@@ -13,20 +13,6 @@ module.exports = {
 			category: '/blog/category/:category',
 		},
 	},
-	taxonomyMap: {
-		tag: {
-			endpoint: 'tags',
-			queryVar: 'tag',
-		},
-		format: {
-			endpoint: 'formats',
-			queryVar: 'post_format',
-		},
-		category: {
-			endpoint: 'categories',
-			queryVar: 'category_name',
-		},
-	},
 	codeHighlight: {
 		languages: [
 			'bash', 'c', 'coffeescript', 'cpp', 'css', 'css-extras', 'http',
