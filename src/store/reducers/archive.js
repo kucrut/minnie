@@ -1,3 +1,5 @@
+import { trim } from 'lodash';
+
 import {
 	GET_ARCHIVE_REQUEST,
 	GET_ARCHIVE_SUCCESS,
@@ -13,10 +15,57 @@ const initialState = {
 	isFetching: false,
 	isHome: true,
 	items: [],
+	nextLink: '',
+	prevLink: '',
 	searchTerm: '',
 	term: null,
 	url: '',
 };
+
+/**
+ * Add nextLink & prevLink to state
+ *
+ * @param {object} state Current state.
+ * @return {object}
+ */
+function setLinks( state ) {
+	const regex = /\/page\/[\d+]/;
+	const { currentPage, hasMore, url, searchTerm } = state;
+	let nextLink = '';
+	let prevLink = '';
+
+	if ( currentPage === 1 && ! hasMore ) {
+		return {
+			...state,
+			nextLink,
+			prevLink,
+		};
+	}
+
+	if ( hasMore ) {
+		const prevPage = currentPage + 1;
+
+		if ( currentPage === 1 ) {
+			prevLink = searchTerm
+				? `/page/${ prevPage }${ url }`
+				: `${ url }/page/${ prevPage }`;
+		} else {
+			prevLink = url.replace( regex, `/page/${ prevPage }` );
+		}
+	}
+
+	if ( currentPage > 2 ) {
+		nextLink = url.replace( regex, `/page/${ currentPage - 1 }` );
+	} else if ( currentPage === 2 ) {
+		nextLink = url.replace( regex, '' );
+	}
+
+	return {
+		...state,
+		nextLink: nextLink ? `/${ trim( nextLink, '/' ) }` : '',
+		prevLink: prevLink ? `/${ trim( prevLink, '/' ) }` : '',
+	};
+}
 
 export default function archive( state = initialState, action ) {
 	const { type } = action;
@@ -36,7 +85,8 @@ export default function archive( state = initialState, action ) {
 			const { page, search: searchTerm = '' } = fetchParams;
 			const currentPage = Number( page ) || 1;
 
-			return Object.assign( {}, state, {
+			return setLinks( {
+				...state,
 				searchTerm,
 				currentPage,
 				items: action.req.data,

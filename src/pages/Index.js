@@ -10,6 +10,7 @@ import PageHeader from '../components/PageHeader';
 import Entry from '../components/Entry/Item';
 import EntryEmpty from '../components/Entry/Empty';
 import Spinner from '../components/Spinner';
+import ContentNavigation from '../components/ContentNavigation';
 
 class Index extends Component {
 	static propTypes = {
@@ -33,7 +34,7 @@ class Index extends Component {
 	}
 
 	componentDidUpdate( prevProps ) {
-		if ( this.props.location.pathname !== prevProps.location.pathname ) {
+		if ( this.props.url !== prevProps.url ) {
 			this.fetchData();
 		}
 	}
@@ -156,7 +157,7 @@ class Index extends Component {
 
 	render() {
 		const { archive } = this.props;
-		const { isFetching } = archive;
+		const { isFetching, nextLink, prevLink } = archive;
 
 		if ( isFetching ) {
 			return ( <Spinner /> );
@@ -169,7 +170,13 @@ class Index extends Component {
 				<main id="main" className="site-main" role="main">
 					{ this.renderTitle() }
 					{ this.renderArchive() }
-					{/* { this.renderNavigation() } */}
+					{ ( nextLink || prevLink )
+						? <ContentNavigation
+							isSingle={ false }
+							prevLink={ prevLink }
+							nextLink={ nextLink }
+						/> : null
+					}
 				</main>
 			</div>
 		);

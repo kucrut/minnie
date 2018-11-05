@@ -14,61 +14,6 @@ export function getToken() {
 	return token;
 }
 
-// TODO: Seriously, refactor this!
-export function getAdjacentLink( next = true, args ) {
-	const { hasMore, currentPage, path, params, query } = args;
-
-	function addSearchQuery( link ) {
-		if ( has( query, 's' ) ) {
-			return `${link}?s=${query.s}`;
-		}
-
-		return link;
-	}
-
-	const newPage = next ? currentPage - 1 : currentPage + 1;
-	let link = '';
-	let paths = [];
-	let newParams = { page: newPage };
-
-	// Home's prev
-	if ( hasMore && path === '/' && ! next ) {
-		return addSearchQuery( '/page/2' );
-	} else if ( newPage === 0 || ( ! hasMore && ! next ) ) {
-		return link;
-	}
-
-	paths = [ path ];
-
-	// TODO: ??? :D
-	/*
-	if ( route.childRoutes ) {
-		forEach( route.childRoutes, el => {
-			if ( el.path ) {
-				paths.push( el.path );
-			}
-		} );
-	}
-	*/
-
-	link = paths.join( '/' );
-
-	newParams = {
-		...params,
-		...newParams,
-	};
-
-	forEach( newParams, ( value, key ) => {
-		link = link.replace( `:${key}`, value );
-	} );
-
-	link = link.replace( 'page/1', '' );
-	link = trim( link, '/' );
-	link = `/${link}`;
-
-	return addSearchQuery( link );
-}
-
 /**
  *  Wait for something :)
  *
