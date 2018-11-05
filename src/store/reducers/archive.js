@@ -30,7 +30,7 @@ const initialState = {
  */
 function setLinks( state ) {
 	const regex = /\/page\/[\d+]/;
-	const { currentPage, hasMore, url } = state;
+	const { currentPage, hasMore, url, searchTerm } = state;
 	let nextLink = '';
 	let prevLink = '';
 
@@ -46,7 +46,9 @@ function setLinks( state ) {
 		const prevPage = currentPage + 1;
 
 		if ( currentPage === 1 ) {
-			prevLink = `${ url }/page/${ prevPage }`;
+			prevLink = searchTerm
+				? `/page/${ prevPage }${ url }`
+				: `${ url }/page/${ prevPage }`;
 		} else {
 			prevLink = url.replace( regex, `/page/${ prevPage }` );
 		}
