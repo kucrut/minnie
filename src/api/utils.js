@@ -76,12 +76,13 @@ export function normalizeParams( params, taxonomies ) {
 					const queryVar = key === 'category'
 						? 'category_name'
 						: key;
+					const queryValue = key === 'post_format'
+						? `post-format-${ value }`
+						: value;
 
 					filter = {
 						...filter,
-						[ queryVar ]: key === 'format'
-							? `post-format-${ value }`
-							: value,
+						[ queryVar ]: queryValue,
 					};
 				} else {
 					normalized = {
