@@ -6,7 +6,7 @@ import PrimaryMenu from '../components/PrimaryMenu';
 import SearchForm from '../components/SearchForm';
 
 export default function Sidebar( props ) {
-	const { isExpanded, menu } = props;
+	const { isExpanded, menu, ...rest } = props;
 
 	const sbClass = classNames( {
 		'slide-menu': true,
@@ -18,7 +18,7 @@ export default function Sidebar( props ) {
 			{ ( menu && menu.items.length ) ? (
 				<Fragment>
 					<h2 className="widget-title">Menu</h2>
-					<PrimaryMenu items={ menu.items } />
+					<PrimaryMenu items={ menu.items } { ...rest } />
 				</Fragment>
 			) : null }
 			<SearchForm />
