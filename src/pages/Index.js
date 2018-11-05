@@ -33,7 +33,7 @@ class Index extends Component {
 	}
 
 	componentDidUpdate( prevProps ) {
-		if ( this.props.location.pathname !== prevProps.location.pathname ) {
+		if ( this.props.url !== prevProps.url ) {
 			this.fetchData();
 		}
 	}
