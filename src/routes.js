@@ -6,7 +6,7 @@ import Media from './pages/Media';
 import Preview from './pages/Preview';
 
 const pagedRoute = () => ( {
-	path: '/page/:page([\\d+]):query?',
+	path: '/page/:page([\\d+]):ignored?',
 	component: Index,
 } );
 
