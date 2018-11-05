@@ -5,6 +5,11 @@ import Post from './pages/Post';
 import Media from './pages/Media';
 import Preview from './pages/Preview';
 
+const pagedRoute = () => ( {
+	path: '/page/:page([\\d+]):query?',
+	component: Index,
+} );
+
 function createTermRoutes( taxonomies ) {
 	return taxonomies.map( tax => {
 		const { slug, types } = tax;
@@ -57,10 +62,7 @@ export default function createRoutes( taxonomies ) {
 				path: '/blog/:slug',
 				component: Post,
 			},
-			{
-				path: '/page/:page',
-				component: Index,
-			},
+			pagedRoute(),
 			{
 				path: '/:parentslug/:slug',
 				component: Page,
