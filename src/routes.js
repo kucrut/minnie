@@ -5,17 +5,17 @@ import Post from './pages/Post';
 import Media from './pages/Media';
 import Preview from './pages/Preview';
 
-const pagedRoute = () => ( {
-	path: '/page/:page([\\d+]):ignored?',
+const pagedRoute = ( prefix = '' ) => ( {
+	path: `${prefix}/page/:page([\\d+]):ignored?`,
 	component: Index,
 } );
 
 function createTermRoutes( taxonomies ) {
-	return taxonomies.map( tax => {
+	return taxonomies.reduce( ( current, tax ) => {
 		const { slug, types } = tax;
 
 		if ( ! types.includes( 'post' ) ) {
-			return null;
+			return current;
 		}
 
 		let route;
@@ -36,11 +36,16 @@ function createTermRoutes( taxonomies ) {
 				route = slug;
 		}
 
-		return {
-			path: `/blog/${ route }/:${ slug }`,
-			component: Index,
-		};
-	} ).filter( Boolean );
+		const path = `/blog/${ route }/:${ slug }`;
+
+		return current.concat( [
+			pagedRoute( path ),
+			{
+				path,
+				component: Index,
+			},
+		] );
+	}, [] );
 }
 
 export default function createRoutes( taxonomies ) {
