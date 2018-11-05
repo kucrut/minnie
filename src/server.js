@@ -4,6 +4,7 @@ import { StaticRouter, matchPath } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
 import axios from 'axios';
+import { parse } from 'qs';
 
 import { siteUrl } from './config';
 import createRoutes from './routes';
@@ -89,14 +90,19 @@ export default async function render( env, manifest, req, res, next ) {
 		match = matchPath( req.url, route );
 		return Boolean( match );
 	} );
-	const components = [ App, activeRoute.component ];
-	const fetchParams = {
-		...match.params,
-		...req.query,
+	const { params } = match;
+	const { query = '', ...restParams } = params;
+	const args = {
+		url: req.url,
+		params: {
+			...restParams,
+			...parse( query, { ignoreQueryPrefix: true } ),
+		},
 	};
+	const components = [ App, activeRoute.component ];
 	const context = {};
 
-	fetchInitialData( store.dispatch, components, fetchParams )
+	fetchInitialData( store.dispatch, components, args )
 		.then( () => {
 			const InitialView = (
 				<Provider store={ store }>
