@@ -36,14 +36,15 @@ export default function archive( state = initialState, action ) {
 			const { page, search: searchTerm = '' } = fetchParams;
 			const currentPage = Number( page ) || 1;
 
-			return Object.assign( {}, state, {
+			return {
+				...state,
 				searchTerm,
 				currentPage,
 				items: action.req.data,
 				isHome: ( Object.keys( fetchParams ).length < 2 && searchTerm === '' ),
 				hasMore: currentPage < Number( action.req.headers[ 'x-wp-totalpages' ] ),
 				isFetching: false,
-			} );
+			};
 		}
 
 		case GET_ARCHIVE_FAILURE: {
