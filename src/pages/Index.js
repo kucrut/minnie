@@ -30,6 +30,18 @@ class Index extends Component {
 		fetchArchiveTerm,
 	]
 
+	componentDidMount() {
+		const { archive, query, match } = this.props;
+		const { items } = archive;
+
+		if ( ! items.length ) {
+			this.fetchData( {
+				...query,
+				...match.params,
+			} );
+		}
+	}
+
 	fetchData( params ) {
 		const { dispatch } = this.props;
 
