@@ -52,10 +52,11 @@ export function fetchArchiveTerm( params = {} ) {
 		const { taxonomies, terms } = getState();
 		const fetchParams = getArchiveTermParams( params, taxonomies.items );
 
+		// The index page is NOT a term archive page.
 		if ( ! fetchParams ) {
-			return {
+			return dispatch( {
 				type: GET_ARCHIVE_TERM_FAILURE,
-			};
+			} );
 		}
 
 		const { endpoint, slug } = fetchParams;
