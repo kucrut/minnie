@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { getDisplayName } from '../utils';
+
 export default function withSingular( args ) {
 	const {
 		need = [],
 		mapStateToProps = () => ( {} ),
 		fetchData = () => {},
+		displayName = '',
 	} = args;
 
 	const finalMapStateToProps = ( state, ownProps ) => ( {
@@ -19,13 +22,15 @@ export default function withSingular( args ) {
 	return Component => {
 		class WithSingularData extends React.Component {
 
+			static displayName = displayName || `WithSingularData(${ getDisplayName( Component ) })`;
+
 			static need = need;
 
 			static propTypes = {
 				info: PropTypes.object.isRequired,
 				singular: PropTypes.object.isRequired,
 				slug: PropTypes.string.isRequired,
-			}
+			};
 
 			componentDidMount() {
 				const { slug, singular } = this.props;
