@@ -10,7 +10,7 @@ import { configureAxios } from '../api/utils';
 import { fetchPostFormats } from '../store/actions/terms';
 import { fetchPrimaryMenu, fetchSocialMenu } from '../store/actions/menu';
 import Header from './Header';
-import Footer from './Footer';
+import SiteFooter from '../components/SiteFooter';
 
 import '../css/genericons/genericons/genericons.css';
 import '../css/style.css';
@@ -82,7 +82,7 @@ class App extends Component {
 					</Switch>
 				</div>
 
-				<Footer />
+				<SiteFooter />
 			</div>
 		);
 	}
