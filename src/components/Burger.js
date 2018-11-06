@@ -1,41 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import toggleSidebar from '../store/actions/ui';
 
-class Burger extends Component {
-	static propTypes = {
-		isSidebarExpanded: PropTypes.bool.isRequired,
-		dispatch: PropTypes.func.isRequired,
-	}
-
-	constructor( props ) {
-		super( props );
-		this.onClick = this.onClick.bind( this );
-	}
-
-	onClick() {
-		this.props.dispatch( toggleSidebar() );
-	}
-
-	render() {
-		const buttonClass = classNames( {
+function Burger( props ) {
+	const { dispatch, isSidebarExpanded } = props;
+	const buttonProps = {
+		title: 'Sidebar',
+		className: classNames( {
 			'menu-toggle': true,
-			'toggle-on': this.props.isSidebarExpanded,
-		} );
-
-		return (
-			<button className={ buttonClass } title="Sidebar" onClick={ this.onClick }>
-				<span className="screen-reader-text">Sidebar</span>
-			</button>
-		);
+			'toggle-on': isSidebarExpanded,
+		} ),
+		onClick: () => dispatch( toggleSidebar() ),
 	}
+
+	return (
+		<button { ...buttonProps }>
+			<span className="screen-reader-text">Sidebar</span>
+		</button>
+	);
 }
 
-function mapStateToProps( state ) {
-	return { isSidebarExpanded: state.ui.isSidebarExpanded };
-}
+Burger.propTypes = {
+	dispatch: PropTypes.func.isRequired,
+	isSidebarExpanded: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = state => ( {
+	isSidebarExpanded: state.ui.isSidebarExpanded,
+} );
 
 export default connect( mapStateToProps )( Burger );
