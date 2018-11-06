@@ -4,6 +4,7 @@
     "watch": [
       "src/api",
       "src/config",
+      "src/routes.js",
       "src/server.js",
       "config",
       "server"
