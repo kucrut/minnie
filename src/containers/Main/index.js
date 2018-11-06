@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 
@@ -6,7 +6,7 @@ export default function Main( props ) {
 	const { children, ...rest } = props;
 
 	return (
-		<div className="content">
+		<Fragment>
 			<Helmet { ...rest } />
 
 			<div id="primary" className="content-area">
@@ -14,7 +14,7 @@ export default function Main( props ) {
 					{ children }
 				</main>
 			</div>
-		</div>
+		</Fragment>
 	);
 }
 
