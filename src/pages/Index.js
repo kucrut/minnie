@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
-import he from 'he';
+import { decode } from 'he';
 import { parse } from 'qs';
 
 import { fetchArchive, fetchArchiveTerm } from '../store/actions/archive';
+import Main from '../containers/Main';
 import PageHeader from '../components/PageHeader';
 import Entry from '../components/Entry/Item';
 import EntryEmpty from '../components/Entry/Empty';
@@ -62,8 +62,9 @@ class Index extends Component {
 	 * Document title
 	 *
 	 * TODO: Maybe fetch this from SEO plugin?
+	 * TODO: Maybe move this to reducer?
 	 */
-	renderHelMet() {
+	createDocTitle() {
 		const { archive, info, match } =  this.props;
 		const { term, searchTerm } = archive;
 		const { params } = match;
@@ -91,9 +92,7 @@ class Index extends Component {
 			}
 		}
 
-		return (
-			<Helmet title={ he.decode( title ) } />
-		);
+		return decode( title );
 	}
 
 	/**
@@ -112,7 +111,7 @@ class Index extends Component {
 			title = `Search results for “${searchTerm}”`;
 		} else {
 			if ( term && items.length ) {
-				title = he.decode( term.name );
+				title = decode( term.name );
 
 				if ( term.description ) {
 					description = term.description;
@@ -164,21 +163,17 @@ class Index extends Component {
 		}
 
 		return (
-			<div id="primary" className="content-area">
-				{ this.renderHelMet() }
-
-				<main id="main" className="site-main" role="main">
-					{ this.renderTitle() }
-					{ this.renderArchive() }
-					{ ( nextLink || prevLink )
-						? <ContentNavigation
-							isSingle={ false }
-							prevLink={ prevLink }
-							nextLink={ nextLink }
-						/> : null
-					}
-				</main>
-			</div>
+			<Main title={ this.createDocTitle() }>
+				{ this.renderTitle() }
+				{ this.renderArchive() }
+				{ ( nextLink || prevLink )
+					? <ContentNavigation
+						isSingle={ false }
+						prevLink={ prevLink }
+						nextLink={ nextLink }
+					/> : null
+				}
+			</Main>
 		);
 	}
 }
