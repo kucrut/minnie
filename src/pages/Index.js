@@ -102,28 +102,23 @@ class Index extends Component {
 	 * which is the term title ( `get_queried_object()` in WordPress ).
 	 */
 	renderTitle() {
-		const { term, searchTerm, items } = this.props.archive;
-		let title;
-		let description;
-		let el;
+		const { archive } = this.props;
+		const { term, searchTerm, items } = archive;
+
+		if ( ! ( term && items.length ) && ! searchTerm ) {
+			return null;
+		}
 
 		if ( searchTerm ) {
-			title = `Search results for “${searchTerm}”`;
-		} else {
-			if ( term && items.length ) {
-				title = decode( term.name );
-
-				if ( term.description ) {
-					description = term.description;
-				}
-			}
+			return <PageHeader title={ decode( `Search results for “${searchTerm}”` ) } />;
 		}
 
-		if ( title ) {
-			el = ( <PageHeader title={ title } description={ description } /> );
-		}
-
-		return el;
+		return (
+			<PageHeader
+				title={ decode( term.name ) }
+				description={ term.description || '' }
+			/>
+		);
 	}
 
 	renderEmpty() {
