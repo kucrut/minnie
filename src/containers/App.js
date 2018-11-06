@@ -6,7 +6,6 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import classNames from 'classnames';
 
-import { configureAxios } from '../api/utils';
 import { fetchPostFormats } from '../store/actions/terms';
 import { fetchPrimaryMenu, fetchSocialMenu } from '../store/actions/menu';
 import SiteHeader from '../components/SiteHeader';
@@ -49,8 +48,6 @@ class App extends Component {
 	]
 
 	componentDidMount() {
-		// Set axios' defaults for browser.
-		configureAxios( this.props.apiRoot );
 		this.updateHtmlClass();
 	}
 
