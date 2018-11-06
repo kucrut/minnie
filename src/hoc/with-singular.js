@@ -32,7 +32,7 @@ export default function withSingular( args ) {
 				const { data } = singular;
 
 				if ( data.slug !== slug ) {
-					this.fetchData();
+					fetchData( this.props );
 				}
 			}
 
@@ -45,17 +45,8 @@ export default function withSingular( args ) {
 				}
 
 				if ( prevProps.slug !== slug ) {
-					this.fetchData();
+					fetchData( this.props )
 				}
-			}
-
-			fetchData() {
-				const { dispatch, slug } = this.props;
-				const args = {
-					params: { slug },
-				};
-
-				dispatch( fetchData( args ) );
 			}
 
 			render() {
