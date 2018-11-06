@@ -44,7 +44,14 @@ class App extends Component {
 	}
 
 	render() {
-		const { isSidebarExpanded, location, routes, siteLang } = this.props;
+		const {
+			isSidebarExpanded,
+			location,
+			menus,
+			routes,
+			siteLang,
+			siteName,
+		} = this.props;
 		const pageClass = classNames( {
 			'hfeed site': true,
 			'sidebar-open': isSidebarExpanded,
@@ -56,7 +63,12 @@ class App extends Component {
 
 				<a className="skip-link screen-reader-text" href="#content">Skip to content</a>
 
-				<SiteHeader location={ location } />
+				<SiteHeader
+					isSidebarExpanded={ isSidebarExpanded }
+					location={ location }
+					menus={ menus }
+					siteName={ siteName }
+				/>
 
 				<div id="content" className="site-content">
 					<Switch>
@@ -71,10 +83,14 @@ class App extends Component {
 }
 
 function mapStateToProps( state ) {
+	const { info, menu, ui } = state;
+
 	return {
-		apiRoot: state.info.apiRoot,
-		siteLang: state.info.lang,
-		isSidebarExpanded: state.ui.isSidebarExpanded,
+		apiRoot: info.apiRoot,
+		isSidebarExpanded: ui.isSidebarExpanded,
+		menus: menu.menus,
+		siteLang: info.lang,
+		siteName: info.name,
 		// galleries: state.galleries,
 	};
 }

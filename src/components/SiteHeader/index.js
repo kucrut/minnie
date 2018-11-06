@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import Burger from '../Burger';
 import Sidebar from './Sidebar';
 import Branding from './Branding';
 import SocialMenu from './SocialMenu';
 
-function Header( props ) {
+export default function SiteHeader( props ) {
 	const { isSidebarExpanded, menus, siteName } = props;
 	const { primary, social } = menus;
 
@@ -23,16 +22,11 @@ function Header( props ) {
 	);
 }
 
-Header.propTypes = {
+SiteHeader.propTypes = {
 	isSidebarExpanded: PropTypes.bool.isRequired,
-	menus: PropTypes.object.isRequired,
 	siteName: PropTypes.string.isRequired,
+	menus: PropTypes.shape( {
+		primary: PropTypes.object,
+		social: PropTypes.object,
+	} ).isRequired,
 };
-
-const mapStateToProps = state => ( {
-	isSidebarExpanded: state.ui.isSidebarExpanded,
-	menus: state.menu.menus,
-	siteName: state.info.name,
-} );
-
-export default connect( mapStateToProps )( Header );
