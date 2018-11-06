@@ -66,31 +66,25 @@ class Index extends Component {
 	 * TODO: Maybe move this to reducer?
 	 */
 	createDocTitle() {
-		const { archive, info, match } =  this.props;
-		const { term, searchTerm } = archive;
-		const { params } = match;
-		const { page } = params;
+		const { archive, info } = this.props;
+		const { currentPage, searchTerm, term } = archive;
+
+		const addPageNum = title => {
+			if ( currentPage > 1 ) {
+				return `${ title } — Page ${ currentPage }`;
+			}
+
+			return title;
+		};
 
 		let title = '';
 
 		if ( term || searchTerm ) {
-			if ( term ) {
-				title = term.name;
-			} else {
-				title = `Search results for “${searchTerm}”`;
-			}
-
-			if ( page ) {
-				title = `${title} — Page ${page}`;
-			}
-
-			title = `${title} | ${info.name}`;
+			title = term ? term.name : `Search results for “${ searchTerm }”`;
+			title = addPageNum( title );
+			title = `${ title } | ${ info.name }`;
 		} else { // Home
-			title = info.name;
-
-			if ( page ) {
-				title = `${title} — Page ${page}`;
-			}
+			title = addPageNum( info.name );
 		}
 
 		return decode( title );
