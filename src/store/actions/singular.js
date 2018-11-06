@@ -34,7 +34,7 @@ export function fetchPost( { params } ) {
 	} );
 }
 
-export function fetchMedia( params ) {
+export function fetchMedia( { params } ) {
 	return {
 		type: GET_SINGULAR,
 		promise: makeSingularRequest( params.slug, 'media' ),
