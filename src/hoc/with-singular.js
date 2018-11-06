@@ -45,7 +45,11 @@ export default function withSingular( fetcher ) {
 
 			fetchData() {
 				const { dispatch, slug } = this.props;
-				dispatch( fetcher( { slug } ) );
+				const args = {
+					params: { slug },
+				};
+
+				dispatch( fetcher( args ) );
 			}
 
 			render() {
