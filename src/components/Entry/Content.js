@@ -14,11 +14,15 @@ import { prepareGallery } from '../../misc/galleries';
 */
 
 class EntryContent extends Component {
+	static defaultProps = {
+		className: 'entry-content',
+	};
+
 	static propTypes = {
 		content: PropTypes.string.isRequired,
-		wrapClass: PropTypes.string,
+		className: PropTypes.string,
 		dispatch: PropTypes.func.isRequired,
-	}
+	};
 
 	constructor( props ) {
 		super( props );
@@ -83,17 +87,14 @@ class EntryContent extends Component {
 	}
 
 	render() {
-		const { content, wrapClass } = this.props;
-		const divClass = wrapClass || 'entry-content';
+		const { content, className } = this.props;
 
 		return (
 			<div
-				ref={ c => {
-					this.theContent = c;
-				} }
-				className={ divClass }
-				// onClick={ this.handleClick }
+				ref={ c => this.theContent = c }
+				className={ className }
 				dangerouslySetInnerHTML={ { __html: content } }
+				// onClick={ this.handleClick }
 			/>
 		);
 	}
