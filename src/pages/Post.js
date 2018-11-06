@@ -45,10 +45,9 @@ class Post extends Component {
 }
 */
 
-const Post = withSingularData( {
+export default withSingularData( {
 	fetchData,
 	mapStateToProps,
 	need: [ fetchPost ],
+	displayName: 'Post',
 } )( Singular );
-
-export default Post;
