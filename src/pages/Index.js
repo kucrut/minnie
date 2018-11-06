@@ -17,12 +17,12 @@ class Index extends Component {
 		info: PropTypes.object.isRequired,
 		archive: PropTypes.object.isRequired,
 		dispatch: PropTypes.func.isRequired,
-	}
+	};
 
 	static need = [
 		fetchArchive,
 		fetchArchiveTerm,
-	]
+	];
 
 	componentDidMount() {
 		const { archive, url } = this.props;
@@ -117,7 +117,8 @@ class Index extends Component {
 	}
 
 	renderEmpty() {
-		const { searchTerm } = this.props.archive;
+		const { archive } = this.props;
+		const { searchTerm } = archive;
 		let args;
 
 		if ( searchTerm ) {
@@ -129,9 +130,7 @@ class Index extends Component {
 			};
 		}
 
-		return (
-			<EntryEmpty { ...args } />
-		);
+		return <EntryEmpty { ...args } />;
 	}
 
 	renderArchive() {
@@ -149,7 +148,7 @@ class Index extends Component {
 		const { isFetching, nextLink, prevLink } = archive;
 
 		if ( isFetching ) {
-			return ( <Spinner /> );
+			return <Spinner />;
 		}
 
 		return (
