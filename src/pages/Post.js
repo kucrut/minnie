@@ -1,29 +1,30 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import { parse } from 'qs';
 
 import { fetchPost } from '../store/actions/singular';
-import _Singular from './_Singular';
-import CommentsSection from '../containers/Comments/Section';
+import withSingularData from '../higher-order/with-singular-data';
+import Singular from '../containers/Singular';
+// import CommentsSection from '../containers/Comments/Section';
 
-class Post extends _Singular {
+function fetchData( props ) {
+	const { dispatch, slug } = props;
+	const args = {
+		params: { slug },
+	};
 
-	/**
-	 * Callbacks needed for server-side rendering
-	 *
-	 * Functions listed here will be called automatically by `fetchComponentDataBeforeRender()`
-	 *     when this component is rendered by the server.
-	 *
-	 * @type {Array}
-	 */
-	static need = [ fetchPost ]
+	dispatch( fetchPost( args ) );
+}
 
-	static displayName = 'Post'
+function mapStateToProps( state, ownProps ) {
+	const query = parse( ownProps.location.search, { ignoreQueryPrefix: true } );
 
-	fetchData( slug ) {
-		this.props.dispatch( fetchPost( { slug } ) );
-	}
+	return {
+		query,
+		comments: state.comments,
+	};
+}
 
+/*
+class Post extends Component {
 	renderComments() {
 		const { info, user, singular, comments, query, dispatch } = this.props;
 		const parentId = query.hasOwnProperty( 'replytocom' ) ? parseInt( query.replytocom, 10 ) : 0;
@@ -42,19 +43,12 @@ class Post extends _Singular {
 		);
 	}
 }
+*/
 
-export function mapStateToProps( state, ownProps ) {
-	const query = parse( ownProps.location.search, { ignoreQueryPrefix: true } );
-	const { slug } = ownProps.match.params;
+const Post = withSingularData( {
+	fetchData,
+	mapStateToProps,
+	need: [ fetchPost ],
+} )( Singular );
 
-	return {
-		query,
-		slug,
-		info: state.info,
-		singular: state.singular,
-		comments: state.comments,
-		user: state.session.user,
-	};
-}
-
-export default connect( mapStateToProps )( Post );
+export default Post;
