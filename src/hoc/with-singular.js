@@ -1,19 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-export default function withSingular( fetcher ) {
-	const mapStateToProps = ( state, ownProps ) => ( {
+export default function withSingular( args ) {
+	const {
+		need = [],
+		mapStateToProps = () => ( {} ),
+		fetchData = () => {},
+	} = args;
+
+	const finalMapStateToProps = ( state, ownProps ) => ( {
 		info: state.info,
 		singular: state.singular,
 		slug: ownProps.match.params.slug,
-		// user: state.session.user,
+		...mapStateToProps(  state, ownProps  ),
 	} );
 
-	return WrappedComponent => {
-		class WithSingular extends Component {
+	return Component => {
+		class WithSingular extends React.Component {
 
-			static need = [ fetcher ];
+			static need = need;
 
 			static propTypes = {
 				info: PropTypes.object.isRequired,
@@ -49,14 +55,14 @@ export default function withSingular( fetcher ) {
 					params: { slug },
 				};
 
-				dispatch( fetcher( args ) );
+				dispatch( fetchData( args ) );
 			}
 
 			render() {
-				return <WrappedComponent { ...this.props } />;
+				return <Component { ...this.props } />;
 			}
 		}
 
-		return connect( mapStateToProps )( WithSingular );
+		return connect( finalMapStateToProps )( WithSingular );
 	};
 }
