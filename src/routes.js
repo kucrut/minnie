@@ -1,9 +1,7 @@
-import Login from './pages/Login';
 import Home from './pages/Home';
 import Page from './pages/Page';
 import Post from './pages/Post';
 import Media from './pages/Media';
-import Preview from './pages/Preview';
 
 const pagedRoute = ( prefix = '' ) => ( {
 	path: `${prefix}/page/:page(\\d+):ignored?`,
@@ -56,10 +54,18 @@ export default function createRoutes( taxonomies ) {
 				exact: true,
 				component: Home,
 			},
+			/* TODO
 			{
 				path: '/login',
 				component: Login,
 			},
+			*/
+			/* TODO
+			{
+				path: '/preview/:type/:id',
+				component: Preview,
+			},
+			*/
 		],
 		createTermRoutes( taxonomies ),
 		[
@@ -75,10 +81,6 @@ export default function createRoutes( taxonomies ) {
 			{
 				path: '/:parentslug/:slug',
 				component: Page,
-			},
-			{
-				path: '/preview/:type/:id',
-				component: Preview,
 			},
 			{
 				path: '/:slug([^\\?]+)',
