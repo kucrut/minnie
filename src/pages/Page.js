@@ -3,7 +3,7 @@ import Singular from '../containers/Singular';
 
 import { fetchPage } from '../store/actions/singular';
 
-const fetchData = props => {
+function fetchData( props ) {
 	const { dispatch, slug } = props;
 	const args = {
 		params: { slug },
