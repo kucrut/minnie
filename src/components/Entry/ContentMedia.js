@@ -28,7 +28,7 @@ export default class MediaContent extends EntryContent {
 		const { caption } = data;
 
 		if ( caption.rendered ) {
-			return <EntryContent content={ caption.rendered } wrapClass="description" />;
+			return <EntryContent content={ caption.rendered } className="description" />;
 		}
 
 		return null;
