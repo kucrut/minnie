@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 export default function withSingular( fetcher ) {
@@ -13,6 +14,12 @@ export default function withSingular( fetcher ) {
 		class WithSingular extends Component {
 
 			static need = [ fetcher ];
+
+			static propTypes = {
+				info: PropTypes.object.isRequired,
+				singular: PropTypes.object.isRequired,
+				slug: PropTypes.string.isRequired,
+			}
 
 			componentDidMount() {
 				const { slug, singular } = this.props;
