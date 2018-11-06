@@ -64,6 +64,10 @@ export default function createRoutes( taxonomies ) {
 		createTermRoutes( taxonomies ),
 		[
 			{
+				path: '/blog/:parentslug/:slug',
+				component: Media,
+			},
+			{
 				path: '/blog/:slug',
 				component: Post,
 			},
@@ -71,10 +75,6 @@ export default function createRoutes( taxonomies ) {
 			{
 				path: '/:parentslug/:slug',
 				component: Page,
-			},
-			{
-				path: '/blog/:parentslug/:slug',
-				component: Media,
 			},
 			{
 				path: '/preview/:type/:id',
