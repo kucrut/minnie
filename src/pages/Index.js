@@ -28,6 +28,7 @@ class Index extends Component {
 		const { archive, url } = this.props;
 		const { items } = archive;
 
+		// TODO: Don't re-fetch on first mount and not items found.
 		if ( ! items.length || archive.url !== url ) {
 			this.fetchData();
 		}
