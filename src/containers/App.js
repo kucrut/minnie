@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import { configureAxios } from '../api/utils';
 import { fetchPostFormats } from '../store/actions/terms';
 import { fetchPrimaryMenu, fetchSocialMenu } from '../store/actions/menu';
-import Header from './Header';
+import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
 
 import '../css/genericons/genericons/genericons.css';
@@ -74,7 +74,7 @@ class App extends Component {
 
 				<a className="skip-link screen-reader-text" href="#content">Skip to content</a>
 
-				<Header location={ location } />
+				<SiteHeader location={ location } />
 
 				<div id="content" className="site-content">
 					<Switch>

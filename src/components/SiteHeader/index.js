@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import Burger from '../Burger';
 import Sidebar from './Sidebar';
-import Branding from '../components/Branding';
-import SocialMenu from '../components/SocialMenu';
-import Burger from '../components/Burger';
+import Branding from './Branding';
+import SocialMenu from './SocialMenu';
 
 function Header( props ) {
 	const { isSidebarExpanded, menus, siteName } = props;

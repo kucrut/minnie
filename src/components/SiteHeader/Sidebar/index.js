@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import PrimaryMenu from '../components/PrimaryMenu';
-import SearchForm from '../components/SearchForm';
+import PrimaryMenu from '../PrimaryMenu';
+import SearchForm from '../../SearchForm';
 
 export default function Sidebar( props ) {
 	const { isExpanded, menu, ...rest } = props;
