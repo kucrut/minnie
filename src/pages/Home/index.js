@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { decode } from 'he';
 import { parse } from 'qs';
 
-import { fetchArchive, fetchArchiveTerm } from '../store/actions/archive';
-import Main from '../containers/Main';
-import PageHeader from '../components/PageHeader';
-import Entry from '../components/Entry/Item';
-import EntryEmpty from '../components/Entry/Empty';
-import Spinner from '../components/Spinner';
-import ContentNavigation from '../components/ContentNavigation';
+import { fetchArchive, fetchArchiveTerm } from '../../store/actions/archive';
+import Main from '../../containers/Main';
+import PageHeader from '../../components/PageHeader';
+import Entry from '../../components/Entry/Item';
+import EntryEmpty from '../../components/Entry/Empty';
+import Spinner from '../../components/Spinner';
+import ContentNavigation from '../../components/ContentNavigation';
 
 class Index extends Component {
 	static propTypes = {
