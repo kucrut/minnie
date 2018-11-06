@@ -12,11 +12,8 @@ const fetchData = props => {
 	dispatch( fetchPage( args ) );
 }
 
-const Page = withSingularData( {
+export default withSingularData( {
 	fetchData,
 	need: [ fetchPage ],
+	displayName: 'Page',
 } )( Singular );
-
-Page.displayName = 'Page';
-
-export default Page;
