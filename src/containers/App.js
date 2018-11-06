@@ -23,29 +23,14 @@ class App extends Component {
 		routes: PropTypes.arrayOf( PropTypes.shape( {
 			path: PropTypes.string.isRequired,
 		} ) ).isRequired,
-		// dispatch: PropTypes.func.isRequired,
 		// galleries: PropTypes.object.isRequired,
-		// prevLocation: PropTypes.object,
-	}
+	};
 
-	// TODO: ???
-	static contextTypes = {
-		router: PropTypes.object.isRequired,
-	}
-
-	/**
-	 * Callbacks needed for server-side rendering
-	 *
-	 * Functions listed here will be called automatically by `fetchComponentDataBeforeRender()`
-	 *     when this component is rendered by the server.
-	 *
-	 * @type {Array}
-	 */
 	static need = [
 		fetchPostFormats,
 		fetchPrimaryMenu,
 		fetchSocialMenu,
-	]
+	];
 
 	componentDidMount() {
 		this.updateHtmlClass();
