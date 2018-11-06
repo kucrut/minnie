@@ -1,8 +1,10 @@
+import React from 'react';
 import { parse } from 'qs';
 
 import { fetchPost } from '../store/actions/singular';
 import withSingularData from '../higher-order/with-singular-data';
 import Singular from '../containers/Singular';
+import Entry from '../components/Entry/Item';
 // import CommentsSection from '../containers/Comments/Section';
 
 function fetchData( props ) {
@@ -45,9 +47,20 @@ class Post extends Component {
 }
 */
 
+function Post( props ) {
+	const { singular } = props;
+	const { data } = singular;
+
+	return (
+		<Singular { ...props }>
+			<Entry isSingle data={ data } />
+			{/* TODO: Display comments */}
+		</Singular>
+	)
+}
+
 export default withSingularData( {
 	fetchData,
 	mapStateToProps,
 	need: [ fetchPost ],
-	displayName: 'Post',
-} )( Singular );
+} )( Post );
