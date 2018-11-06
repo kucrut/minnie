@@ -1,31 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class PageHeader extends Component {
-	static propTypes = {
-		title: PropTypes.string.isRequired,
-		description: PropTypes.string,
-	}
+export default function PageHeader( props ) {
+	const { description, title } = props;
 
-	renderDescription() {
-		const { description } = this.props;
-		let el;
-
-		if ( description ) {
-			el = (
-				<div className="taxonomy-description" dangerouslySetInnerHTML={ { __html: description } } />
-			);
-		}
-
-		return el;
-	}
-
-	render() {
-		return (
-			<header className="page-header">
-				<h1 className="page-title">{ this.props.title }</h1>
-				{ this.renderDescription() }
-			</header>
-		);
-	}
+	return (
+		<header className="page-header">
+			<h1 className="page-title">{ title }</h1>
+			{ description ? (
+				<div
+					className="taxonomy-description"
+					dangerouslySetInnerHTML={ { __html: description } }
+				/>
+			) : null }
+		</header>
+	);
 }
+
+PageHeader.defaultProps = {
+	description: '',
+};
+
+PageHeader.propTypes = {
+	title: PropTypes.string.isRequired,
+	description: PropTypes.string,
+};
