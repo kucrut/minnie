@@ -24,21 +24,14 @@ export default class MediaContent extends EntryContent {
 	}
 
 	renderContent() {
-		const { caption, description } = this.props.data;
-		let content = '';
-		let el;
+		const { data } = this.props;
+		const { caption } = data;
 
-		if ( description ) {
-			content = description;
-		} else if ( caption ) {
-			content = caption;
+		if ( caption.rendered ) {
+			return <EntryContent content={ caption.rendered } wrapClass="description" />;
 		}
 
-		if ( content ) {
-			el = ( <EntryContent content={ content } wrapClass="description" /> );
-		}
-
-		return el;
+		return null;
 	}
 
 	renderMedia() {
