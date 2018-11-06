@@ -45,4 +45,7 @@ class Page extends Component {
 	}
 }
 
-export default withSingular( fetchPage )( Page );
+export default withSingular( {
+	need: [ fetchPage ],
+	fetchData: fetchPage,
+} )( Page );
