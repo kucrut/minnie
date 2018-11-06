@@ -17,7 +17,7 @@ export default function withSingular( args ) {
 	} );
 
 	return Component => {
-		class WithSingular extends React.Component {
+		class WithSingularData extends React.Component {
 
 			static need = need;
 
@@ -54,6 +54,6 @@ export default function withSingular( args ) {
 			}
 		}
 
-		return connect( finalMapStateToProps )( WithSingular );
+		return connect( finalMapStateToProps )( WithSingularData );
 	};
 }
