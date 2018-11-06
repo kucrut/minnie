@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Main from '../containers/Main';
-import EntryEmpty from '../components/Entry/Empty';
+import Main from '../../containers/Main';
+import EntryEmpty from '../../components/Entry/Empty';
 
 export default function NotFound() {
 	return (

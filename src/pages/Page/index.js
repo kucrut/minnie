@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { fetchPage } from '../store/actions/singular';
-import withSingularData from '../higher-order/with-singular-data';
-import Singular from '../containers/Singular';
-import Entry from '../components/Entry/Item';
+import { fetchPage } from '../../store/actions/singular';
+import withSingularData from '../../higher-order/with-singular-data';
+import Singular from '../../containers/Singular';
+import Entry from '../../components/Entry/Item';
 
 function fetchData( props ) {
 	const { dispatch, slug } = props;
