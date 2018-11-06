@@ -45,7 +45,16 @@ class Page extends Component {
 	}
 }
 
+const fetchData = props => {
+	const { dispatch, slug } = props;
+	const args = {
+		params: { slug },
+	};
+
+	dispatch( fetchPage( args ) );
+}
+
 export default withSingular( {
+	fetchData,
 	need: [ fetchPage ],
-	fetchData: fetchPage,
 } )( Page );
