@@ -1,50 +1,43 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import { fetchMedia } from '../store/actions/singular';
+import withSingularData from '../higher-order/with-singular-data';
+import Singular from '../containers/Singular';
 import ContentNavigation from '../components/ContentNavigation';
-import _Singular from './_Singular';
 
-class Media extends _Singular {
+function mapStateToProps( state ) {
+	return {
+		user: state.session.user,
+	};
+}
 
-	/**
-	 * Callbacks needed for server-side rendering
-	 *
-	 * Functions listed here will be called automatically by `fetchComponentDataBeforeRender()`
-	 *     when this component is rendered by the server.
-	 *
-	 * @type {Array}
-	 */
-	static need = [ fetchMedia ]
+function fetchData( props ) {
+	const { dispatch, slug } = props;
+	const args = {
+		params: { slug },
+	};
 
-	static displayName = 'Media';
+	dispatch( fetchMedia( args ) );
+}
 
-	fetchData( slug ) {
-		this.props.dispatch( fetchMedia( { slug } ) );
-	}
+function Media( props ) {
+	const { singular } = props;
+	const { data } = singular;
+	const { parent_post } = data;
 
-	renderNavigation() {
-		const { parent_post } = this.props.singular.data;
-
-		return (
+	return (
+		<Singular { ...props }>
 			<ContentNavigation
 				isSingle={ true }
 				prevLink={ parent_post.link }
 				prevText={ parent_post.title.rendered }
 			/>
-		);
-	}
+		</Singular>
+	);
 }
 
-function mapStateToProps( state, ownProps ) {
-	const { slug } = ownProps.params;
-
-	return {
-		info: state.info,
-		singular: state.singular,
-		user: state.session.user,
-		slug,
-	};
-}
-
-export default connect( mapStateToProps )( Media );
+export default withSingularData( {
+	fetchData,
+	mapStateToProps,
+	need: [ fetchMedia ],
+} )( Media );
