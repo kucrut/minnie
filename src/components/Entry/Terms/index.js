@@ -16,8 +16,8 @@ export default function EntryTerms( { terms } ) {
 }
 
 EntryTerms.propTypes = {
-	terms: PropTypes.shape( {
+	terms: PropTypes.arrayOf( PropTypes.shape( {
 		link: PropTypes.string.isRequired,
 		name: PropTypes.string.isRequired,
-	} ).isRequired,
+	} ) ).isRequired,
 };
