@@ -1,45 +1,39 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { find } from 'lodash';
 
-class EntryFormat extends Component {
-	static propTypes = {
-		data: PropTypes.object.isRequired,
-		formats: PropTypes.array.isRequired,
+function EntryFormat( props ) {
+	const { data, formats } = props;
+	const { format } = data;
+	let term = formats.find( item => item.slug === `post-format-${ format }` );
+
+	// Fallback to standard.
+	if ( ! term ) {
+		term = {
+			name: 'Standard',
+			link: data.link,
+		};
 	}
 
-	getFormat() {
-		const { data, formats } = this.props;
-		let format = find( formats, { slug: `post-format-${data.format}` } );
+	const { link, name } = term;
 
-		// Post format: Standard
-		if ( ! format ) {
-			format = {
-				name: 'Standard',
-				link: data.link,
-			};
-		}
-
-		return format;
-	}
-
-	render() {
-		const format = this.getFormat();
-
-		return (
-			<div className="entry-format">
-				<Link to={ format.link } title={ `All ${format.name} posts` }>
-					<span className="screen-reader-text">{ format.name }</span>
-				</Link>
-			</div>
-		);
-	}
+	return (
+		<div className="entry-format">
+			<Link to={ link } title={ `All ${ name } posts` }>
+				<span className="screen-reader-text">{ name }</span>
+			</Link>
+		</div>
+	);
 }
 
-function mapStateToProps( state ) {
-	return { formats: state.terms.items.formats };
+EntryFormat.propTypes = {
+	data: PropTypes.object.isRequired,
+	formats: PropTypes.array.isRequired,
 }
+
+const mapStateToProps = state => ( {
+	formats: state.terms.items.formats,
+} );
 
 export default connect( mapStateToProps )( EntryFormat );
