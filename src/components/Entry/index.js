@@ -3,10 +3,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import EntryTitle from './Title';
-import EntryMeta from './Meta';
-import EntryFormat from './Format';
+import { entryMetaTaxonomies } from '../../config';
+import EntryDate from './Date';
 import EntryContent from './Content';
+import EntryFormat from './Format';
+import EntryTitle from './Title';
+import EntryTerms from './Terms';
 
 export default class Entry extends Component {
 	static propTypes = {
@@ -74,13 +76,47 @@ export default class Entry extends Component {
 
 	renderMeta() {
 		const { data } = this.props;
-		const { type } = data;
+		const {
+			link,
+			date,
+			modified,
+			date_formatted,
+			modified_formatted,
+			type,
+		} = data;
+		const types = [ 'attachment', 'post' ];
 
-		if ( type === 'post' || type === 'attachment' ) {
-			return <EntryMeta data={ data } />;
+		if ( ! types.includes( type ) ) {
+			return null;
 		}
 
-		return null;
+		const taxTerms = entryMetaTaxonomies.map( taxonomy => {
+			const terms = data[ taxonomy ];
+
+			if ( terms && terms.length ) {
+				return {
+					taxonomy,
+					terms,
+				}
+			}
+
+			return null;
+		} ).filter( Boolean );
+
+		return (
+			<div className="entry-meta">
+				<EntryDate
+					link={ link }
+					date={ date }
+					modified={ modified }
+					dateFormatted={ date_formatted }
+					modifiedFormatted={ modified_formatted }
+				/>
+				{ taxTerms.length ? taxTerms.map( item => (
+					<EntryTerms key={ item.taxonomy } terms={ item.terms } />
+				) ) : null }
+			</div>
+		);
 	}
 
 	renderFormat() {
