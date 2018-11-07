@@ -8,7 +8,7 @@ import { hot } from 'react-hot-loader'
 import { fetchArchive, fetchArchiveTerm } from '../../store/actions/archive';
 import Main from '../../containers/Main';
 import PageHeader from '../../components/PageHeader';
-import Entry from '../../components/Entry/Item';
+import Entry from '../../components/Entry';
 import EntryEmpty from '../../components/Entry/Empty';
 import Spinner from '../../components/Spinner';
 import ContentNavigation from '../../components/ContentNavigation';

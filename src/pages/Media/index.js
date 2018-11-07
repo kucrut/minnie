@@ -5,7 +5,7 @@ import { fetchMedia } from '../../store/actions/singular';
 import withSingularData from '../../higher-order/with-singular-data';
 import Singular from '../../containers/Singular';
 import ContentNavigation from '../../components/ContentNavigation';
-import Entry from '../../components/Entry/Item';
+import Entry from '../../components/Entry';
 
 function mapStateToProps( state ) {
 	return {

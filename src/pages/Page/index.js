@@ -4,7 +4,7 @@ import { hot } from 'react-hot-loader'
 import { fetchPage } from '../../store/actions/singular';
 import withSingularData from '../../higher-order/with-singular-data';
 import Singular from '../../containers/Singular';
-import Entry from '../../components/Entry/Item';
+import Entry from '../../components/Entry';
 
 function fetchData( props ) {
 	const { dispatch, slug } = props;
