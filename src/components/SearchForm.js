@@ -13,25 +13,23 @@ class SearchForm extends Component {
 	constructor( props ) {
 		super( props );
 
-		this.state = { searchTerm: decodeURIComponent( props.searchTerm ) };
-
-		this.handleSubmit = this.handleSubmit.bind( this );
-	}
-
-	handleSubmit( e ) {
-		e.preventDefault();
-		// this.props.dispatch( push( `/?s=${encodeURIComponent( this.state.searchTerm )}` ) );
+		this.state = {
+			searchTerm: decodeURIComponent( props.searchTerm ),
+		};
 	}
 
 	render() {
+		const { history, siteUrl } = this.props;
 		const { searchTerm } = this.state;
-		const { siteUrl }  = this.props;
 		const formProps = {
 			role: 'search',
 			method: 'get',
 			className: 'search-form',
 			action: siteUrl,
-			onSubmit: this.handleSubmit,
+			onSubmit: e => {
+				e.preventDefault();
+				history.push( `/?s=${ encodeURIComponent( searchTerm ) }` );
+			},
 		};
 		const inputProps = {
 			name: 's',
