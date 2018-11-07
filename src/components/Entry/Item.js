@@ -118,15 +118,13 @@ export default class Entry extends Component {
 
 	renderContent() {
 		const { data } = this.props;
-		let el;
+		const { type } = data;
 
-		if ( data.type === 'attachment' ) {
-			el = ( <EntryContentMedia data={ data } /> );
-		} else {
-			el = ( <EntryContent content={ this.getContent() } /> );
+		if ( type === 'attachment' ) {
+			return <EntryContentMedia data={ data } />;
 		}
 
-		return el;
+		return <EntryContent content={ this.getContent() } />;
 	}
 
 	renderTitle() {
