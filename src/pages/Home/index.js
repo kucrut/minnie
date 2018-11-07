@@ -101,37 +101,31 @@ class Index extends Component {
 		const { archive } = this.props;
 		const { term, searchTerm, items } = archive;
 
-		if ( ! ( term && items.length ) && ! searchTerm ) {
-			return null;
+		if ( term && items.length ) {
+			return (
+				<PageHeader
+					title={ decode( term.name ) }
+					description={ term.description || '' }
+				/>
+			);
 		}
 
-		if ( searchTerm ) {
-			return <PageHeader title={ decode( `Search results for “${searchTerm}”` ) } />;
-		}
+		const title = searchTerm
+			? decode( `Search results for “${ searchTerm }”` )
+			: 'Nothing Found.'
 
-		return (
-			<PageHeader
-				title={ decode( term.name ) }
-				description={ term.description || '' }
-			/>
-		);
+		return <PageHeader title={ title } />;
 	}
 
 	renderEmpty() {
 		const { archive } = this.props;
 		const { searchTerm } = archive;
-		let args;
 
-		if ( searchTerm ) {
-			args = { content: 'It seems we can’t find what you’re looking for. Perhaps try another search?' };
-		} else {
-			args = {
-				title: 'Nothing Found.',
-				content: 'It seems we can’t find what you’re looking for. Perhaps searching can help.',
-			};
-		}
+		const content = searchTerm
+			? 'It seems we can’t find what you’re looking for. Perhaps try another search?'
+			: 'It seems we can’t find what you’re looking for. Perhaps searching can help.';
 
-		return <EntryEmpty { ...args } />;
+		return <EntryEmpty content={ content } />;
 	}
 
 	renderArchive() {
