@@ -28,12 +28,13 @@ class SearchForm extends Component {
 	}
 
 	render() {
-		const { siteUrl, searchTerm }  = this.state;
+		const { searchTerm } = this.state;
+		const { siteUrl }  = this.props;
 		const formAttrs = {
 			role: 'search',
 			method: 'get',
 			className: 'search-form',
-			formAction: siteUrl,
+			action: siteUrl,
 			onSubmit: this.handleSubmit,
 		};
 		const inputAttrs = {
