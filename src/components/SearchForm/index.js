@@ -17,6 +17,16 @@ class SearchForm extends Component {
 		};
 	}
 
+	componentDidUpdate( prevProps ) {
+		const { searchTerm } = this.props;
+
+		if ( searchTerm !== prevProps.searchTerm ) {
+			this.setState( {
+				searchTerm: decodeURIComponent( searchTerm ),
+			} );
+		}
+	}
+
 	render() {
 		const { history, siteUrl } = this.props;
 		const { searchTerm } = this.state;
