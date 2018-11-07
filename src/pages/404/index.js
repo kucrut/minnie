@@ -1,9 +1,9 @@
 import React from 'react';
-
+import { hot } from 'react-hot-loader'
 import Main from '../../containers/Main';
 import EntryEmpty from '../../components/Entry/Empty';
 
-export default function NotFound() {
+function NotFound() {
 	return (
 		<Main title="Oops!">
 			<EntryEmpty
@@ -13,3 +13,5 @@ export default function NotFound() {
 		</Main>
 	);
 }
+
+export default hot( module )( NotFound );

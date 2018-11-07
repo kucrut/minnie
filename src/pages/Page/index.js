@@ -1,4 +1,5 @@
 import React from 'react';
+import { hot } from 'react-hot-loader'
 
 import { fetchPage } from '../../store/actions/singular';
 import withSingularData from '../../higher-order/with-singular-data';
@@ -25,7 +26,9 @@ function Page( props ) {
 	)
 }
 
-export default withSingularData( {
+const pageWithSingularData = withSingularData( {
 	fetchData,
 	need: [ fetchPage ],
-} )( Page );
+} )( Page )
+
+export default hot( module )( pageWithSingularData );

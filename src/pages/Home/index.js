@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { decode } from 'he';
 import { parse } from 'qs';
+import { hot } from 'react-hot-loader'
 
 import { fetchArchive, fetchArchiveTerm } from '../../store/actions/archive';
 import Main from '../../containers/Main';
@@ -178,4 +179,6 @@ function mapStateToProps( state, ownProps ) {
 	};
 }
 
-export default connect( mapStateToProps )( Index );
+const connectedIndex = connect( mapStateToProps )( Index );
+
+export default hot( module )( connectedIndex );

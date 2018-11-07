@@ -1,5 +1,6 @@
 import React from 'react';
 import { parse } from 'qs';
+import { hot } from 'react-hot-loader'
 
 import { fetchPost } from '../store/actions/singular';
 import withSingularData from '../higher-order/with-singular-data';
@@ -59,8 +60,10 @@ function Post( props ) {
 	)
 }
 
-export default withSingularData( {
+const postWithSingularData = withSingularData( {
 	fetchData,
 	mapStateToProps,
 	need: [ fetchPost ],
-} )( Post );
+} )( Post )
+
+export default hot( module )( postWithSingularData );

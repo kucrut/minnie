@@ -1,4 +1,5 @@
 import React from 'react';
+import { hot } from 'react-hot-loader'
 
 import { fetchMedia } from '../../store/actions/singular';
 import withSingularData from '../../higher-order/with-singular-data';
@@ -42,8 +43,10 @@ function Media( props ) {
 	);
 }
 
-export default withSingularData( {
+const mediaWithSingularData = withSingularData( {
 	fetchData,
 	mapStateToProps,
 	need: [ fetchMedia ],
 } )( Media );
+
+export default hot( module )( mediaWithSingularData );
