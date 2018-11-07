@@ -48,16 +48,6 @@ export default class Entry extends Component {
 	}
 	*/
 
-	getElClass() {
-		const { data } = this.props;
-		let cls = 'hentry';
-
-		cls += ` type-${data.type}`;
-		cls += ` format-${data.format}`;
-
-		return cls;
-	}
-
 	removeScripts() {
 		this.scriptEls.forEach( el => {
 			el.remove();
@@ -110,9 +100,11 @@ export default class Entry extends Component {
 
 	render() {
 		const { data } = this.props;
+		const { format, type } = data;
+		const className = `hentry type-${ type } format-${ format }`;
 
 		return (
-			<article id={ `post-${data.id}` } className={ this.getElClass() }>
+			<article id={ `post-${data.id}` } className={ className }>
 				<header className="entry-header">
 					{ this.renderTitle() }
 					{ this.renderMeta() }
