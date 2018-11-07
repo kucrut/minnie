@@ -107,13 +107,12 @@ export default class Entry extends Component {
 
 	renderFormat() {
 		const { data } = this.props;
-		let el;
 
 		if ( data.type === 'post' ) {
-			el = ( <EntryFormat data={ data } /> );
+			return <EntryFormat data={ data } />;
 		}
 
-		return el;
+		return null;
 	}
 
 	renderContent() {
