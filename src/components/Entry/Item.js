@@ -131,17 +131,13 @@ export default class Entry extends Component {
 
 	renderTitle() {
 		const { data, isSingle } = this.props;
-		let el;
+		const { link, title } = data;
 
-		if ( data.title.rendered ) {
-			el = ( <EntryTitle
-				title={ data.title.rendered }
-				link={ data.link }
-				isSingle={ isSingle }
-			/> );
+		if ( ! title.rendered ) {
+			return null;
 		}
 
-		return el;
+		return <EntryTitle title={ title.rendered } link={ isSingle ? '' : link } />;
 	}
 
 	render() {
