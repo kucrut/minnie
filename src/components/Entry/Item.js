@@ -30,28 +30,47 @@ export default class Entry extends Component {
 		this.scriptEls = [];
 	}
 
-	/*
 	componentDidMount() {
 		this.injectScripts();
 	}
 
-	componentWillUpdateX() {
-		this.removeScripts();
-	}
-
 	componentDidUpdate() {
+		this.removeScripts();
 		this.injectScripts();
 	}
 
 	componentWillUnmount() {
 		this.removeScripts();
 	}
-	*/
+
+	injectScripts() {
+		const { data } = this.props;
+		const { content, type } = data;
+		const { scripts = [] } = content;
+
+		if ( type === 'attachment' ) {
+			return;
+		}
+
+		this.scriptEls = [];
+
+		if ( ! scripts.length ) {
+			return;
+		}
+
+		scripts.forEach( src => {
+			const el = document.createElement( 'script' );
+
+			el.src   = src;
+			el.async = true;
+
+			document.body.appendChild( el );
+			this.scriptEls = this.scriptEls.concat( el );
+		} );
+	}
 
 	removeScripts() {
-		this.scriptEls.forEach( el => {
-			el.remove();
-		} );
+		this.scriptEls.forEach( el => el.remove() );
 	}
 
 	renderMeta() {
