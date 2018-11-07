@@ -46,12 +46,12 @@ export default class Entry extends Component {
 	injectScripts() {
 		const { data } = this.props;
 		const { content, type } = data;
-		const { scripts = [] } = content;
 
 		if ( type === 'attachment' ) {
 			return;
 		}
 
+		const { scripts = [] } = content;
 		this.scriptEls = [];
 
 		if ( ! scripts.length ) {
