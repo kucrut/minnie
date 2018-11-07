@@ -14,12 +14,7 @@ class SearchForm extends Component {
 
 		this.state = { searchTerm: decodeURIComponent( props.searchTerm ) };
 
-		this.handleChange = this.handleChange.bind( this );
 		this.handleSubmit = this.handleSubmit.bind( this );
-	}
-
-	handleChange( e ) {
-		this.setState( { searchTerm: e.target.value } );
 	}
 
 	handleSubmit( e ) {
@@ -43,7 +38,9 @@ class SearchForm extends Component {
 			className: 'search-field',
 			placeholder: 'Search…',
 			value: searchTerm,
-			onChange: this.handleChange,
+			onChange: e => this.setState( {
+				searchTerm: e.target.value,
+			} ),
 		};
 
 		return (
