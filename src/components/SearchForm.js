@@ -30,14 +30,14 @@ class SearchForm extends Component {
 	render() {
 		const { searchTerm } = this.state;
 		const { siteUrl }  = this.props;
-		const formAttrs = {
+		const formProps = {
 			role: 'search',
 			method: 'get',
 			className: 'search-form',
 			action: siteUrl,
 			onSubmit: this.handleSubmit,
 		};
-		const inputAttrs = {
+		const inputProps = {
 			name: 's',
 			type: 'search',
 			className: 'search-field',
@@ -47,10 +47,10 @@ class SearchForm extends Component {
 		};
 
 		return (
-			<form { ...formAttrs }>
+			<form { ...formProps }>
 				<label>
 					<span className="screen-reader-text">Search for:</span>
-					<input { ...inputAttrs } />
+					<input { ...inputProps } />
 				</label>
 				<button className="search-submit screen-reader-text" type="submit">Search</button>
 			</form>
