@@ -96,13 +96,13 @@ export default class Entry extends Component {
 
 	renderMeta() {
 		const { data } = this.props;
-		let el;
+		const { type } = data;
 
-		if ( data.type === 'post' || data.type === 'attachment' ) {
-			el = ( <EntryMeta data={ data } /> );
+		if ( type === 'post' || type === 'attachment' ) {
+			return <EntryMeta data={ data } />;
 		}
 
-		return el;
+		return null;
 	}
 
 	renderFormat() {
