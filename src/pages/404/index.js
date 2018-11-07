@@ -1,15 +1,18 @@
 import React from 'react';
 import { hot } from 'react-hot-loader'
 import Main from '../../containers/Main';
-import EntryEmpty from '../../components/Entry/Empty';
+import NoContent from '../../components/NoContent';
 
 function NotFound() {
 	return (
 		<Main title="Oops!">
-			<EntryEmpty
-				title="Oops! That page can&rsquo;t be found."
-				content="It looks like nothing was found at this location. Maybe try a search?"
-			/>
+			<section className="error-404 not-found">
+				<header className="page-header">
+					<h1 className="page-title">Oops! That page can&rsquo;t be found.</h1>
+				</header>
+
+				<NoContent text="It looks like nothing was found at this location. Maybe try a search?" />
+			</section>
 		</Main>
 	);
 }
