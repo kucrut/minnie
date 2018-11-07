@@ -5,9 +5,8 @@ import { withRouter } from 'react-router-dom';
 
 class SearchForm extends Component {
 	static propTypes = {
-		siteUrl: PropTypes.string.isRequired,
 		searchTerm: PropTypes.string.isRequired,
-		dispatch: PropTypes.func.isRequired,
+		siteUrl: PropTypes.string.isRequired,
 	}
 
 	constructor( props ) {
@@ -22,20 +21,20 @@ class SearchForm extends Component {
 		const { history, siteUrl } = this.props;
 		const { searchTerm } = this.state;
 		const formProps = {
-			role: 'search',
-			method: 'get',
-			className: 'search-form',
 			action: siteUrl,
+			className: 'search-form',
+			method: 'get',
+			role: 'search',
 			onSubmit: e => {
 				e.preventDefault();
 				history.push( `/?s=${ encodeURIComponent( searchTerm ) }` );
 			},
 		};
 		const inputProps = {
-			name: 's',
-			type: 'search',
 			className: 'search-field',
+			name: 's',
 			placeholder: 'Search…',
+			type: 'search',
 			value: searchTerm,
 			onChange: e => this.setState( {
 				searchTerm: e.target.value,
@@ -56,8 +55,8 @@ class SearchForm extends Component {
 
 function mapStateToProps( state ) {
 	return {
-		siteUrl: state.info.siteUrl,
 		searchTerm: state.archive.searchTerm,
+		siteUrl: state.info.siteUrl,
 	};
 }
 
