@@ -7,11 +7,11 @@ import { hot } from 'react-hot-loader'
 
 import { fetchArchive, fetchArchiveTerm } from '../../store/actions/archive';
 import Main from '../../containers/Main';
-import PageHeader from '../../components/PageHeader';
 import Entry from '../../components/Entry';
-import EntryEmpty from '../../components/Entry/Empty';
-import Spinner from '../../components/Spinner';
 import ContentNavigation from '../../components/ContentNavigation';
+import NoContent from '../../components/NoContent';
+import PageHeader from '../../components/PageHeader';
+import Spinner from '../../components/Spinner';
 
 class Index extends Component {
 	static propTypes = {
@@ -99,9 +99,15 @@ class Index extends Component {
 	 */
 	renderTitle() {
 		const { archive } = this.props;
-		const { term, searchTerm, items } = archive;
+		const { term, searchTerm } = archive;
 
-		if ( term && items.length ) {
+		// We're on search results page.
+		if ( searchTerm ) {
+			return <PageHeader title={ decode( `Search results for “${ searchTerm }”` ) } />;
+		}
+
+		// We're on term archive page.
+		if ( term ) {
 			return (
 				<PageHeader
 					title={ decode( term.name ) }
@@ -110,32 +116,23 @@ class Index extends Component {
 			);
 		}
 
-		const title = searchTerm
-			? decode( `Search results for “${ searchTerm }”` )
-			: 'Nothing Found.'
-
-		return <PageHeader title={ title } />;
-	}
-
-	renderEmpty() {
-		const { archive } = this.props;
-		const { searchTerm } = archive;
-
-		const content = searchTerm
-			? 'It seems we can’t find what you’re looking for. Perhaps try another search?'
-			: 'It seems we can’t find what you’re looking for. Perhaps searching can help.';
-
-		return <EntryEmpty content={ content } />;
+		// Home archive doesn't need to display title.
+		return null;
 	}
 
 	renderArchive() {
-		const { items } = this.props.archive;
+		const { archive } = this.props;
+		const { items, searchTerm } = archive;
 
 		if ( items.length ) {
 			return items.map( item => <Entry key={ item.id } data={ item } isSingle={ false } /> );
 		}
 
-		return this.renderEmpty();
+		const text = searchTerm
+			? 'It seems we can’t find what you’re looking for. Perhaps try another search?'
+			: 'It seems we can’t find what you’re looking for. Perhaps searching can help.';
+
+		return <NoContent text={ text } />;
 	}
 
 	render() {
