@@ -58,11 +58,6 @@ export default class Entry extends Component {
 		return cls;
 	}
 
-	getContent() {
-		// TODO: Support displaying excerpt only.
-		return this.props.data.content.rendered;
-	}
-
 	removeScripts() {
 		this.scriptEls.forEach( el => {
 			el.remove();
@@ -117,13 +112,14 @@ export default class Entry extends Component {
 
 	renderContent() {
 		const { data } = this.props;
-		const { type } = data;
+		const { content, type } = data;
 
 		if ( type === 'attachment' ) {
 			return <EntryContentMedia data={ data } />;
 		}
 
-		return <EntryContent content={ this.getContent() } />;
+		// TODO: Maybe support displaying excerpt only.
+		return <EntryContent content={ content.rendered } />;
 	}
 
 	renderTitle() {
