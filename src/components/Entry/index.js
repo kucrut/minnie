@@ -7,7 +7,6 @@ import EntryTitle from './Title';
 import EntryMeta from './Meta';
 import EntryFormat from './Format';
 import EntryContent from './Content';
-import EntryContentMedia from './ContentMedia';
 
 export default class Entry extends Component {
 	static propTypes = {
