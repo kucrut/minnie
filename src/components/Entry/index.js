@@ -96,10 +96,17 @@ export default class Entry extends Component {
 
 	renderContent() {
 		const { data } = this.props;
-		const { content, type } = data;
+		const { content, description, type } = data;
 
 		if ( type === 'attachment' ) {
-			return <EntryContentMedia data={ data } />;
+			return (
+				<div className="entry-content">
+					<EntryContent
+						className="description"
+						content={ description.rendered }
+					/>
+				</div>
+			);
 		}
 
 		// TODO: Maybe support displaying excerpt only.
