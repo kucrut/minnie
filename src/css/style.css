@@ -59,7 +59,7 @@ dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
 	border: 0;
-	font-family: inherit;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 	font-size: 100%;
 	font-style: inherit;
 	font-weight: inherit;
@@ -151,7 +151,6 @@ input,
 select,
 textarea {
 	color: #333;
-	font-family: "Open Sans", Helvetica, sans-serif;
 	font-size: 16px;
 	font-size: 1.6rem;
 	line-height: 1.5;
@@ -164,8 +163,8 @@ h4,
 h5,
 h6 {
 	clear: both;
-	font-family: "Open Sans Condensed", Helvetica, sans-serif;
 	font-weight: bold;
+	font-family: inherit;
 	/* text-transform: uppercase; */
 }
 
@@ -232,7 +231,7 @@ address {
 pre {
 	background: #eee;
 	clear: both;
-	font-family: "Courier 10 Pitch", Courier, monospace;
+	font-family: Consolas, Monaco, monospace;
 	font-size: 15px;
 	font-size: 1.5rem;
 	line-height: 1.6;
@@ -246,7 +245,7 @@ code,
 kbd,
 tt,
 var {
-	font: 15px Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+	font-family: Consolas, Monaco, monospace;
 }
 
 abbr,
