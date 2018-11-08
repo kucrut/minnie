@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { entryMetaTaxonomies } from '../../config';
+import Content from '../Content';
 import EntryDate from './Date';
-import EntryContent from './Content';
 import EntryFormat from './Format';
 import EntryTitle from './Title';
 import EntryTerms from './Terms';
@@ -136,7 +136,7 @@ export default class Entry extends Component {
 		if ( type === 'attachment' ) {
 			return (
 				<div className="entry-content">
-					<EntryContent
+					<Content
 						className="description"
 						content={ description.rendered }
 					/>
@@ -145,7 +145,7 @@ export default class Entry extends Component {
 		}
 
 		// TODO: Maybe support displaying excerpt only.
-		return <EntryContent content={ content.rendered } />;
+		return <Content content={ content.rendered } />;
 	}
 
 	renderTitle() {

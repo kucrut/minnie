@@ -1,4 +1,4 @@
-import { siteUrl } from '../../../config';
+import { siteUrl } from '../../config';
 
 export function isInternalUrl( url ) {
 	if ( url.indexOf( siteUrl ) !== 0 ) {
