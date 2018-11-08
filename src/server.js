@@ -6,6 +6,7 @@ import Helmet from 'react-helmet';
 import axios from 'axios';
 
 import { siteUrl } from './config';
+import { AppContext } from './contexts';
 import createRoutes from './routes';
 import configureStore from './store';
 import fetchInitialData from './api/fetchInitialData';
@@ -107,7 +108,9 @@ export default async function render( env, manifest, req, res, next ) {
 			const InitialView = (
 				<Provider store={ store }>
 					<StaticRouter location={ req.url } context={ context }>
-						<App routes={ routes } />
+						<AppContext.Provider value={ { isServer: true } }>
+							<App routes={ routes } />
+						</AppContext.Provider>
 					</StaticRouter>
 				</Provider>
 			);
