@@ -1,6 +1,10 @@
 import { siteUrl } from '../../config';
 
 export function isInternalUrl( url ) {
+	if ( url.indexOf( '/' ) === 0 ) {
+		return true;
+	}
+
 	if ( url.indexOf( siteUrl ) !== 0 ) {
 		return false;
 	}
