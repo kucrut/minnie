@@ -19,14 +19,13 @@ class EntryContent extends Component {
 		const { content, className } = this.props;
 
 		return (
-			<div className={ className }>
-				<Interweave
-					commonClass={ null }
-					content={ content }
-					tagName="fragment"
-					transform={ transformer }
-				/>
-			</div>
+			<Interweave
+				className={ className }
+				commonClass={ null }
+				content={ content }
+				tagName="div"
+				transform={ transformer }
+			/>
 		);
 	}
 }
