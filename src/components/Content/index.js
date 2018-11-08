@@ -1,28 +1,43 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Interweave from 'interweave';
 
+import { AppContext } from '../../contexts';
 import transformer from './transformer';
 
-export default function EntryContent( props ) {
-	const { content, className } = props;
+export default class Content extends Component {
+	static contextType = AppContext;
 
-	return (
-		<Interweave
-			className={ className }
-			commonClass={ null }
-			content={ content }
-			tagName="div"
-			transform={ transformer }
-		/>
-	);
+	static defaultProps = {
+		className: 'entry-content',
+	};
+
+	static propTypes = {
+		content: PropTypes.string.isRequired,
+		className: PropTypes.string,
+	};
+
+	render() {
+		const { isServer } = this.context;
+		const { content, className } = this.props;
+
+		if ( isServer ) {
+			return (
+				<div
+					className={ className }
+					dangerouslySetInnerHTML={ { __html: content } }
+				/>
+			);
+		}
+
+		return (
+			<Interweave
+				className={ className }
+				commonClass={ null }
+				content={ content }
+				tagName="div"
+				transform={ transformer }
+			/>
+		);
+	}
 }
-
-EntryContent.defaultProps = {
-	className: 'entry-content',
-};
-
-EntryContent.propTypes = {
-	content: PropTypes.string.isRequired,
-	className: PropTypes.string,
-};
