@@ -25,14 +25,16 @@ import App from './containers/App';
  */
 function createInitialHtml( manifest, content, initialState, env = 'production' ) {
 	const { htmlAttributes, title } = Helmet.rewind();
+	const stylesheets = env === 'production'
+		? `\n<link rel="stylesheet" href="${ manifest[ 'main.css' ] }" />`
+		: '';
 
 	return `<!doctype html>
 <html class="no-js" ${ htmlAttributes.toString() }>
 	<head>
 		<meta charset=utf-8 />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		${ title.toString() }
-		${ env === 'production' ? `<link rel="stylesheet" href="${ manifest[ 'main.css' ] }" />` : '' }
+		${ title.toString() }${ stylesheets }
 	</head>
 	<body>
 		<div id="app">${ content }</div>
