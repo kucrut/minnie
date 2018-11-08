@@ -18,6 +18,10 @@ export function isInternalUrl( url ) {
 
 class InternalLinkFilter extends Filter {
 	attribute( name, value ) {
+		if ( name !== 'href' ) {
+			return value;
+		}
+
 		if ( ! isInternalUrl( value ) ) {
 			return value;
 		}
