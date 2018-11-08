@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import closest from 'dom-closest';
 import { withRouter } from 'react-router-dom';
 
-import { contentPathRegEx } from '../../helpers';
+import { contentPathRegEx } from '../../../helpers';
 
 class EntryContent extends Component {
 	static defaultProps = {
@@ -44,6 +44,7 @@ class EntryContent extends Component {
 			<div
 				ref={ c => this.theContent = c }
 				className={ className }
+				// TODO: Use Interweave
 				dangerouslySetInnerHTML={ { __html: content } }
 				onClick={ e => this.handleClick( e ) }
 			/>
