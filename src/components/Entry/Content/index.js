@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import closest from 'dom-closest';
+import Interweave from 'interweave';
 import { withRouter } from 'react-router-dom';
 
 import { contentPathRegEx } from '../../../helpers';
@@ -41,13 +42,13 @@ class EntryContent extends Component {
 		const { content, className } = this.props;
 
 		return (
-			<div
-				ref={ c => this.theContent = c }
-				className={ className }
-				// TODO: Use Interweave
-				dangerouslySetInnerHTML={ { __html: content } }
-				onClick={ e => this.handleClick( e ) }
-			/>
+			<div className={ className }>
+				<Interweave
+					commonClass={ null }
+					content={ content }
+					tagName="fragment"
+				/>
+			</div>
 		);
 	}
 }
