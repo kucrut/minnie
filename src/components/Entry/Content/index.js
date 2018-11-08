@@ -5,6 +5,7 @@ import Interweave from 'interweave';
 import { withRouter } from 'react-router-dom';
 
 import { contentPathRegEx } from '../../../helpers';
+import filters from './filters';
 
 class EntryContent extends Component {
 	static defaultProps = {
@@ -46,6 +47,7 @@ class EntryContent extends Component {
 				<Interweave
 					commonClass={ null }
 					content={ content }
+					filters={ filters.map( Filter => new Filter() ) }
 					tagName="fragment"
 				/>
 			</div>
