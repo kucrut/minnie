@@ -3,6 +3,7 @@ import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
+import { AppContext } from './contexts';
 import createRoutes from './routes';
 import configureStore from './store';
 import { configureAxios } from './api/utils';
@@ -21,7 +22,9 @@ configureAxios( initialState.info.apiRoot );
 hydrate(
 	<Provider store={ store }>
 		<BrowserRouter>
-			<App routes={ routes } />
+			<AppContext.Provider value={ { isServer: false } }>
+				<App routes={ routes } />
+			</AppContext.Provider>
 		</BrowserRouter>
 	</Provider>,
 	document.getElementById( 'app' )
