@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { getDisplayName } from '../utils';
 import NotFound from '../../pages/404';
+import Spinner from '../../components/Spinner';
 
 export default function withSingular( args ) {
 	const {
@@ -59,7 +60,11 @@ export default function withSingular( args ) {
 				const { singular } = this.props;
 				const { data, isFetching } = singular;
 
-				if ( isFetching || data.id ) {
+				if ( isFetching ) {
+					return <Spinner />;
+				}
+
+				if ( data.id ) {
 					return <Component { ...this.props } />;
 				}
 
