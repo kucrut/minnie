@@ -1,18 +1,5 @@
 module.exports = {
 	siteUrl: 'http://minnie.dev',
-	routes: {
-		login: '/login',
-		page: '/:slug',
-		subPage: '/:parentslug/:slug',
-		post: '/blog/:slug',
-		media: '/blog/:parentslug/:slug',
-		preview: '/preview/:type/:id',
-		archives: {
-			tag: '/blog/tag/:tag',
-			format: '/blog/type/:format',
-			category: '/blog/category/:category',
-		},
-	},
 	codeHighlight: {
 		languages: [
 			'bash', 'c', 'coffeescript', 'cpp', 'css', 'css-extras', 'http',
