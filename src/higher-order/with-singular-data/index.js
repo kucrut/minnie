@@ -36,7 +36,7 @@ export default function withSingular( args ) {
 				const { slug, singular } = this.props;
 				const { data } = singular;
 
-				if ( data.slug !== slug ) {
+				if ( data.slug && data.slug !== slug ) {
 					fetchData( this.props );
 				}
 			}
