@@ -6,6 +6,8 @@ import { parse } from 'qs';
 import { hot } from 'react-hot-loader'
 
 import { fetchArchive, fetchArchiveTerm } from '../../store/actions/archive';
+import WithStatusCode from '../../higher-order/with-status-code';
+import NotFound from '../../pages/404';
 import Main from '../../containers/Main';
 import Entry from '../../components/Entry';
 import ContentNavigation from '../../components/ContentNavigation';
@@ -27,9 +29,13 @@ class Index extends Component {
 
 	componentDidMount() {
 		const { archive, url } = this.props;
-		const { items } = archive;
+		const { error, items } = archive;
 
-		// TODO: Don't re-fetch on first mount and not items found.
+		// First mount with error.
+		if ( error && archive.url === url ) {
+			return;
+		}
+
 		if ( ! items.length || archive.url !== url ) {
 			this.fetchData();
 		}
@@ -137,7 +143,11 @@ class Index extends Component {
 
 	render() {
 		const { archive } = this.props;
-		const { isFetching, nextLink, prevLink } = archive;
+		const { error, isFetching, nextLink, prevLink } = archive;
+
+		if ( error ) {
+			return <NotFound status={ error.status } />;
+		}
 
 		if ( isFetching ) {
 			return <Spinner />;
