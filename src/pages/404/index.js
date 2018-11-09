@@ -1,7 +1,7 @@
 import React from 'react';
 import { hot } from 'react-hot-loader'
-import { Route } from 'react-router-dom';
 
+import WithStatusCode from '../../higher-order/with-status-code';
 import Main from '../../containers/Main';
 import NoContent from '../../components/NoContent';
 
@@ -17,24 +17,12 @@ const Oops = () => (
 	</Main>
 );
 
-const NotFoundWithRoute = ( { status, children } ) => (
-	<Route
-		render={ ( { staticContext } ) => {
-			if ( staticContext ) {
-				staticContext.status = status;
-			}
-
-			return children;
-		} }
-	/>
-);
-
 function NotFound( { status } ) {
 	if ( status ) {
 		return (
-			<NotFoundWithRoute status={ status }>
+			<WithStatusCode status={ status }>
 				<Oops />
-			</NotFoundWithRoute>
+			</WithStatusCode>
 		);
 	}
 
