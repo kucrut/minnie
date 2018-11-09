@@ -7,10 +7,10 @@ import NotFound from '../../pages/404';
 
 export default function withSingular( args ) {
 	const {
-		need = [],
-		mapStateToProps = () => ( {} ),
-		fetchData = () => {},
 		displayName = '',
+		fetchData = () => {},
+		mapStateToProps = () => ( {} ),
+		need = [],
 	} = args;
 
 	const finalMapStateToProps = ( state, ownProps, ...args ) => ( {
