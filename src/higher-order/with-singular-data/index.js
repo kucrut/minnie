@@ -16,7 +16,7 @@ export default function withSingular( args ) {
 		info: state.info,
 		singular: state.singular,
 		slug: ownProps.match.params.slug,
-		...mapStateToProps(  state, ownProps  ),
+		...mapStateToProps( state, ownProps ),
 	} );
 
 	return Component => {
