@@ -24,12 +24,8 @@ function fetchData( props ) {
 
 function Media( props ) {
 	const { singular } = props;
-	const { data, isFetching } = singular;
+	const { data } = singular;
 	const { parent_post } = data;
-
-	if ( isFetching || ! parent_post ) {
-		return <Singular { ...props } />;
-	}
 
 	return (
 		<Singular { ...props }>
