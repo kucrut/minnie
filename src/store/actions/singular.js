@@ -12,9 +12,12 @@ function makeSingularRequest( slug, type = 'pages' ) {
 }
 
 export function fetchPage( { params } ) {
+	const { slug } = params;
+
 	return {
+		slug,
 		type: GET_SINGULAR,
-		promise: makeSingularRequest( params.slug, 'pages' ),
+		promise: makeSingularRequest( slug, 'pages' ),
 	};
 }
 
@@ -28,9 +31,12 @@ function fetchPostWithComments( dispatch, slug ) {
 }
 
 export function fetchPost( { params } ) {
+	const { slug } = params;
+
 	return dispatch => dispatch( {
+		slug,
 		type: GET_SINGULAR,
-		promise: fetchPostWithComments( dispatch, params.slug ),
+		promise: fetchPostWithComments( dispatch, slug ),
 	} );
 }
 
