@@ -31,7 +31,7 @@ export default function singular( state = initialState, action ) {
 				newData = data[0];
 			} else {
 				// Not found; the API returns 200 with empty set of result.
-				newData = initialState.data;
+				newData = { slug: action.slug };
 			}
 
 			return {
