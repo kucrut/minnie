@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getDisplayName } from '../utils';
+import NotFound from '../../pages/404';
 
 export default function withSingular( args ) {
 	const {
@@ -55,7 +56,14 @@ export default function withSingular( args ) {
 			}
 
 			render() {
-				return <Component { ...this.props } />;
+				const { singular } = this.props;
+				const { data } = singular;
+
+				if ( data.id ) {
+					return <Component { ...this.props } />;
+				}
+
+				return <NotFound />;
 			}
 		}
 
