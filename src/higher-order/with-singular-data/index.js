@@ -13,11 +13,11 @@ export default function withSingular( args ) {
 		displayName = '',
 	} = args;
 
-	const finalMapStateToProps = ( state, ownProps ) => ( {
+	const finalMapStateToProps = ( state, ownProps, ...args ) => ( {
 		info: state.info,
 		singular: state.singular,
 		slug: ownProps.match.params.slug,
-		...mapStateToProps( state, ownProps ),
+		...mapStateToProps( state, ownProps, ...args ),
 	} );
 
 	return Component => {
