@@ -91,6 +91,7 @@ export default async function render( env, manifest, req, res, next ) {
 		match = matchPath( req.url, route );
 		return Boolean( match );
 	} );
+
 	const { params } = match;
 	const { ignored, ...restParams } = params;
 	const args = {
@@ -114,14 +115,16 @@ export default async function render( env, manifest, req, res, next ) {
 					</StaticRouter>
 				</Provider>
 			);
+
 			const markup = createInitialHtml(
 				manifest,
 				renderToString( InitialView ),
 				store.getState(),
 				env,
 			);
+			const status = Number( context.status ) || 200;
 
-			res.status( 200 ).end( markup );
+			res.status( status ).end( markup );
 		} )
 		.catch( next );
 
