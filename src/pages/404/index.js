@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { hot } from 'react-hot-loader'
 
+import { AppContext } from '../../contexts';
 import WithStatusCode from '../../higher-order/with-status-code';
 import Main from '../../containers/Main';
 import NoContent from '../../components/NoContent';
@@ -17,16 +18,30 @@ const Oops = () => (
 	</Main>
 );
 
-function NotFound( { status } ) {
-	if ( status ) {
-		return (
-			<WithStatusCode status={ status }>
-				<Oops />
-			</WithStatusCode>
-		);
-	}
+class NotFound extends Component {
+	static contextType = AppContext;
 
-	return <Oops />;
+	render() {
+		const { isServer } = this.context;
+		const { status } = this.props;
+		let finalStatus;
+
+		if ( status ) {
+			finalStatus = status;
+		} else if ( isServer ) {
+			finalStatus = 404;
+		}
+
+		if ( finalStatus ) {
+			return (
+				<WithStatusCode status={ finalStatus }>
+					<Oops />
+				</WithStatusCode>
+			);
+		}
+
+		return <Oops />;
+	}
 }
 
 export default hot( module )( NotFound );
