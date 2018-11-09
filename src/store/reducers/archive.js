@@ -10,6 +10,7 @@ import {
 
 const initialState = {
 	currentPage: 0,
+	error: null,
 	fetchParams: {},
 	hasMore: false,
 	isFetching: false,
@@ -74,9 +75,10 @@ export default function archive( state = initialState, action ) {
 		case GET_ARCHIVE_REQUEST: {
 			return {
 				...state,
+				error: null,
+				fetchParams: action.fetchParams,
 				isFetching: true,
 				url: action.url,
-				fetchParams: action.fetchParams,
 			};
 		}
 
@@ -97,7 +99,15 @@ export default function archive( state = initialState, action ) {
 		}
 
 		case GET_ARCHIVE_FAILURE: {
-			return initialState;
+			const { message, data } = action.error.response.data;
+
+			return {
+				...state,
+				error: {
+					message,
+					status: data.status,
+				},
+			};
 		}
 
 		case GET_ARCHIVE_TERM_SUCCESS: {
