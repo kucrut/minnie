@@ -37,7 +37,7 @@ export default function withSingular( args ) {
 				const { slug, singular } = this.props;
 				const { data } = singular;
 
-				if ( data.slug && data.slug !== slug ) {
+				if ( data.slug !== slug ) {
 					fetchData( this.props );
 				}
 			}
@@ -57,9 +57,9 @@ export default function withSingular( args ) {
 
 			render() {
 				const { singular } = this.props;
-				const { data } = singular;
+				const { data, isFetching } = singular;
 
-				if ( data.id ) {
+				if ( isFetching || data.id ) {
 					return <Component { ...this.props } />;
 				}
 
