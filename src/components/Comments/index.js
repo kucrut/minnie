@@ -28,7 +28,9 @@ function CommentsList( props ) {
 		dispatch( fetchComments( {
 			postId,
 			parentId: threadId,
-		} ) )
+		} ) );
+
+		return null;
 	}
 
 	const { isFetching, items } = thread;
