@@ -6,14 +6,20 @@ import { fetchComments } from '../../store/actions/comments';
 import Spinner from '../Spinner';
 import List from './List';
 
-const Section = ( { children } ) => (
-	<div className="comments-area" id="comments">
-		<h2 className="comments-title">Comments</h2>
-		<div className="comment-list-wrap">
-			{ children }
+const Wrap = ( { threadId, children } ) => {
+	if ( threadId > 0 ) {
+		return <div className="children-wrap">{ children }</div>;
+	}
+
+	return (
+		<div className="comments-area" id="comments">
+			<h2 className="comments-title">Comments</h2>
+			<div className="comment-list-wrap">
+				{ children }
+			</div>
 		</div>
-	</div>
-);
+	);
+}
 
 class Comments extends Component {
 	componentDidMount() {
@@ -71,19 +77,15 @@ class Comments extends Component {
 
 		const list = () => {
 			if ( items.length ) {
+				const className = threadId > 0 ? 'children' : '';
 				// eslint-disable-next-line
-				return <List { ...{ items, isOpen, postId } } />;
-
+				return <List className={ className } { ...{ items, isOpen, postId } } />;
 			}
 
 			return null;
 		}
 
-		if ( threadId === 0 ) {
-			return <Section>{ list() }</Section>;
-		}
-
-		return list();
+		return <Wrap threadId={ threadId }>{ list() }</Wrap>;
 	}
 }
 
@@ -112,8 +114,6 @@ const mapStateToProps = ( state, ownProps ) => {
 	const { comments } = state;
 	const { threads } = comments;
 	const { threadId, postId } = ownProps;
-
-	console.log( postId, comments.postId );
 
 	return {
 		thread: postId === comments.postId
