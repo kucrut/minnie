@@ -26,23 +26,77 @@ const initialState = {
 	threads: [],
 };
 
+function updateThreads( threads, threadId, data ) {
+	const mergeData = thread => ( {
+		...thread,
+		...data,
+		items: [
+			...thread.items,
+			...( data.items || [] ),
+		],
+		parentId: threadId,
+	} );
+
+	if ( ! threads.length ) {
+		return [ mergeData( initialThreadState ) ];
+	}
+
+	const found = threads.find( thread => thread.parentId === threadId );
+	const thread = mergeData( found || initialThreadState );
+	const index = found ? threads.indexOf( found ) : 0;
+
+	return index > 0
+		? [ thread ]
+		: [
+			...threads.slice( 0, index ),
+			thread,
+			...threads.slice( index + 1 ),
+		];
+}
+
 export default function comments( state = initialState, action ) {
 	switch ( action.type ) {
 		case GET_COMMENTS_REQUEST: {
+			const { parentId, postId } = action;
+			const newState = postId === state.postId ? state : initialState;
+			const { threads } = newState;
+
 			return {
-				...state,
+				...newState,
+				postId,
+				error: initialState.error,
+				threads: updateThreads( threads, parentId, {
+					isFetching: true,
+				} ),
 			};
 		}
 
 		case GET_COMMENTS_SUCCESS: {
+			const { config, data, headers } = action.req;
+			const { params } = config;
+			const totalPages = headers[ 'x-wp-totalpages' ];
+			const currentPage = Number( params.page ) || 1;
+			const hasMore = currentPage < totalPages;
+			const threads = updateThreads( state.threads, action.parentId, {
+				currentPage,
+				hasMore,
+				isFetching: false,
+				items: data,
+			} );
+
 			return {
 				...state,
+				threads,
 			};
 		}
 
 		case GET_COMMENTS_FAILURE: {
+			// TODO: Add error.
 			return {
 				...state,
+				threads: updateThreads( state.threads, action.parentId, {
+					isFetching: false,
+				} ),
 			};
 		}
 
