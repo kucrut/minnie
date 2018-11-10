@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 function Comments() {
@@ -8,6 +9,14 @@ function Comments() {
 		</div>
 	);
 }
+
+Comments.propTypes = {
+	dispatch: PropTypes.func.isRequired,
+	isOpen: PropTypes.bool.isRequired,
+	maxDepth: PropTypes.number.isRequired,
+	postId: PropTypes.number.isRequired,
+	query: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = state => {
 	const { info, singular } = state;
