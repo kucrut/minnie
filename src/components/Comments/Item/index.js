@@ -32,6 +32,7 @@ export default class Item extends Component {
 				{ ( children_count > 0 && showReplies ) ? (
 					<Comments { ...rest } threadId={ id } />
 				) : null }
+				{/* TODO: Show form if replytocom === id, replies allowed, still in allowed depth */}
 			</li>
 		);
 	}
