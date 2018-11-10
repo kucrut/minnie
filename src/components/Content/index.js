@@ -31,13 +31,14 @@ export default class Content extends Component {
 		}
 
 		return (
-			<Interweave
-				className={ className }
-				commonClass={ null }
-				content={ content }
-				tagName="div"
-				transform={ transformer }
-			/>
+			<div className={ className }>
+				<Interweave
+					commonClass={ null }
+					content={ content }
+					tagName="fragment"
+					transform={ transformer }
+				/>
+			</div>
 		);
 	}
 }
