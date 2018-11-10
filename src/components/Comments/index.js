@@ -1,42 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
-function Comments() {
+import CommentsList, { propTypes } from './List';
+
+export default function Comments( props ) {
+	const { isOpen, thread } = props;
+
+	if ( ! isOpen && ! thread ) {
+		return null;
+	}
+
 	return (
 		<div className="comments-area" id="comments">
 			<h2 className="comments-title">Comments</h2>
+			{ thread ? <CommentsList { ...props } /> : null }
 		</div>
 	);
 }
 
+Comments.defaultProps = {
+	thread: null,
+};
+
 Comments.propTypes = {
-	dispatch: PropTypes.func.isRequired,
-	isOpen: PropTypes.bool.isRequired,
-	maxDepth: PropTypes.number.isRequired,
-	postId: PropTypes.number.isRequired,
-	thread: PropTypes.object.isRequired,
-	threadId: PropTypes.number.isRequired,
+	...propTypes,
+	thread: PropTypes.object,
 };
-
-const mapStateToProps = ( state, ownProps ) => {
-	const { info, comments, singular } = state;
-	const { data } = singular;
-	const { comment_status, id } = data;
-	const { settings } = info;
-	const { comments: commentsSettings } = settings;
-	const { threads_depth } = commentsSettings;
-	const { threadId } = ownProps;
-	const { threads } = comments;
-
-	return {
-		isOpen: comment_status === 'open',
-		maxDepth: threads_depth,
-		postId: id,
-		thread: id === comments.postId
-			? threads.find( thread => thread.parentId === threadId )
-			: {},
-	};
-};
-
-export default connect( mapStateToProps )( Comments );
