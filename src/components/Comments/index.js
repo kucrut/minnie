@@ -16,6 +16,7 @@ const Wrap = ( { threadId, children } ) => {
 			<h2 className="comments-title">Comments</h2>
 			<div className="comment-list-wrap">
 				{ children }
+				{/* TODO: Show form */}
 			</div>
 		</div>
 	);
