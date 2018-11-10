@@ -1,17 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ListWrap from '../ListWrap';
 import Item from '../Item';
-
-function List( props ) {
-	const { createItem, items } = props;
-
-	return (
-		<ol className="comment-list">
-			{ items.map( comment => createItem( comment ) ) }
-		</ol>
-	);
-}
 
 export default function CommentsList( props ) {
 	const { thread } = props;
@@ -19,7 +10,7 @@ export default function CommentsList( props ) {
 
 	return (
 		<div className="comment-list-wrap">
-			<List items={ items } createItem={ Item } />
+			<ListWrap items={ items } createItem={ Item } />
 		</div>
 	)
 }
