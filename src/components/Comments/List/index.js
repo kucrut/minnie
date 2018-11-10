@@ -3,22 +3,36 @@ import PropTypes from 'prop-types';
 
 import Content from '../../Content';
 
+function Item( props ) {
+	const { id, content } = props;
+
+	return (
+		<li key={ id }>
+			<Content
+				className="comment-content"
+				content={ content.rendered }
+			/>
+		</li>
+	);
+}
+
+function List( props ) {
+	const { createItem, items } = props;
+
+	return (
+		<ol className="comment-list">
+			{ items.map( comment => createItem( comment ) ) }
+		</ol>
+	);
+}
+
 export default function CommentsList( props ) {
 	const { thread } = props;
 	const { items } = thread;
 
 	return (
 		<div className="comment-list-wrap">
-			<ol className="comment-list">
-				{ items.map( comment => (
-					<li key={ comment.id }>
-						<Content
-							className="comment-content"
-							content={ comment.content.rendered }
-						/>
-					</li>
-				) ) }
-			</ol>
+			<List items={ items } createItem={ Item } />
 		</div>
 	)
 }
