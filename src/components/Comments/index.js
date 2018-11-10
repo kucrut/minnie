@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { fetchComments } from '../../store/actions/comments';
 import Spinner from '../Spinner';
 import List from './List';
-import Item from './Item';
 
 const Section = ( { children } ) => (
 	<div className="comments-area" id="comments">
@@ -52,7 +51,7 @@ function CommentsList( props ) {
 		return <Spinner />;
 	}
 
-	const list = () => <List items={ items } createItem={ Item } />;
+	const list = () => <List items={ items } />;
 
 	if ( threadId === 0 ) {
 		return <Section>{ list() }</Section>;

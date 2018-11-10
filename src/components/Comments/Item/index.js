@@ -3,10 +3,10 @@ import React from 'react';
 import Content from '../../Content';
 
 export default function Item( props ) {
-	const { id, content, children_count } = props;
+	const { content, children_count } = props;
 
 	return (
-		<li key={ id }>
+		<li>
 			<Content
 				className="comment-content"
 				content={ content.rendered }
