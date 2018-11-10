@@ -17,14 +17,11 @@ function fetchData( props ) {
 	dispatch( fetchPost( args ) );
 }
 
-function mapStateToProps( state, ownProps ) {
-	const query = parse( ownProps.location.search, { ignoreQueryPrefix: true } );
-
-	return {
-		query,
-		comments: state.comments,
-	};
-}
+const mapStateToProps = ( state, ownProps ) => ( {
+	query: parse( ownProps.location.search, {
+		ignoreQueryPrefix: true,
+	} ),
+} );
 
 function Post( props ) {
 	const { singular } = props;
