@@ -1,7 +1,6 @@
 import request from 'axios';
 
 import { GET_COMMENTS, POST_COMMENT } from '../constants';
-import { checkOtherState } from '../../helpers';
 
 const defaultParams = { parent: 0 };
 
@@ -25,18 +24,22 @@ function makeRequest( params ) {
 export function fetchComments( params ) {
 	const fetchParams = Object.assign( {}, defaultParams, params );
 
-	return ( dispatch, getState ) => dispatch( {
-		type: GET_COMMENTS,
-		postId: fetchParams.post,
-		parentId: fetchParams.parent,
-		// TODO: Seriously, REFACTOR this!
-		promise: checkOtherState( getState, 'info' )
-			.then( info => Promise.all( [
-				info,
-				makeRequest( Object.assign( { per_page: info.settings.comments.per_page }, fetchParams ) ),
-			] ).then( results => Promise.resolve( results[ 1 ] ) ) ),
-		// TODO: Check if info contains error.
-	} );
+	return ( dispatch, getState ) => {
+		const { info } = getState();
+		const { settings } = info;
+		const { comments } = settings;
+		const { per_page } = comments;
+
+		return dispatch( {
+			type: GET_COMMENTS,
+			postId: fetchParams.post,
+			parentId: fetchParams.parent,
+			promise: makeRequest( {
+				...fetchParams,
+				per_page,
+			} ),
+		} );
+	};
 }
 
 export function postComment( data ) {
