@@ -26,8 +26,8 @@ function CommentsList( props ) {
 
 	if ( ! thread ) {
 		dispatch( fetchComments( {
-			postId,
-			parentId: threadId,
+			post: postId,
+			parent: threadId,
 		} ) );
 
 		return null;
