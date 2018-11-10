@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import CommentsList, { propTypes } from './List';
+import CommentsList, { defaultProps, propTypes } from './List';
 
 export default function Comments( props ) {
 	const { isOpen, thread } = props;
@@ -18,11 +17,5 @@ export default function Comments( props ) {
 	);
 }
 
-Comments.defaultProps = {
-	thread: null,
-};
-
-Comments.propTypes = {
-	...propTypes,
-	thread: PropTypes.object,
-};
+Comments.defaultProps = defaultProps;
+Comments.propTypes = propTypes;

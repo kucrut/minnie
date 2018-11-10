@@ -15,6 +15,10 @@ export default function CommentsList( props ) {
 	)
 }
 
+export const defaultProps = {
+	thread: null,
+};
+
 export const propTypes = {
 	isOpen: PropTypes.bool.isRequired,
 	postId: PropTypes.number.isRequired,
@@ -24,7 +28,8 @@ export const propTypes = {
 		isFetching: PropTypes.bool.isRequired,
 		items: PropTypes.arrayOf( PropTypes.object ).isRequired, // TODO.
 		parentId: PropTypes.number.isRequired,
-	} ).isRequired,
+	} ),
 };
 
+CommentsList.defaultProps = defaultProps;
 CommentsList.propTypes = propTypes;
