@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Content from '../../Content';
+
 export default function CommentsList( props ) {
 	const { thread } = props;
 	const { items } = thread;
@@ -10,7 +12,10 @@ export default function CommentsList( props ) {
 			<ol className="comment-list">
 				{ items.map( comment => (
 					<li key={ comment.id }>
-						{ comment.content.rendered }
+						<Content
+							className="comment-content"
+							content={ comment.content.rendered }
+						/>
 					</li>
 				) ) }
 			</ol>
