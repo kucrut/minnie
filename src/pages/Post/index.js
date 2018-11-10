@@ -18,22 +18,34 @@ function fetchData( props ) {
 }
 
 const mapStateToProps = ( state, ownProps ) => ( {
+	comments: state.comments,
 	query: parse( ownProps.location.search, {
 		ignoreQueryPrefix: true,
 	} ),
 } );
 
 function Post( props ) {
-	const { query, singular } = props;
+	const { comments, singular } = props;
 	const { data } = singular;
-	const commentsThreadId = query.hasOwnProperty( 'replytocom' )
-		? Number( query.replytocom )
-		: 0;
+	const { comment_status, id } = data;
+	const { postId, threads } = comments;
+
+	// TODO: Check `replytocom` in query.
+	const isCommentOpen = comment_status === 'open';
+	const commentsThread = ( postId === id && isCommentOpen )
+		? threads.find( thread => thread.parentId === 0 )
+		: null;
 
 	return (
 		<Singular { ...props }>
 			<Entry isSingle data={ data } />
-			<Comments threadId={ commentsThreadId } />
+			{ ( isCommentOpen || ( commentsThread && commentsThread.items.length ) ) ? (
+				<Comments
+					isOpen={ isCommentOpen }
+					postId={ id }
+					thread={ commentsThread }
+				/>
+			) : null }
 		</Singular>
 	)
 }
