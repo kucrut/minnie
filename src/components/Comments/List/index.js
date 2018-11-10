@@ -7,7 +7,7 @@ export default function List( props ) {
 
 	return (
 		<ol className="comment-list">
-			{ items.map( comment => <Item key={ comment.id } comment={ comment } /> ) }
+			{ items.map( comment => <Item key={ comment.id } { ...comment } /> ) }
 		</ol>
 	);
 }
