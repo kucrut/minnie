@@ -25,7 +25,7 @@ const mapStateToProps = ( state, ownProps ) => ( {
 } );
 
 function Post( props ) {
-	const { comments, singular } = props;
+	const { comments, dispatch, singular } = props;
 	const { data } = singular;
 	const { comment_status, id } = data;
 	const { postId, threads } = comments;
@@ -41,6 +41,7 @@ function Post( props ) {
 			<Entry isSingle data={ data } />
 			{ ( isCommentOpen || ( commentsThread && commentsThread.items.length ) ) ? (
 				<Comments
+					dispatch={ dispatch }
 					isOpen={ isCommentOpen }
 					postId={ id }
 					thread={ commentsThread }
