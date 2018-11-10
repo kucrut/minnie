@@ -18,9 +18,9 @@ const mapStateToProps = state => {
 	const { threads_depth } = comments;
 
 	return {
+		isOpen: comment_status === 'open',
 		maxDepth: threads_depth,
 		postId: id,
-		status: comment_status,
 	};
 };
 
