@@ -15,5 +15,6 @@ export default function List( props ) {
 				/>
 			) ) }
 		</ol>
+		// TODO: Load more button
 	);
 }
