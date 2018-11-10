@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -15,54 +15,76 @@ const Section = ( { children } ) => (
 	</div>
 );
 
-function CommentsList( props ) {
-	const {
-		dispatch,
-		isOpen,
-		postId,
-		thread,
-		threadId,
-	} = props;
+class Comments extends Component {
+	componentDidMount() {
+		if ( ! this.props.thread ) {
+			this.fetch();
+		}
+	}
 
-	if ( ! thread ) {
+	componentDidUpdate( prevProps ) {
+		if ( this.props.postId !== prevProps.postId ) {
+			this.fetch();
+		}
+	}
+
+	fetch() {
+		const { dispatch, postId, threadId } = this.props;
+
 		dispatch( fetchComments( {
 			post: postId,
 			parent: threadId,
 		} ) );
-
-		return null;
 	}
 
-	const { isFetching, items } = thread;
+	render() {
+		const {
+			isOpen,
+			postId,
+			thread,
+			threadId,
+		} = this.props;
 
-	// We don't want to show the Comments section when
-	// - the initial thread is still being fetched,
-	// - or there's no comments and comments status is closed.
-	if ( threadId === 0 ) {
+		if ( ! thread ) {
+			return null;
+		}
+
+		const { isFetching, items } = thread;
+
+		// We don't want to show the Comments section when
+		// - the initial thread is still being fetched,
+		// - or there's no comments and comments status is closed.
+		if ( threadId === 0 ) {
+			if ( isFetching ) {
+				return null;
+			}
+
+			if ( ! items.length && ! isOpen ) {
+				return null;
+			}
+		}
+
+		// This is only applicable to child threads.
 		if ( isFetching ) {
+			return <Spinner />;
+		}
+
+		const list = () => {
+			if ( items.length ) {
+				// eslint-disable-next-line
+				return <List { ...{ items, isOpen, postId } } />;
+
+			}
+
 			return null;
 		}
 
-		if ( ! items.length && ! isOpen ) {
-			return null;
+		if ( threadId === 0 ) {
+			return <Section>{ list() }</Section>;
 		}
+
+		return list();
 	}
-
-	// This is only applicable to child threads.
-	if ( isFetching ) {
-		return <Spinner />;
-	}
-
-	const list = () => items.length
-		// eslint-disable-next-line
-		? <List { ...{ items, isOpen, postId } } />
-		: null;
-
-	if ( threadId === 0 ) {
-		return <Section>{ list() }</Section>;
-	}
-
-	return list();
 }
 
 export const defaultProps = {
@@ -83,13 +105,15 @@ export const propTypes = {
 	} ),
 };
 
-CommentsList.defaultProps = defaultProps;
-CommentsList.propTypes = propTypes;
+Comments.defaultProps = defaultProps;
+Comments.propTypes = propTypes;
 
 const mapStateToProps = ( state, ownProps ) => {
 	const { comments } = state;
 	const { threads } = comments;
 	const { threadId, postId } = ownProps;
+
+	console.log( postId, comments.postId );
 
 	return {
 		thread: postId === comments.postId
@@ -98,4 +122,4 @@ const mapStateToProps = ( state, ownProps ) => {
 	};
 };
 
-export default connect( mapStateToProps )( CommentsList );
+export default connect( mapStateToProps )( Comments );
