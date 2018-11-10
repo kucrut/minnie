@@ -1,36 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import ListWrap from '../ListWrap';
-import Item from '../Item';
-
-export default function CommentsList( props ) {
-	const { thread } = props;
-	const { items } = thread;
+export default function List( props ) {
+	const { createItem, items } = props;
 
 	return (
-		<div className="comment-list-wrap">
-			<ListWrap items={ items } createItem={ Item } />
-		</div>
-	)
+		<ol className="comment-list">
+			{ items.map( comment => createItem( comment ) ) }
+		</ol>
+	);
 }
-
-export const defaultProps = {
-	thread: null,
-};
-
-export const propTypes = {
-	dispatch: PropTypes.func.isRequired,
-	isOpen: PropTypes.bool.isRequired,
-	postId: PropTypes.number.isRequired,
-	thread: PropTypes.shape( {
-		currentPage: PropTypes.number.isRequired,
-		hasMore: PropTypes.bool.isRequired,
-		isFetching: PropTypes.bool.isRequired,
-		items: PropTypes.arrayOf( PropTypes.object ).isRequired, // TODO.
-		parentId: PropTypes.number.isRequired,
-	} ),
-};
-
-CommentsList.defaultProps = defaultProps;
-CommentsList.propTypes = propTypes;
