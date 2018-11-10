@@ -53,7 +53,10 @@ function CommentsList( props ) {
 		return <Spinner />;
 	}
 
-	const list = () => <List items={ items } />;
+	const list = () => items.length
+		// eslint-disable-next-line
+		? <List { ...{ items, isOpen, postId } } />
+		: null;
 
 	if ( threadId === 0 ) {
 		return <Section>{ list() }</Section>;
