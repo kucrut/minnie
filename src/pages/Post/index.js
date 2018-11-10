@@ -24,13 +24,13 @@ const mapStateToProps = ( state, ownProps ) => ( {
 } );
 
 function Post( props ) {
-	const { singular } = props;
+	const { query, singular } = props;
 	const { data } = singular;
 
 	return (
 		<Singular { ...props }>
 			<Entry isSingle data={ data } />
-			<Comments />
+			<Comments query={ query } />
 		</Singular>
 	)
 }
