@@ -15,7 +15,7 @@ Comments.propTypes = {
 	isOpen: PropTypes.bool.isRequired,
 	maxDepth: PropTypes.number.isRequired,
 	postId: PropTypes.number.isRequired,
-	query: PropTypes.object.isRequired,
+	threadId: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => {

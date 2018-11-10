@@ -26,11 +26,14 @@ const mapStateToProps = ( state, ownProps ) => ( {
 function Post( props ) {
 	const { query, singular } = props;
 	const { data } = singular;
+	const commentsThreadId = query.hasOwnProperty( 'replytocom' )
+		? Number( query.replytocom )
+		: 0;
 
 	return (
 		<Singular { ...props }>
 			<Entry isSingle data={ data } />
-			<Comments query={ query } />
+			<Comments threadId={ commentsThreadId } />
 		</Singular>
 	)
 }
