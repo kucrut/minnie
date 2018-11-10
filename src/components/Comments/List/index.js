@@ -20,6 +20,7 @@ export const defaultProps = {
 };
 
 export const propTypes = {
+	dispatch: PropTypes.func.isRequired,
 	isOpen: PropTypes.bool.isRequired,
 	postId: PropTypes.number.isRequired,
 	thread: PropTypes.shape( {
