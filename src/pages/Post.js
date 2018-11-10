@@ -27,28 +27,6 @@ function mapStateToProps( state, ownProps ) {
 	};
 }
 
-/*
-class Post extends Component {
-	renderComments() {
-		const { info, user, singular, comments, query, dispatch } = this.props;
-		const parentId = query.hasOwnProperty( 'replytocom' ) ? parseInt( query.replytocom, 10 ) : 0;
-		const args = {
-			isEnabled: singular.data.comment_status === 'open',
-			postLink: singular.data.link,
-			maxDepth: info.settings.comments.threads_depth,
-			comments,
-			parentId,
-			dispatch,
-			user,
-		};
-
-		return (
-			<CommentsSection { ...args } />
-		);
-	}
-}
-*/
-
 function Post( props ) {
 	const { singular } = props;
 	const { data } = singular;
