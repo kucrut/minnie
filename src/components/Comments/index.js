@@ -33,7 +33,9 @@ const mapStateToProps = ( state, ownProps ) => {
 		isOpen: comment_status === 'open',
 		maxDepth: threads_depth,
 		postId: id,
-		thread: threads.find( current => current.parentId === threadId ) || null,
+		thread: id === comments.postId
+			? threads.find( thread => thread.parentId === threadId )
+			: {},
 	};
 };
 
