@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 
 import Comments from '../';
 import Content from '../../Content';
-
-const Button = ( { children, ...rest } ) => (
-	<button className="comment-view-replies-link genericon genericon-downarrow" { ...rest }>{ children }</button>
-);
+import ViewRepliesButton from './ViewRepliesButton';
 
 export default class Item extends Component {
 	constructor( props ) {
@@ -28,7 +25,9 @@ export default class Item extends Component {
 					content={ content.rendered }
 				/>
 				{ ( children_count > 0 && ! showReplies ) ? (
-					<Button onClick={ () => this.setState( { showReplies: true } ) }>Show Replies</Button>
+					<ViewRepliesButton
+						onClick={ () => this.setState( { showReplies: true } ) }
+					/>
 				) : null }
 				{ ( children_count > 0 && showReplies ) ? (
 					<Comments { ...rest } threadId={ id } />
