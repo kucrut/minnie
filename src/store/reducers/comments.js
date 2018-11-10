@@ -42,11 +42,11 @@ function updateThreads( threads, threadId, data ) {
 	}
 
 	const found = threads.find( thread => thread.parentId === threadId );
+	const index = found ? threads.indexOf( found ) : -1;
 	const thread = mergeData( found || initialThreadState );
-	const index = found ? threads.indexOf( found ) : 0;
 
-	return index > 0
-		? [ thread ]
+	return index === -1
+		? [ ...threads, thread ]
 		: [
 			...threads.slice( 0, index ),
 			thread,
