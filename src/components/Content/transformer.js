@@ -1,27 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { isInternalUrl, stripSiteUrl } from './utils';
-
 export default function transformer( siteUrl, node, children ) {
 	switch ( node.tagName.toLowerCase() ) {
 		case 'a': {
-			const href = node.getAttribute( 'href' );
+			let href = node.getAttribute( 'href' );
 
-			if ( ! isInternalUrl( siteUrl, href ) ) {
+			if ( ! href ) {
+				return;
+			}
+
+			href = href.replace( siteUrl, '' );
+
+			if ( href.indexOf( '/' ) !== 0 ) {
+				return;
+			}
+
+			if ( href.indexOf( '/wp-content' ) === 0 ) {
 				return;
 			}
 
 			const props = node.getAttributeNames().reduce( ( all, attr ) => {
-				const key = attr === 'href' ? 'to' : attr;
-				const value = key === 'to'
-					? stripSiteUrl( siteUrl, href )
-					: node.getAttribute( attr );
+				if ( attr === 'href' ) {
+					return {
+						...all,
+						to: href,
+					}
+				}
 
 				return {
 					...all,
-					[ key ]: value,
-				};
+					[ attr ]: node.getAttribute( attr ),
+				}
 			}, {} );
 
 			return <Link { ...props }>{ children }</Link>;
