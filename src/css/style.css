@@ -1007,40 +1007,48 @@ a.current_page_item {
 .bypostauthor {
 	display: block;
 }
-.comment-list,
-.comment-list .children {
+.comment-list {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
-.comment-list .children-wrap {
-	margin-left: 1.5em;
+.comment-list .children {
+	list-style: none;
 }
-.comment-reply-title,
+#respond h3,
 .comments-title {
 	color: #999;
 	font-size: 24px;
 	font-size: 2.4rem;
-	margin: 0 0 1em;
+	margin: 0 0 1.5em;
+}
+.comment-meta,
+.comment-author,
+.comment-content {
+	display: inline-block;
+	position: relative;
 }
 .comment .comment-content {
 	line-height: 1.8;
+	margin-left: 70px;
 }
-.comment .comment-text {
-	margin: .5em 0;
+.comment .comment-content > * {
+	margin-top: 1.5em;
+	margin-bottom: 0;
+}
+.comment .comment-metadata {
+	margin-top: 1.5em;
+	margin-left: 70px;
 }
 .comment .comment-content > p:first-of-type,
 .pingback p,
 .trackback p {
 	clear: none;
 	display: inline;
-	margin-bottom: 1.5em;
 }
-.comment-author {
-	overflow: hidden;
-}
-.comment-author p {
-	margin-bottom: 0;
+#cancel-comment-reply-link {
+	float: right;
+	text-decoration: none;
 }
 .comment-author,
 .comment-author a,
@@ -1048,40 +1056,42 @@ a.current_page_item {
 	color: #777;
 	font-size: 14px;
 	font-size: 1.4rem;
+	font-weight: bold;
 	text-decoration: none;
+	text-transform: uppercase;
 }
 .comment-author .avatar {
-	float: left;
-	margin: 0 1em 0 0;
+	margin-top: 0;
+	margin-right: 1.5em;
+	position: absolute;
+	top: 0;
+	left: -70px;
 }
-.comment-author .comment-date {
+.comment-reply-link,
+.comment-reply-link:visited,
+.comment-metadata,
+.comment-metadata a,
+.comment-metadata a:visited {
 	color: #777;
 	font-size: 13px;
 	font-size: 1.3rem;
 	font-style: italic;
 	text-decoration: none;
 }
-.comment-reply-link,
-.comment-view-replies-link {
-	margin: 0 .5em;
-	display: inline-block;
-	vertical-align: middle;
-	cursor: pointer;
+.comment-metadata .edit-link:before,
+.comment-reply-link:before {
+	content: '\2022';
+	display: inline;
+	margin: 0 7px;
 }
-.comment-view-replies-link {
-	vertical-align: bottom;
+.comment-reply-link:after {
+	content: "\00BB";
+	display: inline;
+	margin-left: 3px;
 }
-#cancel-comment-reply-link {
-	float: right;
-	margin-top: .75em;
-	cursor: pointer;
-}
-.comment-notes,
 .comment-body {
 	font-size: 14px;
 	font-size: 1.4rem;
-}
-.comment-body {
 	margin: 0 0 1.5em;
 	position: relative;
 }
@@ -1097,32 +1107,7 @@ a.current_page_item {
 p.comment-awaiting-moderation{
 	font-style: italic;
 }
-.comments-area .load-more {
-	margin-bottom: 1em;
-}
-.comment-respond {
-	position: relative;
-}
-.comment-respond .cover {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	width: 100%;
-	background: rgba(255, 255, 255, .8);
-}
-.comment-respond .cover .minnie-spinner {
-	margin-top: 3em;
-}
-.comment-respond label {
-	display: block;
-}
-.comment-respond input {
-	width: 20em;
-	max-width: 100%;
-}
-.comment-error {
-	font-style: italic;
-}
+
 /*--------------------------------------------------------------
 10.4 Header/Footer
 --------------------------------------------------------------*/
