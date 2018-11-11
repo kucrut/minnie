@@ -17,7 +17,7 @@ export default function Footer( props ) {
 				/>
 				<b className="fn">
 					{ author_url ? (
-						<a href={ author_url }>{ author_name }</a>
+						<a href={ author_url } rel="external nofollow">{ author_name }</a>
 					) : author_name }
 				</b>
 				{ ' ' }
