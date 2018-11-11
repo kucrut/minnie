@@ -3,19 +3,19 @@ import { Link } from 'react-router-dom';
 
 import { isInternalUrl, stripSiteUrl } from './utils';
 
-export default function transformer( node, children ) {
+export default function transformer( siteUrl, node, children ) {
 	switch ( node.tagName.toLowerCase() ) {
 		case 'a': {
 			const href = node.getAttribute( 'href' );
 
-			if ( ! isInternalUrl( href ) ) {
+			if ( ! isInternalUrl( siteUrl, href ) ) {
 				return;
 			}
 
 			const props = node.getAttributeNames().reduce( ( all, attr ) => {
 				const key = attr === 'href' ? 'to' : attr;
 				const value = key === 'to'
-					? stripSiteUrl( href )
+					? stripSiteUrl( siteUrl, href )
 					: node.getAttribute( attr );
 
 				return {
