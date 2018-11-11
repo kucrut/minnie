@@ -1,6 +1,5 @@
 require( 'dotenv' ).config();
 const path = require( 'path' );
-const cors = require( 'cors' );
 const express = require( 'express' );
 
 const App = require( '../public/server/main.js' );
@@ -43,7 +42,6 @@ if ( env === 'production' ) {
 }
 
 // Bootstrap application settings.
-app.use( cors() );
 app.set( 'port', port );
 // X-Powered-By header has no functional value.
 // Keeping it makes it easier for an attacker to build the site's profile
