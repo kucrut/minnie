@@ -10,28 +10,28 @@ const initialState = {
 };
 
 export default function taxonomies( state = initialState, action ) {
-	let mergedItems;
-
 	switch ( action.type ) {
 		case GET_TERMS_REQUEST:
-			return Object.assign( {}, state, {
+			return {
+				...state,
 				isFetching: true,
-			} );
+			};
 
 		case GET_TERMS_SUCCESS:
-			mergedItems = Object.assign( {}, state.items, {
-				[ action.taxonomy ]: action.req.data,
-			} );
-
-			return Object.assign( {}, state, {
-				items: mergedItems,
+			return {
+				...state,
+				items: {
+					...state.items,
+					[ action.taxonomy ]: action.req.data,
+				},
 				isFetching: false,
-			} );
+			};
 
 		case GET_TERMS_FAILURE:
-			return Object.assign( {}, state, {
+			return {
+				...state,
 				isFetching: false,
-			} );
+			};
 
 		default:
 			return state;
