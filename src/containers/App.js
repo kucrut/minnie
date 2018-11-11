@@ -6,6 +6,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import classNames from 'classnames';
 
+import { closeSidebar } from '../store/actions/ui';
 import { fetchPostFormats } from '../store/actions/terms';
 import { fetchPrimaryMenu, fetchSocialMenu } from '../store/actions/menu';
 import SiteHeader from '../components/SiteHeader';
@@ -34,6 +35,15 @@ class App extends Component {
 
 	componentDidMount() {
 		this.updateHtmlClass();
+	}
+
+	componentDidUpdate( prevProps ) {
+		const { location: oldLocation } = prevProps;
+		const { dispatch, location } = this.props;
+
+		if ( location.pathname !== oldLocation.pathname ) {
+			dispatch( closeSidebar() );
+		}
 	}
 
 	updateHtmlClass() {
