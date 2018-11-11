@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Comments from '../';
 import Content from '../../Content';
 import Footer from './Footer';
-import ViewRepliesButton from './ViewRepliesButton';
+import Meta from './Meta';
 
 export default class Item extends Component {
 	constructor( props ) {
@@ -21,9 +21,6 @@ export default class Item extends Component {
 			id,
 			content,
 			children_count,
-			date,
-			date_formatted,
-			link,
 		} = comment;
 
 		return (
@@ -33,16 +30,11 @@ export default class Item extends Component {
 						<Footer comment={ comment } />
 						<Content content={ content.rendered } />
 					</div>
-					<div class="comment-metadata">
-						<a href={ link }>
-							<time dateTime={ date }>{ date_formatted }</time>
-						</a>
-						{ ( children_count > 0 && ! showReplies ) ? (
-							<ViewRepliesButton
-								onClick={ () => this.setState( { showReplies: true } ) }
-							/>
-						) : null }
-					</div>
+					<Meta
+						comment={ comment }
+						showReplies={ showReplies }
+						onClickViewReplies={ () => this.setState( { showReplies: true } ) }
+					/>
 				</article>
 				{ ( children_count > 0 && showReplies ) ? (
 					<Comments { ...rest } threadId={ id } />
