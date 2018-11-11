@@ -19,7 +19,10 @@ function makeRequest( params ) {
  *  @return {object}
  */
 export function fetchComments( params ) {
-	const fetchParams = Object.assign( {}, defaultParams, params );
+	const fetchParams = {
+		...defaultParams,
+		...params,
+	};
 
 	return ( dispatch, getState ) => {
 		const { info } = getState();
