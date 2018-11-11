@@ -4,7 +4,6 @@ import archive from './archive';
 import comments from './comments';
 import info from './info';
 import menu from './menu';
-import session from './session';
 import singular from './singular';
 import taxonomies from './taxonomies';
 import terms from './terms';
@@ -16,7 +15,6 @@ export default combineReducers( {
 	comments,
 	info,
 	menu,
-	session,
 	singular,
 	taxonomies,
 	terms,
