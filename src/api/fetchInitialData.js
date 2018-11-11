@@ -15,23 +15,11 @@
 
 export default function fetchInitialData( dispatch, components, params ) {
 	const needs = components.reduce( ( all, current ) => {
-		let result = [ ...all ];
-
 		if ( current.need ) {
-			result = [
-				...result,
-				...current.need,
-			];
+			return all.concat( current.need );
 		}
 
-		if ( current.WrappedComponent && current.WrappedComponent.need ) {
-			result = [
-				...result,
-				...current.WrappedComponent.need,
-			];
-		}
-
-		return result;
+		return all;
 	}, [] );
 
 	const promises = needs.map( need => dispatch( need( params ) ) );
