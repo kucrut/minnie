@@ -1,0 +1,12 @@
+{
+  "name": "mysite.tld",
+  "private": true,
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node server/index.js"
+  },
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "dotenv": "^6.1.0",
+    "express": "^4.14.0"
+  }
+}
