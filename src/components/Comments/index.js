@@ -8,16 +8,14 @@ import List from './List';
 
 const Wrap = ( { threadId, children } ) => {
 	if ( threadId > 0 ) {
-		return <div className="children-wrap">{ children }</div>;
+		return children;
 	}
 
 	return (
 		<div className="comments-area" id="comments">
 			<h2 className="comments-title">Comments</h2>
-			<div className="comment-list-wrap">
-				{ children }
-				{/* TODO: Show form */}
-			</div>
+			{ children }
+			{/* TODO: Show form */}
 		</div>
 	);
 }
@@ -78,7 +76,7 @@ class Comments extends Component {
 
 		const list = () => {
 			if ( items.length ) {
-				const className = threadId > 0 ? 'children' : '';
+				const className = threadId > 0 ? 'children' : 'comment-list';
 				// eslint-disable-next-line
 				return <List className={ className } { ...{ items, isOpen, postId } } />;
 			}
