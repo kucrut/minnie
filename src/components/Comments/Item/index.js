@@ -20,15 +20,17 @@ export default class Item extends Component {
 
 		return (
 			<li className="comment" id={ `comment-${ id }` }>
-				<Content
-					className="comment-content"
-					content={ content.rendered }
-				/>
-				{ ( children_count > 0 && ! showReplies ) ? (
-					<ViewRepliesButton
-						onClick={ () => this.setState( { showReplies: true } ) }
+				<article className="comment-body">
+					<Content
+						className="comment-content"
+						content={ content.rendered }
 					/>
-				) : null }
+					{ ( children_count > 0 && ! showReplies ) ? (
+						<ViewRepliesButton
+							onClick={ () => this.setState( { showReplies: true } ) }
+						/>
+					) : null }
+				</article>
 				{ ( children_count > 0 && showReplies ) ? (
 					<Comments { ...rest } threadId={ id } />
 				) : null }
