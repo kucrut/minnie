@@ -15,9 +15,6 @@ function makeRequest( params ) {
 /**
  *  Fetch comments
  *
- *  Before actually fetching the comments, we need to wait for site info
- *  to be fetched.
- *
  *  @param  {object} params
  *  @return {object}
  */
