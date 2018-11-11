@@ -7,12 +7,6 @@ import Singular from '../../containers/Singular';
 import ContentNavigation from '../../components/ContentNavigation';
 import Entry from '../../components/Entry';
 
-function mapStateToProps( state ) {
-	return {
-		user: state.session.user,
-	};
-}
-
 function fetchData( props ) {
 	const { dispatch, slug } = props;
 	const args = {
@@ -41,7 +35,6 @@ function Media( props ) {
 
 const mediaWithSingularData = withSingularData( {
 	fetchData,
-	mapStateToProps,
 	need: [ fetchMedia ],
 } )( Media );
 
