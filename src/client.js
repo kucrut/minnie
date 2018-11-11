@@ -14,7 +14,12 @@ import App from './containers/App';
 // Grab the state from a global injected into server-generated HTML
 const initialState = window.__INITIAL_STATE__;
 const store = configureStore( initialState );
-const routes = createRoutes( store.getState().taxonomies.items );
+const { info, taxonomies } = store.getState();
+const routes = createRoutes( taxonomies.items );
+const appContext = {
+	siteUrl: info.siteUrl,
+	isServer: false,
+};
 
 // Set axios' defaults for browser.
 configureAxios( initialState.info.apiRoot );
@@ -22,7 +27,7 @@ configureAxios( initialState.info.apiRoot );
 hydrate(
 	<Provider store={ store }>
 		<BrowserRouter>
-			<AppContext.Provider value={ { isServer: false } }>
+			<AppContext.Provider value={ appContext }>
 				<App routes={ routes } />
 			</AppContext.Provider>
 		</BrowserRouter>
