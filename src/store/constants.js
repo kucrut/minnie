@@ -1,8 +1,3 @@
-export const postTypeMap = {
-	post: 'posts',
-	page: 'pages',
-};
-
 export const GET_SESSION = 'GET_SESSION';
 export const GET_SESSION_REQUEST = 'GET_SESSION_REQUEST';
 export const GET_SESSION_SUCCESS = 'GET_SESSION_SUCCESS';
