@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { entryMetaTaxonomies } from '../../config';
+import { AppContext } from '../../contexts';
 import Content from '../Content';
 import EntryDate from './Date';
 import EntryFormat from './Format';
@@ -11,6 +11,8 @@ import EntryTitle from './Title';
 import EntryTerms from './Terms';
 
 export default class Entry extends Component {
+	static contextType = AppContext;
+
 	static propTypes = {
 		isSingle: PropTypes.bool.isRequired,
 		data: PropTypes.object.isRequired,
@@ -75,6 +77,7 @@ export default class Entry extends Component {
 	}
 
 	renderMeta() {
+		const { entryMetaTaxonomies } = this.context;
 		const { data } = this.props;
 		const {
 			link,
