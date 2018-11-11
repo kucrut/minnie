@@ -10,3 +10,8 @@ export default function toggleSidebar() {
 		} );
 	};
 }
+
+export const closeSidebar = () => ( {
+	type: UI_TOGGLE_SIDEBAR,
+	expand: false,
+} );
