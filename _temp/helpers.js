@@ -1,5 +1,3 @@
-import { forEach, has, size, trim } from 'lodash';
-
 export const contentPathRegEx = new RegExp( '^/wp-content/' );
 
 export function canUseDOM() {
