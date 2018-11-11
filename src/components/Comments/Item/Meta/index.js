@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ViewRepliesButton from './ViewRepliesButton';
+import LinkButton from '../../../LinkButton';
 
 export default function Meta( props ) {
 	const {
@@ -22,9 +22,12 @@ export default function Meta( props ) {
 				<time dateTime={ date }>{ date_formatted }</time>
 			</a>
 			{ ( children_count > 0 && ! showReplies ) ? (
-				<ViewRepliesButton
+				<LinkButton
+					className="comment-view-replies-button"
 					onClick={ onClickViewReplies }
-				/>
+				>
+					View replies
+				</LinkButton>
 			) : null }
 		</div>
 	);

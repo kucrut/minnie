@@ -1080,17 +1080,28 @@ a.current_page_item {
 .comment-author .says {
 	font-weight: normal;
 }
+.comment-view-replies-button i {
+	vertical-align: middle;
+}
 .comment-reply-link,
 .comment-reply-link:visited,
 .comment-metadata,
 .comment-metadata a,
-.comment-metadata a:visited {
+.comment-metadata a:visited,
+.comment-view-replies-button {
 	color: #777;
 	font-size: 13px;
 	font-size: 1.3rem;
 	font-style: italic;
 	text-decoration: none;
 }
+.comment-metadata a:focus,
+.comment-metadata a:hover,
+.comment-view-replies-button:focus,
+.comment-view-replies-button:hover {
+	text-decoration: underline;
+}
+
 .comment-metadata .edit-link:before,
 .comment-reply-link:before {
 	content: '\2022';
