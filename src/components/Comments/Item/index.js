@@ -16,7 +16,14 @@ export default class Item extends Component {
 	render() {
 		const { showReplies } = this.state;
 		const { comment, ...rest } = this.props;
-		const { id, content, children_count } = comment;
+		const {
+			id,
+			content,
+			children_count,
+			date,
+			date_formatted,
+			link,
+		} = comment;
 
 		return (
 			<li className="comment" id={ `comment-${ id }` }>
@@ -25,11 +32,16 @@ export default class Item extends Component {
 						className="comment-content"
 						content={ content.rendered }
 					/>
-					{ ( children_count > 0 && ! showReplies ) ? (
-						<ViewRepliesButton
-							onClick={ () => this.setState( { showReplies: true } ) }
-						/>
-					) : null }
+					<div class="comment-metadata">
+						<a href={ link }>
+							<time dateTime={ date }>{ date_formatted }</time>
+						</a>
+						{ ( children_count > 0 && ! showReplies ) ? (
+							<ViewRepliesButton
+								onClick={ () => this.setState( { showReplies: true } ) }
+							/>
+						) : null }
+					</div>
 				</article>
 				{ ( children_count > 0 && showReplies ) ? (
 					<Comments { ...rest } threadId={ id } />
