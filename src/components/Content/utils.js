@@ -1,6 +1,4 @@
-import { siteUrl } from '../../config';
-
-export function isInternalUrl( url ) {
+export function isInternalUrl( siteUrl, url ) {
 	if ( url.indexOf( '/' ) === 0 ) {
 		return true;
 	}
@@ -17,6 +15,6 @@ export function isInternalUrl( url ) {
 	return true;
 }
 
-export function stripSiteUrl( url ) {
+export function stripSiteUrl( siteUrl, url ) {
 	return url.replace( siteUrl, '' );
 }
