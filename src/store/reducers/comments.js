@@ -26,16 +26,20 @@ const initialState = {
 	threads: [],
 };
 
-function updateThreads( threads, threadId, data ) {
-	const mergeData = thread => ( {
-		...thread,
-		...data,
-		items: [
-			...thread.items,
-			...( data.items || [] ),
-		],
-		parentId: threadId,
-	} );
+function updateThreads( threads, threadId, data, appendItems = true ) {
+	const mergeData = thread => {
+		const { items } = thread;
+		const { items: newItems = [] } = data;
+
+		return {
+			...thread,
+			...data,
+			items: appendItems
+				? [ ...items, ...newItems  ]
+				: newItems,
+			parentId: threadId,
+		};
+	};
 
 	if ( ! threads.length ) {
 		return [ mergeData( initialThreadState ) ];
@@ -77,12 +81,13 @@ export default function comments( state = initialState, action ) {
 			const totalPages = headers[ 'x-wp-totalpages' ];
 			const currentPage = Number( params.page ) || 1;
 			const hasMore = currentPage < totalPages;
+			const appendItems = currentPage > 1;
 			const threads = updateThreads( state.threads, action.parentId, {
 				currentPage,
 				hasMore,
 				isFetching: false,
 				items: data,
-			} );
+			}, appendItems );
 
 			return {
 				...state,
