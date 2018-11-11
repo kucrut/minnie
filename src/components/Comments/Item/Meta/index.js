@@ -29,6 +29,7 @@ export default function Meta( props ) {
 					<span>View replies</span>
 				</LinkButton>
 			) : null }
+			{/* TODO: Reply link */}
 		</div>
 	);
 }
