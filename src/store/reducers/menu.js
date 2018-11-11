@@ -12,22 +12,26 @@ const initialState = {
 export default function menu( state = initialState, action ) {
 	switch ( action.type ) {
 		case GET_MENU_REQUEST:
-			return Object.assign( {}, state, {
+			return {
+				...state,
 				isFetching: true,
-			} );
+			};
 
 		case GET_MENU_SUCCESS:
-			return Object.assign( {}, state, {
+			return {
+				...state,
 				isFetching: false,
-				menus: Object.assign( {}, state.menus, {
+				menus: {
+					...state.menus,
 					[ action.location ]: action.req.data,
-				} ),
-			} );
+				},
+			};
 
 		case GET_MENU_FAILURE:
-			return Object.assign( {}, state, {
+			return {
+				...state,
 				isFetching: false,
-			} );
+			};
 
 		default:
 			return state;
