@@ -7,6 +7,11 @@ import Spinner from '../Spinner';
 import List from './List';
 
 const Wrap = ( { threadId, children } ) => {
+	// TODO: Remove this when we have comment form.
+	if ( ! children ) {
+		return null;
+	}
+
 	if ( threadId > 0 ) {
 		return children;
 	}
