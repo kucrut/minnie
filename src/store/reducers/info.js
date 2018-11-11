@@ -6,7 +6,7 @@ import {
 
 const initialState = {
 	apiRoot: '',
-	siteUrl: '',
+	url: '',
 	lang: '',
 	name: '',
 	description: '',
