@@ -57,10 +57,10 @@ export default function withSingular( args ) {
 			}
 
 			render() {
-				const { singular } = this.props;
+				const { slug, singular } = this.props;
 				const { data, isFetching } = singular;
 
-				if ( isFetching ) {
+				if ( data.slug !== slug || isFetching ) {
 					return <Spinner />;
 				}
 
