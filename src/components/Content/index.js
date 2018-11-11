@@ -13,7 +13,7 @@ export default class Content extends Component {
 	};
 
 	render() {
-		const { isServer } = this.context;
+		const { isServer, siteUrl } = this.context;
 		const { content } = this.props;
 
 		if ( isServer ) {
@@ -24,7 +24,7 @@ export default class Content extends Component {
 			<Interweave
 				content={ content }
 				tagName="div"
-				transform={ transformer }
+				transform={ ( ...args ) => transformer( siteUrl, ...args ) }
 			/>
 		);
 	}
