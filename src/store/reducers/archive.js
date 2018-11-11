@@ -58,7 +58,7 @@ function setLinks( state ) {
 	if ( currentPage > 2 ) {
 		nextLink = url.replace( regex, `/page/${ currentPage - 1 }` );
 	} else if ( currentPage === 2 ) {
-		nextLink = url.replace( regex, '' );
+		nextLink = url.replace( regex, '/' );
 	}
 
 	return {
