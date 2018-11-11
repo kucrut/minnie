@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
 import axios from 'axios';
 
-import { siteUrl } from './config';
 import { AppContext } from './contexts';
 import createRoutes from './routes';
 import configureStore from './store';
@@ -65,7 +64,7 @@ async function getInfo() {
 	}
 }
 
-export default async function render( env, manifest, req, res, next ) {
+export default async function render( siteUrl, env, manifest, req, res, next ) {
 	const apiRoot = await discoverApi( siteUrl );
 	// TODO: Send error if the above fails.
 
@@ -103,13 +102,17 @@ export default async function render( env, manifest, req, res, next ) {
 	};
 	const components = [ App, activeRoute.component ];
 	const context = {};
+	const appContext = {
+		siteUrl,
+		isServer: true,
+	};
 
 	fetchInitialData( store.dispatch, components, args )
 		.then( () => {
 			const InitialView = (
 				<Provider store={ store }>
 					<StaticRouter location={ req.url } context={ context }>
-						<AppContext.Provider value={ { isServer: true } }>
+						<AppContext.Provider value={ appContext }>
 							<App routes={ routes } />
 						</AppContext.Provider>
 					</StaticRouter>
