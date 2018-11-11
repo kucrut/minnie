@@ -1,3 +1,4 @@
+require( 'dotenv' ).config();
 const path = require( 'path' );
 const cors = require( 'cors' );
 const express = require( 'express' );
@@ -7,6 +8,7 @@ const App = require( '../public/server/main.js' );
 const app = express();
 const env = process.env.NODE_ENV;
 const port = parseInt( process.env.PORT, 10 ) || 9000;
+const siteUrl = process.env.WP_URL;
 
 const manifestPath = '../public/client/assets/manifest.json';
 let manifest;
@@ -49,7 +51,7 @@ app.use( express.static( path.join( __dirname, '..', 'public', 'client' ) ) );
 // Routing.
 // TODO: Check config before disabling favicon.
 app.get( '/favicon.ico', ( req, res ) => res.status( 204 ) );
-app.get( '*', ( ...args ) => App.default( env, manifest, ...args ) );
+app.get( '*', ( ...args ) => App.default( siteUrl, env, manifest, ...args ) );
 
 /* eslint-disable-next-line no-console */
 console.log( `
