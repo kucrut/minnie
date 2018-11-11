@@ -1037,7 +1037,8 @@ a.current_page_item {
 	margin-bottom: 0;
 }
 .comment .comment-metadata {
-	margin-top: 1.5em;
+	margin-top: 10px;
+	margin-top: 0.8rem;
 	margin-left: 70px;
 }
 .comment .comment-content > p:first-of-type,
@@ -1053,12 +1054,11 @@ a.current_page_item {
 .comment-author,
 .comment-author a,
 .comment-author a:visited {
-	color: #777;
+	color: #23282d;
 	font-size: 14px;
 	font-size: 1.4rem;
 	font-weight: bold;
 	text-decoration: none;
-	text-transform: uppercase;
 }
 .comment-author .avatar {
 	margin-top: 0;
@@ -1066,6 +1066,9 @@ a.current_page_item {
 	position: absolute;
 	top: 0;
 	left: -70px;
+}
+.comment-author .says {
+	font-weight: normal;
 }
 .comment-reply-link,
 .comment-reply-link:visited,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Comments from '../';
 import Content from '../../Content';
+import Footer from './Footer';
 import ViewRepliesButton from './ViewRepliesButton';
 
 export default class Item extends Component {
@@ -28,10 +29,10 @@ export default class Item extends Component {
 		return (
 			<li className="comment" id={ `comment-${ id }` }>
 				<article className="comment-body">
-					<Content
-						className="comment-content"
-						content={ content.rendered }
-					/>
+					<div className="comment-content">
+						<Footer comment={ comment } />
+						<Content content={ content.rendered } />
+					</div>
 					<div class="comment-metadata">
 						<a href={ link }>
 							<time dateTime={ date }>{ date_formatted }</time>
