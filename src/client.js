@@ -9,20 +9,21 @@ import configureStore from './store';
 import { configureAxios } from './api/utils';
 import App from './containers/App';
 
-// TODO: Check if we need to work-around hash link scroll.
-
-// Grab the state from a global injected into server-generated HTML
+const config = window.__CONFIG__;
 const initialState = window.__INITIAL_STATE__;
 const store = configureStore( initialState );
 const { info, taxonomies } = store.getState();
 const routes = createRoutes( taxonomies.items );
 const appContext = {
-	siteUrl: info.siteUrl,
+	...config,
 	isServer: false,
 };
 
+delete window.__CONFIG__;
+delete window.__INITIAL_STATE__;
+
 // Set axios' defaults for browser.
-configureAxios( initialState.info.apiRoot );
+configureAxios( info.apiRoot );
 
 hydrate(
 	<Provider store={ store }>
