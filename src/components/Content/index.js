@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Interweave from 'interweave';
 
@@ -17,16 +17,13 @@ export default class Content extends Component {
 		const { content } = this.props;
 
 		if ( isServer ) {
-			return (
-				<Fragment dangerouslySetInnerHTML={ { __html: content } } />
-			);
+			return <div dangerouslySetInnerHTML={ { __html: content } } />
 		}
 
 		return (
 			<Interweave
-				commonClass={ null }
 				content={ content }
-				tagName="fragment"
+				tagName="div"
 				transform={ transformer }
 			/>
 		);
