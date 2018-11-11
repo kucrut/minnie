@@ -13,20 +13,23 @@ const initialState = {
 export default function taxonomies( state = initialState, action ) {
 	switch ( action.type ) {
 		case GET_TAXONOMIES_REQUEST:
-			return Object.assign( {}, state, {
+			return {
+				...state,
 				isFetching: true,
-			} );
+			};
 
 		case GET_TAXONOMIES_SUCCESS:
-			return Object.assign( {}, state, {
+			return {
+				...state,
 				isFetching: false,
 				items: collectItems( action.req.data ),
-			} );
+			};
 
 		case GET_TAXONOMIES_FAILURE:
-			return Object.assign( {}, state, {
+			return {
+				...state,
 				isFetching: false,
-			} );
+			};
 
 		default:
 			return state;
