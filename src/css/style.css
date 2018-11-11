@@ -508,6 +508,8 @@ Addendum
 	border: none;
 	background-color: unset;
 	cursor: pointer;
+	padding: 0;
+	display: inline;
 }
 
 /*--------------------------------------------------------------
@@ -1080,9 +1082,6 @@ a.current_page_item {
 .comment-author .says {
 	font-weight: normal;
 }
-.comment-view-replies-button i {
-	vertical-align: middle;
-}
 .comment-reply-link,
 .comment-reply-link:visited,
 .comment-metadata,
@@ -1097,11 +1096,15 @@ a.current_page_item {
 }
 .comment-metadata a:focus,
 .comment-metadata a:hover,
-.comment-view-replies-button:focus,
-.comment-view-replies-button:hover {
+.comment-view-replies-button:focus span,
+.comment-view-replies-button:hover span {
 	text-decoration: underline;
 }
+.comment-view-replies-button:focus span {
+	outline: thin dotted;
+}
 
+.comment-view-replies-button:before,
 .comment-metadata .edit-link:before,
 .comment-reply-link:before {
 	content: '\2022';

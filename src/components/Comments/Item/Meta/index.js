@@ -26,7 +26,7 @@ export default function Meta( props ) {
 					className="comment-view-replies-button"
 					onClick={ onClickViewReplies }
 				>
-					View replies
+					<span>View replies</span>
 				</LinkButton>
 			) : null }
 		</div>
