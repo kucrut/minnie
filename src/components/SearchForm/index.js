@@ -66,7 +66,7 @@ class SearchForm extends Component {
 function mapStateToProps( state ) {
 	return {
 		searchTerm: state.archive.searchTerm,
-		siteUrl: state.info.siteUrl,
+		siteUrl: state.info.url,
 	};
 }
 
