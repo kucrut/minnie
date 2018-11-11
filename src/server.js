@@ -23,7 +23,8 @@ import App from './containers/App';
  * @param  {object} initialState Initial state.
  * @return {string}              Template.
  */
-function createInitialHtml( manifest, content, initialState, env = 'production' ) {
+function createInitialHtml( config, manifest, content, initialState ) {
+	const { env = 'production', ...restConfig } = config;
 	const { htmlAttributes, title } = Helmet.rewind();
 	const stylesheets = env === 'production'
 		? `\n<link rel="stylesheet" href="${ manifest[ 'main.css' ] }" />`
@@ -38,7 +39,8 @@ function createInitialHtml( manifest, content, initialState, env = 'production' 
 	</head>
 	<body>
 		<div id="app">${ content }</div>
-		<script>window.__INITIAL_STATE__ = ${JSON.stringify( initialState )};</script>
+		<script>window.__CONFIG__ = ${ JSON.stringify( restConfig ) };</script>
+		<script>window.__INITIAL_STATE__ = ${ JSON.stringify( initialState ) };</script>
 		<script type="text/javascript" charset="utf-8" src="${ manifest[ 'main.js' ] }"></script>
 	</body>
 </html>`;
@@ -64,8 +66,8 @@ async function getInfo() {
 	}
 }
 
-export default async function render( siteUrl, env, manifest, req, res, next ) {
-	const apiRoot = await discoverApi( siteUrl );
+export default async function render( config, manifest, req, res, next ) {
+	const apiRoot = await discoverApi( config.siteUrl );
 	// TODO: Send error if the above fails.
 
 	// Set axios' defaults for node.
@@ -77,7 +79,6 @@ export default async function render( siteUrl, env, manifest, req, res, next ) {
 	const store = configureStore( {
 		info: {
 			apiRoot,
-			siteUrl,
 			...info,
 		},
 		taxonomies: {
@@ -103,7 +104,7 @@ export default async function render( siteUrl, env, manifest, req, res, next ) {
 	const components = [ App, activeRoute.component ];
 	const context = {};
 	const appContext = {
-		siteUrl,
+		...config,
 		isServer: true,
 	};
 
@@ -120,10 +121,10 @@ export default async function render( siteUrl, env, manifest, req, res, next ) {
 			);
 
 			const markup = createInitialHtml(
+				config,
 				manifest,
 				renderToString( InitialView ),
 				store.getState(),
-				env,
 			);
 			const status = Number( context.status ) || 200;
 
