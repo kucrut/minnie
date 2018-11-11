@@ -640,6 +640,10 @@ a.current_page_item {
 	overflow: hidden;
 }
 
+.nav-links a {
+	text-decoration: none;
+}
+
 .comment-navigation .nav-previous,
 .paging-navigation .nav-previous,
 .post-navigation .nav-previous {
