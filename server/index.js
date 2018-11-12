@@ -10,7 +10,8 @@ const port = parseInt( process.env.PORT, 10 ) || 9000;
 const appConfig = {
 	env,
 	siteUrl: process.env.WP_URL,
-	entryMetaTaxonomies: process.env.ENTRY_META_TAX.split( ',' ) || [],
+	blogPrefix: process.env.BLOG_PREFIX || '/blog',
+	entryMetaTaxonomies: ( process.env.ENTRY_META_TAX || '' ).split( ',' ) || [],
 };
 
 const manifestPath = '../public/client/assets/manifest.json';

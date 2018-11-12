@@ -8,7 +8,7 @@ const pagedRoute = ( prefix = '' ) => ( {
 	component: Home,
 } );
 
-function createTermRoutes( taxonomies ) {
+function createTermRoutes( taxonomies, blogPrefix ) {
 	return taxonomies.reduce( ( current, tax ) => {
 		const { slug, types } = tax;
 
@@ -34,7 +34,7 @@ function createTermRoutes( taxonomies ) {
 				route = slug;
 		}
 
-		const path = `/blog/${ route }/:${ slug }`;
+		const path = `${ blogPrefix }/${ route }/:${ slug }`;
 
 		return current.concat( [
 			pagedRoute( path ),
@@ -46,7 +46,7 @@ function createTermRoutes( taxonomies ) {
 	}, [] );
 }
 
-export default function createRoutes( taxonomies ) {
+export default function createRoutes( taxonomies, blogPrefix ) {
 	return [].concat(
 		[
 			{
@@ -67,14 +67,14 @@ export default function createRoutes( taxonomies ) {
 			},
 			*/
 		],
-		createTermRoutes( taxonomies ),
+		createTermRoutes( taxonomies, blogPrefix ),
 		[
 			{
-				path: '/blog/:parentslug/:slug',
+				path: `${ blogPrefix }/:parentslug/:slug`,
 				component: Media,
 			},
 			{
-				path: '/blog/:slug',
+				path: `${ blogPrefix }/:slug`,
 				component: Post,
 			},
 			pagedRoute(),

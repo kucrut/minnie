@@ -13,7 +13,7 @@ const config = window.__CONFIG__;
 const initialState = window.__INITIAL_STATE__;
 const store = configureStore( initialState );
 const { info, taxonomies } = store.getState();
-const routes = createRoutes( taxonomies.items );
+const routes = createRoutes( taxonomies.items, config.blogPrefix );
 const appContext = {
 	...config,
 	isServer: false,

@@ -75,7 +75,7 @@ export default async function render( config, manifest, req, res, next ) {
 
 	const info = await getInfo();
 	const taxonomies = await getTaxonomies();
-	const routes = createRoutes( taxonomies );
+	const routes = createRoutes( taxonomies, config.blogPrefix );
 	const store = configureStore( {
 		info: {
 			apiRoot,
