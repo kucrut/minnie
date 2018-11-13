@@ -7,8 +7,7 @@
       "src/routes.js",
       "src/server.js",
       "config",
-      "server",
-      ".env"
+      "server"
     ],
     "exec": "npm run build:dev && node server/index.js"
 }
