@@ -1,20 +1,14 @@
-require( 'dotenv' ).config();
 const path = require( 'path' );
 const express = require( 'express' );
 
+const config = require( '../config.json' );
 const App = require( '../public/server/main.js' );
 
 const app = express();
 const env = process.env.NODE_ENV;
 const port = parseInt( process.env.PORT, 10 ) || 9000;
-const appConfig = {
-	env,
-	siteUrl: process.env.WP_URL,
-	blogPrefix: process.env.BLOG_PREFIX || '/blog',
-	entryMetaTaxonomies: ( process.env.ENTRY_META_TAX || '' ).split( ',' ) || [],
-};
-
 const manifestPath = '../public/client/assets/manifest.json';
+
 let manifest;
 
 if ( env === 'production' ) {
@@ -52,7 +46,17 @@ app.set( 'view cache', false );
 app.use( express.static( path.join( __dirname, '..', 'public', 'client' ) ) );
 
 // Routing.
-app.get( '*', ( req, res, next ) => App.default( appConfig, manifest, req, res, next ).catch( next ) );
+app.get( '*', ( req, res, next ) => {
+	const appConfig = {
+		env,
+		blogPrefix: '/blog',
+		entryMetaTaxonomies: [ 'categories', 'tags' ],
+		...config,
+	};
+
+	return App.default( appConfig, manifest, req, res, next )
+		.catch( next );
+} );
 app.use( ( error, req, res ) => res.status( 500 ) );
 
 /* eslint-disable-next-line no-console */
