@@ -5,7 +5,7 @@ node_modules
 *.idea
 *.swp
 
-.env
+config.json
 /public
 /src/config.js
 process.json
