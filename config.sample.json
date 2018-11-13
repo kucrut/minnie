@@ -1,0 +1,8 @@
+{
+  "siteUrl": "https://mysite.com",
+  "blogPrefix": "/blog",
+  "entryMetaTaxonomies": [
+    "categories",
+    "tags"
+  ]
+}
