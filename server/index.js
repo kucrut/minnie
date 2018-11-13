@@ -54,7 +54,8 @@ app.use( express.static( path.join( __dirname, '..', 'public', 'client' ) ) );
 // Routing.
 // TODO: Check config before disabling favicon.
 app.get( '/favicon.ico', ( req, res ) => res.status( 204 ) );
-app.get( '*', ( ...args ) => App.default( appConfig, manifest, ...args ) );
+app.get( '*', ( req, res, next ) => App.default( appConfig, manifest, req, res, next ).catch( next ) );
+app.use( ( error, req, res ) => res.status( 500 ) );
 
 /* eslint-disable-next-line no-console */
 console.log( `

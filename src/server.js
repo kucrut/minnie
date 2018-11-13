@@ -3,13 +3,12 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter, matchPath } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Helmet from 'react-helmet';
-import axios from 'axios';
 
 import { AppContext } from './contexts';
 import createRoutes from './routes';
 import configureStore from './store';
 import fetchInitialData from './api/fetchInitialData';
-import { collectItems, configureAxios, discoverApi } from './api/utils';
+import { configureAxios, discoverApi, getInfo, getTaxonomies } from './api/utils';
 import App from './containers/App';
 
 /**
@@ -46,28 +45,9 @@ function createInitialHtml( config, manifest, content, initialState ) {
 </html>`;
 }
 
-// TODO: Move this out.
-async function getTaxonomies() {
-	try {
-		const response = await axios.get( '/wp/v2/taxonomies' );
-		return collectItems( response.data );
-	} catch ( e ) {
-		// TODO.
-	}
-}
-
-// TODO: Move this out.
-async function getInfo() {
-	try {
-		const response = await axios.get( '/bridge/v1/info' );
-		return response.data;
-	} catch ( e ) {
-		// TODO.
-	}
-}
-
 export default async function render( config, manifest, req, res, next ) {
 	const apiRoot = await discoverApi( config.siteUrl );
+
 	// TODO: Send error if the above fails.
 
 	// Set axios' defaults for node.

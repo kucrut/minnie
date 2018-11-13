@@ -2,13 +2,23 @@ import axios from 'axios';
 import { trim } from 'lodash';
 import { stringify } from 'qs';
 
+function oops( error ) {
+	const message = error.response
+		? `${ error.request.path } ${ JSON.stringify( error.response.data ) }`
+		: error.message;
+
+	// eslint-disable-next-line
+	console.error( message );
+	throw new Error( 'Oops!' );
+}
+
 /**
  * Discover API.
  *
  * @param {string} siteUrl Site URL.
  * @return {string} apiRoot.
  */
-export async function discoverApi( siteUrl ) {
+export function discoverApi( siteUrl ) {
 	return axios.head( siteUrl )
 		.then( response => {
 			const { headers } = response;
@@ -18,7 +28,20 @@ export async function discoverApi( siteUrl ) {
 			const apiRoot = trim( result[ 1 ], '/' );
 
 			return apiRoot;
-		} );
+		} )
+		.catch( () => oops( new Error( `${ siteUrl } not found.` ) ) );
+}
+
+export function getTaxonomies() {
+	return axios.get( '/wp/v2/taxonomies' )
+		.then( response => collectItems( response.data ) )
+		.catch( oops );
+}
+
+export function getInfo() {
+	return axios.get( '/bridge/v1/info' )
+		.then( response => response.data )
+		.catch( oops );
 }
 
 /**
