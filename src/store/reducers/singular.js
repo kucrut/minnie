@@ -15,6 +15,7 @@ export default function singular( state = initialState, action ) {
 		case GET_SINGULAR_REQUEST: {
 			return {
 				...state,
+				error: null,
 				isFetching: true,
 			};
 		}
