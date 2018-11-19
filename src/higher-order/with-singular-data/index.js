@@ -60,7 +60,7 @@ export default function withSingular( args ) {
 				const { slug, singular } = this.props;
 				const { data, isFetching } = singular;
 
-				if ( data.slug !== slug || isFetching ) {
+				if ( ( data.slug && data.slug !== slug ) || isFetching ) {
 					return <Spinner />;
 				}
 
