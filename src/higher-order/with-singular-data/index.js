@@ -52,7 +52,7 @@ export default function withSingular( args ) {
 				}
 
 				if ( prevProps.slug !== slug ) {
-					fetchData( this.props )
+					fetchData( this.props );
 				}
 			}
 
