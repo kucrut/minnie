@@ -21,13 +21,17 @@ export function fetchPage( { params } ) {
 	};
 }
 
-function fetchPostWithComments( dispatch, slug ) {
-	return makeSingularRequest( slug, 'posts' )
-		.then( postReq => Promise.all( [
-			postReq,
-			dispatch( fetchComments( { post: postReq.data[ 0 ].id } ) ),
-		] ) )
-		.then( results => Promise.resolve( results[ 0 ] ) );
+async function fetchPostWithComments( dispatch, slug ) {
+	const postReq = await makeSingularRequest( slug, 'posts' );
+	const { data } = postReq;
+
+	if ( ! data.length ) {
+		throw new Error( 'Not found.' );
+	}
+
+	dispatch( fetchComments( { post: postReq.data[ 0 ].id } ) );
+
+	return Promise.resolve( postReq );
 }
 
 export function fetchPost( { params } ) {
