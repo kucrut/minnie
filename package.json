@@ -1,7 +1,7 @@
 {
   "name": "minnie",
   "version": "0.8.2",
-  "description": "A WordPress front-end built with React.js",
+  "description": "A WordPress frontend built with React.js",
   "author": "Dzikri Aziz",
   "repository": "https://github.com/kucrut/minnie",
   "main": "index.js",
