@@ -46,7 +46,7 @@ export default function singular( state = initialState, action ) {
 		case GET_SINGULAR_FAILURE: {
 			return {
 				...initialState,
-				error: action.error,
+				data: action.error,
 			};
 		}
 
