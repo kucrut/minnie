@@ -26,10 +26,13 @@ async function fetchPostWithComments( dispatch, slug ) {
 	const { data } = postReq;
 
 	if ( ! data.length ) {
-		throw new Error( 'Not found.' );
+		// TODO.
+		const error = { slug };
+
+		throw error;
 	}
 
-	dispatch( fetchComments( { post: postReq.data[ 0 ].id } ) );
+	dispatch( fetchComments( { post: data[ 0 ].id } ) );
 
 	return Promise.resolve( postReq );
 }
