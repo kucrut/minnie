@@ -46,16 +46,18 @@ function createInitialHtml( config, manifest, content, initialState ) {
 }
 
 export default async function render( config, manifest, req, res, next ) {
-	const apiRoot = await discoverApi( config.siteUrl );
-
-	// TODO: Send error if the above fails.
+	const { blogPrefix, siteUrl } = config;
+	const apiRoot = await discoverApi( siteUrl );
 
 	// Set axios' defaults for node.
-	configureAxios( apiRoot );
+	// siteURL set in config could be different from the real one
+	// (eg. with docker-compose) so for the initial fetches, we're using it as is.
+	const nodeApiRoot = `${ siteUrl }/wp-json`;
+	configureAxios( nodeApiRoot );
 
 	const info = await getInfo();
 	const taxonomies = await getTaxonomies();
-	const routes = createRoutes( taxonomies, config.blogPrefix );
+	const routes = createRoutes( taxonomies, blogPrefix );
 	const store = configureStore( {
 		info: {
 			apiRoot,
