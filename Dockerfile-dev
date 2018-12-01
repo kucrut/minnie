@@ -1,9 +1,0 @@
-FROM node:10-alpine
-
-RUN mkdir -p /app && \
-	chown node:node /app
-
-WORKDIR /app
-USER node
-
-CMD [ "sh", "-c", "yarn install && yarn dev" ]
