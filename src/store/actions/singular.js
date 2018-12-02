@@ -6,7 +6,7 @@ import {
 	GET_COMMENTS_REQUEST,
 	GET_COMMENTS_SUCCESS,
 } from '../constants';
-import { fetchComments } from './comments';
+import { fetchCommentsRequest } from './comments';
 
 function makeSingularRequest( slug, type = 'pages' ) {
 	return request( {
@@ -39,7 +39,7 @@ async function fetchPostWithComments( slug, dispatch, getState ) {
 
 	const postId = data[ 0 ].id;
 	const parentId = 0;
-	const commentsReq = await fetchComments( {
+	const commentsReq = await fetchCommentsRequest( {
 		post: postId,
 		per_page: getState().info.settings.comments.per_page,
 	} );
