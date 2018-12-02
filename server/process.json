@@ -1,7 +1,7 @@
 {
   "apps": [{
     "name": "minnie",
-    "script": "server/index.js",
+    "script": "index.js",
     "watch": true,
     "env": {
       "NODE_ENV": "production"
