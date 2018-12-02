@@ -12,8 +12,9 @@ RUN mkdir -p /app && \
 
 WORKDIR /app
 COPY --from=0 /build/public public
-COPY server .
+COPY prod config.json server.js ./
 RUN yarn install --no-lockfile
+
 USER node
 
 CMD [ "sh", "-c", "yarn start" ]
