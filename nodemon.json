@@ -2,12 +2,13 @@
     "verbose": true,
     "ext": "js",
     "watch": [
+      "config",
       "src/api",
       "src/config",
       "src/routes.js",
       "src/server.js",
-      "config",
-      "server"
+      "config.json",
+      "server.js"
     ],
-    "exec": "npm run build:dev && node server/index.js"
+    "exec": "npm run build:dev && node server.js"
 }
