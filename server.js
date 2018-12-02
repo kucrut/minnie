@@ -2,12 +2,12 @@ const path = require( 'path' );
 const express = require( 'express' );
 
 const config = require( './config.json' );
-const App = require( '../public/server/main.js' );
+const App = require( './public/server/main.js' );
 
 const app = express();
 const env = process.env.NODE_ENV;
 const port = parseInt( process.env.PORT, 10 ) || 9000;
-const manifestPath = '../public/client/assets/manifest.json';
+const manifestPath = './public/client/assets/manifest.json';
 
 let manifest;
 
@@ -16,7 +16,7 @@ if ( env === 'production' ) {
 	manifest = require( manifestPath );
 } else {
 	const webpack = require( 'webpack' );
-	const config = require( '../config/webpack/client' )( 'development' );
+	const config = require( './config/webpack/client' )( 'development' );
 	const compiler = webpack( config );
 	const devMiddleware = require( 'webpack-dev-middleware' )( compiler, {
 		noInfo: true,
@@ -43,7 +43,7 @@ app.set( 'port', port );
 // It can be removed safely
 app.disable( 'x-powered-by' );
 app.set( 'view cache', false );
-app.use( express.static( path.join( __dirname, '..', 'public', 'client' ) ) );
+app.use( express.static( path.join( __dirname, 'public', 'client' ) ) );
 
 // Routing.
 app.get( '*', ( req, res, next ) => {
