@@ -1,8 +1,9 @@
 {
-  "siteUrl": "https://mysite.com",
+  "siteUrl": "http://web",
   "blogPrefix": "/blog",
   "entryMetaTaxonomies": [
     "categories",
-    "tags"
+    "tags",
+    "places"
   ]
 }
