@@ -2,7 +2,7 @@
   "name": "minnie",
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=production node server/index.js"
+    "start": "cross-env NODE_ENV=production node index.js"
   },
   "dependencies": {
     "cross-env": "^5.2.0",
