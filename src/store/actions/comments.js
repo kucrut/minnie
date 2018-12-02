@@ -16,9 +16,22 @@ function makeRequest( params ) {
  *  Fetch comments
  *
  *  @param  {object} params
- *  @return {object}
+ *  @return {Promise}
  */
 export function fetchComments( params ) {
+	return makeRequest( {
+		...defaultParams,
+		...params,
+	} );
+}
+
+/**
+ *  Fetch comments
+ *
+ *  @param  {object} params
+ *  @return {object}
+ */
+export function fetchComments__( params ) {
 	const fetchParams = {
 		...defaultParams,
 		...params,

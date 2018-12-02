@@ -1,6 +1,11 @@
 import request from 'axios';
 
-import { GET_SINGULAR } from '../constants';
+import {
+	GET_SINGULAR,
+	GET_COMMENTS_FAILURE,
+	GET_COMMENTS_REQUEST,
+	GET_COMMENTS_SUCCESS,
+} from '../constants';
 import { fetchComments } from './comments';
 
 function makeSingularRequest( slug, type = 'pages' ) {
@@ -21,7 +26,7 @@ export function fetchPage( { params } ) {
 	};
 }
 
-async function fetchPostWithComments( dispatch, slug ) {
+async function fetchPostWithComments( slug, dispatch, getState ) {
 	const postReq = await makeSingularRequest( slug, 'posts' );
 	const { data } = postReq;
 
@@ -32,7 +37,32 @@ async function fetchPostWithComments( dispatch, slug ) {
 		throw error;
 	}
 
-	dispatch( fetchComments( { post: data[ 0 ].id } ) );
+	const postId = data[ 0 ].id;
+	const parentId = 0;
+	const commentsReq = await fetchComments( {
+		post: postId,
+		per_page: getState().info.settings.comments.per_page,
+	} );
+
+	dispatch( {
+		type: GET_COMMENTS_REQUEST,
+		parentId,
+		postId,
+	} );
+
+	if ( commentsReq.data ) {
+		dispatch( {
+			type: GET_COMMENTS_SUCCESS,
+			req: commentsReq,
+			parentId,
+			postId,
+		} );
+	} else {
+		dispatch( {
+			type: GET_COMMENTS_FAILURE,
+			parentId,
+		} );
+	}
 
 	return Promise.resolve( postReq );
 }
@@ -40,10 +70,10 @@ async function fetchPostWithComments( dispatch, slug ) {
 export function fetchPost( { params } ) {
 	const { slug } = params;
 
-	return dispatch => dispatch( {
+	return ( dispatch, getState ) => dispatch( {
 		slug,
 		type: GET_SINGULAR,
-		promise: fetchPostWithComments( dispatch, slug ),
+		promise: fetchPostWithComments( slug, dispatch, getState ),
 	} );
 }
 
