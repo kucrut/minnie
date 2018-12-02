@@ -8,3 +8,4 @@ node_modules
 config.json
 /public
 /src/config.js
+/server/yarn.lock
